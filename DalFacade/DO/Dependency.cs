@@ -9,9 +9,9 @@ namespace DO;
 public record Dependency
 
 (
-    int Id,
-    int DependentTask,
-    int DependsOnTask
+    int Id, // מספר רץ
+    int DependentTask, // מספר משימה 
+    int DependsOnTask // תלויה במשימה
 )
 {
     /// <summary>

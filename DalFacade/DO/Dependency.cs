@@ -10,7 +10,9 @@ public record Dependency
 (
     int Id, // מספר רץ
     int DependentTask, // מספר משימה 
-    int DependsOnTask // תלויה במשימה
+    int DependsOnTask, // תלויה במשימה
+    bool active = true,
+    bool canToRemove = true
 )
 {
     public Dependency(): this(0, 0, 0) { }

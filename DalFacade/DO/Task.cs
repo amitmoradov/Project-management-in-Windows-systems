@@ -31,8 +31,10 @@ public record Task
     string? Alisev = null,
     string? Description = null,
     string? Deliverables = null,
-    string? Remarks = null
-  
+    string? Remarks = null,
+    bool active = true,
+    bool canToRemove = true
+
 )
 {
     public Task () : this(0, 0, null, null, false, null, null, null, null) { }

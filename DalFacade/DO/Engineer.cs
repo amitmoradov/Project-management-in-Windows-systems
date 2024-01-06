@@ -15,8 +15,10 @@ public record Engineer
     double? Cost,
     DO.EngineerExperience? Level,
     string? Email = null,
-    string? Name = null
-    
+    string? Name = null,
+    bool active = true,
+    bool canToRemove = true
+
 )
 {
     public Engineer () : this(0, 0, null) { }

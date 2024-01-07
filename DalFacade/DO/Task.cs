@@ -28,7 +28,7 @@ public record Task
     DateTime? StartDate,
     DateTime? ScheduledDate,
     DateTime? DeadLineDate,
-    string? Alisev = null,
+    string? Alias = null,
     string? Description = null,
     string? Deliverables = null,
     string? Remarks = null,

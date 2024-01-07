@@ -11,10 +11,12 @@ public class DependencyImplementation : IDependency
     public int Create(Dependency item)
     {
         // chack if the item is exist
-        if (Read(item.Id) == null)
+        Dependency? dependency = Read(item.Id);
+        if (dependency == null)
         {
-        // Get the current run nummber .
-        int newId = DataSource.Config.NextDependencyId;
+            // Get the current run nummber .
+            int newId = DataSource.Config.NextDependencyId;
+
             // Copy of item and change Id .
             Dependency copyItem = item with { Id = newId };
 
@@ -28,20 +30,20 @@ public class DependencyImplementation : IDependency
 
     public void Delete(int id)
     {
-        foreach (Dependency dependency in DataSource.Dependencies)
+        Dependency? dependency = Read(id);
+        // The object can to remove
+        if (dependency is not null && dependency.canToRemove) 
         {
-            // The object can to remove
-            if (dependency.Id == id && dependency.canToRemove) 
-            {
-                DataSource.Dependencies.Remove(dependency);
-            }
-
-            if (!dependency.canToRemove)
-            {
-                throw new Exception($"Dependency with ID={id} cannot be deleted");
-            }
+            DataSource.Dependencies.Remove(dependency);
+            return;
         }
-        // if the object is not exist
+
+        if (dependency is not null && !dependency.canToRemove)
+        {
+            throw new Exception($"Dependency with ID={id} cannot be deleted");
+        }
+        
+        // If the object is not exist
         throw new Exception($"Dependency with ID={id} is Not exists");
     }
 
@@ -55,25 +57,22 @@ public class DependencyImplementation : IDependency
             }
         }
         return null;
-       //throw new NotImplementedException();
     }
 
     public List<Dependency> ReadAll()
     {
         return new List<Dependency>(DataSource.Dependencies);
-        // throw new NotImplementedException();
     }
 
     public void Update(Dependency item)
     {
-       foreach(var dependency in DataSource.Dependencies)
+        Dependency? dependency = Read(item.Id);
+        if(dependency is not null)
         {
-           if(dependency.Id == item.Id)
-            {
-                Delete(dependency.Id);
-                Create(item);
-            }
+            Delete(dependency.Id);
+            Create(item);
+            return;
         }
-        throw new($"");
+        throw new Exception($"Dependency with ID={item.Id} is not exists");
     }
 }

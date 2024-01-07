@@ -80,7 +80,7 @@ public static class Initialization
 
     private static void createTaks()
     {
-        string[] tasks = new string[]
+        string[] description = new string[]
         {
             "Research and Analysis of Vehicle Traffic",
             "Evaluation of Potential Charging Station Locations",
@@ -104,31 +104,6 @@ public static class Initialization
             "Assessment of Project Budget Adherence",
             "Development of Infrastructure Support for Electric Vehicle Offices",
             "Examination of Infrastructure Support for Electric Vehicle Offices"
-        };
-        string[] ditailsTasks = new string[]
-        {
-            "Conduct research and analyze traffic patterns for vehicles.",
-            "Evaluate potential locations suitable for charging stations.",
-            "Develop a smart communication system for the project.",
-            "Assess the impact of the project on air pollution levels.",
-            "Plan and establish an advanced energy system.",
-            "Construct charging stations according to the project plan.",
-            "Test and verify safety standards applicable to the project.",
-            "Collaborate with manufacturers of electric vehicles.",
-            "Develop a comprehensive budgetary and implementation plan.",
-            "Establish an effective data management system.",
-            "Implement a smart traffic management system.",
-            "Create a system for roadway maintenance and monitoring.",
-            "Provide support services for drivers during charging.",
-            "Develop a smart traffic control system for the project.",
-            "Install advanced energy stations at selected sites.",
-            "Build a communication system between electric vehicles.",
-            "Create a project management and oversight plan.",
-            "Review budgetary compliance and planned work scope.",
-            "Develop a system for managing vehicle traffic.",
-            "Assess adherence to the project's budget.",
-            "Develop infrastructure support for offices dealing with electric vehicles.",
-            "Examine infrastructure support for offices dealing with electric vehicles."
         };
         string[] alias = new string[]
       {
@@ -182,16 +157,29 @@ public static class Initialization
         };
 
         EngineerExperience _copmliexity = new EngineerExperience();
-        foreach (var task in tasks)
+        for (int i = 0; i < description.Length; i++)
         {
+
             // Get the difficulty of the task
             _copmliexity = (EngineerExperience)e_rand.Next(0, 4);
 
-            int _engineerId = 
-            DateTime? _deadLine = null;
-            Task item = new(, _engineerId,);
-            e_dalTask.Create(item)
+            DateTime _startDate = new DateTime(2020, 1, 1);
+            int range = (DateTime.Today - _startDate).Days;
+            DateTime _randomDate = _startDate.AddDays(e_rand.Next(range));
+            DateTime _completeDate = new DateTime(2024, 1, 1);
+            TimeSpan _requiredEffortTime = _completeDate - _startDate;
+
+            Task item = new(null, _requiredEffortTime, _copmliexity,_startDate, null, _completeDate, null, alias[i], description[i], null, tasksremarks[i]);
+            e_dalTask?.Create(item);
         }
+    }
+
+    private static void createDependency()
+    {
+
+
+        Dependency item = new();
+        e_dalDependency?.Create(item);
     }
 
 }

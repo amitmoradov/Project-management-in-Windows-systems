@@ -1,11 +1,13 @@
 ﻿
+using System.Data;
+
 namespace DO;
 
 /// <summary>
 /// The tesk of engineer .
 /// </summary>
 /// <param name="Id"> Id of the task .</param>
-/// <param name="Alise"> nickname of the task .</param>
+/// <param name="Alias"> nickname of the task .</param>
 /// <param name="Description"> What is the task now .</param>
 /// <param name="CreatedAtDate">CreatedAtDate of the task .</param>
 /// <param name="RequiredEffortTime">RequiredEffortTime odf task .</param>
@@ -19,23 +21,24 @@ namespace DO;
 /// <param name="EngineerId">The id of the charge engineer .</param>
 public record Task
 (
-    int Id,
-    int EngineerId,
     DateTime? CreatedAtDate,
-    TimeSpan? RequiredEffortTime,
-    bool IsMilestone,
+    TimeSpan? RequiredEffortTime,//זמן מאמץ נדרש
     DO.EngineerExperience? Copmliexity,
-    DateTime? StartDate,
+    DateTime? StartDate,//תאריך תחילת הפרוייקט
     DateTime? ScheduledDate,
+    DateTime? CompleteDate,//תאריך סיום הפרוייקט
     DateTime? DeadLineDate,
     string? Alias = null,
     string? Description = null,
     string? Deliverables = null,
     string? Remarks = null,
+    int Id = 0,
+    int EngineerId = 0,
     bool active = true,
+    bool IsMilestone = false,
     bool canToRemove = true
 
 )
 {
-    public Task () : this(0, 0, null, null, false, null, null, null, null) { }
+    public Task () : this(null, null, null,null ,null, null, null) { }
 }

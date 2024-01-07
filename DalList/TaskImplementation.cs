@@ -8,7 +8,9 @@ public class TaskImplementation : ITask
     public int Create(Task item)
     {
         // chack if the item is exist
-        if (Read(item.Id) == null)
+        Task? task = Read(item.Id);
+
+        if (task == null)
         {
             // Get the current run nummber .
             int newId = DataSource.Config.NextTeskId;
@@ -19,7 +21,7 @@ public class TaskImplementation : ITask
             //throw new NotImplementedException();
             return newId;
         }
-        // if the object is exist
+        // If the object is exist
         throw new Exception($"Task with ID={item.Id} is exists");
     }
 

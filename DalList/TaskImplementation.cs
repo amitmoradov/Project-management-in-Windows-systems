@@ -30,6 +30,7 @@ public class TaskImplementation : ITask
         if (task is not null && task.canToRemove)
         {
             DataSource.Tasks.Remove(task);
+            return;
         }
         if (task is not null && !task.canToRemove)
         {
@@ -49,30 +50,24 @@ public class TaskImplementation : ITask
             }
         }
         return null;
-        //throw new NotImplementedException();
     }
 
     public List<Task> ReadAll()
     {
         return new List<Task>(DataSource.Tasks);
-        //throw new NotImplementedException();
     }
 
     public void Update(Task item)
-    {
-        if (Read(item.Id) == null) 
+    { 
+        // chack if the task is exists
+        Task? task = Read(item.Id);
+      
+        if(task is not null)
         {
-        // if the object is not exist
-           throw new Exception($"Engineer with ID={item.Id} is not exists");
+            Delete(task.Id);
+            Create(item);
+            return;
         }
-        foreach(var task in DataSource.Tasks)
-        {
-            if(task.Id == item.Id)
-            {
-                Delete(task.Id);
-                Create(item);
-            }
-        }
-        //throw new NotImplementedException();
+        throw new Exception($"Engineer with ID={item.Id} is not exists");
     }
 }

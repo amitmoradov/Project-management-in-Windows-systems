@@ -8,37 +8,37 @@ public class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
-        if (Read(item.Id) == null)
+        
+        Engineer? engineer = Read(item.Id);
+        if (engineer == null)
         {
             DataSource.Engineers.Add(item);
-            //throw new NotImplementedException();
             return item.Id;
         }
         // if the object is exist
-        throw new Exception($"Engineer with ID={item.Id} is exicts");
+        throw new Exception($"Engineer with ID={item.Id} is exists");
     }
 
     public void Delete(int id)
     {
-        foreach (var engineer in DataSource.Engineers)
+        Engineer? engineer = Read(id);
+        // The object can to remove
+        if (engineer is not null && engineer.canToRemove)
         {
-            // The object can to remove
-            if (engineer.Id == id && engineer.canToRemove)
-            {
-                DataSource.Engineers.Remove(engineer);
-            }
-            if (!engineer.canToRemove)
-            {
-                throw new Exception($"Engineer with ID={id} cannot be deleted");
-            }
-
+            DataSource.Engineers.Remove(engineer);
+            return;
         }
-        throw new Exception($"Engineer with ID={id} is Not exicts");
-        //throw new NotImplementedException();
+        if (engineer is not null && !engineer.canToRemove)
+        {
+            throw new Exception($"Engineer with ID={id} cannot be deleted");
+        }
+        throw new Exception($"Engineer with ID={id} is Not exists");
     }
+    
 
     public Engineer? Read(int id)
     {
+       // DataSource.Engineers.Find(engineer => engineer.Id == id);
         foreach (var engineer in DataSource.Engineers)
         {
             if (engineer.Id == id)
@@ -47,7 +47,6 @@ public class EngineerImplementation : IEngineer
             }
         }
         return null;
-        //throw new NotImplementedException();
     }
 
     public List<Engineer> ReadAll()
@@ -58,15 +57,14 @@ public class EngineerImplementation : IEngineer
 
     public void Update(Engineer item)
     {
-        foreach(var engineer in DataSource.Engineers)
+        Engineer? engineer = Read(item.Id);
+        if (engineer is not null)
         {
-            if(engineer.Id == item.Id)
-            {
-                Delete(engineer.Id);
-                Create(item);
-                return;
-            }
+            Delete(engineer.Id);
+            Create(item);
+            return;
         }
+        throw new Exception($"Engineer with ID={item.Id} is Not exists");
         //throw new NotImplementedException(); ///// צריך לעשות פה זריקה
     }
 }

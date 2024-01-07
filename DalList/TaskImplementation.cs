@@ -20,24 +20,22 @@ public class TaskImplementation : ITask
             return newId;
         }
         // if the object is exist
-        throw new Exception($"Task with ID={item.Id} is exicts");
+        throw new Exception($"Task with ID={item.Id} is exists");
     }
 
     public void Delete(int id)
     {
-        foreach (var task in DataSource.Tasks)
+        Task? task = Read(id);
+        // The object can to remove
+        if (task is not null && task.canToRemove)
         {
-            // The object can to remove
-            if (task.Id == id && task.canToRemove)
-            {
-                DataSource.Tasks.Remove(task);
-            }
-            if (!task.canToRemove)
-            {
-                throw new Exception($"Task with ID={id} cannot be deleted");
-            }
+            DataSource.Tasks.Remove(task);
         }
-        throw new Exception($"Task with ID={id} is Not exicts");
+        if (task is not null && !task.canToRemove)
+        {
+            throw new Exception($"Task with ID={id} cannot be deleted");
+        }
+        throw new Exception($"Task with ID={id} is Not exists");
         //throw new NotImplementedException();
     }
 
@@ -65,7 +63,7 @@ public class TaskImplementation : ITask
         if (Read(item.Id) == null) 
         {
         // if the object is not exist
-           throw new Exception($"Engineer with ID={item.Id} is not exicts");
+           throw new Exception($"Engineer with ID={item.Id} is not exists");
         }
         foreach(var task in DataSource.Tasks)
         {

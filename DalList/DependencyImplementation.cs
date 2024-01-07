@@ -23,7 +23,7 @@ public class DependencyImplementation : IDependency
             return newId;
         }
         // if the object is exist
-        throw new Exception($"Dependency with ID={item.Id} is exicts");
+        throw new Exception($"Dependency with ID={item.Id} is exists");
     }
 
     public void Delete(int id)
@@ -42,7 +42,7 @@ public class DependencyImplementation : IDependency
             }
         }
         // if the object is not exist
-        throw new Exception($"Dependency with ID={id} is Not exicts");
+        throw new Exception($"Dependency with ID={id} is Not exists");
     }
 
     public Dependency? Read(int id)

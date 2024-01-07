@@ -176,10 +176,34 @@ public static class Initialization
 
     private static void createDependency()
     {
+        int _dependentTask = 0;
+        int _dependsOnTask = 0;
 
+        // Have a 40 Tasks .
+        for (int i = 1; i <= 40; i++)
+        {
+            // We must that have at least 2 task with same dependent (3 & 1 -> 1) .
+            if (i % 2 != 0 && i < 4)
+            {
+                _dependentTask = i + 2;
+                _dependsOnTask = i % 2;
+            }
+            else
+            {
+                do
+                {
+                    _dependentTask = e_rand.Next(1, 23);
+                    _dependsOnTask = e_rand.Next(1, 22);
+                }
+                // The dependentTask must be bigger from dependsOnTask .
+                while (_dependsOnTask >= _dependentTask);
+                
+            }
+            Dependency item = new(_dependentTask , _dependsOnTask);
+            e_dalDependency?.Create(item);
+        }
 
-        Dependency item = new();
-        e_dalDependency?.Create(item);
+            
     }
 
 }

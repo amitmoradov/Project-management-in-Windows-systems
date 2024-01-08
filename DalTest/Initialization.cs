@@ -166,10 +166,11 @@ public static class Initialization
             DateTime _startDate = new DateTime(2020, 1, 1);
             int range = (DateTime.Today - _startDate).Days;
             DateTime _randomDate = _startDate.AddDays(e_rand.Next(range));
+
             DateTime _completeDate = new DateTime(2024, 1, 1);
             TimeSpan _requiredEffortTime = _completeDate - _startDate;
 
-            Task item = new(null, _requiredEffortTime, _copmliexity,_startDate, null, _completeDate, null, alias[i], description[i], null, tasksremarks[i]);
+            Task item = new(_randomDate, _requiredEffortTime, _copmliexity,_startDate, null, _completeDate, null, alias[i], description[i], null, tasksremarks[i]);
             e_dalTask?.Create(item);
         }
     }
@@ -206,4 +207,14 @@ public static class Initialization
             
     }
 
+    public static void Do(IDependency? dalDependency, ITask? dalTask , IEngineer? dalEngineer)
+    {
+        e_dalDependency = dalDependency ?? throw new NullReferenceException("Dependency can not be null!");
+        e_dalEngineer = dalEngineer ?? throw new NullReferenceException("Engineer can not be null!");
+        e_dalTask = dalTask ?? throw new NullReferenceException("Task can not be null!");
+        createDependency();
+        createEngineer();
+        createTaks();
+    }
 }
+

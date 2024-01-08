@@ -65,6 +65,5 @@ public class EngineerImplementation : IEngineer
             return;
         }
         throw new Exception($"Engineer with ID={item.Id} is Not exists");
-        //throw new NotImplementedException(); ///// צריך לעשות פה זריקה
     }
 }

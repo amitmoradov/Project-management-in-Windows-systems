@@ -18,9 +18,9 @@ public class TaskImplementation : ITask
             Task copyItem = item with { Id = newId };
 
             DataSource.Tasks.Add(copyItem);
-            //throw new NotImplementedException();
             return newId;
         }
+
         // If the object is exist
         throw new Exception($"Task with ID={item.Id} is exists");
     }
@@ -39,7 +39,6 @@ public class TaskImplementation : ITask
             throw new Exception($"Task with ID={id} cannot be deleted");
         }
         throw new Exception($"Task with ID={id} is Not exists");
-        //throw new NotImplementedException();
     }
 
     public Task? Read(int id)

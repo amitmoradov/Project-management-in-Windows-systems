@@ -195,6 +195,7 @@ public static class Initialization
                 {
                     _dependentTask = e_rand.Next(1, 23);
                     _dependsOnTask = e_rand.Next(1, 22);
+
                 }
                 // The dependentTask must be bigger from dependsOnTask .
                 while (_dependsOnTask >= _dependentTask);

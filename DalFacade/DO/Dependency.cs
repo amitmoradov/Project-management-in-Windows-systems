@@ -8,11 +8,11 @@ namespace DO;
 /// <param name="DependsOnTask">Id of the previous tesk .</param>
 public record Dependency
 (
-    int DependentTask, // מספר משימה 
-    int DependsOnTask, // תלויה במשימה
-    int Id = 0 , // מספר רץ
-    bool active = true,
-    bool canToRemove = true
+    int _dependentTask, // מספר משימה 
+    int _dependsOnTask, // תלויה במשימה
+    int _id = 0 , // מספר רץ
+    bool _active = true,
+    bool _canToRemove = true
 )
 {
     public Dependency(): this(0, 0) { }

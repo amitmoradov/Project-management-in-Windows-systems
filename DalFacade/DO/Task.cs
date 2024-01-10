@@ -21,22 +21,22 @@ namespace DO;
 /// <param name="EngineerId">The id of the charge engineer .</param>
 public record Task
 (
-    DateTime? CreatedAtDate,
-    TimeSpan? RequiredEffortTime,//זמן מאמץ נדרש
-    DO.EngineerExperience? Copmliexity,
-    DateTime? StartDate,//תאריך תחילת הפרוייקט
-    DateTime? ScheduledDate,
-    DateTime? CompleteDate,//תאריך סיום הפרוייקט
-    DateTime? DeadLineDate,
-    string? Alias = null,
-    string? Description = null,
-    string? Deliverables = null,
-    string? Remarks = null,
-    int Id = 0,
-    int EngineerId = 0,
-    bool active = true,
-    bool IsMilestone = false,
-    bool canToRemove = true
+    DateTime? _createdAtDate,
+    TimeSpan? _requiredEffortTime,//זמן מאמץ נדרש
+    DO.EngineerExperience? _copmliexity,
+    DateTime? _startDate,//תאריך תחילת הפרוייקט
+    DateTime? _scheduledDate,
+    DateTime? _completeDate,//תאריך סיום הפרוייקט
+    DateTime? _deadLineDate,
+    string? _alias = null,
+    string? _description = null,
+    string? _deliverables = null,
+    string? _remarks = null,
+    int _id = 0,
+    int _engineerId = 0,
+    bool _active = true,
+    bool _isMilestone = false,
+    bool _canToRemove = true
 
 )
 {

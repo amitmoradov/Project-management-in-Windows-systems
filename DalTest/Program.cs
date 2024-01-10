@@ -22,10 +22,11 @@ internal class Program
 
             while (!_exit)
             {
-
+                Console.WriteLine();
                 DisplayMainMenu();
                 // Input char and convert to char type .
                 char? userInput = Console.ReadKey().KeyChar;
+                Console.WriteLine();
 
                 switch (userInput)
                 {
@@ -63,12 +64,13 @@ internal class Program
         bool returnMainMenu = false;
         while (!returnMainMenu)
         {
+            Console.WriteLine();
             // Call to the sub menu of the entity .
             DisplaySubEntityMenu(menuEntityName);
 
             // Input char and convert to char type .
             char? userInput = Console.ReadKey().KeyChar;
-
+            Console.WriteLine();
             switch (userInput)
             {
                 case '0':
@@ -192,11 +194,14 @@ internal class Program
         bool returnMainMenu = false;
         while (!returnMainMenu)
         {
+            Console.WriteLine();
             // Call to the sub menu of the entity .
             DisplaySubEntityMenu(menuEntityName);
-
+            Console.WriteLine();
             // Input char and convert to char type .
             char? userInput = Console.ReadKey().KeyChar;
+
+            Console.WriteLine();
 
             switch (userInput)
             {
@@ -324,11 +329,13 @@ internal class Program
         bool returnMainMenu = false;
         while (!returnMainMenu)
         {
+            Console.WriteLine();
             // Call to the sub menu of the entity .
             DisplaySubEntityMenu(menuEntityName);
-
+            Console.WriteLine();
             // Input char and convert to char type .
             char? userInput = Console.ReadKey().KeyChar;
+            Console.WriteLine();
 
             switch (userInput)
             {
@@ -465,8 +472,8 @@ internal class Program
     {
         int id = int.Parse(Console.ReadLine()!);
         double cost = double.Parse(Console.ReadLine()!);
-        string? email = Console.ReadLine();
         DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+        string? email = Console.ReadLine();
         string name = Console.ReadLine()!;
 
         //To save all paramers in item

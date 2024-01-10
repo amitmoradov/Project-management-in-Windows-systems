@@ -8,9 +8,9 @@ namespace Stege0
 {
     partial class Program
     {
-        static partial void Welcome3114()
-        {
-            Console.WriteLine("I am also here!");
-        }
+        //static partial void Welcome3114()
+        //{
+        //    Console.WriteLine("I am also here!");
+        //}
     }
 }

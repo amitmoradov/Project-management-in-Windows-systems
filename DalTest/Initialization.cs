@@ -26,54 +26,54 @@ public static class Initialization
         "Nicholas", "Grace", "Andrew", "Lily" };
 
         // Create an email address for the engineer
-        string _gmailSuffix = "@gmail.com";
+        string gmailSuffix = "@gmail.com";
 
         // convert the number mail example: amit12@gmail.com
-        string _uniqueMail = e_rand.Next(11, 99).ToString();
-        string _emailAddress = engineerNames + _uniqueMail + _gmailSuffix;
+        string uniqueMail = e_rand.Next(11, 99).ToString();
+        string emailAddress = engineerNames + uniqueMail + gmailSuffix;
         // Loop through each engineer in the array
 
         foreach (var engineerName in engineerNames)
         {
             // Generate a random ID for the engineer
-            int _id = e_rand.Next(MIN, MAX);
+            int id = e_rand.Next(MIN, MAX);
 
             // chack if the id is not exsist
-            while (e_dalEngineer?.Read(_id) is not null)
+            while (e_dalEngineer?.Read(id) is not null)
             {
-                _id = e_rand.Next(MIN, MAX);
+                id = e_rand.Next(MIN, MAX);
             }
 
             // Randomly choose an experience level for the engineer
-            EngineerExperience _level = new EngineerExperience();
+            EngineerExperience level = new EngineerExperience();
 
             // Sets a random number in the amount of enum EngineerExperience items
-            _level = (EngineerExperience)e_rand.Next(0, 4);
+            level = (EngineerExperience)e_rand.Next(0, 4);
 
             // Variable for the engineer's salary, to be updated based on experience level
-            double? _cost = 0;
+            double? cost = 0;
 
             // Assign salary based on the experience level
-            switch (_level)
+            switch (level)
             {
                 case EngineerExperience.Beginner:
-                    _cost = 120;
+                    cost = 120;
                     break;
                 case EngineerExperience.AdvancedBeginner:
-                    _cost = e_rand.Next(150, 200);
+                    cost = e_rand.Next(150, 200);
                     break;
                 case EngineerExperience.Intermediate:
-                    _cost = e_rand.Next(200, 250);
+                    cost = e_rand.Next(200, 250);
                     break;
                 case EngineerExperience.Advanced:
-                    _cost = e_rand.Next(250, 300);
+                    cost = e_rand.Next(250, 300);
                     break;
                 case EngineerExperience.Expert:
-                    _cost = e_rand.Next(300, 350);
+                    cost = e_rand.Next(300, 350);
                     break;
             }
 
-            Engineer new_engineer = new(_id, _cost, _level, _emailAddress, engineerName);
+            Engineer new_engineer = new(id, cost, level, emailAddress, engineerName);
             e_dalEngineer?.Create(new_engineer);
         }
     }
@@ -156,29 +156,29 @@ public static class Initialization
             "Reviewing support systems for electric vehicle office spaces."
         };
 
-        EngineerExperience _copmliexity = new EngineerExperience();
+        EngineerExperience copmliexity = new EngineerExperience();
         for (int i = 0; i < description.Length; i++)
         {
 
             // Get the difficulty of the task
-            _copmliexity = (EngineerExperience)e_rand.Next(0, 4);
+            copmliexity = (EngineerExperience)e_rand.Next(0, 4);
 
-            DateTime _startDate = new DateTime(2020, 1, 1);
-            int range = (DateTime.Today - _startDate).Days;
-            DateTime _randomDate = _startDate.AddDays(e_rand.Next(range));
+            DateTime startDate = new DateTime(2020, 1, 1);
+            int range = (DateTime.Today - startDate).Days;
+            DateTime _randomDate = startDate.AddDays(e_rand.Next(range));
 
-            DateTime _completeDate = new DateTime(2024, 1, 1);
-            TimeSpan _requiredEffortTime = _completeDate - _startDate;
+            DateTime completeDate = new DateTime(2024, 1, 1);
+            TimeSpan requiredEffortTime = completeDate - startDate;
 
-            Task item = new(_randomDate, _requiredEffortTime, _copmliexity,_startDate, null, _completeDate, null, alias[i], description[i], null, tasksremarks[i]);
+            Task item = new(_randomDate, requiredEffortTime, copmliexity,startDate, null, completeDate, null, alias[i], description[i], null, tasksremarks[i]);
             e_dalTask?.Create(item);
         }
     }
 
     private static void createDependency()
     {
-        int _dependentTask = 0;
-        int _dependsOnTask = 0;
+        int dependentTask = 0;
+        int dependsOnTask = 0;
 
         // Have a 40 Tasks .
         for (int i = 1; i <= 40; i++)
@@ -186,22 +186,22 @@ public static class Initialization
             // We must that have at least 2 task with same dependent (3 & 1 -> 1) .
             if (i % 2 != 0 && i < 4)
             {
-                _dependentTask = i + 2;
-                _dependsOnTask = i % 2;
+                dependentTask = i + 2;
+                dependsOnTask = i % 2;
             }
             else
             {
                 do
                 {
-                    _dependentTask = e_rand.Next(1, 23);
-                    _dependsOnTask = e_rand.Next(1, 22);
+                    dependentTask = e_rand.Next(1, 23);
+                    dependsOnTask = e_rand.Next(1, 22);
 
                 }
                 // The dependentTask must be bigger from dependsOnTask .
-                while (_dependsOnTask >= _dependentTask);
+                while (dependsOnTask >= dependentTask);
                 
             }
-            Dependency item = new(_dependentTask , _dependsOnTask);
+            Dependency item = new(dependentTask , dependsOnTask);
             e_dalDependency?.Create(item);
         }
 

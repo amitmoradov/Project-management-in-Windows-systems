@@ -11,34 +11,34 @@ public class DependencyImplementation : IDependency
     public int Create(Dependency item)
     {
         // chack if the item is exist
-        Dependency? dependency = Read(item.Id);
+        Dependency? dependency = Read(item._id);
         if (dependency == null)
         {
             // Get the current run nummber .
             int newId = DataSource.Config.NextDependencyId;
 
             // Copy of item and change Id .
-            Dependency copyItem = item with { Id = newId };
+            Dependency copyItem = item with { _id = newId };
 
             DataSource.Dependencies.Add(copyItem);
             //throw new NotImplementedException();
             return newId;
         }
         // if the object is exist
-        throw new Exception($"Dependency with ID={item.Id} is exists");
+        throw new Exception($"Dependency with ID={item._id} is exists");
     }
 
     public void Delete(int id)
     {
         Dependency? dependency = Read(id);
         // The object can to remove
-        if (dependency is not null && dependency.canToRemove) 
+        if (dependency is not null && dependency._canToRemove) 
         {
             DataSource.Dependencies.Remove(dependency);
             return;
         }
 
-        if (dependency is not null && !dependency.canToRemove)
+        if (dependency is not null && !dependency._canToRemove)
         {
             throw new Exception($"Dependency with ID={id} cannot be deleted");
         }
@@ -51,7 +51,7 @@ public class DependencyImplementation : IDependency
     {
         foreach (var item in DataSource.Dependencies)
         {
-            if (item.Id == id)
+            if (item._id == id)
             {
                 return item;
             }
@@ -66,13 +66,13 @@ public class DependencyImplementation : IDependency
 
     public void Update(Dependency item)
     {
-        Dependency? dependency = Read(item.Id);
+        Dependency? dependency = Read(item._id);
         if(dependency is not null)
         {
-            Delete(dependency.Id);
+            Delete(dependency._id);
             Create(item);
             return;
         }
-        throw new Exception($"Dependency with ID={item.Id} is not exists");
+        throw new Exception($"Dependency with ID={item._id} is not exists");
     }
 }

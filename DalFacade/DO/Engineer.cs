@@ -11,13 +11,13 @@ namespace DO;
 /// <param name="Level">Level of the engineer .</param>
 public record Engineer
 (
-    int Id,
-    double? Cost,
-    DO.EngineerExperience? Level,
-    string? Email = null,
-    string? Name = null,
-    bool active = true,
-    bool canToRemove = true
+    int _id,
+    double? _cost,
+    DO.EngineerExperience? _level,
+    string? _email = null,
+    string? _name = null,
+    bool _active = true,
+    bool _canToRemove = true
 
 )
 {

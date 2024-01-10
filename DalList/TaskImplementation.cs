@@ -8,33 +8,33 @@ public class TaskImplementation : ITask
     public int Create(Task item)
     {
         // chack if the item is exist
-        Task? task = Read(item.Id);
+        Task? task = Read(item._id);
 
         if (task == null)
         {
             // Get the current run nummber .
             int newId = DataSource.Config.NextTeskId;
             // Copy of item and change Id .
-            Task copyItem = item with { Id = newId };
+            Task copyItem = item with { _id = newId };
 
             DataSource.Tasks.Add(copyItem);
             return newId;
         }
 
         // If the object is exist
-        throw new Exception($"Task with ID={item.Id} is exists");
+        throw new Exception($"Task with ID={item._id} is exists");
     }
 
     public void Delete(int id)
     {
         Task? task = Read(id);
         // The object can to remove
-        if (task is not null && task.canToRemove)
+        if (task is not null && task._canToRemove)
         {
             DataSource.Tasks.Remove(task);
             return;
         }
-        if (task is not null && !task.canToRemove)
+        if (task is not null && !task._canToRemove)
         {
             throw new Exception($"Task with ID={id} cannot be deleted");
         }
@@ -45,7 +45,7 @@ public class TaskImplementation : ITask
     {
         foreach (var task in DataSource.Tasks)
         {
-            if (task.Id == id)
+            if (task._id == id)
             {
                 return task;
             }
@@ -61,14 +61,14 @@ public class TaskImplementation : ITask
     public void Update(Task item)
     { 
         // chack if the task is exists
-        Task? task = Read(item.Id);
+        Task? task = Read(item._id);
       
         if(task is not null)
         {
-            Delete(task.Id);
+            Delete(task._id);
             Create(item);
             return;
         }
-        throw new Exception($"Engineer with ID={item.Id} is not exists");
+        throw new Exception($"Engineer with ID={item._id} is not exists");
     }
 }

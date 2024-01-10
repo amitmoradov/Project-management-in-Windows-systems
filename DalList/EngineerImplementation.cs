@@ -9,26 +9,26 @@ public class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
         
-        Engineer? engineer = Read(item.Id);
+        Engineer? engineer = Read(item._id);
         if (engineer == null)
         {
             DataSource.Engineers.Add(item);
-            return item.Id;
+            return item._id;
         }
         // if the object is exist
-        throw new Exception($"Engineer with ID={item.Id} is exists");
+        throw new Exception($"Engineer with ID={item._id} is exists");
     }
 
     public void Delete(int id)
     {
         Engineer? engineer = Read(id);
         // The object can to remove
-        if (engineer is not null && engineer.canToRemove)
+        if (engineer is not null && engineer._canToRemove)
         {
             DataSource.Engineers.Remove(engineer);
             return;
         }
-        if (engineer is not null && !engineer.canToRemove)
+        if (engineer is not null && !engineer._canToRemove)
         {
             throw new Exception($"Engineer with ID={id} cannot be deleted");
         }
@@ -41,7 +41,7 @@ public class EngineerImplementation : IEngineer
        // DataSource.Engineers.Find(engineer => engineer.Id == id);
         foreach (var engineer in DataSource.Engineers)
         {
-            if (engineer.Id == id)
+            if (engineer._id == id)
             {
                 return engineer;
             }
@@ -57,13 +57,13 @@ public class EngineerImplementation : IEngineer
 
     public void Update(Engineer item)
     {
-        Engineer? engineer = Read(item.Id);
+        Engineer? engineer = Read(item._id);
         if (engineer is not null)
         {
-            Delete(engineer.Id);
+            Delete(engineer._id);
             Create(item);
             return;
         }
-        throw new Exception($"Engineer with ID={item.Id} is Not exists");
+        throw new Exception($"Engineer with ID={item._id} is Not exists");
     }
 }

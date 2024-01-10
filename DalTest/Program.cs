@@ -78,7 +78,7 @@ internal class Program
                     break;
                 case '1':
                     // Perform Create operation                       
-                    Console.Write($"Enter the {menuEntityName} ditals: id, cost, level, email, name");
+                    Console.WriteLine($"Enter the {menuEntityName} ditals: id, cost, level, email, name");
 
                     Engineer newEngineer = InputValueEngineer();
                     // Send the item to methods of create and insert to list of engineer
@@ -97,13 +97,14 @@ internal class Program
                 case '2':
                     // Perform Read operation       
                     Console.Write($"Enter the {menuEntityName} id: ");
-                    int searchId = int.Parse(Console.ReadLine());
+                    int searchId = int.Parse(Console.ReadLine()!);
                     // Search the engineer inside detebase and bring him
                     Engineer? engineer = e_dalEngineer?.Read(searchId);
                     // If is exist
                     if (engineer != null)
                     {
-                        Console.WriteLine("The engineer is " + engineer.Name);
+                        Console.WriteLine("The engineer is ");
+                        Console.WriteLine(engineer);
                         break;
                     }
                     Console.WriteLine("The engineer is not exist");
@@ -118,9 +119,8 @@ internal class Program
                         foreach (var i_engineer in engineers)
                         {
                             // Print the name of all engineer
-                            Console.Write(i_engineer.Name + ' ');
+                            Console.WriteLine(i_engineer);
                         }
-                        Console.WriteLine();
                         break;
                     }
                     Console.WriteLine("The DataBase is empty");
@@ -128,10 +128,22 @@ internal class Program
 
                 case '4':
                     // Perform Update operation
-                    Engineer updateEngineer = InputValueEngineer();
-                    // Send the item to methods of create and insert to list of engineer
+                   
                     try
                     {
+                        Console.WriteLine($"Enter the {menuEntityName} id: ");
+                        int readId = int.Parse(Console.ReadLine()!);
+
+                        Engineer? previousEngineer = e_dalEngineer?.Read(readId);
+                        if (previousEngineer != null)
+                        {
+                            // Print the previous engineer .
+                            Console.WriteLine(previousEngineer);
+                        }
+                        Console.WriteLine();
+
+                        Engineer updateEngineer = InputValueEngineer();
+                        // Send the item to methods of create and insert to list of engineer
                         e_dalEngineer?.Update(updateEngineer);
                     }
                     // If the engineer is exist
@@ -141,10 +153,11 @@ internal class Program
                     }
 
                     break;
+
                 case '5':
                     // Perform Delete operation
                     Console.WriteLine("Enter Id to remove frome the DataBase ");
-                    int id = int.Parse(Console.ReadLine());
+                    int id = int.Parse(Console.ReadLine()!);
                     try
                     {
                         e_dalEngineer?.Delete(id);
@@ -195,7 +208,7 @@ internal class Program
 
                 case '1':
                     // Perform Create operation                       
-                    Console.Write($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
+                    Console.WriteLine($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
 
                     DO.Task newTask = InputValueTask();
                     // Send the item to methods of create and insert to list of task
@@ -214,14 +227,14 @@ internal class Program
                 case '2':
                     // Perform Read operation       
                     Console.Write($"Enter the {menuEntityName} id: ");
-                    int searchId = int.Parse(Console.ReadLine());
+                    int searchId = int.Parse(Console.ReadLine()!);
 
                     // Search the task inside detebase and bring him
                     DO.Task? searchTask = e_dalTask?.Read(searchId);
                     // If is exist
                     if (searchTask != null)
                     {
-                        Console.WriteLine("The Task is " + searchTask.Id);
+                        Console.WriteLine("The Task is " + searchTask);
                         break;
                     }
                     Console.WriteLine("The Task is not exist");
@@ -231,14 +244,14 @@ internal class Program
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
                     List<DO.Task>? tasks = e_dalTask?.ReadAll();
+
                     if (tasks != null)
                     {
-                        Console.WriteLine(tasks);
-                        //foreach (var i_task in tasks)
-                        //{
-                        //    // Print the name of all task
-                        //    Console.Write(i_task.);
-                        //}
+                        foreach (var e_task in tasks)
+                        {
+                            // Print the name of all task
+                            Console.WriteLine(e_task);
+                        }
                         break;
                     }
                     Console.WriteLine("The DataBase is empty");
@@ -246,11 +259,24 @@ internal class Program
 
                 case '4':
                     // Perform Update operation
-                    DO.Task updateTask = InputValueTask();
-                    // Send the item to methods of create and insert to list of task
+                    
                     try
                     {
+                        Console.WriteLine($"Enter the {menuEntityName} id: ");
+                        int readId = int.Parse(Console.ReadLine()!);
+
+                        DO.Task? previousTask = e_dalTask?.Read(readId);
+
+                        if (previousTask != null)
+                        {
+                            // Print the previous Task .
+                            Console.WriteLine(previousTask);
+                        }
+                        
+                        DO.Task updateTask = InputValueTask();
+                        // Send the item to methods of create and insert to list of task
                         e_dalTask?.Update(updateTask);
+
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -262,7 +288,7 @@ internal class Program
                 case '5':
                     // Perform Delete operation
                     Console.WriteLine("Enter Id to remove frome the DataBase ");
-                    int id = int.Parse(Console.ReadLine());
+                    int id = int.Parse(Console.ReadLine()!);
                     try
                     {
                         e_dalTask?.Delete(id);
@@ -293,7 +319,7 @@ internal class Program
 
 
 
-    static void DependncySubMenu(string menuEntityName)
+    static void DependencySubMenu(string menuEntityName)
     {
         bool returnMainMenu = false;
         while (!returnMainMenu)
@@ -314,7 +340,7 @@ internal class Program
 
                 case '1':
                     // Perform Create operation                       
-                    Console.Write($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
+                    Console.WriteLine($"Enter the {menuEntityName} ditals: DependentTask , DependsOnTas");
 
                     Dependency newDependency = InputValueDependency();
                     // Send the item to methods of create and insert to list of task
@@ -333,44 +359,54 @@ internal class Program
                 case '2':
                     // Perform Read operation       
                     Console.Write($"Enter the {menuEntityName} id: ");
-                    int searchId = int.Parse(Console.ReadLine());
+                    int searchId = int.Parse(Console.ReadLine()!);
 
-                    // Search the task inside detebase and bring him
-                    DO.Task? searchTask = e_dalTask?.Read(searchId);
+                    // Search the dependency inside detebase and bring him
+                    Dependency? searchDependency = e_dalDependency?.Read(searchId);
+
                     // If is exist
-                    if (searchTask != null)
+                    if (searchDependency != null)
                     {
-                        Console.WriteLine("The Task is " + searchTask.Id);
+                        Console.WriteLine($"The Dependency is :{ searchDependency}");
                         break;
                     }
-                    Console.WriteLine("The Task is not exist");
+                    Console.WriteLine("The Dependency is not exist");
                     break;
 
 
                 case '3':
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
-                    List<DO.Task>? tasks = e_dalTask?.ReadAll();
-                    if (tasks != null)
+
+                    List<DO.Dependency>? dependency = e_dalDependency?.ReadAll();
+                    if (dependency != null)
                     {
-                        Console.WriteLine(tasks);
-                        //foreach (var i_task in tasks)
-                        //{
-                        //    // Print the name of all task
-                        //    Console.Write(i_task.);
-                        //}
+                        foreach (var e_dependency in dependency)
+                        {
+                            // Print the name of all dependency .
+                            Console.WriteLine(e_dependency);
+                        }
                         break;
                     }
                     Console.WriteLine("The DataBase is empty");
                     break;
 
                 case '4':
-                    // Perform Update operation
-                    DO.Task updateTask = InputValueTask();
-                    // Send the item to methods of create and insert to list of task
+                    // Perform Update operation                   
                     try
                     {
-                        e_dalTask?.Update(updateTask);
+                        Console.WriteLine($"Enter the {menuEntityName} id:");
+                        int dependencyId = int.Parse(Console.ReadLine()!);
+                        Dependency? previousDependency = e_dalDependency?.Read(dependencyId);
+                        if (previousDependency != null)
+                        {
+                            Console.WriteLine(previousDependency);
+                        }
+
+                        // Send the item to methods of create and insert to list of dependcy
+                        Dependency updateDependecy = InputValueDependency();
+
+                        e_dalDependency?.Update(updateDependecy);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -382,10 +418,10 @@ internal class Program
                 case '5':
                     // Perform Delete operation
                     Console.WriteLine("Enter Id to remove frome the DataBase ");
-                    int id = int.Parse(Console.ReadLine());
+                    int id = int.Parse(Console.ReadLine()!);
                     try
                     {
-                        e_dalTask?.Delete(id);
+                        e_dalDependency?.Delete(id);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -427,11 +463,11 @@ internal class Program
 
     static Engineer InputValueEngineer()
     {
-        int id = int.Parse(Console.ReadLine());
-        double cost = double.Parse(Console.ReadLine());
+        int id = int.Parse(Console.ReadLine()!);
+        double cost = double.Parse(Console.ReadLine()!);
         string? email = Console.ReadLine();
-        DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine());
-        string name = Console.ReadLine();
+        DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+        string name = Console.ReadLine()!;
 
         //To save all paramers in item
         Engineer item = new(id, cost, level, email, name);
@@ -441,8 +477,8 @@ internal class Program
 
     static DO.Task InputValueTask()
     {
-        int engineerId = int.Parse(Console.ReadLine());
-        DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine());
+        int engineerId = int.Parse(Console.ReadLine()!);
+        DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
         string? alias = Console.ReadLine();
         string? description = Console.ReadLine();
         string? remarks = Console.ReadLine();
@@ -454,12 +490,11 @@ internal class Program
 
     static Dependency InputValueDependency()
     {
-        /*
-            int DependentTask, // מספר משימה 
-    int DependsOnTask, // תלויה במשימה
-    int Id = 0 , // מספר רץ
-        */
-        return
+        int dependentTask = int.Parse(Console.ReadLine()!);
+        int dependsOnTask = int.Parse(Console.ReadLine()!);
+        Dependency item = new(dependentTask, dependsOnTask);
+        return item;
+
     }
 
     /// <summary>

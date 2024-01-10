@@ -6,7 +6,7 @@ namespace DalTest;
 
 internal class Program
 {
-
+    // Variables for the Interfaces .
     private static IDependency? e_dalDependency = new DependencyImplementation();
     private static ITask? e_dalTask = new TaskImplementation();
     private static IEngineer? e_dalEngineer = new EngineerImplementation();

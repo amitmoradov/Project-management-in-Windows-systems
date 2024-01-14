@@ -1,0 +1,5 @@
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\Stege0\obj\Debug\net7.0\Stege0.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\Stege0\obj\Debug\net7.0\Stege0.AssemblyInfoInputs.cache
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\Stege0\obj\Debug\net7.0\Stege0.AssemblyInfo.cs
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\Stege0\obj\Debug\net7.0\Stege0.csproj.CoreCompileInputs.cache
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\Stege0\obj\Debug\net7.0\Stege0.sourcelink.json

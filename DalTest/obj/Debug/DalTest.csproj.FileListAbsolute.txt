@@ -1,0 +1,17 @@
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.csproj.AssemblyReference.cache
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.AssemblyInfoInputs.cache
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.AssemblyInfo.cs
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.csproj.CoreCompileInputs.cache
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.sourcelink.json
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\bin\DalTest.exe
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\bin\DalTest.deps.json
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\bin\DalTest.runtimeconfig.json
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\bin\DalTest.dll
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\bin\DalTest.pdb
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.csproj.CopyComplete
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.dll
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\refint\DalTest.dll
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.pdb
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\DalTest.genruntimeconfig.cache
+C:\Users\Inon\source\repos\dotNet5784_7061_3114\DalTest\obj\Debug\ref\DalTest.dll

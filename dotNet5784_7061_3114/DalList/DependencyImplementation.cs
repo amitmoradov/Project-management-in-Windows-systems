@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Implementation of interface method .
 /// </summary>
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {

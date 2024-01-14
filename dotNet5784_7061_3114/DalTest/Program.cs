@@ -1,15 +1,19 @@
-﻿using Dal;
+﻿namespace DalTest;
+
+using Dal;
 using DalApi;
 using DO;
 
-namespace DalTest;
+
 
 internal class Program
 {
     // Variables for the Interfaces .
-    private static IDependency? e_dalDependency = new DependencyImplementation();
-    private static ITask? e_dalTask = new TaskImplementation();
-    private static IEngineer? e_dalEngineer = new EngineerImplementation();
+    static readonly IDal? e_dal = new DalList();
+
+    //private static IDependency? e_dalDependency = new DependencyImplementation();
+    //private static ITask? e_dalTask = new TaskImplementation();
+    //private static IEngineer? e_dalEngineer = new EngineerImplementation();
 
     // Global to go out from all menus .
 
@@ -18,7 +22,7 @@ internal class Program
     {
         try
         {
-            Initialization.Do(e_dalDependency, e_dalTask, e_dalEngineer);
+            Initialization.Do(e_dal);
 
 
             while (!_exit)
@@ -87,7 +91,7 @@ internal class Program
                     // Send the item to methods of create and insert to list of engineer
                     try
                     {
-                        e_dalEngineer?.Create(newEngineer);
+                        e_dal!.Engineer.Create(newEngineer);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -102,7 +106,7 @@ internal class Program
                     Console.Write($"Enter the {menuEntityName} id: ");
                     int searchId = int.Parse(Console.ReadLine()!);
                     // Search the engineer inside detebase and bring him
-                    Engineer? engineer = e_dalEngineer?.Read(searchId);
+                    Engineer? engineer = e_dal!.Engineer.Read(searchId);
                     // If is exist
                     if (engineer != null)
                     {
@@ -116,7 +120,7 @@ internal class Program
                 case '3':
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
-                    List<DO.Engineer>? engineers = e_dalEngineer?.ReadAll();
+                    List<DO.Engineer>? engineers = e_dal!.Engineer.ReadAll();
                     if (engineers != null)
                     {
                         foreach (var i_engineer in engineers)
@@ -137,7 +141,7 @@ internal class Program
                         Console.WriteLine($"Enter the {menuEntityName} id: ");
                         int readId = int.Parse(Console.ReadLine()!);
 
-                        Engineer? previousEngineer = e_dalEngineer?.Read(readId);
+                        Engineer? previousEngineer = e_dal!.Engineer.Read(readId);
                         if (previousEngineer != null)
                         {
                             // Print the previous engineer .
@@ -147,7 +151,7 @@ internal class Program
 
                         Engineer updateEngineer = InputValueEngineer();
                         // Send the item to methods of create and insert to list of engineer
-                        e_dalEngineer?.Update(updateEngineer);
+                        e_dal!.Engineer.Update(updateEngineer);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -163,7 +167,7 @@ internal class Program
                     int id = int.Parse(Console.ReadLine()!);
                     try
                     {
-                        e_dalEngineer?.Delete(id);
+                        e_dal!.Engineer.Delete(id);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -220,7 +224,7 @@ internal class Program
                     // Send the item to methods of create and insert to list of task
                     try
                     {
-                        e_dalTask?.Create(newTask);
+                        e_dal!.Task.Create(newTask);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -236,7 +240,7 @@ internal class Program
                     int searchId = int.Parse(Console.ReadLine()!);
 
                     // Search the task inside detebase and bring him
-                    DO.Task? searchTask = e_dalTask?.Read(searchId);
+                    DO.Task? searchTask = e_dal!.Task.Read(searchId);
                     // If is exist
                     if (searchTask != null)
                     {
@@ -249,7 +253,7 @@ internal class Program
                 case '3':
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
-                    List<DO.Task>? tasks = e_dalTask?.ReadAll();
+                    List<DO.Task>? tasks = e_dal!.Task.ReadAll();
 
                     if (tasks != null)
                     {
@@ -271,7 +275,7 @@ internal class Program
                         Console.WriteLine($"Enter the {menuEntityName} id: ");
                         int readId = int.Parse(Console.ReadLine()!);
 
-                        DO.Task? previousTask = e_dalTask?.Read(readId);
+                        DO.Task? previousTask = e_dal!.Task.Read(readId);
 
                         if (previousTask != null)
                         {
@@ -281,7 +285,7 @@ internal class Program
                         
                         DO.Task updateTask = InputValueTask();
                         // Send the item to methods of create and insert to list of task
-                        e_dalTask?.Update(updateTask);
+                        e_dal!.Task.Update(updateTask);
 
                     }
                     // If the engineer is exist
@@ -297,7 +301,7 @@ internal class Program
                     int id = int.Parse(Console.ReadLine()!);
                     try
                     {
-                        e_dalTask?.Delete(id);
+                        e_dal!.Task.Delete(id);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -354,7 +358,7 @@ internal class Program
                     // Send the item to methods of create and insert to list of task
                     try
                     {
-                        e_dalDependency?.Create(newDependency);
+                       e_dal!.Dependency.Create(newDependency);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -370,7 +374,7 @@ internal class Program
                     int searchId = int.Parse(Console.ReadLine()!);
 
                     // Search the dependency inside detebase and bring him
-                    Dependency? searchDependency = e_dalDependency?.Read(searchId);
+                    Dependency? searchDependency = e_dal!.Dependency.Read(searchId);
 
                     // If is exist
                     if (searchDependency != null)
@@ -386,7 +390,7 @@ internal class Program
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
 
-                    List<DO.Dependency>? dependency = e_dalDependency?.ReadAll();
+                    List<DO.Dependency>? dependency = e_dal!.Dependency.ReadAll();
                     if (dependency != null)
                     {
                         foreach (var e_dependency in dependency)
@@ -405,7 +409,7 @@ internal class Program
                     {
                         Console.WriteLine($"Enter the {menuEntityName} id:");
                         int dependencyId = int.Parse(Console.ReadLine()!);
-                        Dependency? previousDependency = e_dalDependency?.Read(dependencyId);
+                        Dependency? previousDependency = e_dal!.Dependency.Read(dependencyId);
                         if (previousDependency != null)
                         {
                             Console.WriteLine(previousDependency);
@@ -414,7 +418,7 @@ internal class Program
                         // Send the item to methods of create and insert to list of dependcy
                         Dependency updateDependecy = InputValueDependency();
 
-                        e_dalDependency?.Update(updateDependecy);
+                        e_dal!.Dependency.Update(updateDependecy);
                     }
                     // If the engineer is exist
                     catch (Exception ex)
@@ -429,7 +433,7 @@ internal class Program
                     int id = int.Parse(Console.ReadLine()!);
                     try
                     {
-                        e_dalDependency?.Delete(id);
+                        e_dal!.Dependency.Delete(id);
                     }
                     // If the engineer is exist
                     catch (Exception ex)

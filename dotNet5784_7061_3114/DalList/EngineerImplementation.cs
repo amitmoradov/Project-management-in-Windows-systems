@@ -16,7 +16,7 @@ internal class EngineerImplementation : IEngineer
             return item._id;
         }
         // if the object is exist
-        throw new Exception($"Engineer with ID={item._id} is exists");
+        throw new DalDoesExistException($"Engineer with ID={item._id} is exists");
     }
 
     public void Delete(int id)
@@ -30,9 +30,9 @@ internal class EngineerImplementation : IEngineer
         }
         if (engineer is not null && !engineer._canToRemove)
         {
-            throw new Exception($"Engineer with ID={id} cannot be deleted");
+            throw new DalCannotDeleted($"Engineer with ID={id} cannot be deleted");
         }
-        throw new Exception($"Engineer with ID={id} is Not exists");
+        throw new DalDoesNotExistException($"Engineer with ID={id} is Not exists");
     }
     
 
@@ -79,6 +79,6 @@ internal class EngineerImplementation : IEngineer
             Create(item);
             return;
         }
-        throw new Exception($"Engineer with ID={item._id} is Not exists");
+        throw new DalDoesNotExistException($"Engineer with ID={item._id} is Not exists");
     }
 }

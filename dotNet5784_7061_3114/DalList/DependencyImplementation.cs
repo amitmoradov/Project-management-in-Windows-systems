@@ -27,7 +27,7 @@ internal class DependencyImplementation : IDependency
             return newId;
         }
         // if the object is exist
-        throw new Exception($"Dependency with ID={item._id} is exists");
+        throw new DalDoesExistException($"Dependency with ID={item._id} is exists");
     }
 
     public void Delete(int id)
@@ -42,11 +42,11 @@ internal class DependencyImplementation : IDependency
 
         if (dependency is not null && !dependency._canToRemove)
         {
-            throw new Exception($"Dependency with ID={id} cannot be deleted");
+            throw new DalCannotDeleted($"Dependency with ID={id} cannot be deleted");
         }
         
         // If the object is not exist
-        throw new Exception($"Dependency with ID={id} is Not exists");
+        throw new DalDoesNotExistException($"Dependency with ID={id} is Not exists");
     }
 
     public Dependency? Read(int id)
@@ -90,6 +90,6 @@ internal class DependencyImplementation : IDependency
             Create(item);
             return;
         }
-        throw new Exception($"Dependency with ID={item._id} is not exists");
+        throw new DalDoesNotExistException($"Dependency with ID={item._id} is not exists");
     }
 }

@@ -94,7 +94,7 @@ internal class Program
                         e_dal!.Engineer.Create(newEngineer);
                     }
                     // If the engineer is exist
-                    catch (Exception ex)
+                    catch (DalDoesExistException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -154,7 +154,7 @@ internal class Program
                         e_dal!.Engineer.Update(updateEngineer);
                     }
                     // If the engineer is exist
-                    catch (Exception ex)
+                    catch (DalDoesNotExistException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -170,7 +170,11 @@ internal class Program
                         e_dal!.Engineer.Delete(id);
                     }
                     // If the engineer is exist
-                    catch (Exception ex)
+                    catch (DalDoesNotExistException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (DalCannotDeleted ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -226,8 +230,8 @@ internal class Program
                     {
                         e_dal!.Task.Create(newTask);
                     }
-                    // If the engineer is exist
-                    catch (Exception ex)
+                    // If the engineer is not exist
+                    catch (DalDoesExistException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -289,7 +293,7 @@ internal class Program
 
                     }
                     // If the engineer is exist
-                    catch (Exception ex)
+                    catch (DalDoesNotExistException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -303,8 +307,13 @@ internal class Program
                     {
                         e_dal!.Task.Delete(id);
                     }
-                    // If the engineer is exist
-                    catch (Exception ex)
+                    // If the engineer is not exist
+                    catch (DalDoesExistException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    catch (DalCannotDeleted ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -361,7 +370,7 @@ internal class Program
                        e_dal!.Dependency.Create(newDependency);
                     }
                     // If the engineer is exist
-                    catch (Exception ex)
+                    catch (DalDoesExistException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -421,7 +430,7 @@ internal class Program
                         e_dal!.Dependency.Update(updateDependecy);
                     }
                     // If the engineer is exist
-                    catch (Exception ex)
+                    catch (DalDoesNotExistException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -435,8 +444,13 @@ internal class Program
                     {
                         e_dal!.Dependency.Delete(id);
                     }
-                    // If the engineer is exist
-                    catch (Exception ex)
+                    // If the engineer is not exist
+                    catch (DalDoesNotExistException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    catch (DalCannotDeleted ex)
                     {
                         Console.WriteLine(ex.Message);
                     }

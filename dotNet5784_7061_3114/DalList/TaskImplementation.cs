@@ -23,7 +23,7 @@ internal class TaskImplementation : ITask
         }
 
         // If the object is exist
-        throw new Exception($"Task with ID={item._id} is exists");
+        throw new DalDoesExistException($"Task with ID={item._id} is exists");
     }
 
     public void Delete(int id)
@@ -37,9 +37,9 @@ internal class TaskImplementation : ITask
         }
         if (task is not null && !task._canToRemove)
         {
-            throw new Exception($"Task with ID={id} cannot be deleted");
+            throw new DalCannotDeleted($"Task with ID={id} cannot be deleted");
         }
-        throw new Exception($"Task with ID={id} is Not exists");
+        throw new DalDoesNotExistException($"Task with ID={id} is Not exists");
     }
 
     public Task? Read(int id)
@@ -87,6 +87,6 @@ internal class TaskImplementation : ITask
             Create(item);
             return;
         }
-        throw new Exception($"Engineer with ID={item._id} is not exists");
+        throw new DalDoesNotExistException($"Engineer with ID={item._id} is not exists");
     }
 }

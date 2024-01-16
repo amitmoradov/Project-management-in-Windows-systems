@@ -3,6 +3,8 @@ using DalApi;
 using DO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 /// <summary>
 /// Implementation of interface method .
 /// </summary>
@@ -61,9 +63,22 @@ internal class DependencyImplementation : IDependency
         //return null;
     }
 
-    public List<Dependency> ReadAll()
+    public Dependency? Read(Func<Dependency, bool> filter)
     {
-        return new List<Dependency>(DataSource.Dependencies);
+        return DataSource.Dependencies.FirstOrDefault(filter);
+    }
+
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Dependencies
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Dependencies
+               select item;
+        //return new List<Dependency>(DataSource.Dependencies);
     }
 
     public void Update(Dependency item)

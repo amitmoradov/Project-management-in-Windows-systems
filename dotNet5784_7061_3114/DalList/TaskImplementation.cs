@@ -2,6 +2,7 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Linq;
 
 internal class TaskImplementation : ITask
 {
@@ -55,9 +56,24 @@ internal class TaskImplementation : ITask
         //return null;
     }
 
-    public List<Task> ReadAll()
+    public Task? Read(Func<Task, bool> filter)
     {
-        return new List<Task>(DataSource.Tasks);
+        return DataSource.Tasks.FirstOrDefault(filter);
+    }
+
+    // Get a pointer to func .
+    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Tasks
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Tasks
+               select item;
+
+        //return new List<Task>(DataSource.Tasks);
     }
 
     public void Update(Task item)

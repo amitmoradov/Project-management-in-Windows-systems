@@ -29,13 +29,14 @@ public static class Initialization
         // Create an email address for the engineer
         string gmailSuffix = "@gmail.com";
 
-        // convert the number mail example: amit12@gmail.com
-        string uniqueMail = e_rand.Next(11, 99).ToString();
-        string emailAddress = engineerNames + uniqueMail + gmailSuffix;
-        // Loop through each engineer in the array
 
         foreach (var engineerName in engineerNames)
         {
+            // convert the number mail example: amit12@gmail.com
+            // Loop through each engineer in the array
+            string uniqueMail = e_rand.Next(11, 99).ToString();
+            string emailAddress = engineerName + uniqueMail + gmailSuffix;
+
             // Generate a random ID for the engineer
             int id = e_rand.Next(MIN, MAX);
 

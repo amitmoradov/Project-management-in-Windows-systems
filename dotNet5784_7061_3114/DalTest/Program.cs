@@ -120,7 +120,7 @@ internal class Program
                 case '3':
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
-                    List<DO.Engineer>? engineers = e_dal!.Engineer.ReadAll();
+                    IEnumerable<DO.Engineer?> engineers = e_dal!.Engineer.ReadAll();
                     if (engineers != null)
                     {
                         foreach (var i_engineer in engineers)
@@ -253,7 +253,7 @@ internal class Program
                 case '3':
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
-                    List<DO.Task>? tasks = e_dal!.Task.ReadAll();
+                    IEnumerable<DO.Task?> tasks = e_dal!.Task.ReadAll();
 
                     if (tasks != null)
                     {
@@ -390,7 +390,7 @@ internal class Program
                     // Perform ReadAll operation
                     Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
 
-                    List<DO.Dependency>? dependency = e_dal!.Dependency.ReadAll();
+                    IEnumerable<DO.Dependency?> dependency = e_dal!.Dependency.ReadAll();
                     if (dependency != null)
                     {
                         foreach (var e_dependency in dependency)

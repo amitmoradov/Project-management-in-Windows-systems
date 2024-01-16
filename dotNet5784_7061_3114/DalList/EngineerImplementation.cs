@@ -50,9 +50,23 @@ internal class EngineerImplementation : IEngineer
         //return null;
     }
 
-    public List<Engineer> ReadAll()
+    public Engineer? Read(Func<Engineer, bool> filter)
     {
-        return new List<Engineer>(DataSource.Engineers);
+        return DataSource.Engineers.FirstOrDefault(filter);
+    }
+
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Engineers
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Engineers
+               select item;
+
+        //return new List<Engineer>(DataSource.Engineers);
         //throw new NotImplementedException();
     }
 

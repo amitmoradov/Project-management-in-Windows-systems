@@ -27,7 +27,7 @@ internal class Program
 
             while (!_exit)
             {
-                Console.WriteLine();
+                //Console.WriteLine();
                 DisplayMainMenu();
                 // Input char and convert to char type .
                 char? userInput = Console.ReadKey().KeyChar;

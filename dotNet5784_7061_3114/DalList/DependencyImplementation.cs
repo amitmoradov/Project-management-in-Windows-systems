@@ -49,14 +49,16 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        foreach (var item in DataSource.Dependencies)
-        {
-            if (item._id == id)
-            {
-                return item;
-            }
-        }
-        return null;
+        return DataSource.Dependencies.FirstOrDefault(dependency => dependency._id == id);
+
+        //foreach (var item in DataSource.Dependencies)
+        //{
+        //    if (item._id == id)
+        //    {
+        //        return item;
+        //    }
+        //}
+        //return null;
     }
 
     public List<Dependency> ReadAll()

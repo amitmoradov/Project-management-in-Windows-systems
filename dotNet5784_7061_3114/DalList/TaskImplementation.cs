@@ -43,14 +43,16 @@ internal class TaskImplementation : ITask
 
     public Task? Read(int id)
     {
-        foreach (var task in DataSource.Tasks)
-        {
-            if (task._id == id)
-            {
-                return task;
-            }
-        }
-        return null;
+        return DataSource.Tasks.FirstOrDefault(task => task._id == id);
+
+        //foreach (var task in DataSource.Tasks)
+        //{
+        //    if (task._id == id)
+        //    {
+        //        return task;
+        //    }
+        //}
+        //return null;
     }
 
     public List<Task> ReadAll()

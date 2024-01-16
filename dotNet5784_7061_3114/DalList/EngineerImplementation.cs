@@ -38,15 +38,15 @@ internal class EngineerImplementation : IEngineer
 
     public Engineer? Read(int id)
     {
-       // DataSource.Engineers.Find(engineer => engineer.Id == id);
-        foreach (var engineer in DataSource.Engineers)
-        {
-            if (engineer._id == id)
-            {
-                return engineer;
-            }
-        }
-        return null;
+        return DataSource.Engineers.FirstOrDefault(engineer => engineer._id == id);
+        //foreach (var engineer in DataSource.Engineers)
+        //{
+        //    if (engineer._id == id)
+        //    {
+        //        return engineer;
+        //    }
+        //}
+        //return null;
     }
 
     public List<Engineer> ReadAll()

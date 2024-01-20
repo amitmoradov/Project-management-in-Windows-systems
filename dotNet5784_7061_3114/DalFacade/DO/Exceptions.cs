@@ -30,3 +30,13 @@ public class DalCannotDeleted : Exception
     public DalCannotDeleted(string? message) : base(message) { }
 }
 
+/// <summary>
+/// Fail to create xml file
+/// </summary>
+[Serializable]
+public class DalXMLFileLoadCreateException : Exception
+{
+    public DalXMLFileLoadCreateException(string? message) : base(message) { }
+}
+
+

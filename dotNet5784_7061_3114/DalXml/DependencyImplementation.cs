@@ -14,6 +14,7 @@ internal class DependencyImplementation : IDependency
     /// Name of DataBase XML
     /// </summary>
     readonly string e_dependncy_xml = "dependencies";
+    readonly string  data_config_xml = "data-config";
 
     public int Create(Dependency item)
     {
@@ -21,16 +22,25 @@ internal class DependencyImplementation : IDependency
         Dependency? dependency = Read(item._id);
         if (dependency == null)
         {
-            // Get the current run nummber .
-            int newId = Config.NextDependencyId;
+            // Get the current run nummber from the data-config.xml 
+            int newId = XMLTools.GetAndIncreaseNextId(data_config_xml, e_dependncy_xml);
 
             // Copy of item and change Id .
             Dependency copyItem = item with { _id = newId };
-            
-            XElement dependsId = new XElement("dependency id ", dependency?._id);
 
+            // Sets the details of the dependency into the xml file
+            XElement dependsId = new XElement("id", copyItem?._id);
+            XElement dependOnTask = new XElement("dependOnTask", copyItem?._dependsOnTask);
+            XElement dependentTask = new XElement("dependentTask", copyItem?._dependentTask);
+            XElement active = new XElement("active", copyItem?._active);
+            XElement canToRemove = new XElement("canToRemove", copyItem?._canToRemove);
+
+
+            //Consolidates all previously configured settings and then saves it to an xml file
+            XElement create_dependncy = new XElement("Dependncy", dependsId, dependOnTask, dependentTask,active,canToRemove);
+            
             // A function that saves the content of the XELEMENT into an xml file
-            XMLTools.SaveListToXMLElement(dependsId, e_dependncy_xml);
+            XMLTools.SaveListToXMLElement(create_dependncy, e_dependncy_xml);
          
             return newId;
         }
@@ -59,39 +69,71 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        XElement? search;
-        search = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
-        return from p in search.Elements()
-               select new Dependency();           
-        //return FirstOrDefault(search => search._id == id);
+        XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
 
-        //foreach (var item in DataSource.Dependencies)
-        //{
-        //    if (item._id == id)
-        //    {
-        //        return item;
-        //    }
-        //}
-        //return null;
+        return (from item in root.Elements()
+                where (int.Parse(item.Element("id")!.Value) == id)
+                select new Dependency()
+                {
+                    _id = int.Parse(item.Element("id")!.Value),
+                    _dependsOnTask = int.Parse(item.Element("dependOnTask")!.Value),
+                    _dependentTask = int.Parse(item.Element("dependentTask")!.Value),
+                    _active = bool.Parse(item.Element("active")!.Value),
+                    _canToRemove = bool.Parse(item.Element("canToRemove")!.Value),
+
+                }).FirstOrDefault();
+
     }
 
-    public Dependency? Read(Func<Dependency, bool> filter)
+    public Dependency? Read(Func<Dependency, bool>? filter = null)
     {
-        // Returns the first member that meets the condition if there is none, in which case it returns null
-        return DataSource.Dependencies.FirstOrDefault(filter);
+        // Checking if we received a condition
+        if (filter != null)
+        {
+            XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
+            // Pass on all the elements in xml file
+            foreach (var item in root.Elements())
+            {
+                // insert the element to temp variable and chack if filter work.
+                Dependency dep = new Dependency(int.Parse(item.Element("id")!.Value),
+                    int.Parse(item.Element("dependOnTask")!.Value),
+                    int.Parse(item.Element("dependentTask")!.Value),
+                    bool.Parse(item.Element("active")!.Value),
+                    bool.Parse(item.Element("canToRemove")!.Value));
+
+                if (filter(dep))
+                {
+                    return dep;
+                }
+            }
+        }
+        return null;
+
     }
 
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
+        XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
+        // מחזיר העתק של הרשימה העונה על התנאי
+        List<DO.Dependency?> dep = new();
+
         if (filter != null)
         {
-            return from item in DataSource.Dependencies
-                   where filter(item)
-                   select item;
+            // Add to list all elements that exist the condition.
+            foreach(var item in root.Elements())
+            {
+               dep.Add(Read(filter));
+            }
+            return dep;
         }
-        return from item in DataSource.Dependencies
-               select item;
-        //return new List<Dependency>(DataSource.Dependencies);
+
+        // if filter == null call to basic function Read with id.
+        foreach (var item in root.Elements())
+        {
+           //
+            dep!.Add(Read(int.Parse(item.Element("id")!.Value)));
+        }
+        return dep!;
     }
 
     public void Update(Dependency item)

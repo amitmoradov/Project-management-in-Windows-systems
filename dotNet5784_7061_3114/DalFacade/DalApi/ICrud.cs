@@ -11,6 +11,7 @@ public interface ICrud<T> where T : class
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
+    /// return bool and bring type T
     T? Read(Func<T, bool> filter); // Return item by every parameters that it got .
     IEnumerable<T?> ReadAll(Func<T , bool> ? filter = null); // Pointer to func .
     void Update(T item); //Updates entity object

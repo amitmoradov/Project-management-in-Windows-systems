@@ -79,7 +79,7 @@ internal class DependencyImplementation : IDependency
         }
         return from item in DataSource.Dependencies
                select item;
-        //return new List<Dependency>(DataSource.Dependencies);
+
     }
 
     public void Update(Dependency item)

@@ -40,3 +40,11 @@ public class DalXMLFileLoadCreateException : Exception
 }
 
 
+/// <summary>
+/// Not found ID in the DataBase
+/// </summary>
+[Serializable]
+public class XmlIdException : Exception
+{
+    public XmlIdException(string? message) : base(message) { }
+}

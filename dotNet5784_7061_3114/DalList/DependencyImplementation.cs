@@ -84,11 +84,12 @@ internal class DependencyImplementation : IDependency
 
     public void Update(Dependency item)
     {
-        Dependency? dependency = Read(item._id);
-        if(dependency is not null)
+        //ependency? dependency = Read(item._id);
+        if(item is not null)
         {
-            Delete(dependency._id);
-            Create(item);
+            Delete(item._id);
+            //Create(item);
+            DataSource.Dependencies.Add(item);
             return;
         }
         throw new DalDoesNotExistException($"Dependency with ID={item._id} is not exists");

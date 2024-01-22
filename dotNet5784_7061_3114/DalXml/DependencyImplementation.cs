@@ -20,6 +20,8 @@ internal class DependencyImplementation : IDependency
     {
         // chack if the item is exist
         Dependency? dependency = Read(item._id);
+        XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
+
         if (dependency == null)
         {
             // Get the current run nummber from the data-config.xml 
@@ -28,19 +30,13 @@ internal class DependencyImplementation : IDependency
             // Copy of item and change Id .
             Dependency copyItem = item with { _id = newId };
 
-            // Sets the details of the dependency into the xml file
-            XElement dependsId = new XElement("id", copyItem?._id);
-            XElement dependOnTask = new XElement("dependOnTask", copyItem?._dependsOnTask);
-            XElement dependentTask = new XElement("dependentTask", copyItem?._dependentTask);
-            XElement active = new XElement("active", copyItem?._active);
-            XElement canToRemove = new XElement("canToRemove", copyItem?._canToRemove);
+            //Call to help fenction that convert to Xelemwent
+            XElement create_dependncy = ConvertToXElement(item);
 
-
-            //Consolidates all previously configured settings and then saves it to an xml file
-            XElement create_dependncy = new XElement("Dependncy", dependsId, dependOnTask, dependentTask,active,canToRemove);
-            
-            // A function that saves the content of the XELEMENT into an xml file
-            XMLTools.SaveListToXMLElement(create_dependncy, e_dependncy_xml);
+            // Add the new dependency to the root.
+            root.Add(create_dependncy);
+            // A function that saves the content of the XElemenr into an xml file
+            XMLTools.SaveListToXMLElement(root, e_dependncy_xml);
          
             return newId;
         }
@@ -50,15 +46,17 @@ internal class DependencyImplementation : IDependency
 
     public void Delete(int id)
     {
-        Dependency? dependency = Read(id);
+        XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
+        XElement? dependency_to_delete = SearchElementInXML(root,id);
+
         // The object can to remove
-        if (dependency is not null && dependency._canToRemove)
+        if (dependency_to_delete is not null && bool.Parse(dependency_to_delete.Element("canToRemove")!.Value) == true)
         {
-            Dependencies.Remove(dependency);
-            return;
+            dependency_to_delete.Remove();
+            XMLTools.SaveListToXMLElement(root, e_dependncy_xml);
         }
 
-        if (dependency is not null && !dependency._canToRemove)
+        if (dependency_to_delete is not null && bool.Parse(dependency_to_delete.Element("canToRemove")!.Value) == false)
         {
             throw new DalCannotDeleted($"Dependency with ID={id} cannot be deleted");
         }
@@ -70,18 +68,12 @@ internal class DependencyImplementation : IDependency
     public Dependency? Read(int id)
     {
         XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
-
-        return (from item in root.Elements()
-                where (int.Parse(item.Element("id")!.Value) == id)
-                select new Dependency()
-                {
-                    _id = int.Parse(item.Element("id")!.Value),
-                    _dependsOnTask = int.Parse(item.Element("dependOnTask")!.Value),
-                    _dependentTask = int.Parse(item.Element("dependentTask")!.Value),
-                    _active = bool.Parse(item.Element("active")!.Value),
-                    _canToRemove = bool.Parse(item.Element("canToRemove")!.Value),
-
-                }).FirstOrDefault();
+        //Find the element with id that we want
+        XElement item = SearchElementInXML(root, id);
+        
+        //conver him to dependency type
+        Dependency? dependency = ConvertToDependency(item);
+        return dependency;
 
     }
 
@@ -95,11 +87,7 @@ internal class DependencyImplementation : IDependency
             foreach (var item in root.Elements())
             {
                 // insert the element to temp variable and chack if filter work.
-                Dependency dep = new Dependency(int.Parse(item.Element("id")!.Value),
-                    int.Parse(item.Element("dependOnTask")!.Value),
-                    int.Parse(item.Element("dependentTask")!.Value),
-                    bool.Parse(item.Element("active")!.Value),
-                    bool.Parse(item.Element("canToRemove")!.Value));
+                Dependency dep = ConvertToDependency(item);
 
                 if (filter(dep))
                 {
@@ -114,37 +102,98 @@ internal class DependencyImplementation : IDependency
     public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
     {
         XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
-        // מחזיר העתק של הרשימה העונה על התנאי
-        List<DO.Dependency?> dep = new();
+
+        // The list of elements after the filter.
+        List<DO.Dependency?> list_dependency = new();
 
         if (filter != null)
         {
+           
             // Add to list all elements that exist the condition.
-            foreach(var item in root.Elements())
+            foreach (var item in root.Elements())
             {
-               dep.Add(Read(filter));
+                //
+                Dependency chack_depedency = ConvertToDependency(item);
+
+                if (filter(chack_depedency))
+                {
+                    list_dependency.Add(chack_depedency);
+                }
             }
-            return dep;
+            return list_dependency;
         }
 
         // if filter == null call to basic function Read with id.
         foreach (var item in root.Elements())
         {
-           //
-            dep!.Add(Read(int.Parse(item.Element("id")!.Value)));
+           //Add new elemnet to the list 
+            list_dependency!.Add(Read(int.Parse(item.Element("id")!.Value)));
         }
-        return dep!;
+        return list_dependency!;
     }
 
     public void Update(Dependency item)
     {
-        Dependency? dependency = Read(item._id);
-        if (dependency is not null)
+        XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
+
+        if (item is not null)
         {
-            Delete(dependency._id);
-            Create(item);
+            //Delete the old Dependency with same id
+            Delete(item._id);
+            XElement dependency_update = ConvertToXElement(item);
+
+            //Add the update item to the file.
+            root.Add(dependency_update);
+
+            // Save the file after update.
+            XMLTools.SaveListToXMLElement(root, e_dependncy_xml);
             return;
         }
-        throw new DalDoesNotExistException($"Dependency with ID={item._id} is not exists");
+        throw new DalDoesNotExistException($"Dependency with ID={item?._id} is not exists");
+    }
+
+
+
+    //Help function - to find elemnt and return him (retur Xelelment)
+    private XElement SearchElementInXML(XElement root, int id)
+    {
+        if (root != null)
+        {
+            XElement? element = root.Elements().FirstOrDefault(item => int.Parse(item.Element("id")!.Value) == id);
+            return element;
+        }
+        throw new XmlRootException("The root of file is not exist");
+    }
+
+    //Help function - Convert type XElement to Dependency type
+    private Dependency ConvertToDependency(XElement item)
+    {
+
+        Dependency? dependency = new(
+
+            int.Parse(item.Element("dependentTask")!.Value),
+            int.Parse(item.Element("dependOnTask")!.Value),
+            int.Parse(item.Element("id")!.Value),
+            bool.Parse(item.Element("active")!.Value),
+            bool.Parse(item.Element("canToRemove")!.Value));
+        return dependency;
+    }
+
+    //Help function - Convert type Dependency  to XElement type
+    private XElement ConvertToXElement(Dependency item)
+    {
+
+        // Sets the details of the dependency into the xml file
+        XElement dependsId = new XElement("id", item?._id);
+        XElement dependOnTask = new XElement("dependOnTask", item?._dependsOnTask);
+        XElement dependentTask = new XElement("dependentTask", item?._dependentTask);
+        XElement active = new XElement("active", item?._active);
+        XElement canToRemove = new XElement("canToRemove", item?._canToRemove);
+
+
+        //Consolidates all previously configured settings and then saves it to an xml file
+        XElement convert_dependncy = new XElement("Dependncy", dependsId, dependOnTask, dependentTask, active, canToRemove);
+
+        return convert_dependncy;
     }
 }

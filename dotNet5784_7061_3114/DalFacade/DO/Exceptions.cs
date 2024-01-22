@@ -48,3 +48,12 @@ public class XmlIdException : Exception
 {
     public XmlIdException(string? message) : base(message) { }
 }
+
+/// <summary>
+///     The root of file is not exist
+/// </summary>
+[Serializable]
+public class XmlRootException : Exception
+{
+    public XmlRootException(string? message) : base(message) { }
+}

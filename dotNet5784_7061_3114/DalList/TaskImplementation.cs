@@ -84,9 +84,10 @@ internal class TaskImplementation : ITask
         if(task is not null)
         {
             Delete(task._id);
-            Create(item);
+            //Create(item);
+            DataSource.Tasks.Add(item);
             return;
         }
-        throw new DalDoesNotExistException($"Engineer with ID={item._id} is not exists");
+        throw new DalDoesNotExistException($"Task with ID={item._id} is not exists");
     }
 }

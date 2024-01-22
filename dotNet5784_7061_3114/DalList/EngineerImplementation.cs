@@ -72,13 +72,14 @@ internal class EngineerImplementation : IEngineer
 
     public void Update(Engineer item)
     {
-        Engineer? engineer = Read(item._id);
-        if (engineer is not null)
+        if (item is not null)
         {
-            Delete(engineer._id);
+            //Delete the old engineer with same id
+            Delete(item._id);
             Create(item);
+            
             return;
         }
-        throw new DalDoesNotExistException($"Engineer with ID={item._id} is Not exists");
+        throw new DalDoesNotExistException($"Engineer with ID={item!._id} is Not exists");
     }
 }

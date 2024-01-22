@@ -85,7 +85,7 @@ internal class Program
                     break;
                 case '1':
                     // Perform Create operation                       
-                    Console.WriteLine($"Enter the {menuEntityName} ditals: id, cost, level, email, name");
+                    //Console.WriteLine($"Enter the {menuEntityName} ditals: id, cost, level, email, name");
 
                     Engineer newEngineer = InputValueEngineer();
                     // Send the item to methods of create and insert to list of engineer
@@ -145,7 +145,7 @@ internal class Program
                         if (previousEngineer != null)
                         {
                             // Print the previous engineer .
-                            Console.WriteLine(previousEngineer);
+                            Console.WriteLine(previousEngineer);                           
                         }
                         Console.WriteLine();
 
@@ -222,7 +222,7 @@ internal class Program
 
                 case '1':
                     // Perform Create operation                       
-                    Console.WriteLine($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
+                    //Console.WriteLine($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
 
                     DO.Task newTask = InputValueTask();
                     // Send the item to methods of create and insert to list of task
@@ -286,7 +286,7 @@ internal class Program
                             // Print the previous Task .
                             Console.WriteLine(previousTask);
                         }
-                        
+                        Console.WriteLine();
                         DO.Task updateTask = InputValueTask();
                         // Send the item to methods of create and insert to list of task
                         e_dal!.Task.Update(updateTask);
@@ -361,7 +361,7 @@ internal class Program
 
                 case '1':
                     // Perform Create operation                       
-                    Console.WriteLine($"Enter the {menuEntityName} ditals: DependentTask , DependsOnTas");
+                   // Console.WriteLine($"Enter the {menuEntityName} ditals: DependentTask , DependsOnTas");
 
                     Dependency newDependency = InputValueDependency();
                     // Send the item to methods of create and insert to list of task
@@ -449,11 +449,17 @@ internal class Program
                     {
                         Console.WriteLine(ex.Message);
                     }
-
+                    // If can not to delete the depedncy
                     catch (DalCannotDeleted ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
+                    // If the root is not exist
+                    catch (XmlRootException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
                     break;
 
                 case '6':
@@ -489,6 +495,8 @@ internal class Program
 
     static Engineer InputValueEngineer()
     {
+        Console.WriteLine($"Enter the Engineer ditals: same id, cost, level, email, name");
+
         int id = int.Parse(Console.ReadLine()!);
         double cost = double.Parse(Console.ReadLine()!);
         DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
@@ -503,22 +511,26 @@ internal class Program
 
     static DO.Task InputValueTask()
     {
+        Console.WriteLine($"Enter the Task ditals: engineer id, same id, level, alias, description, remarks");
         int engineerId = int.Parse(Console.ReadLine()!);
+        int id = int.Parse(Console.ReadLine()!);
         DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
         string? alias = Console.ReadLine();
         string? description = Console.ReadLine();
         string? remarks = Console.ReadLine();
 
-        DO.Task task = new(null, null, taskLevel, null, null, null, null, alias, description, null, remarks,0,engineerId);
+        DO.Task task = new(null, null, taskLevel, null, null, null, null, alias, description, null, remarks,id,engineerId);
         return task;
     }
 
 
     static Dependency InputValueDependency()
     {
+        Console.WriteLine($"Enter the Dependency ditals: DependentTask , DependsOnTas, same id");
         int dependentTask = int.Parse(Console.ReadLine()!);
         int dependsOnTask = int.Parse(Console.ReadLine()!);
-        Dependency item = new(dependentTask, dependsOnTask);
+        int id = int.Parse(Console.ReadLine()!);
+        Dependency item = new(dependentTask, dependsOnTask, id);
         return item;
 
     }

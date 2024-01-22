@@ -9,7 +9,8 @@ using DO;
 internal class Program
 {
     // Variables for the Interfaces .
-    static readonly IDal? e_dal = new DalList();
+    //static readonly IDal? e_dal = new DalList(); // Stage 2
+    static readonly IDal? e_dal = new DalXml(); // Stage 3
 
     //private static IDependency? e_dalDependency = new DependencyImplementation();
     //private static ITask? e_dalTask = new TaskImplementation();
@@ -22,7 +23,7 @@ internal class Program
     {
         try
         {
-            Initialization.Do(e_dal);
+            //Initialization.Do(e_dal);
 
 
             while (!_exit)
@@ -48,7 +49,16 @@ internal class Program
                     case '3':
                         DependencySubMenu("Dependency"); // Entity 3
                         break;
-                    // Add more cases for other entities if needed
+                    case '4':
+                        // If we want to initialization the data base .
+                        Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+                        string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+
+                        if (ans == "Y")
+                        {
+                            Initialization.Do(e_dal);
+                        }
+                        break;
                     default:
                         Console.WriteLine("Invalid input. Please try again.");
                         break;
@@ -545,6 +555,7 @@ internal class Program
         Console.WriteLine("1. Entity Engineer");
         Console.WriteLine("2. Entity Task");
         Console.WriteLine("3. Entity Dependency");
+        Console.WriteLine("4. Initialization");
 
         // Add more entities or options as needed
         Console.Write("Enter your choice: ");

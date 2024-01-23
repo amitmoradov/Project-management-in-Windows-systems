@@ -3,8 +3,7 @@
 using Dal;
 using DalApi;
 using DO;
-
-
+using System.Xml.Linq;
 
 internal class Program
 {
@@ -55,7 +54,7 @@ internal class Program
                         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
 
                         if (ans == "Y")
-                        {
+                        {                           
                             Initialization.Do(e_dal);
                         }
                         break;
@@ -454,7 +453,7 @@ internal class Program
                     {
                         e_dal!.Dependency.Delete(id);
                     }
-                    // If the engineer is not exist
+                    // If the dependency is not exist
                     catch (DalDoesNotExistException ex)
                     {
                         Console.WriteLine(ex.Message);
@@ -505,7 +504,7 @@ internal class Program
 
     static Engineer InputValueEngineer()
     {
-        Console.WriteLine($"Enter the Engineer ditals: same id, cost, level, email, name");
+        Console.WriteLine($"Enter the Engineer ditals:  UPDATE - same id / CREATE - id, cost, level, email, name");
 
         int id = int.Parse(Console.ReadLine()!);
         double cost = double.Parse(Console.ReadLine()!);
@@ -521,7 +520,7 @@ internal class Program
 
     static DO.Task InputValueTask()
     {
-        Console.WriteLine($"Enter the Task ditals: engineer id, same id, level, alias, description, remarks");
+        Console.WriteLine($"Enter the Task ditals: engineer id,  UPDATE - same id / CREATE - id, level, alias, description, remarks");
         int engineerId = int.Parse(Console.ReadLine()!);
         int id = int.Parse(Console.ReadLine()!);
         DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
@@ -536,7 +535,7 @@ internal class Program
 
     static Dependency InputValueDependency()
     {
-        Console.WriteLine($"Enter the Dependency ditals: DependentTask , DependsOnTas, same id");
+        Console.WriteLine($"Enter the Dependency ditals: DependentTask , DependsOnTas, UPDATE - same id / CREATE - id");
         int dependentTask = int.Parse(Console.ReadLine()!);
         int dependsOnTask = int.Parse(Console.ReadLine()!);
         int id = int.Parse(Console.ReadLine()!);

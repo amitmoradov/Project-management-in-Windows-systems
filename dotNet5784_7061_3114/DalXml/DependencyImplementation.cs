@@ -14,6 +14,7 @@ internal class DependencyImplementation : IDependency
     /// Name of DataBase XML
     /// </summary>
     readonly string e_dependncy_xml = "dependencies";
+    readonly string NextDependencyId = "NextDependencyId";
     readonly string  data_config_xml = "data-config";
 
     public int Create(Dependency item)
@@ -21,23 +22,23 @@ internal class DependencyImplementation : IDependency
         // chack if the item is exist
         Dependency? dependency = Read(item._id);
         XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
-
+        
         if (dependency == null)
-        {
+        {           
             // Get the current run nummber from the data-config.xml 
-            int newId = XMLTools.GetAndIncreaseNextId(data_config_xml, e_dependncy_xml);
+            int newId = XMLTools.GetAndIncreaseNextId(data_config_xml, NextDependencyId);
 
             // Copy of item and change Id .
             Dependency copyItem = item with { _id = newId };
 
-            //Call to help fenction that convert to Xelemwent
-            XElement create_dependncy = ConvertToXElement(item);
+            //Call to help fenction that convert to Xelemwent 
+            XElement create_dependncy = ConvertToXElement(copyItem);           
 
             // Add the new dependency to the root.
             root.Add(create_dependncy);
             // A function that saves the content of the XElemenr into an xml file
             XMLTools.SaveListToXMLElement(root, e_dependncy_xml);
-         
+            
             return newId;
         }
         // if the object is exist
@@ -54,13 +55,13 @@ internal class DependencyImplementation : IDependency
         {
             dependency_to_delete.Remove();
             XMLTools.SaveListToXMLElement(root, e_dependncy_xml);
+            return;
         }
 
         if (dependency_to_delete is not null && bool.Parse(dependency_to_delete.Element("canToRemove")!.Value) == false)
         {
             throw new DalCannotDeleted($"Dependency with ID={id} cannot be deleted");
         }
-
         // If the object is not exist
         throw new DalDoesNotExistException($"Dependency with ID={id} is Not exists");
     }
@@ -69,8 +70,8 @@ internal class DependencyImplementation : IDependency
     {
         XElement? root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
         //Find the element with id that we want
-        XElement item = SearchElementInXML(root, id);
-        
+        XElement? item = SearchElementInXML(root, id);
+
         //conver him to dependency type
         Dependency? dependency = ConvertToDependency(item);
         return dependency;
@@ -87,7 +88,7 @@ internal class DependencyImplementation : IDependency
             foreach (var item in root.Elements())
             {
                 // insert the element to temp variable and chack if filter work.
-                Dependency dep = ConvertToDependency(item);
+                Dependency? dep = ConvertToDependency(item);
 
                 if (filter(dep))
                 {
@@ -111,10 +112,9 @@ internal class DependencyImplementation : IDependency
            
             // Add to list all elements that exist the condition.
             foreach (var item in root.Elements())
-            {
-                //
-                Dependency chack_depedency = ConvertToDependency(item);
-
+            {           
+                Dependency? chack_depedency = ConvertToDependency(item);
+                
                 if (filter(chack_depedency))
                 {
                     list_dependency.Add(chack_depedency);
@@ -155,20 +155,23 @@ internal class DependencyImplementation : IDependency
 
 
     //Help function - to find elemnt and return him (retur Xelelment)
-    private XElement SearchElementInXML(XElement root, int id)
+    private XElement? SearchElementInXML(XElement root, int id)
     {
         if (root != null)
         {
-            XElement? element = root.Elements().FirstOrDefault(item => int.Parse(item.Element("id")!.Value) == id);
+            XElement? element = root.Elements().FirstOrDefault(item => int.Parse(item.Element("id")!.Value) == id);         
             return element;
         }
         throw new XmlRootException("The root of file is not exist");
     }
 
     //Help function - Convert type XElement to Dependency type
-    private Dependency ConvertToDependency(XElement item)
+    private Dependency? ConvertToDependency(XElement item)
     {
-
+        if(item == null)
+        {
+            return null;
+        }
         Dependency? dependency = new(
 
             int.Parse(item.Element("dependentTask")!.Value),
@@ -177,6 +180,29 @@ internal class DependencyImplementation : IDependency
             bool.Parse(item.Element("active")!.Value),
             bool.Parse(item.Element("canToRemove")!.Value));
         return dependency;
+    }
+
+
+    public void reset()
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(e_dependncy_xml);
+        // Remove all elements in file
+        root.RemoveAll();
+
+        // Save the change
+        XMLTools.SaveListToXMLElement(root,e_dependncy_xml);
+
+        //Insert to data config file
+        XElement data_config = XMLTools.LoadListFromXMLElement(data_config_xml);
+
+        //Reset value
+        XElement? reset_next_id = data_config.Element("NextDependencyId");
+        // Change the value to 1 .
+        reset_next_id?.SetValue(1);
+        // Save the change .
+        XMLTools.SaveListToXMLElement(data_config, data_config_xml);
+
+
     }
 
     //Help function - Convert type Dependency  to XElement type

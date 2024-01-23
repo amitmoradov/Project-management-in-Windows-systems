@@ -4,10 +4,12 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 internal class TaskImplementation : ITask
 {
     readonly string e_task_xml = "tasks";
+    readonly string NextTaskId = "NextTaskId";
     readonly string data_config_xml = "data-config";
 
     public int Create(Task item)
@@ -21,7 +23,7 @@ internal class TaskImplementation : ITask
         if (task == null)
         {
             // Get the run number id .
-            int new_id = XMLTools.GetAndIncreaseNextId(data_config_xml, e_task_xml);
+            int new_id = XMLTools.GetAndIncreaseNextId(data_config_xml, NextTaskId);
 
             // Create new task with the new id .
             Task copy_item = item with { _id = new_id };
@@ -118,6 +120,24 @@ internal class TaskImplementation : ITask
             return;
         }
         throw new DalDoesNotExistException($"Task with ID = {item!._id} is Not exists");
+    }
+
+    public void reset()
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(e_task_xml);
+        root.RemoveAll();
+        XMLTools.SaveListToXMLElement(root, e_task_xml);
+
+        //Insert to data config file
+        XElement data_config = XMLTools.LoadListFromXMLElement(data_config_xml);
+
+        //Reset value
+        XElement? reset_next_id = data_config.Element("NextTaskId");
+        // Change the value to 1 .
+        reset_next_id?.SetValue(1);
+        // Save the change .
+        XMLTools.SaveListToXMLElement(data_config, data_config_xml);
+
     }
 }
 

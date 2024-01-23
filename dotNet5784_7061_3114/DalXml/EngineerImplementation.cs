@@ -110,4 +110,12 @@ internal class EngineerImplementation : IEngineer
         }
         throw new DalDoesNotExistException($"Engineer with ID={item!._id} is Not exists");
     }
+
+    public void reset()
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(e_engineer_xml);
+        root.RemoveAll();
+        XMLTools.SaveListToXMLElement(root, e_engineer_xml);
+
+    }
 }

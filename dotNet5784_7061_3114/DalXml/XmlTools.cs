@@ -55,7 +55,7 @@ static class XMLTools
     {
         string filePath = $"{s_xml_dir + entity}.xml";
         try
-        {
+        {          
             if (File.Exists(filePath))
                 return XElement.Load(filePath);
             XElement rootElem = new(entity);

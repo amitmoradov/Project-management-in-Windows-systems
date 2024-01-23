@@ -4,6 +4,7 @@ using DO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 /// <summary>
 /// Implementation of interface method .
@@ -44,9 +45,9 @@ internal class DependencyImplementation : IDependency
         {
             throw new DalCannotDeleted($"Dependency with ID={id} cannot be deleted");
         }
-        
         // If the object is not exist
         throw new DalDoesNotExistException($"Dependency with ID={id} is Not exists");
+        
     }
 
     public Dependency? Read(int id)
@@ -88,10 +89,15 @@ internal class DependencyImplementation : IDependency
         if(item is not null)
         {
             Delete(item._id);
-            //Create(item);
             DataSource.Dependencies.Add(item);
             return;
         }
         throw new DalDoesNotExistException($"Dependency with ID={item._id} is not exists");
     }
+
+    public void reset()
+    {
+
+    }
+
 }

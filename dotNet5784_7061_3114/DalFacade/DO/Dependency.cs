@@ -10,7 +10,7 @@ public record Dependency
 (
     int _dependentTask, // מספר משימה 
     int _dependsOnTask, // תלויה במשימה
-    int _id = 0 , // מספר רץ
+    int _id = 0, // מספר רץ
     bool _active = true,
     bool _canToRemove = true
 )

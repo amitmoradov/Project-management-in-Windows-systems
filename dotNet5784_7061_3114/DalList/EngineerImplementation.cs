@@ -82,4 +82,9 @@ internal class EngineerImplementation : IEngineer
         }
         throw new DalDoesNotExistException($"Engineer with ID={item!._id} is Not exists");
     }
+
+    public void reset()
+    {
+
+    }
 }

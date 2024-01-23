@@ -4,6 +4,7 @@ using DO;
 using Dal;
 using System;
 using System.Data.Common;
+using System.Xml.Linq;
 
 /// <summary>
 /// 
@@ -213,6 +214,10 @@ public static class Initialization
     public static void Do(IDal? dal)
     {
         e_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
+
+        e_dal.Engineer.reset();
+        e_dal.Dependency.reset();
+        e_dal.Task.reset();
         //e_dalDependency = dalDependency ?? throw new NullReferenceException("Dependency can not be null!");
         //e_dalEngineer = dalEngineer ?? throw new NullReferenceException("Engineer can not be null!");
         //e_dalTask = dalTask ?? throw new NullReferenceException("Task can not be null!");

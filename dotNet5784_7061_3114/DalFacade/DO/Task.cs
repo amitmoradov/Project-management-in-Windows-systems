@@ -20,7 +20,7 @@ namespace DO;
 /// <param name="Remarks"> Remark to the task .</param>
 /// <param name="EngineerId">The id of the charge engineer .</param>
 public record Task
-(
+( 
     DateTime? _createdAtDate,
     TimeSpan? _requiredEffortTime,//זמן מאמץ נדרש
     DO.EngineerExperience? _copmliexity,
@@ -38,7 +38,15 @@ public record Task
     bool _isMilestone = false,
     bool _canToRemove = true
 
+
 )
 {
     public Task () : this(null, null, null,null ,null, null, null) { }
+
+    public bool ShouldSerialize_scheduledDate() { return _scheduledDate.HasValue; }
+    public bool ShouldSerialize_requiredEffortTime() { return _requiredEffortTime.HasValue; }
+    public bool ShouldSerialize_deadLineDate() { return _deadLineDate.HasValue; }
+    public bool ShouldSerialize_deliverables() { return !string.IsNullOrEmpty(_deliverables); }
+
+    //public bool ShouldSerializeEngineerId() { return _engineerId.HasValue; }
 }

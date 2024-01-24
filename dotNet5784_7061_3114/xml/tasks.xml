@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <_createdAtDate>2023-02-15T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-03-26T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_copmliexity>Beginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>TRA</_alias>
     <_description>Research and Analysis of Vehicle Traffic</_description>
     <_remarks>Gathering data and analyzing vehicular movement.</_remarks>
@@ -18,13 +16,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2021-11-27T00:00:00</_createdAtDate>
+    <_createdAtDate>2023-10-24T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_copmliexity>Intermediate</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>CSE</_alias>
     <_description>Evaluation of Potential Charging Station Locations</_description>
     <_remarks>Inspecting and assessing suitable charging station positions.</_remarks>
@@ -35,13 +31,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2022-08-10T00:00:00</_createdAtDate>
+    <_createdAtDate>2020-02-03T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_copmliexity>Intermediate</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>SCS</_alias>
     <_description>Development of Smart Communication System</_description>
     <_remarks>Creating an intelligent communication infrastructure.</_remarks>
@@ -52,13 +46,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2021-08-17T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-04-15T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>APIA</_alias>
     <_description>Assessment of Project Impact on Air Pollution Levels</_description>
     <_remarks>Examining the project's effect on air quality.</_remarks>
@@ -69,13 +61,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2020-02-26T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-04-27T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
     <_copmliexity>Intermediate</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>AESP</_alias>
     <_description>Planning and Establishment of Advanced Energy System</_description>
     <_remarks>Planning and implementing an advanced energy structure.</_remarks>
@@ -86,13 +76,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2021-04-25T00:00:00</_createdAtDate>
+    <_createdAtDate>2022-12-22T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_copmliexity>Intermediate</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>CSC</_alias>
     <_description>Construction of Charging Stations</_description>
     <_remarks>Building facilities for electric vehicle charging.</_remarks>
@@ -103,13 +91,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2022-04-01T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-12-04T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_copmliexity>Intermediate</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>SST</_alias>
     <_description>Testing and Verification of Safety Standards</_description>
     <_remarks>Conducting testing procedures to verify safety measures.</_remarks>
@@ -120,13 +106,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2022-05-13T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-10-28T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>EVMC</_alias>
     <_description>Collaboration with Electric Vehicle Manufacturers</_description>
     <_remarks>Engaging in collaboration with electric vehicle manufacturers.</_remarks>
@@ -137,13 +121,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2022-09-13T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-03-22T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>BIP</_alias>
     <_description>Development of Budgetary and Implementation Plan</_description>
     <_remarks>Creating a comprehensive budget and execution strategy.</_remarks>
@@ -154,13 +136,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2022-05-07T00:00:00</_createdAtDate>
+    <_createdAtDate>2023-04-05T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_copmliexity>Beginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>DMS</_alias>
     <_description>Establishment of Data Management System</_description>
     <_remarks>Setting up a system for efficient data management.</_remarks>
@@ -171,13 +151,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2020-03-15T00:00:00</_createdAtDate>
+    <_createdAtDate>2023-05-05T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>STMI</_alias>
     <_description>Implementation of Smart Traffic Management System</_description>
     <_remarks>Integrating intelligent traffic control systems.</_remarks>
@@ -188,13 +166,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2021-07-14T00:00:00</_createdAtDate>
+    <_createdAtDate>2024-01-21T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_copmliexity>Beginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>RMS</_alias>
     <_description>Creation of Roadway Maintenance and Monitoring System</_description>
     <_remarks>Establishing a protocol for road maintenance.</_remarks>
@@ -205,13 +181,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2022-03-06T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-12-09T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>DSP</_alias>
     <_description>Provision of Driver Support Services</_description>
     <_remarks>Offering assistance to drivers during charging processes.</_remarks>
@@ -222,13 +196,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2021-10-11T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-08-29T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
     <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>STC</_alias>
     <_description>Development of Smart Traffic Control System</_description>
     <_remarks>Designing an intelligent traffic control mechanism.</_remarks>
@@ -239,13 +211,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2023-04-16T00:00:00</_createdAtDate>
+    <_createdAtDate>2020-09-25T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>AESI</_alias>
     <_description>Installation of Advanced Energy Stations</_description>
     <_remarks>Setting up installations for advanced energy sources.</_remarks>
@@ -256,13 +226,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2023-12-06T00:00:00</_createdAtDate>
+    <_createdAtDate>2023-06-30T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_copmliexity>Beginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>VCSB</_alias>
     <_description>Building a Communication System Between Vehicles</_description>
     <_remarks>Creating a communication platform for vehicles.</_remarks>
@@ -273,13 +241,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2023-05-13T00:00:00</_createdAtDate>
+    <_createdAtDate>2020-05-30T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>PMPC</_alias>
     <_description>Creation of Project Management and Oversight Plan</_description>
     <_remarks>Formulating a detailed project management strategy.</_remarks>
@@ -290,13 +256,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2020-08-12T00:00:00</_createdAtDate>
+    <_createdAtDate>2021-11-04T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_copmliexity>Intermediate</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>BCSR</_alias>
     <_description>Budgetary Compliance and Planned Work Scope Review</_description>
     <_remarks>Evaluating adherence to budget and project scope.</_remarks>
@@ -307,13 +271,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2020-05-24T00:00:00</_createdAtDate>
+    <_createdAtDate>2023-07-21T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
     <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>VTSM</_alias>
     <_description>Development of Vehicle Traffic Management System</_description>
     <_remarks>Overseeing the operation of vehicular traffic systems.</_remarks>
@@ -324,13 +286,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2022-08-26T00:00:00</_createdAtDate>
+    <_createdAtDate>2022-04-16T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_copmliexity>Beginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>PBAA</_alias>
     <_description>Assessment of Project Budget Adherence</_description>
     <_remarks>Evaluating compliance with the project's budget.</_remarks>
@@ -341,13 +301,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2021-06-26T00:00:00</_createdAtDate>
+    <_createdAtDate>2023-04-26T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
     <_copmliexity>Advanced</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>EOID</_alias>
     <_description>Development of Infrastructure Support for Electric Vehicle Offices</_description>
     <_remarks>Creating infrastructure for electric vehicle office spaces.</_remarks>
@@ -358,13 +316,11 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2020-10-17T00:00:00</_createdAtDate>
+    <_createdAtDate>2020-05-04T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1461D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
     <_startDate>2020-01-01T00:00:00</_startDate>
-    <_scheduledDate xsi:nil="true" />
     <_completeDate>2024-01-01T00:00:00</_completeDate>
-    <_deadLineDate xsi:nil="true" />
     <_alias>EOISE</_alias>
     <_description>Examination of Infrastructure Support for Electric Vehicle Offices</_description>
     <_remarks>Reviewing support systems for electric vehicle office spaces.</_remarks>

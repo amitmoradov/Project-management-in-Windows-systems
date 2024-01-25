@@ -1,6 +1,6 @@
 ﻿namespace DalApi;
 using System.Xml.Linq;
-
+using DO;
 static class Config
 {
     /// <summary>
@@ -25,6 +25,7 @@ static class Config
 
         var packages = dalConfig.Element("dal-packages")?.Elements() ??
   throw new DalConfigException("<dal-packages> element is missing");
+
         s_dalPackages = (from item in packages
                          let pkg = item.Value
                          let ns = item.Attribute("namespace")?.Value ?? "Dal"
@@ -32,11 +33,4 @@ static class Config
                          select (item.Name, new DalImplementation(pkg, ns, cls))
                         ).ToDictionary(p => "" + p.Name, p => p.Item2);
     }
-}
-
-[Serializable]
-public class DalConfigException : Exception
-{
-    public DalConfigException(string msg) : base(msg) { }
-    public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
 }

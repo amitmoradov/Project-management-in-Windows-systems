@@ -211,7 +211,7 @@ public static class Initialization
             
     }
 
-    public static void Do(IDal? dal)
+    public static void Do()
     {
         e_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
 

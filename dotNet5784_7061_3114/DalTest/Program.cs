@@ -9,7 +9,11 @@ internal class Program
 {
     // Variables for the Interfaces .
     //static readonly IDal? e_dal = new DalList(); // Stage 2
-    static readonly IDal? e_dal = new DalXml(); // Stage 3
+    // static readonly IDal? e_dal = new DalXml(); // Stage 3
+
+    //The field will be initialized to work with the class that supports the Factory design template
+    //that initializes the appropriate class according to the configuration file
+    static readonly IDal e_dal = Factory.Get; //stage 4                                         
 
     //private static IDependency? e_dalDependency = new DependencyImplementation();
     //private static ITask? e_dalTask = new TaskImplementation();
@@ -54,8 +58,9 @@ internal class Program
                         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
 
                         if (ans == "Y")
-                        {                           
-                            Initialization.Do(e_dal);
+                        {
+                            //Initialization.Do(e_dal); // stage 2
+                            Initialization.Do(); // stage 4
                         }
                         break;
                     default:

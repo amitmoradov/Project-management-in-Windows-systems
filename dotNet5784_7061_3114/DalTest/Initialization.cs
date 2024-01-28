@@ -213,14 +213,19 @@ public static class Initialization
 
     public static void Do()
     {
-        e_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
+        //e_dal = dal ?? throw new NullReferenceException("DAL object can not be null!");
 
+        //It will be initialized to work with the department
+        //that supports the factory design pattern that initializes the appropriate department according to the configuration file
+        e_dal = DalApi.Factory.Get;
         e_dal.Engineer.reset();
         e_dal.Dependency.reset();
         e_dal.Task.reset();
+
         //e_dalDependency = dalDependency ?? throw new NullReferenceException("Dependency can not be null!");
         //e_dalEngineer = dalEngineer ?? throw new NullReferenceException("Engineer can not be null!");
         //e_dalTask = dalTask ?? throw new NullReferenceException("Task can not be null!");
+
         createDependency();
         createEngineer();
         createTaks();

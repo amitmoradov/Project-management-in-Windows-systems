@@ -16,16 +16,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{4EDD99C1-3565-47AD-909B-54B094C23DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{7BFD487E-2F09-49D6-A6E4-A4A3D2E18EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{7BFD487E-2F09-49D6-A6E4-A4A3D2E18EC8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{0049B545-44EF-4AFB-A66E-E2D99F94F20B}"
 	ProjectSection(SolutionItems) = preProject
-		xml\data-config.xml = xml\data-config.xml
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\data-config.xml = xml\data-config.xml
 		xml\dependencies.xml = xml\dependencies.xml
 		xml\engineers.xml = xml\engineers.xml
 		xml\tasks.xml = xml\tasks.xml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{3B2D0315-C48C-4A41-9E25-8E2F7BBFA8DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{6A9CBF4D-636D-42CC-A144-40E667B7BA60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,14 @@ Global
 		{7BFD487E-2F09-49D6-A6E4-A4A3D2E18EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BFD487E-2F09-49D6-A6E4-A4A3D2E18EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BFD487E-2F09-49D6-A6E4-A4A3D2E18EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B2D0315-C48C-4A41-9E25-8E2F7BBFA8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B2D0315-C48C-4A41-9E25-8E2F7BBFA8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B2D0315-C48C-4A41-9E25-8E2F7BBFA8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B2D0315-C48C-4A41-9E25-8E2F7BBFA8DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A9CBF4D-636D-42CC-A144-40E667B7BA60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9CBF4D-636D-42CC-A144-40E667B7BA60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9CBF4D-636D-42CC-A144-40E667B7BA60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9CBF4D-636D-42CC-A144-40E667B7BA60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

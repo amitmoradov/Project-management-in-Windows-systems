@@ -4,7 +4,7 @@ namespace BlApi;
 
 public interface IEngineer
 {
-    void Create(BO.Engineer item); //Creates new Engineer object in BL
+    int Create(BO.Engineer boEngineer); //Creates new Engineer object in BL
     BO.Engineer? Read(int id); //Reads Engineer object by its ID 
     /// <summary>
     /// Return item by every parameters that it got .

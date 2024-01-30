@@ -55,7 +55,7 @@ internal class EngineerImplementation : IEngineer
         return DataSource.Engineers.FirstOrDefault(filter);
     }
 
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+    public IEnumerable<Engineer?> ReadAll(Func<DO.Engineer, bool>? filter = null)
     {
         if (filter != null)
         {

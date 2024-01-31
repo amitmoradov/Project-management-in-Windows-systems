@@ -65,9 +65,6 @@ internal class EngineerImplementation : IEngineer
         }
         return from item in DataSource.Engineers
                select item;
-
-        //return new List<Engineer>(DataSource.Engineers);
-        //throw new NotImplementedException();
     }
 
     public void Update(Engineer item)

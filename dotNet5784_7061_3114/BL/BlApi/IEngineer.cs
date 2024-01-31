@@ -14,6 +14,6 @@ public interface IEngineer
     /// return bool and bring type T
     BO.Engineer? Read(Func<BO.Engineer, bool> filter); // Return item by every parameters that it got .
     IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null); // Pointer to func .
-    void Update(BO.Engineer item); //Updates Engineer object
+    void Update(BO.Engineer boEngineer); //Updates Engineer object
     void Delete(int id); //Deletes an Engineer object by its Id
 }

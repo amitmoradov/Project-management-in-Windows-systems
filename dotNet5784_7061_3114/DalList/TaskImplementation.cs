@@ -84,7 +84,6 @@ internal class TaskImplementation : ITask
         if(task is not null)
         {
             Delete(task._id);
-            //Create(item);
             DataSource.Tasks.Add(item);
             return;
         }

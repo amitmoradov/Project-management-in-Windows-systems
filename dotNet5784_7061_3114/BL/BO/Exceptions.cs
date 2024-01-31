@@ -31,10 +31,25 @@ public class BlEntityCanNotRemoveException : Exception
 }
 
 /// <summary>
-/// 
+/// The entity is not exist
 /// </summary>
 [Serializable]
 public class BlDoesNotExistException : Exception
 {
     public BlDoesNotExistException(string msg, DO.DalDoesNotExistException ex) : base(msg, ex) { }
+}
+
+/// <summary>
+/// 
+/// </summary>
+[Serializable]
+public class BlReadNotFoundException : Exception
+{
+    public BlReadNotFoundException(string msg) : base(msg) { }
+}
+
+[Serializable]
+public class BlCannotDeletedException : Exception
+{
+    public BlCannotDeletedException(string msg, DO.DalCannotDeleted ex) : base(msg, ex) { }
 }

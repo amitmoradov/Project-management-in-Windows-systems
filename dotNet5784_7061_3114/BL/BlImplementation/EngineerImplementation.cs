@@ -6,15 +6,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 
 namespace BlImplementation;
-
 internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
 
     public int Create(BO.Engineer boEngineer)
     {
-        DO.Engineer doEngineer = new DO.Engineer
-       (boEngineer.Id, boEngineer.Cost, boEngineer.Level, boEngineer.Email, boEngineer.Name, boEngineer.Active, boEngineer.CanToRemove);
+        DO.Engineer doEngineer = TurnEngineerToDo(boEngineer);
+
         try
         {
             // Checks the details and if they are incorrect, throws an error
@@ -34,69 +33,101 @@ internal class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-         BO.Engineer? engineer = Read(id);
+        // Read throw exception if engineer is not found 
+         BO.Engineer? boEngineer = Read(id);
 
          // Checks that the engineer is not performing a task
-         if (engineer?.Task != null)
+         if (boEngineer?.Task != null)
          {
-            throw new BO.BlEntityCanNotRemoveException($"Can not remove this engineer - The engineer is on a task");
+            throw new BO.BlEntityCanNotRemoveException("Can not remove this antity");
          }
 
-         //If the test was successful - you will make an attempt to request deletion from the data layer
-         _dal.Engineer.Delete(id);
-
-        // צריך דעת אם המהנדס סיים משימה או שהוא באמצע משימה
-
+        //If the test was successful - you will make an attempt to request deletion from the Data layer
+        try
+        {
+            _dal.Engineer.Delete(id);
+        }
+        catch(DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException("The antity is not exist", ex);
+        }
+        catch(DO.DalCannotDeleted ex)
+        {
+            throw new BO.BlCannotDeletedException("Can not delete this antity", ex);
+        }
     }
 
     public BO.Engineer? Read(int id)
     {
-        try
+        DO.Engineer? doEngineer = _dal.Engineer.Read(id);
+        if (doEngineer != null)
         {
-            DO.Engineer? doEngineer = _dal.Engineer.Read(id);
-            if (doEngineer != null)
-            {
-                BO.Engineer? boEngineer = new (doEngineer._id, doEngineer._cost, doEngineer._level, null, doEngineer._email, doEngineer._name, doEngineer._active, doEngineer._canToRemove);
-            }
+            BO.Engineer boEngineer = TurnEngineerToBo(doEngineer);
+
+            return boEngineer;
         }
-        catch(DO.DalDoesNotExistException ex) 
-        {
-            throw new BO.BlDoesNotExistException("  ",ex);
-        }
+         throw new BO.BlReadNotFoundException($"Engineer with ID={doEngineer?._id} is not exist");
     }
 
     public BO.Engineer? Read(Func<BO.Engineer, bool> filter)
     {
-        throw new NotImplementedException();
+        DO.Engineer? doEngineer = _dal.Engineer.Read(x=>filter(TurnEngineerToBo(x)));
+        if (doEngineer != null)
+        {
+            BO.Engineer boEngineer = TurnEngineerToBo(doEngineer);
+            return boEngineer;
+        }
+        throw new BO.BlReadNotFoundException("Engineer is not exist");
     }
 
     public IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
-        //Get all engineers from layer DL
-        var listEngineer = (from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
-                select new BO.Engineer
-                {
-                    Id = doEngineer._id,
-                    Name = doEngineer._name,
-                    Email = doEngineer._email,
-                    CanToRemove = doEngineer._canToRemove,
-                    Active = doEngineer._active,                 
-                });
-
-        // Chack if filter work on engineer
         if (filter != null)
         {
-            listEngineer = listEngineer.Where(engineer => filter(engineer));
+            //Get all engineers from DL Layer that up in condition
+            var listEngineers = from DO.Engineer doEngineer in _dal.Engineer.ReadAll(x => filter(TurnEngineerToBo(x)))
+                                   // Save dateils of Engineer in listEngineers
+                               let engineer = Read(doEngineer._id)
+                               select engineer;
+            return listEngineers;
+        }
+        //Get all engineers from DL Layer without condition
+        var listEngineer = from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
+                               // Save dateils of Engineer in listEngineer
+                           let engineer = Read(doEngineer._id)
+                           select engineer;
+        return listEngineer;
+    }
+
+    public void Update(BO.Engineer boEngineer)
+    {
+        // Get the previous details engineer 
+        BO.Engineer prievseEngineer = Read(boEngineer.Id);
+
+        ChackDetails(boEngineer);
+
+        //Checks if the engineer's level hasn't dropped
+        if (boEngineer.Level < prievseEngineer?.Level)
+        {
+            throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Level}");
+        }
+        if (prievseEngineer?.Task?.Id != boEngineer?.Task?.Id)
+        {
+            //Return from the list of tasks the one task that the engineer is working on
+            var resulte = (from DO.Task task in _dal.Task.ReadAll()
+                           where prievseEngineer?.Id == task._engineerId
+                           select task).FirstOrDefault();
+
+            //לבדוק אם לשנות לאחר שניצור את המחקלה ש לTask BL               
+            DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity, resulte._startDate,resulte._scheduledDate,resulte._completeDate,resulte._deadLineDate,resulte._alias,resulte._description,resulte._deliverables,resulte._remarks,resulte._id,boEngineer.Id,resulte._active,resulte._isMilestone,resulte._canToRemove);
+            _dal.Task.Update(newTask);
         }
 
-        return listEngineer;
-
+        DO.Engineer doEngineer = TurnEngineerToDo(boEngineer);
+        _dal.Engineer.Update(doEngineer);
     }
 
-    public void Update(BO.Engineer item)
-    {
-        throw new NotImplementedException();
-    }
+
 
     //Help function
 
@@ -121,10 +152,63 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Name}");
         }
 
-        if (boEngineer.Email == "")
+        if (IsValidEmail(boEngineer.Email) == false)
         {
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Email}");
         }
 
+    }
+
+    // Function that chack the email is correct.
+    private bool IsValidEmail(string email)
+    {
+        return email.Contains("@") && email.EndsWith(".com", StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Turn the Engineer from Data Layer to Bussinus Layer
+    /// </summary>
+    /// <param name="doEngineer"></param>
+    /// <returns></returns>
+    private BO.Engineer TurnEngineerToBo(DO.Engineer doEngineer)
+    {
+        //Return from the list of tasks the one task that the engineer is working on
+        var resulte = (from DO.Task task in _dal.Task.ReadAll()
+                       where doEngineer._id == task._engineerId
+                       select task).FirstOrDefault();
+
+        //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
+        BO.TaskInEngineer taskInEngineer = new()
+        {
+            Id = resulte._id,
+            Alias = resulte._alias
+        };
+
+        BO.Engineer? boEngineer = new BO.Engineer()
+        {
+            Id = doEngineer._id,
+            Email = doEngineer._email,
+            Cost = doEngineer._cost,
+            CanToRemove = doEngineer._canToRemove,
+            Level = doEngineer._level,
+            Active = doEngineer._active,
+            Name = doEngineer._name,
+            Task = taskInEngineer,
+        };
+
+        return boEngineer;
+    }
+
+    /// <summary>
+    /// Turn the Engineer from Bussines Layer to Data Layer.
+    /// </summary>
+    /// <param name="boEngineer"></param>
+    /// <returns></returns>
+    private DO.Engineer TurnEngineerToDo(BO.Engineer boEngineer)
+    {
+        DO.Engineer doEngineer = new DO.Engineer
+       (boEngineer.Id, boEngineer.Cost, boEngineer.Level, boEngineer.Email, boEngineer.Name, boEngineer.Active, boEngineer.CanToRemove);
+
+        return doEngineer;
     }
 }

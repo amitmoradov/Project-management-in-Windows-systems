@@ -74,31 +74,35 @@ public class TaskImplementation : ITask
 
     private BO.Task TurnTaskToBo(DO.Task doTask)
     {
-        //Return from the list of tasks the one task that the engineer is working on
-        var resulte = (from DO.Task task in _dal.Task.ReadAll()
-                       where doEngineer._id == task._engineerId
-                       select task).FirstOrDefault();
+        //
+        var resulte = (from DO.Engineer engineer in _dal.Engineer.ReadAll()
+                       where engineer._id == doTask._engineerId
+                       select engineer).FirstOrDefault();
 
-        //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
-        BO.TaskInEngineer taskInEngineer = new()
+        //Create an object of type EngineerInTask to initialize
+        BO.EngineerInTask engineerInTask = new()
         {
             Id = resulte._id,
-            Alias = resulte._alias
+            Name = resulte._name,
         };
 
-        BO.Engineer? boEngineer = new BO.Engineer()
+        BO.Task? boTask = new BO.Task()
         {
-            Id = doEngineer._id,
-            Email = doEngineer._email,
-            Cost = doEngineer._cost,
-            CanToRemove = doEngineer._canToRemove,
-            Level = doEngineer._level,
-            Active = doEngineer._active,
-            Name = doEngineer._name,
-            Task = taskInEngineer,
+            // TODO: להכניס את השדות של התאריכים עם החישוב (כלומר לאחר החישוב) ש
+            Id = doTask._id,
+            Alias = doTask._alias,
+            Description = doTask._description,
+            CanToRemove = doTask._canToRemove,
+            Remarks = doTask._remarks,
+            StartDate = doTask._startDate,
+            Active = doTask._active,
+            Engineer = engineerInTask,
+            StartDate = doTask._startDate,// DOTO: זה מסוג איתחול לכן זה צועק עליי
+            CompleteDate = doTask._completeDate,    
+            Status = Status(BringStatus(doTask._startDate, doTask._completeDate, doTask._completeDate)), //TODO: להמיר אותו לסוג סטטוס
         };
 
-        return boEngineer;
+        return boTask;
     }
 
     //////////////////////////////////Help function////////////////////////////////////
@@ -123,8 +127,9 @@ public class TaskImplementation : ITask
         return doTask;
     }
 
-    private int BringStatus(DateTime StartDate, DateTime? ScheduledDate, DateTime? CompleteDate)
-    {
+    private int BringStatus(DateTime? StartDate, DateTime? ScheduledDate, DateTime? CompleteDate)
+    { 
+        
         if (ScheduledDate == null)//Unscheduled אין תאריך התחלה מתוכנן
         {
             return 0;

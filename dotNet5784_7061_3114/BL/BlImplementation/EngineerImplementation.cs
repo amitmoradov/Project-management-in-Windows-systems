@@ -102,34 +102,35 @@ internal class EngineerImplementation : IEngineer
     public void Update(BO.Engineer boEngineer)
     {
         // Get the previous details engineer 
-        BO.Engineer prievseEngineer = Read(boEngineer.Id);
+        BO.Engineer previousEngineer = Read(boEngineer.Id);
 
         ChackDetails(boEngineer);
 
         //Checks if the engineer's level hasn't dropped
-        if (boEngineer.Level < prievseEngineer?.Level)
+        if (boEngineer.Level < previousEngineer?.Level)
         {
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Level}");
         }
-        if (prievseEngineer?.Task?.Id != boEngineer?.Task?.Id)
+
+        if (previousEngineer?.Task?.Id != boEngineer?.Task?.Id)
         {
             //Return from the list of tasks the one task that the engineer is working on
             var resulte = (from DO.Task task in _dal.Task.ReadAll()
-                           where prievseEngineer?.Id == task._engineerId
+                           where previousEngineer?.Id == task._engineerId
                            select task).FirstOrDefault();
 
-            //לבדוק אם לשנות לאחר שניצור את המחקלה ש לTask BL               
+            //לבדוק אם לשנות לאחר שניצור את המחקלה שלTask BL               
             DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity, resulte._startDate,resulte._scheduledDate,resulte._completeDate,resulte._deadLineDate,resulte._alias,resulte._description,resulte._deliverables,resulte._remarks,resulte._id,boEngineer.Id,resulte._active,resulte._isMilestone,resulte._canToRemove);
             _dal.Task.Update(newTask);
         }
-
+        //Save the change un Data Base.
         DO.Engineer doEngineer = TurnEngineerToDo(boEngineer);
         _dal.Engineer.Update(doEngineer);
     }
 
 
 
-    //Help function
+   //////////////////////////////////////////////Help function//////////////////////////////////////////////////
 
     /// <summary>
     ///  Chack input vaildity
@@ -159,7 +160,11 @@ internal class EngineerImplementation : IEngineer
 
     }
 
-    // Function that chack the email is correct.
+    /// <summary>
+    /// Function that chack the email is correct.
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
     private bool IsValidEmail(string email)
     {
         return email.Contains("@") && email.EndsWith(".com", StringComparison.OrdinalIgnoreCase);

@@ -1,16 +1,33 @@
 ﻿
 using BlApi;
+using BO;
 
 namespace BlImplementation;
 
 
-internal class TaskImplementation : ITask
+public class TaskImplementation : ITask
 {
     // Access to Dl layer .
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    public void Create(BO.Task item)
+    public void Create(BO.Task boTask)
     {
-        throw new NotImplementedException();
+        //Chack the details of Task
+        ChackDetails(boTask);
+
+        //Convert the details to Data Base Layer
+        DO.Task doTask = TurnTaskToDo(boTask);
+
+        //Try to Save the details of new Task in Data Base.
+        try
+        {
+            _dal.Task.Create(doTask);
+        }
+
+        //Catch the exception from DL and add more exception from this Layer.
+        catch(DO.DalDoesExistException ex)
+        {
+            throw new BO.BlAlreadyExistsException($"Engineer with ID={boTask.Id} already exists", ex);
+        }
     }
 
     public void Delete(int id)
@@ -41,10 +58,17 @@ internal class TaskImplementation : ITask
     }
 
 
-    private void ChackDetails(BO.Task item)
+    private void ChackDetails(BO.Task boTask)
     {
 
-        throw new NotImplementedException();
+       if (boTask.Id < 0) 
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Id}");
+        }
+        if (boTask.Alias == "")
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Alias}");
+        }
     }
 
 

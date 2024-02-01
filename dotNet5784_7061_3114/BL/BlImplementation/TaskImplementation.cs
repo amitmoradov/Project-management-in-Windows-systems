@@ -99,7 +99,7 @@ public class TaskImplementation : ITask
             Engineer = engineerInTask,
             StartDate = doTask._startDate,// DOTO: זה מסוג איתחול לכן זה צועק עליי
             CompleteDate = doTask._completeDate,    
-            Status = Status(BringStatus(doTask._startDate, doTask._completeDate, doTask._completeDate)), //TODO: להמיר אותו לסוג סטטוס
+            Status = (Status)(BringStatus(doTask._startDate, doTask._completeDate, doTask._completeDate)),
         };
 
         return boTask;
@@ -148,6 +148,7 @@ public class TaskImplementation : ITask
         {
             return 3;
         }
+        return 0; 
     }
 }
 

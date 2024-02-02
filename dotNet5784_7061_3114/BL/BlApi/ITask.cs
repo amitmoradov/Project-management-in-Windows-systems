@@ -13,7 +13,7 @@ public interface ITask
     /// <returns></returns>
     /// return bool and bring type T
     BO.Task? Read(Func<BO.Task, bool> filter); // Return item by every parameters that it got .
-    IEnumerable<BO.Task?> ReadAll(Func<BO.Task, bool>? filter = null); // Pointer to func .
+    IEnumerable<BO.TaskInList?> ReadAll(Func<BO.Task, bool>? filter = null); // Pointer to func .
     void Update(BO.Task item); //Updates entity object
     void Delete(int id); //Deletes an object by its Id
 }

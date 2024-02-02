@@ -121,7 +121,7 @@ public class TaskImplementation : ITask
         throw new BO.BlReadNotFoundException("Engineer is not exist");
     }
 
-    public IEnumerable<BO.Task?> ReadAll(Func<BO.Task, bool>? filter = null)
+    public IEnumerable<BO.TaskInList?> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         throw new NotImplementedException();
     }
@@ -176,20 +176,26 @@ public class TaskImplementation : ITask
         {
             // TODO: להכניס את השדות של התאריכים עם החישוב (כלומר לאחר החישוב) ש
             Id = doTask._id,
-            StartDate = doTask._startDate,// think that we gave the start date in 
+
             Alias = doTask._alias,
             Description = doTask._description,
             CanToRemove = doTask._canToRemove,
             Remarks = doTask._remarks,
-            
             Active = doTask._active,
-            Engineer = engineerInTask,
             RequiredEffortTime = doTask._requiredEffortTime,
             Copmliexity = doTask._copmliexity,
 
-            //CompleteDate = doTask._completeDate,    
+            StartDate = doTask._startDate,// think that we gave the start date in 
+            Engineer = engineerInTask,
+            CompleteDate = doTask._completeDate,
+            CreatedAtDate = doTask._createdAtDate,
+
             Status = (Status)(BringStatus(doTask._startDate, doTask._scheduledDate, doTask._completeDate)),
+            Dependencies = BringDendencies(doTask),
+
         };
+       
+        
 
         return boTask;
     }
@@ -238,6 +244,27 @@ public class TaskImplementation : ITask
             return 3;
         }
         return 0; 
+    }
+    /// <summary>
+    /// Return List of all tasks that boTask dependent on them
+    /// </summary>
+    /// <param name="boTask"></param>
+    /// <returns></returns>
+    private List<BO.TaskInList>? BringDendencies(DO.Task doTask)
+    {
+        // Get all tasks that boTask dependen on .
+        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependentTask == doTask._id)
+                               // Search the task that boTask dependent on her in Dal every time .
+                           let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
+                           // Create new TaskInList and adds it to the list .
+                           select new TaskInList
+                           {
+                               Id = dependentOnTasks._id,
+                               Description = dependentOnTasks._description,
+                               Alias = dependentOnTasks._alias,
+                               Status = (Status)BringStatus(dependentOnTasks._startDate, dependentOnTasks._scheduledDate, dependentOnTasks._completeDate)
+                           };
+        return listOfDependencies.ToList();
     }
 }
 

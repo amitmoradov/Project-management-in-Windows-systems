@@ -1,6 +1,7 @@
 ﻿
 using BlApi;
 using BO;
+using DO;
 using System.Security.Cryptography;
 
 namespace BlImplementation;
@@ -15,6 +16,26 @@ public class TaskImplementation : ITask
 
         //Chack the details of Task
         ChackDetails(boTask);
+
+        // Create dpendent
+        // לברר לגבי בלי לולאת foreach
+        if (boTask.Dependencies != null)
+        {
+            foreach (var task in boTask.Dependencies)
+            {
+                DO.Dependency newDependency = new(boTask.Id, task.Id);
+                _dal.Dependency.Create(newDependency);
+
+            }
+        }
+        //var resulte = from task in boTask.Dependencies
+        //              let currentTaskId = task.Id
+        //              select new DO.Dependency
+        //              {
+        //                  _dependentTask = boTask.Id,
+        //                  _dependsOnTask = currentTaskId
+        //              }into _dal.Dependency.Create();
+
 
         //Convert the details to Data Base Layer
         DO.Task doTask = TurnTaskToDo(boTask);

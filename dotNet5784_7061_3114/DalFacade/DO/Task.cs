@@ -47,6 +47,7 @@ public record Task
     public bool ShouldSerialize_requiredEffortTime() { return _requiredEffortTime.HasValue; }
     public bool ShouldSerialize_deadLineDate() { return _deadLineDate.HasValue; }
     public bool ShouldSerialize_deliverables() { return !string.IsNullOrEmpty(_deliverables); }
-
+    public bool ShouldSerialize_startDate() { return _startDate.HasValue; }
+    public bool ShouldSerialize_completeDate() { return _completeDate.HasValue; }
     //public bool ShouldSerializeEngineerId() { return _engineerId.HasValue; }
 }

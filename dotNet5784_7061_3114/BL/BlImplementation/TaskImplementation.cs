@@ -1,6 +1,7 @@
 ﻿
 using BlApi;
 using BO;
+using System.Security.Cryptography;
 
 namespace BlImplementation;
 
@@ -11,6 +12,7 @@ public class TaskImplementation : ITask
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public void Create(BO.Task boTask)
     {
+
         //Chack the details of Task
         ChackDetails(boTask);
 
@@ -94,12 +96,14 @@ public class TaskImplementation : ITask
             Description = doTask._description,
             CanToRemove = doTask._canToRemove,
             Remarks = doTask._remarks,
-            StartDate = doTask._startDate,
+            //StartDate = doTask._startDate,
             Active = doTask._active,
             Engineer = engineerInTask,
-            StartDate = doTask._startDate,// DOTO: זה מסוג איתחול לכן זה צועק עליי
-            CompleteDate = doTask._completeDate,    
-            Status = (Status)(BringStatus(doTask._startDate, doTask._completeDate, doTask._completeDate)),
+            RequiredEffortTime = doTask._requiredEffortTime,
+            Copmliexity = doTask._copmliexity,
+
+            //CompleteDate = doTask._completeDate,    
+            Status = (Status)(BringStatus(doTask._startDate, doTask._scheduledDate, doTask._completeDate)),
         };
 
         return boTask;

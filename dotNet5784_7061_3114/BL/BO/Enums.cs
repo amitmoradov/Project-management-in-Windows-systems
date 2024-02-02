@@ -6,7 +6,7 @@ public enum Status
 {
     Unscheduled,
     Scheduled,
-    OnTrack (Started), 
+    OnTrack, 
     InJeopardy,
     Done
 }

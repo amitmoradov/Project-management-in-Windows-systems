@@ -166,13 +166,15 @@ public static class Initialization
             // Get the difficulty of the task
             copmliexity = (EngineerExperience)e_rand.Next(0, 4);
 
-            DateTime startDate = new DateTime(2020, 1, 1);
-            int range = (DateTime.Today - startDate).Days;
-            DateTime _randomDate = startDate.AddDays(e_rand.Next(range));
+            DateTime create_at_date =  DateTime.Now;
 
-            DateTime completeDate = new DateTime(2024, 1, 1);
-            TimeSpan requiredEffortTime = completeDate - startDate;   
-            Task item = new(_randomDate, requiredEffortTime, copmliexity,startDate, null, completeDate, null, alias[i], description[i], null, tasksremarks[i]);
+            // The task take at less 100 days
+            int range =100;
+            DateTime _randomDate = create_at_date.AddDays(e_rand.Next(range));
+            
+            //TODO: fix the requiredeffoertime - save
+            TimeSpan requiredEffortTime = _randomDate - create_at_date;   
+            Task item = new(create_at_date, requiredEffortTime, copmliexity,null, null, null, null, alias[i], description[i], null, tasksremarks[i]);
             e_dal!.Task.Create(item);
         }
     }

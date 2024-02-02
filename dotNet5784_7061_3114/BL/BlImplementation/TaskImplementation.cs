@@ -24,17 +24,18 @@ public class TaskImplementation : ITask
             foreach (var task in boTask.Dependencies)
             {
                 DO.Dependency newDependency = new(boTask.Id, task.Id);
-                _dal.Dependency.Create(newDependency);
+                try
+                {
+                    // Chack if the dependecy is not exist
+                    _dal.Dependency.Create(newDependency);
+                }
+                catch (DalDoesExistException ex)
+                {
+                    throw new BO.BlAlreadyExistsException($"Dependency with ID={newDependency._id} already exist", ex);
+                }
 
             }
         }
-        //var resulte = from task in boTask.Dependencies
-        //              let currentTaskId = task.Id
-        //              select new DO.Dependency
-        //              {
-        //                  _dependentTask = boTask.Id,
-        //                  _dependsOnTask = currentTaskId
-        //              }into _dal.Dependency.Create();
 
 
         //Convert the details to Data Base Layer
@@ -49,25 +50,75 @@ public class TaskImplementation : ITask
         //Catch the exception from DL and add more exception from this Layer.
         catch(DO.DalDoesExistException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Engineer with ID={boTask.Id} already exists", ex);
+            throw new BO.BlAlreadyExistsException($"Task with ID={boTask.Id} already exists", ex);
         }
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        // Read throw exception if Task is not found 
+        BO.Task? boTask = Read(id);
+
+        //if boTask is not empty
+        if (boTask != null)
+        {
+            // Check that the Task is not dependecy for other task.
+            var chack = from dependency in _dal.Dependency.ReadAll()
+                        where dependency._dependsOnTask == boTask.Id
+                        select dependency;
+
+            // This task cannot be deleted because it is a dependency of another task
+            if (chack is not null)
+            {
+                throw new BO.BlEntityCanNotRemoveException("Can not remove this antity");
+            }
+
+
+            //If the test was successful - you will make an attempt to request deletion from the Data layer
+            try
+            {
+                _dal.Task.Delete(id);
+            }
+            catch (DO.DalDoesNotExistException ex)
+            {
+                throw new BO.BlDoesNotExistException("The antity is not exist", ex);
+            }
+            catch (DO.DalCannotDeleted ex)
+            {
+                throw new BO.BlCannotDeletedException("Can not delete this antity", ex);
+            }
+        }
+        
     }
 
     public BO.Task? Read(int id)
     {
+        //Get from DL the Task that I search
+        DO.Task? doTask = _dal.Task.Read(id);
 
-        throw new NotImplementedException();
+        if (doTask != null)
+        {
+            // Convert him to BO and return him.
+            BO.Task boTask = TurnTaskToBo(doTask);
+            return boTask;
+        }
+        //If is not exist
+        throw new BO.BlReadNotFoundException($"Task with ID={doTask?._id} is not exist");
     }
 
     public BO.Task? Read(Func<BO.Task, bool> filter)
     {
+        //Get from DL the Task that I search
+        DO.Task? doTask = _dal.Task.Read(x => filter(TurnTaskToBo(x)));
 
-        throw new NotImplementedException();
+        if (doTask != null)
+        {
+            // Convert him to BO and return him.
+            BO.Task boTask = TurnTaskToBo(doTask);
+            return boTask;
+        }
+        //If is not exist
+        throw new BO.BlReadNotFoundException("Engineer is not exist");
     }
 
     public IEnumerable<BO.Task?> ReadAll(Func<BO.Task, bool>? filter = null)
@@ -75,9 +126,21 @@ public class TaskImplementation : ITask
         throw new NotImplementedException();
     }
 
-    public void Update(BO.Task item)
+    public void Update(BO.Task boTask)
     {
-        throw new NotImplementedException();
+        // Get the previous details engineer 
+        BO.Task previousTask = Read(boTask.Id);
+
+        ChackDetails(boTask);
+
+        try
+        {
+            _dal.Task.Update(TurnTaskToDo(boTask));
+        }
+        catch(DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BlDoesNotExistException("",ex);
+        }
     }
 
 
@@ -97,7 +160,7 @@ public class TaskImplementation : ITask
 
     private BO.Task TurnTaskToBo(DO.Task doTask)
     {
-        //
+        // Doing linq to fill the files of EngineerInTask
         var resulte = (from DO.Engineer engineer in _dal.Engineer.ReadAll()
                        where engineer._id == doTask._engineerId
                        select engineer).FirstOrDefault();
@@ -113,11 +176,12 @@ public class TaskImplementation : ITask
         {
             // TODO: להכניס את השדות של התאריכים עם החישוב (כלומר לאחר החישוב) ש
             Id = doTask._id,
+            StartDate = doTask._startDate,// think that we gave the start date in 
             Alias = doTask._alias,
             Description = doTask._description,
             CanToRemove = doTask._canToRemove,
             Remarks = doTask._remarks,
-            //StartDate = doTask._startDate,
+            
             Active = doTask._active,
             Engineer = engineerInTask,
             RequiredEffortTime = doTask._requiredEffortTime,

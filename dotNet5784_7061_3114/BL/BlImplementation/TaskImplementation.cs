@@ -36,7 +36,7 @@ public class TaskImplementation : ITask
 
             }
         }
-
+        
 
         //Convert the details to Data Base Layer
         DO.Task doTask = TurnTaskToDo(boTask);
@@ -176,7 +176,6 @@ public class TaskImplementation : ITask
         {
             // TODO: להכניס את השדות של התאריכים עם החישוב (כלומר לאחר החישוב) ש
             Id = doTask._id,
-
             Alias = doTask._alias,
             Description = doTask._description,
             CanToRemove = doTask._canToRemove,
@@ -184,19 +183,23 @@ public class TaskImplementation : ITask
             Active = doTask._active,
             RequiredEffortTime = doTask._requiredEffortTime,
             Copmliexity = doTask._copmliexity,
+            DeadLineDate = doTask._deadLineDate,
+            ScheduledDate = doTask._scheduledDate,
+            Deliverables = doTask._deliverables,
+
 
             StartDate = doTask._startDate,// think that we gave the start date in 
             Engineer = engineerInTask,
             CompleteDate = doTask._completeDate,
             CreatedAtDate = doTask._createdAtDate,
-
+            Milestone = null,
             Status = (Status)(BringStatus(doTask._startDate, doTask._scheduledDate, doTask._completeDate)),
             Dependencies = BringDendencies(doTask),
 
+            //ForcastDate = Max(StartDate ,ScheduledDate) + RequiredEffortTime .
+            ForcastDate = CalculateForcastDate(MaxDate(doTask._startDate, doTask._scheduledDate), doTask._requiredEffortTime),
         };
        
-        
-
         return boTask;
     }
 
@@ -265,6 +268,40 @@ public class TaskImplementation : ITask
                                Status = (Status)BringStatus(dependentOnTasks._startDate, dependentOnTasks._scheduledDate, dependentOnTasks._completeDate)
                            };
         return listOfDependencies.ToList();
+    }
+    /// <summary>
+    /// Return Max(startDat ,scheduledDate)
+    /// </summary>
+    /// <param name="startDate"></param>
+    /// <param name="scheduledDate"></param>
+    /// <returns></returns>
+    private DateTime? MaxDate(DateTime? startDate , DateTime? scheduledDate)
+    {
+        if (startDate.HasValue && scheduledDate.HasValue)
+        {
+            if (startDate.Value.Month > scheduledDate.Value.Month)
+            {
+                return startDate.Value;
+            }
+            // Both in the same month .
+            if (startDate.Value.Day > scheduledDate.Value.Day)
+            {
+                return startDate.Value;
+            }
+            return scheduledDate.Value;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Calculate the ForcastDate field .
+    /// </summary>
+    /// <param name="maxDate"></param>
+    /// <param name="requiredEffortTime"></param>
+    /// <returns></returns>
+    private DateTime? CalculateForcastDate (DateTime? maxDate , TimeSpan? requiredEffortTime)
+    {
+        return maxDate + requiredEffortTime;
     }
 }
 

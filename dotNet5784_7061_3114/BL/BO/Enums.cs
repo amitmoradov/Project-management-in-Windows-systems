@@ -10,5 +10,12 @@ public enum Status
     InJeopardy,
     Done
 }
+public enum ProjectScheduled
+{
+    planning,// before scheduled
+    determiningSchedule,
+    scheduleWasPalnned,
+}
+
 
 

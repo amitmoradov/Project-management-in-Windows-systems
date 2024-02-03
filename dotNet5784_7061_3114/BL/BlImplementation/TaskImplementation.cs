@@ -2,6 +2,7 @@
 using BlApi;
 using BO;
 using DO;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace BlImplementation;
@@ -37,7 +38,6 @@ public class TaskImplementation : ITask
             }
         }
         
-
         //Convert the details to Data Base Layer
         DO.Task doTask = TurnTaskToDo(boTask);
 
@@ -123,14 +123,23 @@ public class TaskImplementation : ITask
 
     public IEnumerable<BO.TaskInList?> ReadAll(Func<BO.Task, bool>? filter = null)
     {
-        throw new NotImplementedException();
+        //Create object of TaskInList from every Task in DataBase, and return him
+        var result = from task in _dal.Task.ReadAll()   
+                     let statusOfTask = (Status)BringStatus(task._startDate,task._scheduledDate,task._completeDate)
+                     select new TaskInList
+                     {
+                         Alias = task._alias,
+                         Description = task._description,
+                         Id = task._id,
+                         Status = statusOfTask
+                    };
+
+        return result;
     }
 
     public void Update(BO.Task boTask)
     {
         // Get the previous details engineer 
-        BO.Task previousTask = Read(boTask.Id);
-
         ChackDetails(boTask);
 
         try
@@ -139,21 +148,7 @@ public class TaskImplementation : ITask
         }
         catch(DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException("",ex);
-        }
-    }
-
-
-    private void ChackDetails(BO.Task boTask)
-    {
-
-       if (boTask.Id < 0) 
-        {
-            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Id}");
-        }
-        if (boTask.Alias == "")
-        {
-            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Alias}");
+            throw new BO.BlDoesNotExistException("The Task is not exist",ex);
         }
     }
 
@@ -205,6 +200,18 @@ public class TaskImplementation : ITask
 
     //////////////////////////////////Help function////////////////////////////////////
 
+    private void ChackDetails(BO.Task boTask)
+    {
+
+        if (boTask.Id < 0)
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Id}");
+        }
+        if (boTask.Alias == "")
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Alias}");
+        }
+    }
 
     /// <summary>
     /// Convert Bo to Do .
@@ -214,40 +221,41 @@ public class TaskImplementation : ITask
     private DO.Task TurnTaskToDo(BO.Task boTask)
     {
         // Get the Task that engineer work about .
-        var task_result = (from DO.Task task in _dal.Task.ReadAll()
-                           where task._id == boTask.Id
-                           select task).FirstOrDefault();
+        //var task_result = (from DO.Task task in _dal.Task.ReadAll()
+        //                   where task._id == boTask.Id
+        //                   select task).FirstOrDefault();
 
         // Do details from Bo .
         DO.Task doTask = new(boTask.CreatedAtDate, boTask.RequiredEffortTime, boTask.Copmliexity, boTask.StartDate, boTask.ScheduledDate,
             boTask.CompleteDate, boTask.DeadLineDate, boTask.Alias, boTask.Description, boTask.Deliverables, boTask.Remarks,
-            boTask.Id, task_result._engineerId, boTask.Active, _isMilestone: false, boTask.CanToRemove);
+            boTask.Id,boTask.Engineer!.Id, boTask.Active, _isMilestone: false, boTask.CanToRemove);
         return doTask;
     }
 
     private int BringStatus(DateTime? StartDate, DateTime? ScheduledDate, DateTime? CompleteDate)
     { 
         
-        if (ScheduledDate == null)//Unscheduled אין תאריך התחלה מתוכנן
+        if (ScheduledDate == null)//Unscheduled 
         {
             return 0;
         }
         else
-        if (ScheduledDate < StartDate)//Scheduled לוח הזמנים תוכנן אך היא עוד לא התחילה להתבצע
+        if (ScheduledDate < StartDate)//Scheduled 
         {
             return 1;
         }
         else
-        if (ScheduledDate < CompleteDate && ScheduledDate > StartDate)//OnTrack  המטלה התחילה להתבצע אך עוד לא הסתיימה
+        if (ScheduledDate < CompleteDate && ScheduledDate > StartDate)//OnTrack  
         {
             return 2;
         }
-        else if(ScheduledDate == CompleteDate)// Done ביצוע המטלה הסתיים 
+        else if(ScheduledDate == CompleteDate)// Done 
         {
             return 3;
         }
         return 0; 
     }
+
     /// <summary>
     /// Return List of all tasks that boTask dependent on them
     /// </summary>
@@ -269,6 +277,8 @@ public class TaskImplementation : ITask
                            };
         return listOfDependencies.ToList();
     }
+
+
     /// <summary>
     /// Return Max(startDat ,scheduledDate)
     /// </summary>

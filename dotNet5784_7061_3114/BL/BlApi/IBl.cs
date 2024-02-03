@@ -5,7 +5,7 @@ public interface IBl
 {
     public IEngineer Engineer { get; }
     public ITask Task { get; }
-    public IMilestone Milestone { get; }
-
+    public BO.ProjectScheduled StatusProject {  get; }
+    public static void Scedule() { }
 
 }

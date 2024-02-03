@@ -10,6 +10,7 @@ namespace BO;
 public class BlAlreadyExistsException : Exception
 {
     public BlAlreadyExistsException(string msg, DO.DalDoesExistException ex) : base(msg, ex) { }
+    public BlAlreadyExistsException(string message) : base(message) { }
 }
 
 /// <summary>
@@ -36,6 +37,7 @@ public class BlEntityCanNotRemoveException : Exception
 [Serializable]
 public class BlDoesNotExistException : Exception
 {
+    public BlDoesNotExistException(string msg): base(msg) { }
     public BlDoesNotExistException(string msg, DO.DalDoesNotExistException ex) : base(msg, ex) { }
 }
 
@@ -52,4 +54,5 @@ public class BlReadNotFoundException : Exception
 public class BlCannotDeletedException : Exception
 {
     public BlCannotDeletedException(string msg, DO.DalCannotDeleted ex) : base(msg, ex) { }
+    public BlCannotDeletedException(string msg): base(msg) { }
 }

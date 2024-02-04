@@ -19,7 +19,6 @@ public class TaskImplementation : ITask
         ChackDetails(boTask);
 
         // Create dpendent
-        // לברר לגבי בלי לולאת foreach
         if (boTask.Dependencies != null)
         {
             foreach (var task in boTask.Dependencies)
@@ -207,10 +206,57 @@ public class TaskImplementation : ITask
         {
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Id}");
         }
+
+        if (boTask.CreatedAtDate == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : CreatedAtDate");
+        }
+
+        if(boTask.ScheduledDate == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : ScheduledDate");
+        }
+
         if (boTask.Alias == "")
         {
-            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Alias}");
+            throw new BlNullPropertyException($"You did not add value for : Alias");
         }
+
+        if (boTask.RequiredEffortTime == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : RequiredEffortTime");
+        }
+
+        if (boTask.StartDate == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : StartDate");
+        }
+
+        if (boTask.Description == "")
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: Description");
+        }
+
+        if (boTask.CompleteDate == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : CompleteDate");
+        }
+
+        if (boTask.StartDate < boTask.CreatedAtDate)
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+        }
+
+        if (boTask.CompleteDate < boTask.CreatedAtDate || boTask.CompleteDate < boTask.StartDate || boTask.CompleteDate < boTask.ScheduledDate)
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+        }
+
+        if(boTask.RequiredEffortTime.Value.Days <= 0)
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.RequiredEffortTime}");
+        }
+
     }
 
     /// <summary>

@@ -56,3 +56,10 @@ public class BlCannotDeletedException : Exception
     public BlCannotDeletedException(string msg, DO.DalCannotDeleted ex) : base(msg, ex) { }
     public BlCannotDeletedException(string msg): base(msg) { }
 }
+
+[Serializable]
+public class BlNullPropertyException : Exception
+{
+    public BlNullPropertyException(string? message) : base(message) { }
+}
+

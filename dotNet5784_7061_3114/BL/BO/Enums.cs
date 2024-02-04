@@ -13,8 +13,7 @@ public enum Status
 public enum ProjectScheduled
 {
     planning,// before scheduled
-    determiningSchedule,
-    scheduleWasPalnned,
+    scheduleWasPalnned, // After scheduled
 }
 
 

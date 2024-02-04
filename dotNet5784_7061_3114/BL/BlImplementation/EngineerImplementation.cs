@@ -4,6 +4,7 @@ using BO;
 using DO;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
+using System.Xml.Linq;
 
 namespace BlImplementation;
 internal class EngineerImplementation : IEngineer
@@ -139,7 +140,27 @@ internal class EngineerImplementation : IEngineer
     /// <param name="boEngineer"></param>
     private void ChackDetails(BO.Engineer boEngineer) 
     {
-        if(boEngineer.Id < 200000000 || boEngineer.Id >  400000000)
+        if (boEngineer.Cost == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : Cost");
+        }
+
+        if (boEngineer.Email == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : Email");
+        }
+
+        if (boEngineer.Name == "")
+        {
+            throw new BO.BlNullPropertyException($"You did not add value for : Name");
+        }
+
+        if(boEngineer.Level == null)
+        {
+            throw new BlNullPropertyException($"You did not add value for : Level");
+        }
+
+        if (boEngineer.Id < 200000000 || boEngineer.Id >  400000000)
         {
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Id}");
         }
@@ -147,11 +168,6 @@ internal class EngineerImplementation : IEngineer
         if(boEngineer.Cost < 0)
         {
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Cost}");
-        }
-
-        if(boEngineer.Name == "")
-        {
-            throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Name}");
         }
 
         if (IsValidEmail(boEngineer.Email) == false)

@@ -9,7 +9,7 @@ public class Task
    public TimeSpan? RequiredEffortTime { get; set; }  //זמן מאמץ נדרש
     public  DO.EngineerExperience? Copmliexity {  get; set; }
     public  DateTime? StartDate { get; init; }  //תאריך תחילת המשימה
-    public DateTime? ScheduledDate { get; set; } // משך הזמן הדרוש למשימה 
+    public DateTime? ScheduledDate { get; set; }
     public  DateTime? CompleteDate { get; set; }//תאריך סיום המשימה
     public DateTime? DeadLineDate {  get; set; }
     public DateTime? ForcastDate {  get; set; } // תאריך משוער לסיום = המקסימום מבין תאריך ההתחלה המתוכנן ותאריך ההתחלה בפועל + משך המטלה

@@ -63,3 +63,11 @@ public class BlNullPropertyException : Exception
     public BlNullPropertyException(string? message) : base(message) { }
 }
 
+/// <summary>
+/// Already planed the plan.
+/// </summary>
+[Serializable]
+public class BlAlreadyPalnedException : Exception
+{
+    public BlAlreadyPalnedException(string msg) : base(msg) { }
+}

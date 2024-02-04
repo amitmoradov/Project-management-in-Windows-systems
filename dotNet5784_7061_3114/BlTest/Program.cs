@@ -1,13 +1,15 @@
 ﻿
+using BlApi;
+using BO;
 using DalApi;
 using DalTest;
 using DO;
-using static System.Net.Mime.MediaTypeNames;
 
 internal class Program
 {
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     static bool _exit = false;
+    static ProjectScheduled status = ProjectScheduled.planning;
 
     static void Main(string[] args)
     {
@@ -33,17 +35,29 @@ internal class Program
                     case '0':
                         _exit = true;
                         break;
-                    case '1':
-                        EngineerSubMenu("Engineer"); // Entity 1
-
+                    case '1'://set tasks
+                        if (status != ProjectScheduled.planning)
+                        {
+                            throw new BlAlreadyPalnedException("The status of project already in this level");
+                        }
+                        enterTask();
                         break;
                     case '2':
-                       // TaskSubMenu("Task"); // Entity 2
+                        EngineerSubMenu("Engineer"); // Entity Engineer
+
                         break;
                     case '3':
-                       // DependencySubMenu("Dependency"); // Entity 3
+                        TaskSubMenu("Task"); // Entity Task
                         break;
                     case '4':
+                        if (status != ProjectScheduled.planning)
+                        {
+                            throw new BlAlreadyPalnedException("The status of project already in this level");
+                        }
+                        status = ProjectScheduled.ScheduleDetermination;
+                        createDate();
+                        break;
+                    case '5':
                         // If we want to initialization the data base .
                         Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
                         ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
@@ -237,7 +251,7 @@ internal class Program
 
     static BO.Engineer InputValueEngineer()
     {
-        Console.WriteLine($"Enter the Engineer ditals:  UPDATE - same id / CREATE - id, cost, level, Task(enter Id of task and Alias), email, name");
+        Console.WriteLine($"Enter the Engineer ditals:  UPDATE - same id / CREATE - id, cost, level, email, name,Task(enter Id of task and Alias)");
         Console.WriteLine("For Level:" +
             " 0 - Beginner," +
             " 1 - AdvancedBeginner," +
@@ -247,24 +261,40 @@ internal class Program
         int id = int.Parse(Console.ReadLine()!);
         double cost = double.Parse(Console.ReadLine()!);
         DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-        int idOfTask = int.Parse(Console.ReadLine()!);
-        string? alias = Console.ReadLine();
-        BO.TaskInEngineer taskInEngineer = new BO.TaskInEngineer()
-        {
-            Id = idOfTask,
-            Alias = alias,
-        };
         string? email = Console.ReadLine();
         string name = Console.ReadLine()!;
+        if (status != ProjectScheduled.planning)
+        {
+            int idOfTask = int.Parse(Console.ReadLine()!);
+            string? alias = Console.ReadLine();
+            BO.TaskInEngineer taskInEngineer = new BO.TaskInEngineer()
+            {
+                Id = idOfTask,
+                Alias = alias,
+            };
 
-        //To save all paramers in item
+            BO.Engineer engineer = new()
+            {
+                Id = id,
+                Cost = cost,
+                Level = level,
+                CanToRemove = true,
+                Task = taskInEngineer,
+                Active = true,
+                Email = email,
+                Name = name,
+            };
+            return engineer;
+        }
+
+        //To save all parameters in item without parameter oftask
         BO.Engineer item = new()
         { 
             Id= id,
             Cost= cost,
             Level= level,
             CanToRemove = true,
-            Task = taskInEngineer,
+            Task = null,
             Active = true,
             Email= email,
             Name= name,
@@ -272,6 +302,11 @@ internal class Program
 
         return item;
     }
+
+
+
+
+
 
 /*
     static BO.Task InputValueTask()
@@ -304,16 +339,17 @@ internal class Program
     }
 */
     /// <summary>
-    /// Main menu .
+    /// Main menu.
     /// </summary>
     static void DisplayMainMenu()
     {
         Console.WriteLine("Main Menu:");
         Console.WriteLine("0. Exit");
-        Console.WriteLine("1. Entity Engineer");
-        Console.WriteLine("2. Entity Task");
-        Console.WriteLine("3. Entity Dependency");
-        Console.WriteLine("4. Initialization");
+        Console.WriteLine("1. set tasks");
+        Console.WriteLine("2. Entity Engineer");
+        Console.WriteLine("3. Entity Task");
+        Console.WriteLine("4. Create a schedule/create Dates for Tasks");
+        Console.WriteLine("5. Initialization");
 
         // Add more entities or options as needed
         Console.Write("Enter your choice: ");

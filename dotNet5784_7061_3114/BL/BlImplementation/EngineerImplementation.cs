@@ -9,6 +9,7 @@ using System.Xml.Linq;
 namespace BlImplementation;
 internal class EngineerImplementation : IEngineer
 {
+    
     private DalApi.IDal _dal = DalApi.Factory.Get;
 
     public int Create(BO.Engineer boEngineer)
@@ -102,6 +103,7 @@ internal class EngineerImplementation : IEngineer
 
     public void Update(BO.Engineer boEngineer)
     {
+        
         // Get the previous details engineer 
         BO.Engineer previousEngineer = Read(boEngineer.Id);
 
@@ -112,7 +114,7 @@ internal class EngineerImplementation : IEngineer
         {
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Level}");
         }
-
+   
         if (previousEngineer?.Task?.Id != boEngineer?.Task?.Id)
         {
             //Return from the list of tasks the one task that the engineer is working on
@@ -198,8 +200,8 @@ internal class EngineerImplementation : IEngineer
                        where doEngineer._id == task._engineerId
                        select task).FirstOrDefault();
 
-        //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
-        BO.TaskInEngineer taskInEngineer = new();
+            //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
+            BO.TaskInEngineer taskInEngineer = new();
         if (resulte == null)
         {
             taskInEngineer.Id = 0;
@@ -236,6 +238,8 @@ internal class EngineerImplementation : IEngineer
 
         DO.Engineer doEngineer = new DO.Engineer
        (boEngineer.Id, boEngineer.Cost, boEngineer.Level, boEngineer.Email, boEngineer.Name, boEngineer.Active, boEngineer.CanToRemove);
+
+
 
         return doEngineer;
     }

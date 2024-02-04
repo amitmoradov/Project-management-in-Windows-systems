@@ -174,12 +174,6 @@ internal class EngineerImplementation : IEngineer
         {
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Email}");
         }
-
-        if ((int)boEngineer.Level < 0 || (int)boEngineer.Level > 4)
-        {
-            throw new BlIncorrectDatailException($"Enter number between 0 to 4");
-        }
-
     }
 
     /// <summary>
@@ -233,6 +227,7 @@ internal class EngineerImplementation : IEngineer
     /// <returns></returns>
     private DO.Engineer TurnEngineerToDo(BO.Engineer boEngineer)
     {
+
         DO.Engineer doEngineer = new DO.Engineer
        (boEngineer.Id, boEngineer.Cost, boEngineer.Level, boEngineer.Email, boEngineer.Name, boEngineer.Active, boEngineer.CanToRemove);
 

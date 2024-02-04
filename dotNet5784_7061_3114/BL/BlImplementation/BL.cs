@@ -9,5 +9,5 @@ internal class BL : IBl
 
     public ITask Task => new TaskImplementation();
 
-    public ProjectScheduled StatusProject => new ();
+    //public ProjectScheduled StatusProject => new ();
 }

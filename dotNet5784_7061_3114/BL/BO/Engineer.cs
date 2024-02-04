@@ -19,7 +19,7 @@ public class Engineer
 
     private string ToStringProperty()
     {
-        return $"Engineer details: id:{ Id}, name: {Name}, email:{Email}, cost:{Cost}, active:{Active}, canToRemove:{CanToRemove}, task: {Task}";
+        return $"Engineer details: id:{ Id}, name: {Name}, email:{Email}, cost:{Cost}, active:{Active}, canToRemove:{CanToRemove}, task: Id: {Task.Id} , Alias: {Task.Alias}";
     }
 }
 

@@ -199,11 +199,17 @@ internal class EngineerImplementation : IEngineer
                        select task).FirstOrDefault();
 
         //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
-        BO.TaskInEngineer taskInEngineer = new()
+        BO.TaskInEngineer taskInEngineer = new();
+        if (resulte == null)
         {
-            Id = resulte._id,
-            Alias = resulte._alias
-        };
+            taskInEngineer.Id = 0;
+            taskInEngineer.Alias = null;
+        }
+        else
+        {
+            taskInEngineer.Id = resulte._id;
+            taskInEngineer.Alias = resulte._alias;
+        }
 
         BO.Engineer? boEngineer = new BO.Engineer()
         {

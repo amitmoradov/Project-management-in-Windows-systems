@@ -102,7 +102,7 @@ internal class Program
                     _exit = true;
                     returnMainMenu = true;
                     break;
-                case '1':
+                case '1'://Create
                     // Perform Create operation                       
                     //Console.WriteLine($"Enter the {menuEntityName} ditals: id, cost, level, email, name");
 
@@ -120,7 +120,7 @@ internal class Program
 
                     break;
 
-                case '2':
+                case '2':// Read
                     // Perform Read operation       
                     Console.Write($"Enter the {menuEntityName} id: ");
                     int searchId = int.Parse(Console.ReadLine()!);
@@ -250,7 +250,7 @@ internal class Program
 
     static BO.Engineer InputValueEngineer()
     {
-        Console.WriteLine($"Enter the Engineer ditals:  UPDATE - same id / CREATE - id, cost, level, email, name,Task(enter Id of task and Alias)");
+        Console.WriteLine($"Enter the Engineer ditals:  UPDATE - same id / CREATE - id, cost, level, email, name");
         Console.WriteLine("For Level:" +
             " 0 - Beginner," +
             " 1 - AdvancedBeginner," +
@@ -264,6 +264,7 @@ internal class Program
         string name = Console.ReadLine()!;
         if (status != ProjectScheduled.planning)
         {
+            Console.WriteLine("Enter also ,Task(enter Id of task and Alias)");
             int idOfTask = int.Parse(Console.ReadLine()!);
             string? alias = Console.ReadLine();
             BO.TaskInEngineer taskInEngineer = new BO.TaskInEngineer()

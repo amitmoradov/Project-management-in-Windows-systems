@@ -37,19 +37,15 @@ internal class Program
                 {
                     case '0':
                         _exit = true;
-                        break;                
-                    case '1': //
-                                           
-                       
-                        break;
-                    case '2':
+                        break;                             
+                    case '1':
                         EngineerSubMenu("Engineer"); // Entity Engineer
 
                         break;
-                    case '3':
+                    case '2':
                         //TaskSubMenu("Task"); // Entity Task
                         break;
-                    case '4':// Create a schedule/create Dates for Tasks
+                    case '3':// Create a schedule/create Dates for Tasks
                         if (status != ProjectScheduled.planning && status != ProjectScheduled.scheduleWasPalnned)
                         {
                             throw new BlAlreadyPalnedException("The status of project already in this level");
@@ -60,7 +56,7 @@ internal class Program
                         ScheduledDateForTasks();
                         
                         break;
-                    case '5':
+                    case '4':
                         // If we want to initialization the data base .
                         Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
                         ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
@@ -453,11 +449,10 @@ internal class Program
     {
         Console.WriteLine("Main Menu:");
         Console.WriteLine("0. Exit");
-        Console.WriteLine("1. set tasks");
-        Console.WriteLine("2. Entity Engineer");
-        Console.WriteLine("3. Entity Task");
-        Console.WriteLine("4. Create a schedule/create Dates for Tasks");
-        Console.WriteLine("5. Initialization");
+        Console.WriteLine("1. Entity Engineer");
+        Console.WriteLine("2. Entity Task");
+        Console.WriteLine("3. Create a schedule/create Dates for Tasks");
+        Console.WriteLine("4. Initialization");
 
         // Add more entities or options as needed
         Console.Write("Enter your choice: ");

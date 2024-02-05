@@ -413,36 +413,85 @@ internal class Program
     }
 
 
-    /*
-        static BO.Task InputValueTask()
-        {
-            Console.WriteLine($"Enter the Task ditals: engineer id,  UPDATE - same id / CREATE - id, level(int), alias, description, remarks");
-            int engineerId = int.Parse(Console.ReadLine()!);
-            int id = int.Parse(Console.ReadLine()!);
-            DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-            string? alias = Console.ReadLine();
-            string? description = Console.ReadLine();
-            string? remarks = Console.ReadLine();
 
-            BO.Task task = new()
+    static BO.Task InputValueTask()
+    {
+        Console.WriteLine($"Enter the Task ditals: engineer id,  UPDATE - same id / CREATE - id, level(int), alias, description, remarks");
+        int engineerId = int.Parse(Console.ReadLine()!);
+        int id = int.Parse(Console.ReadLine()!);
+        DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+        string? alias = Console.ReadLine();
+        string? description = Console.ReadLine();
+        string? remarks = Console.ReadLine();
+        DateTime createTask = DateTime.Now;
+        DateTime? startDate = null;
+
+        TaskInList dependency = new TaskInList();
+        {
+            dependency.Id = 0;
+            dependency.Description = "";
+            dependency.Alias = "";
+        }
+        List<TaskInList> taskInList = new List<TaskInList>();
+        EngineerInTask engineerInTask = new EngineerInTask();
+        {
+            engineerInTask.Id = 0;
+            engineerInTask.Name = "";
+        }
+
+        if (status == ProjectScheduled.planning)
+        {
+            Console.WriteLine("Enter Dependency details(Id,Description,Alias)");
+            Console.WriteLine("To start enter start,to finish enter end");
+            string? finish = Console.ReadLine();
+
+            while (finish != "end")
             {
+                
+                dependency.Id = int.Parse(Console.ReadLine()!);
 
-            };
-            return task;
-        }
+                dependency.Description = Console.ReadLine();
 
+                dependency.Alias = Console.ReadLine();
 
-        static Dependency InputValueDependency()
+                finish = Console.ReadLine();
+                taskInList.Add(dependency);
+
+            }
+        }  
+        
+        if (status == ProjectScheduled.scheduleWasPalnned)
         {
-            Console.WriteLine($"Enter the Dependency ditals: DependentTask , DependsOnTas, UPDATE - same id / CREATE - id");
-            int dependentTask = int.Parse(Console.ReadLine()!);
-            int dependsOnTask = int.Parse(Console.ReadLine()!);
-            int id = int.Parse(Console.ReadLine()!);
-            Dependency item = new(dependentTask, dependsOnTask, id);
-            return item;
+            Console.WriteLine("Enter the engineer details for to assign the task , Id, Name");
+
+            engineerInTask.Id = int.Parse(Console.ReadLine()!);
+            engineerInTask.Name = Console.ReadLine();
+            Console.WriteLine("Enter a start Date");
+        }
+
+        BO.Task task = new BO.Task() {Id=id,CreatedAtDate= createTask };
+        {
+            task.Remarks = remarks;
+            task.Dependencies = taskInList;
+            task.Milestone = null;
+            task.Description = description;
+            task.Engineer = engineerInTask;
+            task.Copmliexity = taskLevel;
+            task.CanToRemove = true;
+            task.Active = true;
+            task.Alias = alias;
+            task.DeadLineDate = null;
+           // task.ScheduledDate =
+            //task.RequiredEffortTime =
+            //task.StartDate = startDate;// צריך לבדוק איך מאתחלים את השדה הזה
 
         }
-    */
+        return task;
+
+    }
+
+
+
     /// <summary>
     /// Main menu.
     /// </summary>

@@ -13,8 +13,8 @@ public class Task
     public  DateTime? CompleteDate { get; set; }//תאריך סיום המשימה
     public DateTime? DeadLineDate {  get; set; }
     public DateTime? ForcastDate {  get; set; } // תאריך משוער לסיום = המקסימום מבין תאריך ההתחלה המתוכנן ותאריך ההתחלה בפועל + משך המטלה
-    public string? Alias {  get; init; }
-    public string? Description {  get; init; }
+    public string? Alias {  get; set; }
+    public string? Description {  get; set; }
     public string? Deliverables {  get; set; } // תוצר
     public string? Remarks {  get; set; }
     public int Id {  get; init; }

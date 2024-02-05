@@ -84,22 +84,35 @@ internal class EngineerImplementation : IEngineer
 
     public IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
-        if (filter != null)
-        {
-            //Get all engineers from DL Layer that up in condition
-            var listEngineers = from DO.Engineer doEngineer in _dal.Engineer.ReadAll(x => filter(TurnEngineerToBo(x)))
-                                   // Save dateils of Engineer in listEngineers
-                               let engineer = Read(doEngineer._id)
-                               select engineer;
-            return listEngineers;
-        }
-        //Get all engineers from DL Layer without condition
-        var listEngineer = from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
-                               // Save dateils of Engineer in listEngineer
-                           let engineer = Read(doEngineer._id)
-                           select engineer;
-        return listEngineer;
+        // Use the ReadAll method from _dal.Engineer to get a list of all engineers from the data layer.
+        return _dal.Engineer
+            // For each engineer in the data layer
+            .ReadAll(doEngineer =>
+                // Check if a filter is provided. If yes, apply the filter using the TurnEngineerToBo function.
+                (filter == null || filter(TurnEngineerToBo(doEngineer))))
+            // For each engineer in the data layer, convert it to a BO engineer and return an ordered list.
+            .Select(doEngineer => Read(doEngineer._id));
     }
+
+
+    //public IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null)
+    //{
+    //    if (filter != null)
+    //    {
+    //        //Get all engineers from DL Layer that up in condition
+    //        var listEngineers = from DO.Engineer doEngineer in _dal.Engineer.ReadAll(x => filter(TurnEngineerToBo(x)))
+    //                               // Save dateils of Engineer in listEngineers
+    //                           let engineer = Read(doEngineer._id)
+    //                           select engineer;
+    //        return listEngineers;
+    //    }
+    //    //Get all engineers from DL Layer without condition
+    //    var listEngineer = from DO.Engineer doEngineer in _dal.Engineer.ReadAll()
+    //                           // Save dateils of Engineer in listEngineer
+    //                       let engineer = Read(doEngineer._id)
+    //                       select engineer;
+    //    return listEngineer;
+    //}
 
     public void Update(BO.Engineer boEngineer)
     {

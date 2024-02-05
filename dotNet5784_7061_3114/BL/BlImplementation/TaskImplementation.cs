@@ -23,7 +23,7 @@ public class TaskImplementation : ITask
         {
             foreach (var task in boTask.Dependencies)
             {
-                DO.Dependency newDependency = new(boTask.Id, task.Id);
+                DO.Dependency newDependency = new(task.Id, boTask.Id);
                 try
                 {
                     // Chack if the dependecy is not exist
@@ -123,17 +123,49 @@ public class TaskImplementation : ITask
     public IEnumerable<BO.TaskInList?> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         //Create object of TaskInList from every Task in DataBase, and return him
-        var result = from task in _dal.Task.ReadAll()   
-                     let statusOfTask = (Status)BringStatus(task._startDate,task._scheduledDate,task._completeDate)
+        if (filter != null)
+        { 
+            var result = from task in _dal.Task.ReadAll(x => filter(TurnTaskToBo(x)))
+                         let statusOfTask = (Status)BringStatus(task._startDate, task._scheduledDate, task._completeDate)
+                         select new TaskInList
+                         {
+                             Alias = task._alias,
+                             Description = task._description,
+                             Id = task._id,
+                             Status = statusOfTask
+                         };
+
+            return result;
+        }
+
+        var result1 = from task in _dal.Task.ReadAll()
+                     let statusOfTask = (Status)BringStatus(task._startDate, task._scheduledDate, task._completeDate)
                      select new TaskInList
                      {
                          Alias = task._alias,
                          Description = task._description,
                          Id = task._id,
                          Status = statusOfTask
-                    };
+                     };
+        return result1;
 
-        return result;
+    }
+
+    /// <summary>
+    /// The function returns all the tasks that the same task we received as a parameter depends on
+    /// </summary>
+    /// <param name="boTask"></param>
+    /// <returns></returns>
+    public IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask)
+    {
+        //Bring all taks that BO.Task.id dependet on them.
+        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependentTask == TurnTaskToDo(boTask)._id)
+
+                                 let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
+                                 // Select new BO.Task and adds it to the list .
+                                 select TurnTaskToBo(dependentOnTasks);
+                             
+        return listOfDependencies;
     }
 
     public void Update(BO.Task boTask)
@@ -160,11 +192,17 @@ public class TaskImplementation : ITask
                        select engineer).FirstOrDefault();
 
         //Create an object of type EngineerInTask to initialize
-        BO.EngineerInTask engineerInTask = new()
+        BO.EngineerInTask engineerInTask = new();
+         if (resulte == null)
         {
-            Id = resulte._id,
-            Name = resulte._name,
-        };
+           engineerInTask.Name= "";
+            engineerInTask.Id = 0;
+        }
+        else
+        {
+            engineerInTask.Id= resulte._id;
+            engineerInTask.Name = resulte._name;
+        }
 
         BO.Task? boTask = new BO.Task()
         {
@@ -303,23 +341,23 @@ public class TaskImplementation : ITask
     }
 
     /// <summary>
-    /// Return List of all tasks that boTask dependent on them
+    /// Return List of all tasks that boTask dependent in them
     /// </summary>
     /// <param name="boTask"></param>
     /// <returns></returns>
     private List<BO.TaskInList>? BringDendencies(DO.Task doTask)
     {
         // Get all tasks that boTask dependen on .
-        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependentTask == doTask._id)
+        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependsOnTask == doTask._id)
                                // Search the task that boTask dependent on her in Dal every time .
-                           let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
+                           let dependentTasks = _dal.Task.Read(dependency._dependentTask)
                            // Create new TaskInList and adds it to the list .
                            select new TaskInList
                            {
-                               Id = dependentOnTasks._id,
-                               Description = dependentOnTasks._description,
-                               Alias = dependentOnTasks._alias,
-                               Status = (Status)BringStatus(dependentOnTasks._startDate, dependentOnTasks._scheduledDate, dependentOnTasks._completeDate)
+                               Id = dependentTasks._id,
+                               Description = dependentTasks._description,
+                               Alias = dependentTasks._alias,
+                               Status = (Status)BringStatus(dependentTasks._startDate, dependentTasks._scheduledDate, dependentTasks._completeDate)
                            };
         return listOfDependencies.ToList();
     }
@@ -359,6 +397,7 @@ public class TaskImplementation : ITask
     {
         return maxDate + requiredEffortTime;
     }
+
 }
 
 

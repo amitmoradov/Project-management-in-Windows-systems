@@ -16,4 +16,6 @@ public interface ITask
     IEnumerable<BO.TaskInList?> ReadAll(Func<BO.Task, bool>? filter = null); // Pointer to func .
     void Update(BO.Task item); //Updates entity object
     void Delete(int id); //Deletes an object by its Id
+
+    IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask);
 }

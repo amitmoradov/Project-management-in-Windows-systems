@@ -166,7 +166,7 @@ public static class Initialization
             // Get the difficulty of the task
             copmliexity = (EngineerExperience)e_rand.Next(0, 4);
 
-            DateTime create_at_date =  DateTime.Now;
+            DateTime create_at_date =  new DateTime(2024,1,15);
 
             // The task take at less 100 days
             int range =100;

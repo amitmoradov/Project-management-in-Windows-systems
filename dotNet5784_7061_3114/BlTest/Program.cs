@@ -4,6 +4,7 @@ using BO;
 using DalApi;
 using DalTest;
 using DO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class Program
 {
@@ -16,7 +17,9 @@ internal class Program
         Console.Write("Would you like to create Initial data? (Y/N)");
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
         if (ans == "Y")
+        {
             DalTest.Initialization.Do();
+        }
 
         try
         {
@@ -34,28 +37,28 @@ internal class Program
                 {
                     case '0':
                         _exit = true;
-                        break;
-                    case '1'://set tasks
-                        if (status != ProjectScheduled.planning)
-                        {
-                            throw new BlAlreadyPalnedException("The status of project already in this level");
-                        }
-                        enterTask();
+                        break;                
+                    case '1': //
+                                           
+                       
                         break;
                     case '2':
                         EngineerSubMenu("Engineer"); // Entity Engineer
 
                         break;
                     case '3':
-                        TaskSubMenu("Task"); // Entity Task
+                        //TaskSubMenu("Task"); // Entity Task
                         break;
-                    case '4':
-                        if (status != ProjectScheduled.planning)
+                    case '4':// Create a schedule/create Dates for Tasks
+                        if (status != ProjectScheduled.planning && status != ProjectScheduled.scheduleWasPalnned)
                         {
                             throw new BlAlreadyPalnedException("The status of project already in this level");
                         }
                         status = ProjectScheduled.ScheduleDetermination;
-                        createDate();
+
+                        DateTime startProject = ProjectStartDate();
+                        ScheduledDateForTasks();
+                        
                         break;
                     case '5':
                         // If we want to initialization the data base .
@@ -303,41 +306,146 @@ internal class Program
         return item;
     }
 
-
-
-
-
-
-/*
-    static BO.Task InputValueTask()
+    /// <summary>
+    /// Date of start the project
+    /// </summary>
+    /// <returns></returns>
+   static DateTime ProjectStartDate()
     {
-        Console.WriteLine($"Enter the Task ditals: engineer id,  UPDATE - same id / CREATE - id, level(int), alias, description, remarks");
-        int engineerId = int.Parse(Console.ReadLine()!);
-        int id = int.Parse(Console.ReadLine()!);
-        DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-        string? alias = Console.ReadLine();
-        string? description = Console.ReadLine();
-        string? remarks = Console.ReadLine();
+       DateTime dateTime = new DateTime(2024, 2, 5);
+        return dateTime;
+    }
 
-        BO.Task task = new()
+
+    /// <summary>
+    /// Initializes all tasks in the scheduledDate field.
+    /// </summary>
+    static void ScheduledDateForTasks()
+    {
+        IEnumerable<BO.Task> boTasks = BringAllFieldTaskList();
+
+        foreach ( BO.Task task in boTasks)
         {
+            //All the tasks that task depends on
+            IEnumerable<BO.Task?> taskDependOn = e_bl.Task.BringTasksDependsOn(task);
 
-        };
-        return task;
+            //If this task has no previous tasks, we will return the scheduled project start date
+            if (taskDependOn == null)
+            {
+                task.ScheduledDate = ProjectStartDate();
+            }
+            else
+            {
+                //If all previous tasks have the field scheduled
+                // - We will return the latest estimated finish date from all previous tasks            
+                if (ScheduledDateHasValue(taskDependOn))
+                {
+                    task.ScheduledDate = GetMaxScheduledDate(taskDependOn);
+                }
+                else
+                {
+                    throw new BO.BlNullPropertyException("$You did not add value for : ScheduledDate");
+                }
+                
+            }
+            
+
+        }
+                                                            
     }
 
-
-    static Dependency InputValueDependency()
+    /// <summary>
+    /// Return max Scheduled Date
+    /// </summary>
+    /// <param name="taskDependOn"></param>
+    /// <returns></returns>
+    static DateTime GetMaxScheduledDate(IEnumerable<BO.Task?> taskDependOn)
     {
-        Console.WriteLine($"Enter the Dependency ditals: DependentTask , DependsOnTas, UPDATE - same id / CREATE - id");
-        int dependentTask = int.Parse(Console.ReadLine()!);
-        int dependsOnTask = int.Parse(Console.ReadLine()!);
-        int id = int.Parse(Console.ReadLine()!);
-        Dependency item = new(dependentTask, dependsOnTask, id);
-        return item;
+        //We just gave a date to the max variable.
+        DateTime maxDate = new DateTime(1948, 5, 11);
+        foreach (var task in taskDependOn)
+        {
+            //Checks whether task is bigger in terms of years.
+            if (task.ScheduledDate.Value.Year > maxDate.Year)
+            {
+                maxDate = task.ScheduledDate.Value;
+            }
 
+            else if(task.ScheduledDate.Value.Month > maxDate.Month)
+            {
+                maxDate = task.ScheduledDate.Value;
+            }
+
+            else if (task.ScheduledDate.Value.Day > maxDate.Day)
+            {
+                maxDate = task.ScheduledDate.Value;
+            }
+        }
+        return maxDate;
     }
-*/
+
+    /// <summary>
+    /// retur  if the previous tasks have a Scheduled date
+    /// </summary>
+    /// <param name="taskDependOn"></param>
+    /// <returns></returns>
+    static bool ScheduledDateHasValue(IEnumerable<BO.Task?> taskDependOn)
+    {
+        foreach ( BO.Task task in taskDependOn)
+        {
+            if (task.ScheduledDate is null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Brings all the fields of BO.Task
+    /// </summary>
+    /// <returns></returns>
+    static IEnumerable<BO.Task> BringAllFieldTaskList()
+    {
+        var tasksInList = e_bl.Task.ReadAll();
+        var allFieldTaskList = from task in tasksInList
+                               let fullTask = e_bl.Task.Read(task.Id)
+                               select fullTask;
+
+        return allFieldTaskList;
+    }
+
+
+    /*
+        static BO.Task InputValueTask()
+        {
+            Console.WriteLine($"Enter the Task ditals: engineer id,  UPDATE - same id / CREATE - id, level(int), alias, description, remarks");
+            int engineerId = int.Parse(Console.ReadLine()!);
+            int id = int.Parse(Console.ReadLine()!);
+            DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+            string? alias = Console.ReadLine();
+            string? description = Console.ReadLine();
+            string? remarks = Console.ReadLine();
+
+            BO.Task task = new()
+            {
+
+            };
+            return task;
+        }
+
+
+        static Dependency InputValueDependency()
+        {
+            Console.WriteLine($"Enter the Dependency ditals: DependentTask , DependsOnTas, UPDATE - same id / CREATE - id");
+            int dependentTask = int.Parse(Console.ReadLine()!);
+            int dependsOnTask = int.Parse(Console.ReadLine()!);
+            int id = int.Parse(Console.ReadLine()!);
+            Dependency item = new(dependentTask, dependsOnTask, id);
+            return item;
+
+        }
+    */
     /// <summary>
     /// Main menu.
     /// </summary>

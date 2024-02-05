@@ -11,5 +11,6 @@ internal class BL : IBl
 
     public ProjectScheduled StatusProject => new ProjectScheduled();
 
-    ProjectScheduled IBl.StatusProject { get => StatusProject; }
+    ProjectScheduled IBl.StatusProject { get => StatusProject;}
+
 }

@@ -35,6 +35,12 @@ internal class TaskImplementation : ITask
             DataSource.Tasks.Remove(task);
             return;
         }
+
+        //Deletes all the dependencies that depend on the task you want to delete.
+        var result = from dep in DataSource.Dependencies
+                     where dep._dependsOnTask == id
+                     select DataSource.Dependencies.Remove(dep);
+     
         if (task is not null && !task._canToRemove)
         {
             throw new DalCannotDeleted($"Task with ID={id} cannot be deleted");

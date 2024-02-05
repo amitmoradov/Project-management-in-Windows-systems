@@ -12,9 +12,10 @@ public class TaskImplementation : ITask
 {
     // Access to Dl layer .
     private DalApi.IDal _dal = DalApi.Factory.Get;
+
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     public void Create(BO.Task boTask)
     {
-
         //Chack the details of Task
         ChackDetails(boTask);
 
@@ -71,7 +72,6 @@ public class TaskImplementation : ITask
             {
                 throw new BO.BlEntityCanNotRemoveException("Can not remove this antity");
             }
-
 
             //If the test was successful - you will make an attempt to request deletion from the Data layer
             try
@@ -151,29 +151,14 @@ public class TaskImplementation : ITask
 
     }
 
-    /// <summary>
-    /// The function returns all the tasks that the same task we received as a parameter depends on
-    /// </summary>
-    /// <param name="boTask"></param>
-    /// <returns></returns>
-    public IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask)
-    {
-        //Bring all taks that BO.Task.id dependet on them.
-        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependentTask == TurnTaskToDo(boTask)._id)
-
-                                 let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
-                                 // Select new BO.Task and adds it to the list .
-                                 select TurnTaskToBo(dependentOnTasks);
-                             
-        return listOfDependencies;
-    }
 
     public void Update(BO.Task boTask)
-    {
-        // Get the previous details engineer 
+    { 
+        // Chack the details Task 
         ChackDetails(boTask);
 
         boTask = ChackUpdate(boTask);
+
 
         try
         {
@@ -365,6 +350,8 @@ public class TaskImplementation : ITask
                            };
         return listOfDependencies.ToList();
     }
+
+
     /// <summary>
     /// Check the update after the input value .
     /// </summary>
@@ -383,9 +370,9 @@ public class TaskImplementation : ITask
             boTask.Status = Status.Done;
         }
         return boTask;
-
-        throw new NotImplementedException();
     }
+
+
     /// <summary>
     /// Return Max(startDat ,scheduledDate)
     /// </summary>
@@ -419,6 +406,24 @@ public class TaskImplementation : ITask
     private DateTime? CalculateForcastDate (DateTime? maxDate , TimeSpan? requiredEffortTime)
     {
         return maxDate + requiredEffortTime;
+    }
+
+
+    /// <summary>
+    /// The function returns all the tasks that the same task we received as a parameter depends on
+    /// </summary>
+    /// <param name="boTask"></param>
+    /// <returns></returns>
+    public IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask)
+    {
+        //Bring all taks that BO.Task.id dependet on them.
+        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependentTask == TurnTaskToDo(boTask)._id)
+
+                                 let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
+                                 // Select new BO.Task and adds it to the list .
+                                 select TurnTaskToBo(dependentOnTasks);
+
+        return listOfDependencies;
     }
 
 }

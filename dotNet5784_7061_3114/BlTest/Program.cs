@@ -11,7 +11,7 @@ internal class Program
 {
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     static bool _exit = false;
-    static ProjectScheduled status = ProjectScheduled.planning;
+    static ProjectScheduled statusProject = e_bl.StatusProject;
 
     static void Main(string[] args)
     {
@@ -38,24 +38,38 @@ internal class Program
                 {
                     case '0':
                         _exit = true;
-                        break;                             
+                        break;
                     case '1':
-                        EngineerSubMenu("Engineer"); // Entity Engineer
+                        try
+                        {
+                            EngineerSubMenu("Engineer"); // Entity Engineer
+                        }
+                        catch(BlAlreadyPalnedException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
 
                         break;
                     case '2':
-                        //TaskSubMenu("Task"); // Entity Task
+                        try
+                        {
+                            TaskSubMenu("Task"); // Entity Task
+                        }
+                        catch(BlAlreadyPalnedException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case '3':// Create a schedule/create Dates for Tasks
-                        if (status != ProjectScheduled.planning && status != ProjectScheduled.scheduleWasPalnned)
+                        if (statusProject != ProjectScheduled.planning && statusProject != ProjectScheduled.scheduleWasPalnned)
                         {
-                            throw new BlAlreadyPalnedException("The status of project already in this level");
+                            throw new BlAlreadyPalnedException("The schedule has already been initialized");
                         }
-                        status = ProjectScheduled.ScheduleDetermination;
+                        statusProject = ProjectScheduled.ScheduleDetermination;
 
                         DateTime startProject = ProjectStartDate();
                         ScheduledDateForTasks();
-                        
+
                         break;
                     case '4':
                         // If we want to initialization the data base .
@@ -84,6 +98,9 @@ internal class Program
     }
 
 
+
+
+
     static void EngineerSubMenu(string menuEntityName)
     {
         bool returnMainMenu = false;
@@ -104,37 +121,43 @@ internal class Program
                     returnMainMenu = true;
                     break;
                 case '1'://Create
-                    // Perform Create operation                       
-                    //Console.WriteLine($"Enter the {menuEntityName} ditals: id, cost, level, email, name");
-
-                    BO.Engineer newEngineer = InputValueEngineer();
-                    // Send the item to methods of create and insert to list of engineer
+                         // Perform Create operation                       
+                         //Console.WriteLine($"Enter the {menuEntityName} ditals: id, cost, level, email, name");
                     try
                     {
+                        BO.Engineer newEngineer = InputValueEngineer();
+                        // Send the item to methods of create and insert to list of engineer
+                  
                         e_bl!.Engineer.Create(newEngineer);
                     }
                     // If the engineer is exist
-                    catch (DalDoesExistException ex)
+                    catch (BlAlreadyExistsException ex)
                     {
                         Console.WriteLine(ex.Message);
-                    }
-
+                    }             
                     break;
 
                 case '2':// Read
                     // Perform Read operation       
                     Console.Write($"Enter the {menuEntityName} id: ");
                     int searchId = int.Parse(Console.ReadLine()!);
-                    // Search the engineer inside detebase and bring him
-                    BO.Engineer? engineer = e_bl!.Engineer.Read(searchId);
-                    // If is exist
-                    if (engineer != null)
+                    try
                     {
-                        Console.WriteLine("The engineer is ");
-                        Console.WriteLine(engineer);
-                        break;
+                        // Search the engineer inside detebase and bring him
+                        BO.Engineer? engineer = e_bl!.Engineer.Read(searchId);
+                        // If is exist
+                        if (engineer != null)
+                        {
+                            Console.WriteLine("The engineer is ");
+                            Console.WriteLine(engineer);
+                            break;
+                        }
+                        Console.WriteLine("The engineer is not exist");
                     }
-                    Console.WriteLine("The engineer is not exist");
+                    catch(BlReadNotFoundException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
                     break;
 
                 case '3':
@@ -173,10 +196,14 @@ internal class Program
                         // Send the item to methods of create and insert to list of engineer
                         e_bl!.Engineer.Update(updateEngineer);
                     }
-                    // If the engineer is exist
-                    catch (DalDoesNotExistException ex)
+                    
+                    catch (BlIncorrectDatailException ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex);
+                    }
+                    catch (BlReadNotFoundException ex)
+                    {
+                        Console.WriteLine(ex);
                     }
 
                     break;
@@ -190,13 +217,26 @@ internal class Program
                         e_bl!.Engineer.Delete(id);
                     }
                     // If the engineer is exist
-                    catch (DalDoesNotExistException ex)
+                    catch (BlEntityCanNotRemoveException ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex);
                     }
                     catch (DalCannotDeleted ex)
                     {
                         Console.WriteLine(ex.Message);
+                    }
+                    // when delete funcion read to read funcion and the engineer is not found.
+                    catch(BlReadNotFoundException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    catch(BlDoesNotExistException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    catch(BlCannotDeletedException ex)
+                    {
+                        Console.WriteLine(ex);
                     }
                     break;
 
@@ -216,327 +256,512 @@ internal class Program
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    static void DisplaySubEntityMenu(string entityName)
+    static void TaskSubMenu(string menuEntityName)
     {
-        Console.WriteLine("Entity " + entityName + " Menu:");
-        Console.WriteLine("0. Exit Main Menu");
-        Console.WriteLine("1. Create");
-        Console.WriteLine("2. Read");
-        Console.WriteLine("3. ReadAll");
-        Console.WriteLine("4. Update");
-        Console.WriteLine("5. Delete");
-        Console.WriteLine("6. Back to Main Menu");
-        // Add more options specific to the entity if needed
-        Console.Write("Enter your choice: ");
-    }
-
-    static BO.Engineer InputValueEngineer()
-    {
-        Console.WriteLine($"Enter the Engineer ditals:  UPDATE - same id / CREATE - id, cost, level, email, name");
-        Console.WriteLine("For Level:" +
-            " 0 - Beginner," +
-            " 1 - AdvancedBeginner," +
-            " 2 - Intermediate," +
-            " 3 - Advanced," +
-            " 4 - Expert");
-        int id = int.Parse(Console.ReadLine()!);
-        double cost = double.Parse(Console.ReadLine()!);
-        DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-        string? email = Console.ReadLine();
-        string name = Console.ReadLine()!;
-        BO.TaskInEngineer taskInEngineer = new BO.TaskInEngineer()
+        bool returnMainMenu = false;
+        while (!returnMainMenu)
         {
-            Id = 0,
-            Alias = "",
-        };
-        
-        if (status != ProjectScheduled.planning)
-        {
-            Console.WriteLine("Enter also ,Task(enter Id of task and Alias)");
-            int idOfTask = int.Parse(Console.ReadLine()!);
-            string? alias = Console.ReadLine();
-            taskInEngineer.Alias = alias; 
-            taskInEngineer.Id = idOfTask;
+            Console.WriteLine();
+            // Call to the sub menu of the entity .
+            DisplaySubEntityMenu(menuEntityName);
+            Console.WriteLine();
+            // Input char and convert to char type .
+            char? userInput = Console.ReadKey().KeyChar;
 
-          
+            Console.WriteLine();
+
+            switch (userInput)
+            {
+                case '0':
+                    // We go out from all menus , and finish the running .
+                    _exit = true;
+                    returnMainMenu = true;
+                    break;
+
+                case '1':// Perform Create operation 
+
+                    //Console.WriteLine($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
+                    if (statusProject != ProjectScheduled.planning)
+                    {
+                        throw new BlAlreadyPalnedException("The schedule has already been initialized");
+                    }
+                    BO.Task newTask = InputValueTaskForPlanning();
+                    // Send the item to methods of create and insert to list of task
+                    try
+                    {
+                        e_bl!.Task.Create(newTask);
+                    }
+                    // If the engineer is not exist
+                    catch (DalDoesExistException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    break;
+
+                case '2':
+                    // Perform Read operation       
+                    Console.Write($"Enter the {menuEntityName} id: ");
+                    int searchId = int.Parse(Console.ReadLine()!);
+
+                    // Search the task inside detebase and bring him
+                    try
+                    {
+                        BO.Task? searchTask = e_bl!.Task.Read(searchId);
+                        // If is exist
+                        if (searchTask != null)
+                        {
+                            Console.WriteLine("The Task is " + searchTask);
+                            break;
+                        }
+                        Console.WriteLine("The Task is not exist");                       
+                    }
+                    catch (BlReadNotFoundException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    break;
+
+                case '3':
+                    // Perform ReadAll operation
+                    Console.WriteLine("Perform ReadAll operation for Entity " + menuEntityName);
+                    try
+                    {
+                        IEnumerable<BO.TaskInList?> tasks = e_bl!.Task.ReadAll();
+
+                        if (tasks != null)
+                        {
+                            foreach (var e_task in tasks)
+                            {
+                                // Print the name of all task
+                                Console.WriteLine(e_task);
+                            }
+                            break;
+                        }
+                        Console.WriteLine("The DataBase is empty");
+                    }
+                    catch(BlReadNotFoundException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    break;
+
+                case '4':  // Perform Update operation
+
+                    try
+                    {
+                        Console.WriteLine($"Enter the {menuEntityName} id: ");
+                        int readId = int.Parse(Console.ReadLine()!);
+
+                        BO.Task? previousTask = e_bl!.Task.Read(readId);
+
+                        if (previousTask != null)
+                        {
+                            // Print the previous Task .
+                            Console.WriteLine(previousTask);
+                        }
+                        Console.WriteLine();
+                        BO.Task updateTask = new();
+                        if (statusProject == ProjectScheduled.planning)
+                        {
+                            updateTask = InputValueTaskForPlanning();                                                     
+                        }
+
+                        if (statusProject == ProjectScheduled.scheduleWasPalnned)
+                        {
+                            updateTask = InputValueTaskForPalnned();                       
+
+                        }
+
+                        // Send the item to methods of create and insert to list of task
+                        e_bl!.Task.Update(updateTask);
+                      
+
+                    }
+                    // If the engineer is exist
+                    catch (BlReadNotFoundException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch(BlDoesNotExistException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    break;
+
+                case '5': // Perform Delete operation
+
+                    //Tasks cannot be deleted after the project schedule has been created
+                    if (statusProject == ProjectScheduled.scheduleWasPalnned)
+                    {
+                        throw new BlAlreadyPalnedException("The schedule has already been initialized");
+                    }
+
+                    Console.WriteLine("Enter Id to remove frome the DataBase ");
+                    int id = int.Parse(Console.ReadLine()!);
+                    try
+                    {
+                        e_bl!.Task.Delete(id);
+                    }
+                    
+                    catch (BlReadNotFoundException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+
+                    catch (BlEntityCanNotRemoveException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    catch(BlDoesNotExistException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    catch(DalCannotDeleted ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    break;
+
+                case '6':
+                    returnMainMenu = true;
+                    break;
+
+                // Add more cases for additional operations if needed
+                default:
+                    Console.WriteLine("Invalid input. Please try again.");
+                    break;
+            }
+
+
+
+
         }
 
-        //To save all parameters in engineer 
-        BO.Engineer engineer = new()
-        {
-            Id = id,
-            Cost = cost,
-            Level = level,
-            CanToRemove = true,
-            Task = taskInEngineer,
-            Active = true,
-            Email = email,
-            Name = name,
-        };
-        return engineer;
-    }
 
-    /// <summary>
-    /// Date of start the project
-    /// </summary>
-    /// <returns></returns>
-   static DateTime ProjectStartDate()
-    {
-       DateTime dateTime = new DateTime(2024, 2, 5);
-        return dateTime;
     }
 
 
-    /// <summary>
-    /// Initializes all tasks in the scheduledDate field.
-    /// </summary>
-    static void ScheduledDateForTasks()
-    {
-        IEnumerable<BO.Task> boTasks = BringAllFieldTaskList();
 
-        foreach ( BO.Task task in boTasks)
+
+
+
+
+
+
+
+
+
+
+
+
+        static void DisplaySubEntityMenu(string entityName)
         {
-            //All the tasks that task depends on
-            IEnumerable<BO.Task?> taskDependOn = e_bl.Task.BringTasksDependsOn(task);
+            Console.WriteLine("Entity " + entityName + " Menu:");
+            Console.WriteLine("0. Exit Main Menu");
+            Console.WriteLine("1. Create");
+            Console.WriteLine("2. Read");
+            Console.WriteLine("3. ReadAll");
+            Console.WriteLine("4. Update");
+            Console.WriteLine("5. Delete");
+            Console.WriteLine("6. Back to Main Menu");
+            // Add more options specific to the entity if needed
+            Console.Write("Enter your choice: ");
+        }
 
-            //If this task has no previous tasks, we will return the scheduled project start date
-            if (taskDependOn == null)
+        static BO.Engineer InputValueEngineer()
+        {
+            Console.WriteLine($"Enter the Engineer ditals:  UPDATE - same id / CREATE - id, cost, level, email, name");
+            Console.WriteLine("For Level:" +
+                " 0 - Beginner," +
+                " 1 - AdvancedBeginner," +
+                " 2 - Intermediate," +
+                " 3 - Advanced," +
+                " 4 - Expert");
+            int id = int.Parse(Console.ReadLine()!);
+            double cost = double.Parse(Console.ReadLine()!);
+            DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+            string? email = Console.ReadLine();
+            string name = Console.ReadLine()!;
+            BO.TaskInEngineer taskInEngineer = new BO.TaskInEngineer()
             {
-                task.ScheduledDate = ProjectStartDate();
+                Id = 0,
+                Alias = "",
+            };
+
+            if (statusProject != ProjectScheduled.planning)
+            {
+                Console.WriteLine("Enter also ,Task(enter Id of task and Alias)");
+                int idOfTask = int.Parse(Console.ReadLine()!);
+                string? alias = Console.ReadLine();
+                taskInEngineer.Alias = alias;
+                taskInEngineer.Id = idOfTask;
+
+
             }
-            else
+
+            //To save all parameters in engineer 
+            BO.Engineer engineer = new()
             {
-                //If all previous tasks have the field scheduled
-                // - We will return the latest estimated finish date from all previous tasks            
-                if (ScheduledDateHasValue(taskDependOn))
+                Id = id,
+                Cost = cost,
+                Level = level,
+                CanToRemove = true,
+                Task = taskInEngineer,
+                Active = true,
+                Email = email,
+                Name = name,
+            };
+            return engineer;
+        }
+
+        /// <summary>
+        /// Date of start the project
+        /// </summary>
+        /// <returns></returns>
+        static DateTime ProjectStartDate()
+        {
+            DateTime dateTime = new DateTime(2024, 2, 5);
+            return dateTime;
+        }
+
+
+        /// <summary>
+        /// Initializes all tasks in the scheduledDate field.
+        /// </summary>
+        static void ScheduledDateForTasks()
+        {
+            IEnumerable<BO.Task> boTasks = BringAllFieldTaskList();
+
+            foreach (BO.Task task in boTasks)
+            {
+                //All the tasks that task depends on
+                IEnumerable<BO.Task?> taskDependOn = e_bl.Task.BringTasksDependsOn(task);
+
+                //If this task has no previous tasks, we will return the scheduled project start date
+                if (taskDependOn == null)
                 {
-                    task.ScheduledDate = GetMaxScheduledDate(taskDependOn);
+                    task.ScheduledDate = ProjectStartDate();
                 }
                 else
                 {
-                    throw new BO.BlNullPropertyException("$You did not add value for : ScheduledDate");
+                    //If all previous tasks have the field scheduled
+                    // - We will return the latest estimated finish date from all previous tasks            
+                    if (ScheduledDateHasValue(taskDependOn))
+                    {
+                        task.ScheduledDate = GetMaxScheduledDate(taskDependOn);
+                    }
+                    else
+                    {
+                        throw new BO.BlNullPropertyException("$You did not add value for : ScheduledDate");
+                    }
+
                 }
-                
+                task.Status = Status.Scheduled;
+
             }
-            task.Status = Status.Scheduled;
 
         }
-                                                            
-    }
 
-    /// <summary>
-    /// Return max Scheduled Date
-    /// </summary>
-    /// <param name="taskDependOn"></param>
-    /// <returns></returns>
-    static DateTime GetMaxScheduledDate(IEnumerable<BO.Task?> taskDependOn)
-    {
-        //We just gave a date to the max variable.
-        DateTime maxDate = new DateTime(1948, 5, 11);
-        foreach (var task in taskDependOn)
+        /// <summary>
+        /// Return max Scheduled Date
+        /// </summary>
+        /// <param name="taskDependOn"></param>
+        /// <returns></returns>
+        static DateTime GetMaxScheduledDate(IEnumerable<BO.Task?> taskDependOn)
         {
-            //Checks whether task is bigger in terms of years.
-            if (task.ScheduledDate > maxDate)
+            //We just gave a date to the max variable.
+            DateTime maxDate = new DateTime(1948, 5, 11);
+            foreach (var task in taskDependOn)
             {
-                maxDate = task.ScheduledDate.Value;
+                //Checks whether task is bigger in terms of years.
+                if (task.ScheduledDate > maxDate)
+                {
+                    maxDate = task.ScheduledDate.Value;
+                }
             }
+            return maxDate;
         }
-        return maxDate;
-    }
 
-    /// <summary>
-    /// Return if the previous tasks have a Scheduled date
-    /// </summary>
-    /// <param name="taskDependOn"></param>
-    /// <returns></returns>
-    static bool ScheduledDateHasValue(IEnumerable<BO.Task?> taskDependOn)
-    {
-        foreach ( BO.Task task in taskDependOn)
+        /// <summary>
+        /// Return if the previous tasks have a Scheduled date
+        /// </summary>
+        /// <param name="taskDependOn"></param>
+        /// <returns></returns>
+        static bool ScheduledDateHasValue(IEnumerable<BO.Task?> taskDependOn)
         {
-            if (task.ScheduledDate is null)
+            foreach (BO.Task task in taskDependOn)
             {
-                return false;
+                if (task.ScheduledDate is null)
+                {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
-    }
 
-    /// <summary>
-    /// Brings all the fields of BO.Task (Return List of BO.Task)
-    /// </summary>
-    /// <returns></returns>
-    static IEnumerable<BO.Task> BringAllFieldTaskList()
-    {
-        var tasksInList = e_bl.Task.ReadAll();
-        var allFieldTaskList = from task in tasksInList
-                               let fullTask = e_bl.Task.Read(task.Id)
-                               select fullTask;
+        /// <summary>
+        /// Brings all the fields of BO.Task (Return List of BO.Task)
+        /// </summary>
+        /// <returns></returns>
+        static IEnumerable<BO.Task> BringAllFieldTaskList()
+        {
+            var tasksInList = e_bl.Task.ReadAll();
+            var allFieldTaskList = from task in tasksInList
+                                   let fullTask = e_bl.Task.Read(task.Id)
+                                   select fullTask;
 
-        return allFieldTaskList;
-    }
+            return allFieldTaskList;
+        }
 
-    static BO.Task InputValueTaskForPalnned()
-    {
-        Console.WriteLine($"Enter the Task ditals: UPDATE - same id, level(int), alias, description, remarks");
-
+        static BO.Task InputValueTaskForPalnned()
+        {
+            Console.WriteLine($"Enter the Task ditals: UPDATE - same id, level(int), alias, description, remarks");
+            Console.WriteLine("Enter number from 0 - 3 for Status of Task " +
+               "0 - Unscheduled," +
+               "1 - Scheduled" +
+               "2 - OnTrack" +
+               "3 - Done");
         int id = int.Parse(Console.ReadLine()!);
-        DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-        string? alias = Console.ReadLine();
-        string? description = Console.ReadLine();
-        string? remarks = Console.ReadLine(); 
+            DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+            string? alias = Console.ReadLine();
+            string? description = Console.ReadLine();
+            string? remarks = Console.ReadLine();
 
-        EngineerInTask engineerInTask = new EngineerInTask();
-        {
-            engineerInTask.Id = 0;
-            engineerInTask.Name = "";
-        }
+            EngineerInTask engineerInTask = new EngineerInTask();
+            {
+                engineerInTask.Id = 0;
+                engineerInTask.Name = "";
+            }
 
-        if (status == ProjectScheduled.scheduleWasPalnned)
-        {
-            Console.WriteLine("Enter the engineer details for to assign the task , Id, Name");
+            if (statusProject == ProjectScheduled.scheduleWasPalnned)
+            {
+                Console.WriteLine("Enter the engineer details for to assign the task , Id, Name");
 
-            engineerInTask.Id = int.Parse(Console.ReadLine()!);
-            engineerInTask.Name = Console.ReadLine();
+                engineerInTask.Id = int.Parse(Console.ReadLine()!);
+                engineerInTask.Name = Console.ReadLine();
+
+                Console.WriteLine("Enter a DateTime value for start date (like: 2024-02-03: ");
+
+
+            }
+            string? startDate = Console.ReadLine();
 
             Console.WriteLine("Enter a DateTime value for start date (like: 2024-02-03: ");
-          
+            string? compeleteDate = Console.ReadLine();
 
-        }
-        string? startDate = Console.ReadLine();
+            Console.WriteLine("Enter number from 0 - 3 for Status of Task " +
+              "0 - Unscheduled," +
+              "1 - Scheduled" +
+              "2 - OnTrack" +
+              "3 - Done");
 
-        Console.WriteLine("Enter a DateTime value for start date (like: 2024-02-03: ");
-        string? compeleteDate = Console.ReadLine();
+            Status statusForTask = (Status)int.Parse(Console.ReadLine()!);
 
-        Console.WriteLine("Enter number from 0 - 3 for Status of Task " +
-          "0 - Unscheduled," +          
-          "1 - Scheduled"+
-          "2 - OnTrack"+
-          "3 - Done");
-
-        Status statusForTask = (Status)int.Parse(Console.ReadLine()!);
-
-        BO.Task task = new BO.Task() { Id = id, Alias = alias, Description = description,StartDate = DateTime.Parse(startDate), CreatedAtDate = null };
-        {
-            task.Remarks = remarks;
-            task.Dependencies = null;
-            task.Milestone = null;
-            task.Engineer = engineerInTask;
-            task.Copmliexity = taskLevel;
-            task.CanToRemove = true;
-            task.Active = true;
-            task.DeadLineDate = null;
-            task.RequiredEffortTime = null;          
-            task.Deliverables = null;
-            task.ScheduledDate = null;
-            task.Deliverables = null;
-            task.Status = statusForTask;
-            task.CompleteDate = DateTime.Parse(compeleteDate);
-
-        }
-        return task;
-    }
-
-    static BO.Task InputValueTaskForPlanning()
-    {
-        Console.WriteLine($"Enter the Task ditals: CREATE - id, level(int), alias, description, remarks");
-
-        int id = int.Parse(Console.ReadLine()!);
-        DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-        string? alias = Console.ReadLine();
-        string? description = Console.ReadLine();
-        string? remarks = Console.ReadLine();
-        DateTime createTask = DateTime.Now;
-        TimeSpan? requiredEffortTime = null;
-
-        TaskInList dependency = new TaskInList();
-        {
-            dependency.Id = 0;
-            dependency.Description = "";
-            dependency.Alias = "";
-        }
-
-        List<TaskInList> taskInList = new List<TaskInList>();
-
-        if (status == ProjectScheduled.planning)
-        {
-            Console.WriteLine("Enter Dependency details(Id,Description,Alias)");
-            Console.WriteLine("To start enter start,to finish enter end");
-            string? finish = Console.ReadLine();
-
-            while (finish != "end")
+            BO.Task task = new BO.Task() { Id = id, Alias = alias, Description = description, StartDate = DateTime.Parse(startDate), CreatedAtDate = null };
             {
+                task.Remarks = remarks;
+                task.Dependencies = null;
+                task.Milestone = null;
+                task.Engineer = engineerInTask;
+                task.Copmliexity = taskLevel;
+                task.CanToRemove = true;
+                task.Active = true;
+                task.DeadLineDate = null;
+                task.RequiredEffortTime = null;
+                task.Deliverables = null;
+                task.ScheduledDate = null;
+                task.Deliverables = null;
+                task.Status = statusForTask;
+                task.CompleteDate = DateTime.Parse(compeleteDate);
 
-                dependency.Id = int.Parse(Console.ReadLine()!);
+            }
+            return task;
+        }
 
-                dependency.Description = Console.ReadLine();
+        static BO.Task InputValueTaskForPlanning()
+        {
+            Console.WriteLine($"Enter the Task ditals: CREATE - id, level(int), alias, description, remarks");
 
-                dependency.Alias = Console.ReadLine();
+            int id = int.Parse(Console.ReadLine()!);
+            DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+            string? alias = Console.ReadLine();
+            string? description = Console.ReadLine();
+            string? remarks = Console.ReadLine();
+            DateTime createTask = DateTime.Now;
+            TimeSpan? requiredEffortTime = null;
 
-                taskInList.Add(dependency);
-
-                finish = Console.ReadLine();
+            TaskInList dependency = new TaskInList();
+            {
+                dependency.Id = 0;
+                dependency.Description = "";
+                dependency.Alias = "";
             }
 
-            Console.WriteLine("Enter a TimeSpan value for required Effort Time (e.g., 3:30:00): ");
-            string? userInput = Console.ReadLine();
+            List<TaskInList> taskInList = new List<TaskInList>();
 
-            requiredEffortTime = TimeSpan.Parse(userInput);
-        }     
+            if (statusProject == ProjectScheduled.planning)
+            {
+                Console.WriteLine("Enter Dependency details(Id,Description,Alias)");
+                Console.WriteLine("To start enter start,to finish enter end");
+                string? finish = Console.ReadLine();
 
-        BO.Task task = new BO.Task() {Id=id,CreatedAtDate= createTask, Alias = alias, Description = description, StartDate = null };
-        {
-            task.Remarks = remarks;
-            task.Dependencies = taskInList;        
-            task.Copmliexity = taskLevel;
-            task.CanToRemove = true;
-            task.Active = true;         
-            task.RequiredEffortTime = requiredEffortTime;
-            task.ScheduledDate = null;
-            task.Deliverables = null;
-            task.Milestone = null;
-            task.Engineer = null;
-            task.DeadLineDate = null;
-            task.Status = Status.Unscheduled;
-            task.CompleteDate = null;       
+                while (finish != "end")
+                {
+
+                    dependency.Id = int.Parse(Console.ReadLine()!);
+
+                    dependency.Description = Console.ReadLine();
+
+                    dependency.Alias = Console.ReadLine();
+
+                    taskInList.Add(dependency);
+
+                    finish = Console.ReadLine();
+                }
+
+                Console.WriteLine("Enter a TimeSpan value for required Effort Time (e.g., 3:30:00): ");
+                string? userInput = Console.ReadLine();
+
+                requiredEffortTime = TimeSpan.Parse(userInput);
+            }
+
+            BO.Task task = new BO.Task() { Id = id, CreatedAtDate = createTask, Alias = alias, Description = description, StartDate = null };
+            {
+                task.Remarks = remarks;
+                task.Dependencies = taskInList;
+                task.Copmliexity = taskLevel;
+                task.CanToRemove = true;
+                task.Active = true;
+                task.RequiredEffortTime = requiredEffortTime;
+                task.ScheduledDate = null;
+                task.Deliverables = null;
+                task.Milestone = null;
+                task.Engineer = null;
+                task.DeadLineDate = null;
+                task.Status = Status.Unscheduled;
+                task.CompleteDate = null;
+            }
+
+            return task;
         }
 
-        return task;
-    }
 
 
+        /// <summary>
+        /// Main menu.
+        /// </summary>
+        static void DisplayMainMenu()
+        {
+            Console.WriteLine("Main Menu:");
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("1. Entity Engineer");
+            Console.WriteLine("2. Entity Task");
+            Console.WriteLine("3. Create a schedule/create Dates for Tasks");
+            Console.WriteLine("4. Initialization");
 
-    /// <summary>
-    /// Main menu.
-    /// </summary>
-    static void DisplayMainMenu()
-    {
-        Console.WriteLine("Main Menu:");
-        Console.WriteLine("0. Exit");
-        Console.WriteLine("1. Entity Engineer");
-        Console.WriteLine("2. Entity Task");
-        Console.WriteLine("3. Create a schedule/create Dates for Tasks");
-        Console.WriteLine("4. Initialization");
-
-        // Add more entities or options as needed
-        Console.Write("Enter your choice: ");
-    }
+            // Add more entities or options as needed
+            Console.Write("Enter your choice: ");
+        }
+    
 }

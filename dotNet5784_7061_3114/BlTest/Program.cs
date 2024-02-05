@@ -337,7 +337,7 @@ internal class Program
                 }
                 
             }
-            
+            task.Status = Status.Scheduled;
 
         }
                                                             

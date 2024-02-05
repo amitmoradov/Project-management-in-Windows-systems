@@ -173,7 +173,7 @@ public class TaskImplementation : ITask
         // Get the previous details engineer 
         ChackDetails(boTask);
 
-        chackUpdate()
+        boTask = ChackUpdate(boTask);
 
         try
         {
@@ -185,6 +185,7 @@ public class TaskImplementation : ITask
         }
     }
 
+    
 
     private BO.Task TurnTaskToBo(DO.Task doTask)
     {
@@ -364,8 +365,27 @@ public class TaskImplementation : ITask
                            };
         return listOfDependencies.ToList();
     }
+    /// <summary>
+    /// Check the update after the input value .
+    /// </summary>
+    /// <param name="boTask"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    private BO.Task ChackUpdate(BO.Task boTask)
+    {
+        // Have a Start Date
+        if (boTask.CreatedAtDate != null)
+        {
+            boTask.Status = Status.OnTrack;
+        }
+        // Have a Complete Date
+        if (boTask.CompleteDate != null)
+        {
+            boTask.Status = Status.Done;
+        }
+        return boTask;
 
-
+        throw new NotImplementedException();
+    }
     /// <summary>
     /// Return Max(startDat ,scheduledDate)
     /// </summary>

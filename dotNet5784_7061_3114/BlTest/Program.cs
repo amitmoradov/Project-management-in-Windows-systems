@@ -4,6 +4,7 @@ using BO;
 using DalApi;
 using DalTest;
 using DO;
+using System;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class Program
@@ -262,45 +263,36 @@ internal class Program
         DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
         string? email = Console.ReadLine();
         string name = Console.ReadLine()!;
+        BO.TaskInEngineer taskInEngineer = new BO.TaskInEngineer()
+        {
+            Id = 0,
+            Alias = "",
+        };
+        
         if (status != ProjectScheduled.planning)
         {
             Console.WriteLine("Enter also ,Task(enter Id of task and Alias)");
             int idOfTask = int.Parse(Console.ReadLine()!);
             string? alias = Console.ReadLine();
-            BO.TaskInEngineer taskInEngineer = new BO.TaskInEngineer()
-            {
-                Id = idOfTask,
-                Alias = alias,
-            };
+            taskInEngineer.Alias = alias; 
+            taskInEngineer.Id = idOfTask;
 
-            BO.Engineer engineer = new()
-            {
-                Id = id,
-                Cost = cost,
-                Level = level,
-                CanToRemove = true,
-                Task = taskInEngineer,
-                Active = true,
-                Email = email,
-                Name = name,
-            };
-            return engineer;
+          
         }
 
-        //To save all parameters in item without parameter oftask
-        BO.Engineer item = new()
-        { 
-            Id= id,
-            Cost= cost,
-            Level= level,
+        //To save all parameters in engineer 
+        BO.Engineer engineer = new()
+        {
+            Id = id,
+            Cost = cost,
+            Level = level,
             CanToRemove = true,
-            Task = null,
+            Task = taskInEngineer,
             Active = true,
-            Email= email,
-            Name= name,
+            Email = email,
+            Name = name,
         };
-
-        return item;
+        return engineer;
     }
 
     /// <summary>
@@ -363,17 +355,7 @@ internal class Program
         foreach (var task in taskDependOn)
         {
             //Checks whether task is bigger in terms of years.
-            if (task.ScheduledDate.Value.Year > maxDate.Year)
-            {
-                maxDate = task.ScheduledDate.Value;
-            }
-
-            else if(task.ScheduledDate.Value.Month > maxDate.Month)
-            {
-                maxDate = task.ScheduledDate.Value;
-            }
-
-            else if (task.ScheduledDate.Value.Day > maxDate.Day)
+            if (task.ScheduledDate > maxDate)
             {
                 maxDate = task.ScheduledDate.Value;
             }
@@ -382,7 +364,7 @@ internal class Program
     }
 
     /// <summary>
-    /// retur  if the previous tasks have a Scheduled date
+    /// Return if the previous tasks have a Scheduled date
     /// </summary>
     /// <param name="taskDependOn"></param>
     /// <returns></returns>
@@ -399,7 +381,7 @@ internal class Program
     }
 
     /// <summary>
-    /// Brings all the fields of BO.Task
+    /// Brings all the fields of BO.Task (Return List of BO.Task)
     /// </summary>
     /// <returns></returns>
     static IEnumerable<BO.Task> BringAllFieldTaskList()
@@ -412,19 +394,78 @@ internal class Program
         return allFieldTaskList;
     }
 
-
-
-    static BO.Task InputValueTask()
+    static BO.Task InputValueTaskForPalnned()
     {
-        Console.WriteLine($"Enter the Task ditals: engineer id,  UPDATE - same id / CREATE - id, level(int), alias, description, remarks");
-        int engineerId = int.Parse(Console.ReadLine()!);
+        Console.WriteLine($"Enter the Task ditals: UPDATE - same id, level(int), alias, description, remarks");
+
+        int id = int.Parse(Console.ReadLine()!);
+        DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+        string? alias = Console.ReadLine();
+        string? description = Console.ReadLine();
+        string? remarks = Console.ReadLine(); 
+
+        EngineerInTask engineerInTask = new EngineerInTask();
+        {
+            engineerInTask.Id = 0;
+            engineerInTask.Name = "";
+        }
+
+        if (status == ProjectScheduled.scheduleWasPalnned)
+        {
+            Console.WriteLine("Enter the engineer details for to assign the task , Id, Name");
+
+            engineerInTask.Id = int.Parse(Console.ReadLine()!);
+            engineerInTask.Name = Console.ReadLine();
+
+            Console.WriteLine("Enter a DateTime value for start date (like: 2024-02-03: ");
+          
+
+        }
+        string? startDate = Console.ReadLine();
+
+        Console.WriteLine("Enter a DateTime value for start date (like: 2024-02-03: ");
+        string? compeleteDate = Console.ReadLine();
+
+        Console.WriteLine("Enter number from 0 - 3 for Status of Task " +
+          "0 - Unscheduled," +          
+          "1 - Scheduled"+
+          "2 - OnTrack"+
+          "3 - Done");
+
+        Status statusForTask = (Status)int.Parse(Console.ReadLine()!);
+
+        BO.Task task = new BO.Task() { Id = id, Alias = alias, Description = description,StartDate = DateTime.Parse(startDate), CreatedAtDate = null };
+        {
+            task.Remarks = remarks;
+            task.Dependencies = null;
+            task.Milestone = null;
+            task.Engineer = engineerInTask;
+            task.Copmliexity = taskLevel;
+            task.CanToRemove = true;
+            task.Active = true;
+            task.DeadLineDate = null;
+            task.RequiredEffortTime = null;          
+            task.Deliverables = null;
+            task.ScheduledDate = null;
+            task.Deliverables = null;
+            task.Status = statusForTask;
+            task.CompleteDate = DateTime.Parse(compeleteDate);
+
+        }
+        return task;
+    }
+
+    static BO.Task InputValueTaskForPlanning()
+    {
+        Console.WriteLine($"Enter the Task ditals: CREATE - id, level(int), alias, description, remarks");
+
         int id = int.Parse(Console.ReadLine()!);
         DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
         string? alias = Console.ReadLine();
         string? description = Console.ReadLine();
         string? remarks = Console.ReadLine();
         DateTime createTask = DateTime.Now;
-        DateTime? startDate = null;
+        TimeSpan? requiredEffortTime = null;
 
         TaskInList dependency = new TaskInList();
         {
@@ -432,12 +473,8 @@ internal class Program
             dependency.Description = "";
             dependency.Alias = "";
         }
+
         List<TaskInList> taskInList = new List<TaskInList>();
-        EngineerInTask engineerInTask = new EngineerInTask();
-        {
-            engineerInTask.Id = 0;
-            engineerInTask.Name = "";
-        }
 
         if (status == ProjectScheduled.planning)
         {
@@ -447,47 +484,42 @@ internal class Program
 
             while (finish != "end")
             {
-                
+
                 dependency.Id = int.Parse(Console.ReadLine()!);
 
                 dependency.Description = Console.ReadLine();
 
                 dependency.Alias = Console.ReadLine();
 
-                finish = Console.ReadLine();
                 taskInList.Add(dependency);
 
+                finish = Console.ReadLine();
             }
-        }  
-        
-        if (status == ProjectScheduled.scheduleWasPalnned)
-        {
-            Console.WriteLine("Enter the engineer details for to assign the task , Id, Name");
 
-            engineerInTask.Id = int.Parse(Console.ReadLine()!);
-            engineerInTask.Name = Console.ReadLine();
-            Console.WriteLine("Enter a start Date");
-        }
+            Console.WriteLine("Enter a TimeSpan value for required Effort Time (e.g., 3:30:00): ");
+            string? userInput = Console.ReadLine();
 
-        BO.Task task = new BO.Task() {Id=id,CreatedAtDate= createTask };
+            requiredEffortTime = TimeSpan.Parse(userInput);
+        }     
+
+        BO.Task task = new BO.Task() {Id=id,CreatedAtDate= createTask, Alias = alias, Description = description, StartDate = null };
         {
             task.Remarks = remarks;
-            task.Dependencies = taskInList;
-            task.Milestone = null;
-            task.Description = description;
-            task.Engineer = engineerInTask;
+            task.Dependencies = taskInList;        
             task.Copmliexity = taskLevel;
             task.CanToRemove = true;
-            task.Active = true;
-            task.Alias = alias;
+            task.Active = true;         
+            task.RequiredEffortTime = requiredEffortTime;
+            task.ScheduledDate = null;
+            task.Deliverables = null;
+            task.Milestone = null;
+            task.Engineer = null;
             task.DeadLineDate = null;
-           // task.ScheduledDate =
-            //task.RequiredEffortTime =
-            //task.StartDate = startDate;// צריך לבדוק איך מאתחלים את השדה הזה
-
+            task.Status = Status.Unscheduled;
+            task.CompleteDate = null;       
         }
-        return task;
 
+        return task;
     }
 
 

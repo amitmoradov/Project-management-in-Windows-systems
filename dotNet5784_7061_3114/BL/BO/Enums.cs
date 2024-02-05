@@ -4,10 +4,10 @@ namespace BO;
 
 public enum Status
 {
-    Unscheduled,
-    Scheduled,
-    OnTrack, 
-    Done
+    Unscheduled,// לא מתוכנן
+    Scheduled,//מתוכנן
+    OnTrack, // בעבודה
+    Done,
 }
 public enum ProjectScheduled
 {

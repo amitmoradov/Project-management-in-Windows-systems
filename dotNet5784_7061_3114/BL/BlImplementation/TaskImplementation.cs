@@ -173,6 +173,8 @@ public class TaskImplementation : ITask
         // Get the previous details engineer 
         ChackDetails(boTask);
 
+        chackUpdate()
+
         try
         {
             _dal.Task.Update(TurnTaskToDo(boTask));
@@ -294,6 +296,7 @@ public class TaskImplementation : ITask
         {
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.RequiredEffortTime}");
         }
+
 
     }
 

@@ -370,7 +370,19 @@ internal class Program
                         if (statusProject == ProjectScheduled.scheduleWasPalnned)
                         {
                             updateTask = InputValueTaskForPalnned();                       
-
+                            if(previousTask != null)
+                            {
+                                // If he try to change the StartDate .
+                                if (previousTask.StartDate != null && (updateTask.StartDate != previousTask.StartDate))
+                                {
+                                    throw new BlStartDateAlreadyExistsException("The start date value already exists");
+                                }
+                                // If he try to change the CompleteDate .
+                                if (previousTask.CompleteDate != null && (updateTask.CompleteDate != previousTask.CompleteDate))
+                                {
+                                    throw new BlCompleteDateAlreadyExistsException("The complete date value already exists");
+                                }
+                            }
                         }
 
                         // Send the item to methods of create and insert to list of task

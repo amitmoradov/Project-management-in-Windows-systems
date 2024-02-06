@@ -12,8 +12,9 @@ public class TaskImplementation : ITask
 {
     // Access to Dl layer .
     private DalApi.IDal _dal = DalApi.Factory.Get;
-
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+    static ProjectScheduled statusProject = e_bl.StatusProject;
+
     public void Create(BO.Task boTask)
     {
         //Chack the details of Task
@@ -157,8 +158,10 @@ public class TaskImplementation : ITask
         // Chack the details Task 
         ChackDetails(boTask);
 
-        boTask = ChackUpdate(boTask);
-
+        if (statusProject == ProjectScheduled.ScheduleDetermination)
+        {
+            boTask = ChackUpdate(boTask);
+        }
 
         try
         {

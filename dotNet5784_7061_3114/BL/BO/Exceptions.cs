@@ -71,3 +71,15 @@ public class BlAlreadyPalnedException : Exception
 {
     public BlAlreadyPalnedException(string msg) : base(msg) { }
 }
+
+[Serializable]
+public class BlStartDateAlreadyExistsException : Exception
+{
+    public BlStartDateAlreadyExistsException(string msg) : base(msg) { }
+}
+
+[Serializable]
+public class BlCompleteDateAlreadyExistsException : Exception
+{
+    public BlCompleteDateAlreadyExistsException(string msg) : base(msg) { }
+}

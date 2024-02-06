@@ -137,7 +137,9 @@ internal class EngineerImplementation : IEngineer
 
             //לבדוק אם לשנות לאחר שניצור את המחקלה שלTask BL
             // כולל שינוי שם המהנדס
-            DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity, resulte._startDate,resulte._scheduledDate,resulte._completeDate,resulte._deadLineDate,resulte._alias,resulte._description,resulte._deliverables,resulte._remarks,resulte._id,boEngineer.Id,resulte._active,resulte._isMilestone,resulte._canToRemove);
+            DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
+                resulte._startDate,resulte._scheduledDate,resulte._completeDate,resulte._deadLineDate,resulte._alias,
+                resulte._description,resulte._deliverables,resulte._remarks,resulte._id,boEngineer.Id,resulte._active,resulte._isMilestone,resulte._canToRemove);
             _dal.Task.Update(newTask);
         }
         //Save the change un Data Base.

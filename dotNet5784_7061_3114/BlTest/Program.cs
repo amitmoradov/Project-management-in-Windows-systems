@@ -5,6 +5,7 @@ using DalApi;
 using DalTest;
 using DO;
 using System;
+using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class Program
@@ -67,11 +68,16 @@ internal class Program
                         {
                             throw new BlAlreadyPalnedException("The schedule has already been initialized");
                         }
-                        statusProject = ProjectScheduled.ScheduleDetermination;
-
-                        DateTime startProject = ProjectStartDate();
-                        DalApi.Factory.Get.SaveStartProjectDate(startProject);
-                        ScheduledDateForTasks();
+                        
+                        Console.WriteLine("Enter Date for START PROJECT!!");
+                        DateTime startProjectDate;
+                        DateTime.TryParse(Console.ReadLine(), out startProjectDate);                
+                        // Save the start date project .
+                        Console.WriteLine("yinon");                     
+                        e_bl.Task.CreateStartDateProject(startProjectDate);
+                        
+                        Console.WriteLine("amit");
+                        e_bl.Task.ScheduleFieldsInitialization();
 
                         break;
                     case '4':
@@ -475,18 +481,6 @@ internal class Program
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         static void DisplaySubEntityMenu(string entityName)
         {
             Console.WriteLine("Entity " + entityName + " Menu:");
@@ -545,104 +539,7 @@ internal class Program
             return engineer;
         }
 
-        /// <summary>
-        /// Date of start the project
-        /// </summary>
-        /// <returns></returns>
-        static DateTime ProjectStartDate()
-        {
-            DateTime dateTime = new DateTime(2024, 2, 5);
-            return dateTime;
-        }
-
-
-        /// <summary>
-        /// Initializes all tasks in the scheduledDate field.
-        /// </summary>
-        static void ScheduledDateForTasks()
-        {
-            IEnumerable<BO.Task> boTasks = BringAllFieldTaskList();
-
-            foreach (BO.Task task in boTasks)
-            {
-                //All the tasks that task depends on
-                IEnumerable<BO.Task?> taskDependOn = e_bl.Task.BringTasksDependsOn(task);
-
-                //If this task has no previous tasks, we will return the scheduled project start date
-                if (taskDependOn == null)
-                {
-                    task.ScheduledDate = ProjectStartDate();
-                }
-                else
-                {
-                    //If all previous tasks have the field scheduled
-                    // - We will return the latest estimated finish date from all previous tasks            
-                    if (ScheduledDateHasValue(taskDependOn))
-                    {
-                        task.ScheduledDate = GetMaxScheduledDate(taskDependOn);
-                    }
-                    else
-                    {
-                        throw new BO.BlNullPropertyException("$You did not add value for : ScheduledDate");
-                    }
-
-                }
-                task.Status = Status.Scheduled;
-
-            }
-
-        }
-
-        /// <summary>
-        /// Return max Scheduled Date
-        /// </summary>
-        /// <param name="taskDependOn"></param>
-        /// <returns></returns>
-        static DateTime GetMaxScheduledDate(IEnumerable<BO.Task?> taskDependOn)
-        {
-            //We just gave a date to the max variable.
-            DateTime maxDate = new DateTime(1948, 5, 11);
-            foreach (var task in taskDependOn)
-            {
-                //Checks whether task is bigger in terms of years.
-                if (task.ScheduledDate > maxDate)
-                {
-                    maxDate = task.ScheduledDate.Value;
-                }
-            }
-            return maxDate;
-        }
-
-        /// <summary>
-        /// Return if the previous tasks have a Scheduled date
-        /// </summary>
-        /// <param name="taskDependOn"></param>
-        /// <returns></returns>
-        static bool ScheduledDateHasValue(IEnumerable<BO.Task?> taskDependOn)
-        {
-            foreach (BO.Task task in taskDependOn)
-            {
-                if (task.ScheduledDate is null)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Brings all the fields of BO.Task (Return List of BO.Task)
-        /// </summary>
-        /// <returns></returns>
-        static IEnumerable<BO.Task> BringAllFieldTaskList()
-        {
-            var tasksInList = e_bl.Task.ReadAll();
-            var allFieldTaskList = from task in tasksInList
-                                   let fullTask = e_bl.Task.Read(task.Id)
-                                   select fullTask;
-
-            return allFieldTaskList;
-        }
+   
 
         static BO.Task InputValueTaskForPlanning()
         {

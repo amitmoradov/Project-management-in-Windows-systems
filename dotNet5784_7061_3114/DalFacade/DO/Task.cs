@@ -14,7 +14,7 @@ namespace DO;
 /// <param name="IsMilestone">Milistion in the project .</param>
 /// <param name="Copmliexity"> The level of difficulty .</param>
 /// <param name="StartDate">The time to start the task .</param>
-/// <param name="ScheduledDate"> Date possible to finish</param>
+/// <param name="ScheduledDate"> </param>
 /// <param name="DeadLineDate"> Date of the finish .</param>
 /// <param name="Deliverables">Product .</param>
 /// <param name="Remarks"> Remark to the task .</param>

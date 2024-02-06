@@ -15,6 +15,8 @@ public interface ITask
     BO.Task? Read(Func<BO.Task, bool> filter); // Return item by every parameters that it got .
     IEnumerable<BO.TaskInList?> ReadAll(Func<BO.Task, bool>? filter = null); // Pointer to func .
     void Update(BO.Task item); //Updates entity object
+
+    //void Update(int idTask, DateTime date);
     void Delete(int id); //Deletes an object by its Id
 
     /// <summary>
@@ -22,5 +24,15 @@ public interface ITask
     /// </summary>
     /// <param name="boTask"></param>
     /// <returns></returns>
-    IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask);
+   // IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask);
+
+    void ScheduleFieldsInitialization();
+
+    void CreateStartDateProject(DateTime startDate);
+    /// <summary>
+    /// Change the status of project in data base
+    /// </summary>
+    /// <param name="status"></param>
+    void ChangeOfStatus(string status);
+
 }

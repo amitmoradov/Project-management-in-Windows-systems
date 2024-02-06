@@ -222,7 +222,11 @@ public static class Initialization
         e_dal.Engineer.reset();
         e_dal.Dependency.reset();
         e_dal.Task.reset();
-
+        // Set the status project value to planning .
+        e_dal.SaveChangeOfStatus("planning");
+        // Zero the start date project .
+        DateTime startDate = new DateTime(2024, 01, 01);
+        e_dal.SaveStartProjectDate(startDate);
         //e_dalDependency = dalDependency ?? throw new NullReferenceException("Dependency can not be null!");
         //e_dalEngineer = dalEngineer ?? throw new NullReferenceException("Engineer can not be null!");
         //e_dalTask = dalTask ?? throw new NullReferenceException("Task can not be null!");

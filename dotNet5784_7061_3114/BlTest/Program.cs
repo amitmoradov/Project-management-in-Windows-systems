@@ -128,8 +128,7 @@ internal class Program
                     try
                     {
                         BO.Engineer newEngineer = InputValueEngineer();
-                        // Send the item to methods of create and insert to list of engineer
-                  
+                        // Send the item to methods of create and insert to list of engineer                    
                         e_bl!.Engineer.Create(newEngineer);
                     }
                     // If the engineer is exist
@@ -383,7 +382,7 @@ internal class Program
 
                         if (statusProject == ProjectScheduled.scheduleWasPalnned)
                         {
-                            updateTask = InputValueTaskForPalnned();                       
+                            updateTask = InputValueTaskForPlanned();                       
                             if(previousTask != null)
                             {
                                 // If he try to change the StartDate .
@@ -521,15 +520,13 @@ internal class Program
                 Alias = "",
             };
 
-            if (statusProject != ProjectScheduled.planning)
+            if (statusProject == ProjectScheduled.scheduleWasPalnned)
             {
                 Console.WriteLine("Enter also ,Task(enter Id of task and Alias)");
                 int idOfTask = int.Parse(Console.ReadLine()!);
                 string? alias = Console.ReadLine();
                 taskInEngineer.Alias = alias;
                 taskInEngineer.Id = idOfTask;
-
-
             }
 
             //To save all parameters in engineer 
@@ -646,144 +643,124 @@ internal class Program
             return allFieldTaskList;
         }
 
-        static BO.Task InputValueTaskForPalnned()
-        {
-            Console.WriteLine($"Enter the Task ditals: UPDATE - same id, level(int), alias, description, remarks");
-            Console.WriteLine("Enter number from 0 - 3 for Status of Task " +
-               "0 - Unscheduled," +
-               "1 - Scheduled" +
-               "2 - OnTrack" +
-               "3 - Done");
-        int id = int.Parse(Console.ReadLine()!);
-            DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-            string? alias = Console.ReadLine();
-            string? description = Console.ReadLine();
-            string? remarks = Console.ReadLine();
-
-            EngineerInTask engineerInTask = new EngineerInTask();
-            {
-                engineerInTask.Id = 0;
-                engineerInTask.Name = "";
-            }
-
-            if (statusProject == ProjectScheduled.scheduleWasPalnned)
-            {
-                Console.WriteLine("Enter the engineer details for to assign the task , Id, Name");
-
-                engineerInTask.Id = int.Parse(Console.ReadLine()!);
-                engineerInTask.Name = Console.ReadLine();
-
-                Console.WriteLine("Enter a DateTime value for start date (like: 2024-02-03: ");
-
-
-            }
-            string? startDate = Console.ReadLine();
-
-            Console.WriteLine("Enter a DateTime value for start date (like: 2024-02-03: ");
-            string? compeleteDate = Console.ReadLine();
-
-            Console.WriteLine("Enter number from 0 - 3 for Status of Task " +
-              "0 - Unscheduled," +
-              "1 - Scheduled" +
-              "2 - OnTrack" +
-              "3 - Done");
-
-            Status statusForTask = (Status)int.Parse(Console.ReadLine()!);
-
-            BO.Task task = new BO.Task() { Id = id, Alias = alias, Description = description, StartDate = DateTime.Parse(startDate), CreatedAtDate = null };
-            {
-                task.Remarks = remarks;
-                task.Dependencies = null;
-                task.Milestone = null;
-                task.Engineer = engineerInTask;
-                task.Copmliexity = taskLevel;
-                task.CanToRemove = true;
-                task.Active = true;
-                task.DeadLineDate = null;
-                task.RequiredEffortTime = null;
-                task.Deliverables = null;
-                task.ScheduledDate = null;
-                task.Deliverables = null;
-                task.Status = statusForTask;
-                task.CompleteDate = DateTime.Parse(compeleteDate);
-
-            }
-            return task;
-        }
-
         static BO.Task InputValueTaskForPlanning()
         {
-            Console.WriteLine($"Enter the Task ditals: CREATE - id, level(int), alias, description, remarks");
-
+            Console.WriteLine("Enter task details for creation:");
+            Console.WriteLine("ID: ");
             int id = int.Parse(Console.ReadLine()!);
-            DO.EngineerExperience? taskLevel = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
-            string? alias = Console.ReadLine();
-            string? description = Console.ReadLine();
-            string? remarks = Console.ReadLine();
-            DateTime createTask = DateTime.Now;
-            TimeSpan? requiredEffortTime = null;
+            Console.WriteLine("Level (0-3): ");
+            DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+            Console.WriteLine("Alias: ");
+            string alias = Console.ReadLine();
+            Console.WriteLine("Description: ");
+            string description = Console.ReadLine();
+            Console.WriteLine("Remarks: ");
+            string remarks = Console.ReadLine();
 
-            TaskInList dependency = new TaskInList();
-            {
-                dependency.Id = 0;
-                dependency.Description = "";
-                dependency.Alias = "";
-            }
+            DateTime createDate = DateTime.Now;
 
-            List<TaskInList> taskInList = new List<TaskInList>();
-
+            List<TaskInList> dependencies = new List<TaskInList>();
             if (statusProject == ProjectScheduled.planning)
             {
-                Console.WriteLine("Enter Dependency details(Id,Description,Alias)");
-                Console.WriteLine("To start enter start,to finish enter end");
-                string? finish = Console.ReadLine();
-
-                while (finish != "end")
+                string input;
+                do
                 {
+                    Console.WriteLine("Enter Dependency details (ID, Description, Alias): ");
+                    TaskInList dependency = new TaskInList()
+                    {
+                        Id = int.Parse(Console.ReadLine()!),
+                        Description = Console.ReadLine(),
+                        Alias = Console.ReadLine()
+                    };
+                    dependencies.Add(dependency);
+                    Console.WriteLine("To add another dependency, type 'y'. Otherwise, press any other key.");
+                    input = Console.ReadLine();
+                } while (input.ToLower() == "y");
 
-                    dependency.Id = int.Parse(Console.ReadLine()!);
-
-                    dependency.Description = Console.ReadLine();
-
-                    dependency.Alias = Console.ReadLine();
-
-                    taskInList.Add(dependency);
-
-                    finish = Console.ReadLine();
-                }
-
-                Console.WriteLine("Enter a TimeSpan value for required Effort Time (e.g., 3:30:00): ");
-                string? userInput = Console.ReadLine();
-
-                requiredEffortTime = TimeSpan.Parse(userInput);
+                Console.WriteLine("Enter required effort time (e.g., 03:30:00): ");              
             }
-
-            BO.Task task = new BO.Task() { Id = id, CreatedAtDate = createTask, Alias = alias, Description = description, StartDate = null };
+             TimeSpan requiredEffortTime = TimeSpan.Parse(Console.ReadLine()!);
+        BO.Task task = new BO.Task()
             {
-                task.Remarks = remarks;
-                task.Dependencies = taskInList;
-                task.Copmliexity = taskLevel;
-                task.CanToRemove = true;
-                task.Active = true;
-                task.RequiredEffortTime = requiredEffortTime;
-                task.ScheduledDate = null;
-                task.Deliverables = null;
-                task.Milestone = null;
-                task.Engineer = null;
-                task.DeadLineDate = null;
-                task.Status = Status.Unscheduled;
-                task.CompleteDate = null;
-            }
+                Id = id,
+                CreatedAtDate = createDate,
+                Alias = alias,
+                Description = description,
+                StartDate = null,
+                Remarks = remarks,
+                Dependencies = dependencies,
+                Copmliexity = level,
+                CanToRemove = true,
+                Active = true,
+                RequiredEffortTime = requiredEffortTime,               
+                Deliverables = null,
+                Milestone = null,
+                Engineer = null,
+                DeadLineDate = null,
+                Status = Status.Unscheduled,
+                CompleteDate = null,
+                ScheduledDate = null,
+            };
+
+            return task;
+        }
+
+        static BO.Task InputValueTaskForPlanned()
+        {
+            Console.WriteLine("Enter task details for update:");
+            Console.WriteLine("ID: ");
+            int id = int.Parse(Console.ReadLine()!);
+            Console.WriteLine("Level (0-3): ");
+            DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
+            Console.WriteLine("Alias: ");
+            string alias = Console.ReadLine();
+            Console.WriteLine("Description: ");
+            string description = Console.ReadLine();
+            Console.WriteLine("Remarks: ");
+            string remarks = Console.ReadLine();
+
+            EngineerInTask assignedEngineer = new EngineerInTask();
+            Console.WriteLine("Enter assigned engineer details (ID, Name): ");
+            assignedEngineer.Id = int.Parse(Console.ReadLine()!);
+            assignedEngineer.Name = Console.ReadLine();
+
+            Console.WriteLine("Enter start date (e.g., 2024-02-03): ");
+            DateTime startDate = DateTime.Parse(Console.ReadLine()!);
+            Console.WriteLine("Enter completion date (e.g., 2024-02-03): ");
+            DateTime completionDate = DateTime.Parse(Console.ReadLine()!);
+
+            Console.WriteLine("Enter task status (0-3): ");
+            Status status = (Status)int.Parse(Console.ReadLine()!);
+
+            BO.Task task = new BO.Task()
+            {
+                Id = id,
+                Alias = alias,
+                Description = description,
+                CreatedAtDate = null,
+                Remarks = remarks,
+                Engineer = assignedEngineer,
+                Copmliexity = level,
+                CanToRemove = true,
+                Active = true,
+                DeadLineDate = null,
+                RequiredEffortTime = null,
+                Deliverables = null,
+                ScheduledDate = startDate,
+                Milestone = null,
+                Status = status,
+                CompleteDate = completionDate
+            };
 
             return task;
         }
 
 
 
-        /// <summary>
-        /// Main menu.
-        /// </summary>
-        static void DisplayMainMenu()
+    /// <summary>
+    /// Main menu.
+    /// </summary>
+    static void DisplayMainMenu()
         {
             Console.WriteLine("Main Menu:");
             Console.WriteLine("0. Exit");

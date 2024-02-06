@@ -407,16 +407,16 @@ public class TaskImplementation : ITask
     private List<BO.TaskInList>? BringDendencies(DO.Task doTask)
     {
         // Get all tasks that boTask dependen on .
-        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependsOnTask == doTask._id)
+        var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependentTask == doTask._id)
                                // Search the task that boTask dependent on her in Dal every time .
-                           let dependentTasks = _dal.Task.Read(dependency._dependentTask)
+                           let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
                            // Create new TaskInList and adds it to the list .
                            select new TaskInList
                            {
-                               Id = dependentTasks._id,
-                               Description = dependentTasks._description,
-                               Alias = dependentTasks._alias,
-                               Status = (Status)BringStatus(dependentTasks._startDate, dependentTasks._scheduledDate, dependentTasks._completeDate)
+                               Id = dependentOnTasks._id,
+                               Description = dependentOnTasks._description,
+                               Alias = dependentOnTasks._alias,
+                               Status = (Status)BringStatus(dependentOnTasks._startDate, dependentOnTasks._scheduledDate, dependentOnTasks._completeDate)
                            };
         return listOfDependencies.ToList();
     }

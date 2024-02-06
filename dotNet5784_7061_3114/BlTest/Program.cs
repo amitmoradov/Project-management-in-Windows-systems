@@ -70,13 +70,13 @@ internal class Program
                         }
                         
                         Console.WriteLine("Enter Date for START PROJECT!!");
+                        string startDate = Console.ReadLine();
                         DateTime startProjectDate;
-                        DateTime.TryParse(Console.ReadLine(), out startProjectDate);                
-                        // Save the start date project .
-                        Console.WriteLine("yinon");                     
+                        DateTime.TryParse(startDate, out startProjectDate);               
+                        // Save the start date project .    
+                        
                         e_bl.Task.CreateStartDateProject(startProjectDate);
                         
-                        Console.WriteLine("amit");
                         e_bl.Task.ScheduleFieldsInitialization();
 
                         break;

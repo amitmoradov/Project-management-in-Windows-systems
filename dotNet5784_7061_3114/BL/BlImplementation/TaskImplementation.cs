@@ -14,7 +14,7 @@ public class TaskImplementation : ITask
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     static ProjectScheduled statusProject = e_bl.StatusProject;
-
+    static DateTime startProject = new DateTime(2024, 2, 5);
     public void Create(BO.Task boTask)
     {
         //Chack the details of Task
@@ -154,7 +154,10 @@ public class TaskImplementation : ITask
 
 
     public void Update(BO.Task boTask)
-    { 
+    {
+        //Chack if the task is exist
+        Read(boTask.Id);
+
         // Chack the details Task 
         ChackDetails(boTask);
 
@@ -363,17 +366,40 @@ public class TaskImplementation : ITask
     private BO.Task ChackUpdate(BO.Task boTask)
     {
         // Have a Start Date
-        if (boTask.CreatedAtDate != null)
+        if (boTask.StartDate != null)
         {
-            boTask.Status = Status.OnTrack;
+            CanUpdateDateTask(boTask, boTask.StartDate);     
         }
         // Have a Complete Date
         if (boTask.CompleteDate != null)
         {
-            boTask.Status = Status.Done;
+            CanUpdateDateTask(boTask, boTask.CompleteDate);
+        }
+        if (boTask.Engineer.Id != null)
+        {
+           var taskThatEngineerWorking = (from task in _dal.Task.ReadAll()
+                         let flag = task._engineerId == boTask.Engineer.Id
+                         select task).FirstOrDefault();
+            
+            //Chack If the previous task the engineer was working on was completed
+            if (taskThatEngineerWorking._completeDate > boTask.StartDate)
+            {
+                throw new BlCannotUpdateException("The engineer still hasn't finished the previous task");
+            }
+
+            BO.Task privuseTask = Read(boTask.Id);
+
+            //Checks if there is no engineer who is not working on the task already
+            if (privuseTask.Engineer.Id != 0)
+            {
+                throw new BlCannotUpdateException("engineer working on the task already");
+            }
+
         }
         return boTask;
     }
+
+  
 
 
     /// <summary>
@@ -428,7 +454,38 @@ public class TaskImplementation : ITask
 
         return listOfDependencies;
     }
+    /// <summary>
+    /// Return if all dependent on tasks Complete date before start date of the task .
+    /// </summary>
+    /// <param name="dependencies"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    /// 
 
+    private void CanUpdateDateTask(BO.Task boTask,DateTime? date)
+    {
+        if (date!= null)
+        {
+            if (boTask.StartDate > startProject)
+            {
+                var result = BringTasksDependsOn(boTask);
+                var notOk = (from task in result
+                                 // If the previous tasks are not finished .
+                             let flag = task.CompleteDate > date
+                             select flag).FirstOrDefault();
+                if (notOk)
+                {
+                    throw new BlCannotUpdateException("The previous tasks are not finished yet , you cannot can start a new task");
+                }
+                else
+                {
+                    boTask.Status = Status.OnTrack;
+                }
+            }
+
+        }
+    }
+   
 }
 
 

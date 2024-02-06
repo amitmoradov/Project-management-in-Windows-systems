@@ -83,3 +83,9 @@ public class BlCompleteDateAlreadyExistsException : Exception
 {
     public BlCompleteDateAlreadyExistsException(string msg) : base(msg) { }
 }
+
+[Serializable]
+public class BlCannotUpdateException : Exception
+{
+    public BlCannotUpdateException(string msg) : base(msg) { }
+}

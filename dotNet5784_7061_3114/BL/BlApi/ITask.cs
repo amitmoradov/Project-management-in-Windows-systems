@@ -17,5 +17,10 @@ public interface ITask
     void Update(BO.Task item); //Updates entity object
     void Delete(int id); //Deletes an object by its Id
 
+    /// <summary>
+    /// Brings back all the tasks I'm dependent on in full.
+    /// </summary>
+    /// <param name="boTask"></param>
+    /// <returns></returns>
     IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask);
 }

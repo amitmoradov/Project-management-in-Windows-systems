@@ -70,6 +70,7 @@ internal class Program
                         statusProject = ProjectScheduled.ScheduleDetermination;
 
                         DateTime startProject = ProjectStartDate();
+                        DalApi.Factory.Get.SaveStartProjectDate(startProject);
                         ScheduledDateForTasks();
 
                         break;

@@ -14,7 +14,7 @@ public class TaskImplementation : ITask
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     static ProjectScheduled statusProject = e_bl.StatusProject;
-    static DateTime startProject = new DateTime(2024, 2, 5);
+
     public void Create(BO.Task boTask)
     {
         //Chack the details of Task
@@ -154,10 +154,7 @@ public class TaskImplementation : ITask
 
 
     public void Update(BO.Task boTask)
-    {
-        //Chack if the task is exist
-        Read(boTask.Id);
-
+    { 
         // Chack the details Task 
         ChackDetails(boTask);
 
@@ -244,7 +241,7 @@ public class TaskImplementation : ITask
             throw new BlNullPropertyException($"You did not add value for : CreatedAtDate");
         }
 
-        if(boTask.ScheduledDate == null)
+        if (boTask.ScheduledDate == null && statusProject != ProjectScheduled.planning)
         {
             throw new BlNullPropertyException($"You did not add value for : ScheduledDate");
         }
@@ -259,7 +256,7 @@ public class TaskImplementation : ITask
             throw new BlNullPropertyException($"You did not add value for : RequiredEffortTime");
         }
 
-        if (boTask.StartDate == null)
+        if (boTask.StartDate == null && statusProject != ProjectScheduled.planning)
         {
             throw new BlNullPropertyException($"You did not add value for : StartDate");
         }
@@ -269,25 +266,28 @@ public class TaskImplementation : ITask
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: Description");
         }
 
-        if (boTask.CompleteDate == null)
+        if (boTask.CompleteDate == null && statusProject != ProjectScheduled.planning)
         {
             throw new BlNullPropertyException($"You did not add value for : CompleteDate");
         }
-
-        if (boTask.StartDate < boTask.CreatedAtDate)
+        if (statusProject != ProjectScheduled.planning)
         {
-            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+
+            if (boTask.StartDate < boTask.CreatedAtDate)
+            {
+                throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+            }
+
+            if (boTask.CompleteDate < boTask.CreatedAtDate || boTask.CompleteDate < boTask.StartDate || boTask.CompleteDate < boTask.ScheduledDate)
+            {
+                throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+            }
         }
 
-        if (boTask.CompleteDate < boTask.CreatedAtDate || boTask.CompleteDate < boTask.StartDate || boTask.CompleteDate < boTask.ScheduledDate)
-        {
-            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
-        }
-
-        if(boTask.RequiredEffortTime.Value.Days <= 0)
-        {
-            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.RequiredEffortTime}");
-        }
+        //if(boTask.RequiredEffortTime.Value.Days <= 0)
+        //{
+        //    throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.RequiredEffortTime}");
+        //}
 
 
     }
@@ -303,11 +303,21 @@ public class TaskImplementation : ITask
         //var task_result = (from DO.Task task in _dal.Task.ReadAll()
         //                   where task._id == boTask.Id
         //                   select task).FirstOrDefault();
-
+        EngineerInTask engineerInTask = new EngineerInTask();
+        if (boTask.Engineer == null)
+        {           
+                engineerInTask.Id = 0;
+                engineerInTask.Name = "";
+        }
+        else
+        {
+            engineerInTask.Id = boTask.Engineer.Id;
+            engineerInTask.Name = boTask.Engineer.Name;
+        }
         // Do details from Bo .
         DO.Task doTask = new(boTask.CreatedAtDate, boTask.RequiredEffortTime, boTask.Copmliexity, boTask.StartDate, boTask.ScheduledDate,
             boTask.CompleteDate, boTask.DeadLineDate, boTask.Alias, boTask.Description, boTask.Deliverables, boTask.Remarks,
-            boTask.Id,boTask.Engineer!.Id, boTask.Active, _isMilestone: false, boTask.CanToRemove);
+            boTask.Id,engineerInTask.Id, boTask.Active, _isMilestone: false, boTask.CanToRemove);
         return doTask;
     }
 
@@ -366,40 +376,17 @@ public class TaskImplementation : ITask
     private BO.Task ChackUpdate(BO.Task boTask)
     {
         // Have a Start Date
-        if (boTask.StartDate != null)
+        if (boTask.CreatedAtDate != null)
         {
-            CanUpdateDateTask(boTask, boTask.StartDate);     
+            boTask.Status = Status.OnTrack;
         }
         // Have a Complete Date
         if (boTask.CompleteDate != null)
         {
-            CanUpdateDateTask(boTask, boTask.CompleteDate);
-        }
-        if (boTask.Engineer.Id != null)
-        {
-           var taskThatEngineerWorking = (from task in _dal.Task.ReadAll()
-                         let flag = task._engineerId == boTask.Engineer.Id
-                         select task).FirstOrDefault();
-            
-            //Chack If the previous task the engineer was working on was completed
-            if (taskThatEngineerWorking._completeDate > boTask.StartDate)
-            {
-                throw new BlCannotUpdateException("The engineer still hasn't finished the previous task");
-            }
-
-            BO.Task privuseTask = Read(boTask.Id);
-
-            //Checks if there is no engineer who is not working on the task already
-            if (privuseTask.Engineer.Id != 0)
-            {
-                throw new BlCannotUpdateException("engineer working on the task already");
-            }
-
+            boTask.Status = Status.Done;
         }
         return boTask;
     }
-
-  
 
 
     /// <summary>
@@ -454,38 +441,7 @@ public class TaskImplementation : ITask
 
         return listOfDependencies;
     }
-    /// <summary>
-    /// Return if all dependent on tasks Complete date before start date of the task .
-    /// </summary>
-    /// <param name="dependencies"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    /// 
 
-    private void CanUpdateDateTask(BO.Task boTask,DateTime? date)
-    {
-        if (date!= null)
-        {
-            if (boTask.StartDate > startProject)
-            {
-                var result = BringTasksDependsOn(boTask);
-                var notOk = (from task in result
-                                 // If the previous tasks are not finished .
-                             let flag = task.CompleteDate > date
-                             select flag).FirstOrDefault();
-                if (notOk)
-                {
-                    throw new BlCannotUpdateException("The previous tasks are not finished yet , you cannot can start a new task");
-                }
-                else
-                {
-                    boTask.Status = Status.OnTrack;
-                }
-            }
-
-        }
-    }
-   
 }
 
 

@@ -44,9 +44,10 @@ internal class Program
                         {
                             EngineerSubMenu("Engineer"); // Entity Engineer
                         }
-                        catch(BlAlreadyPalnedException ex)
+                        catch (BlAlreadyPalnedException ex)
                         {
-                            Console.WriteLine(ex.Message);
+                            Console.WriteLine("Exception message: " + ex.Message);
+                            Console.WriteLine("Exception type: " + ex.GetType().FullName);
                         }
 
                         break;
@@ -55,9 +56,10 @@ internal class Program
                         {
                             TaskSubMenu("Task"); // Entity Task
                         }
-                        catch(BlAlreadyPalnedException ex)
+                        catch (BlAlreadyPalnedException ex)
                         {
-                            Console.WriteLine(ex.Message);
+                            Console.WriteLine("Exception message: " + ex.Message);
+                            Console.WriteLine("Exception type: " + ex.GetType().FullName);
                         }
                         break;
                     case '3':// Create a schedule/create Dates for Tasks
@@ -133,7 +135,8 @@ internal class Program
                     // If the engineer is exist
                     catch (BlAlreadyExistsException ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }             
                     break;
 
@@ -156,7 +159,8 @@ internal class Program
                     }
                     catch(BlReadNotFoundException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     break;
 
@@ -199,11 +203,13 @@ internal class Program
                     
                     catch (BlIncorrectDatailException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     catch (BlReadNotFoundException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
 
                     break;
@@ -219,24 +225,29 @@ internal class Program
                     // If the engineer is exist
                     catch (BlEntityCanNotRemoveException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     catch (DalCannotDeleted ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     // when delete funcion read to read funcion and the engineer is not found.
                     catch(BlReadNotFoundException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     catch(BlDoesNotExistException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     catch(BlCannotDeletedException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     break;
 
@@ -294,7 +305,8 @@ internal class Program
                     // If the engineer is not exist
                     catch (DalDoesExistException ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
 
                     break;
@@ -318,7 +330,8 @@ internal class Program
                     }
                     catch (BlReadNotFoundException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     break;
 
@@ -342,7 +355,8 @@ internal class Program
                     }
                     catch(BlReadNotFoundException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     break;
 
@@ -393,11 +407,13 @@ internal class Program
                     // If the engineer is exist
                     catch (BlReadNotFoundException ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     catch(BlDoesNotExistException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     break;
 
@@ -418,20 +434,24 @@ internal class Program
                     
                     catch (BlReadNotFoundException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
 
                     catch (BlEntityCanNotRemoveException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     catch(BlDoesNotExistException ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     catch(DalCannotDeleted ex)
                     {
-                        Console.WriteLine(ex);
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
                     break;
 

@@ -9,8 +9,8 @@ internal class BL : IBl
 
     public ITask Task => new TaskImplementation();
 
-    public ProjectScheduled StatusProject => new ProjectScheduled();
 
-    ProjectScheduled IBl.StatusProject { get => StatusProject;}
+
+
 
 }

@@ -13,7 +13,6 @@ public class TaskImplementation : ITask
     // Access to Dl layer .
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
-    static ProjectScheduled statusProject = e_bl.StatusProject;
 
     public void Create(BO.Task boTask)
     {
@@ -158,7 +157,7 @@ public class TaskImplementation : ITask
         // Chack the details Task 
         ChackDetails(boTask);
 
-        if (statusProject == ProjectScheduled.ScheduleDetermination)
+        if (ReturnStatusProject() == "ScheduleDetermination")
         {
             boTask = ChackUpdate(boTask);
         }
@@ -193,7 +192,7 @@ public class TaskImplementation : ITask
         // Status project change from 2 to 3 .
         ChangeOfStatus("scheduleWasPalnned");
     }
-    
+
     public void ChangeOfStatus(string status)
     {
         _dal.SaveChangeOfStatus(status);
@@ -208,20 +207,29 @@ public class TaskImplementation : ITask
 
     public void Update(int idTask, DateTime scheduledDte)
     {
-
+        Console.WriteLine(scheduledDte);
         BO.Task boTask = Read(idTask);
-        List<BO.Task> dependtOnTasks = BringTasksDependsOn(boTask).ToList();
-        //Check if all the scheduled start dates of the previous tasks are already updated (exist), otherwise throw an appropriate exception
-        if (!(dependtOnTasks.All(x=>x.Status != Status.Unscheduled)))
+        Console.WriteLine(idTask);
+        if (boTask.Dependencies != null)
         {
-            throw new BlCannotUpdateException("The previous tasks did not reach to scheduled ");
+
+            foreach (var item in boTask.Dependencies)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        //Check if all the scheduled start dates of the previous tasks are already updated (exist), otherwise throw an appropriate exception
+        if (!(boTask.Dependencies.All(x => x.Status != Status.Unscheduled)))
+        {
+            throw new BlCannotUpdateException("The previous tasks did not reach to scheduled");
         }
         //Then, the action will check that the date received as a parameter is not earlier than all the estimated end dates of all tasks preceding it.
         //Otherwise an exception will be thrown
-        if (!(dependtOnTasks.All(x => Read(x.Id).ForcastDate <= scheduledDte)))
+        if (!(boTask.Dependencies.All(x => Read(x.Id).ForcastDate <= scheduledDte)))
         {
             throw new BlCannotUpdateException("The received date is not earlier than all the estimated end dates of all the tasks preceding it");
         }
+
         boTask.ScheduledDate = scheduledDte;
 
         // Update the DateBase.
@@ -238,14 +246,14 @@ public class TaskImplementation : ITask
 
         //Create an object of type EngineerInTask to initialize
         BO.EngineerInTask engineerInTask = new();
-         if (resulte == null)
+        if (resulte == null)
         {
-           engineerInTask.Name= "";
+            engineerInTask.Name = "";
             engineerInTask.Id = 0;
         }
         else
         {
-            engineerInTask.Id= resulte._id;
+            engineerInTask.Id = resulte._id;
             engineerInTask.Name = resulte._name;
         }
 
@@ -276,7 +284,7 @@ public class TaskImplementation : ITask
             //ForcastDate = Max(StartDate ,ScheduledDate) + RequiredEffortTime .
             ForcastDate = CalculateForcastDate(MaxDate(doTask._startDate, doTask._scheduledDate), doTask._requiredEffortTime),
         };
-       
+
         return boTask;
     }
 
@@ -295,11 +303,6 @@ public class TaskImplementation : ITask
             throw new BlNullPropertyException($"You did not add value for : CreatedAtDate");
         }
 
-        if (boTask.ScheduledDate == null && statusProject != ProjectScheduled.planning)
-        {
-            throw new BlNullPropertyException($"You did not add value for : ScheduledDate");
-        }
-
         if (boTask.Alias == "")
         {
             throw new BlNullPropertyException($"You did not add value for : Alias");
@@ -310,22 +313,28 @@ public class TaskImplementation : ITask
             throw new BlNullPropertyException($"You did not add value for : RequiredEffortTime");
         }
 
-        if (boTask.StartDate == null && statusProject != ProjectScheduled.planning)
-        {
-            throw new BlNullPropertyException($"You did not add value for : StartDate");
-        }
-
         if (boTask.Description == "")
         {
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: Description");
         }
 
-        if (boTask.CompleteDate == null && statusProject != ProjectScheduled.planning)
+        if (_dal.ReturnStatusProject() != "planning")
         {
-            throw new BlNullPropertyException($"You did not add value for : CompleteDate");
-        }
-        if (statusProject != ProjectScheduled.planning)
-        {
+
+            if (boTask.ScheduledDate == null)
+            {
+                throw new BlNullPropertyException($"You did not add value for : ScheduledDate");
+            }
+
+            if (boTask.StartDate == null)
+            {
+                throw new BlNullPropertyException($"You did not add value for : StartDate");
+            }
+
+            if (boTask.CompleteDate == null)
+            {
+                throw new BlNullPropertyException($"You did not add value for : CompleteDate");
+            }
 
             if (boTask.StartDate < boTask.CreatedAtDate)
             {
@@ -359,9 +368,9 @@ public class TaskImplementation : ITask
         //                   select task).FirstOrDefault();
         EngineerInTask engineerInTask = new EngineerInTask();
         if (boTask.Engineer == null)
-        {           
-                engineerInTask.Id = 0;
-                engineerInTask.Name = "";
+        {
+            engineerInTask.Id = 0;
+            engineerInTask.Name = "";
         }
         else
         {
@@ -371,13 +380,13 @@ public class TaskImplementation : ITask
         // Do details from Bo .
         DO.Task doTask = new(boTask.CreatedAtDate, boTask.RequiredEffortTime, boTask.Copmliexity, boTask.StartDate, boTask.ScheduledDate,
             boTask.CompleteDate, boTask.DeadLineDate, boTask.Alias, boTask.Description, boTask.Deliverables, boTask.Remarks,
-            boTask.Id,engineerInTask.Id, boTask.Active, _isMilestone: false, boTask.CanToRemove);
+            boTask.Id, engineerInTask.Id, boTask.Active, _isMilestone: false, boTask.CanToRemove);
         return doTask;
     }
 
     private int BringStatus(DateTime? StartDate, DateTime? ScheduledDate, DateTime? CompleteDate)
-    { 
-        
+    {
+
         if (ScheduledDate == null)//Unscheduled 
         {
             return 0;
@@ -392,11 +401,11 @@ public class TaskImplementation : ITask
         {
             return 2;
         }
-        else if(CompleteDate != null)// Done 
+        else if (CompleteDate != null)// Done 
         {
             return 3;
         }
-        return 0; 
+        return 0;
     }
 
     /// <summary>
@@ -408,16 +417,16 @@ public class TaskImplementation : ITask
     {
         // Get all tasks that boTask dependen on .
         var listOfDependencies = from dependency in _dal.Dependency.ReadAll(x => x._dependentTask == doTask._id)
-                               // Search the task that boTask dependent on her in Dal every time .
-                           let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
-                           // Create new TaskInList and adds it to the list .
-                           select new TaskInList
-                           {
-                               Id = dependentOnTasks._id,
-                               Description = dependentOnTasks._description,
-                               Alias = dependentOnTasks._alias,
-                               Status = (Status)BringStatus(dependentOnTasks._startDate, dependentOnTasks._scheduledDate, dependentOnTasks._completeDate)
-                           };
+                                     // Search the task that boTask dependent on her in Dal every time .
+                                 let dependentOnTasks = _dal.Task.Read(dependency._dependsOnTask)
+                                 // Create new TaskInList and adds it to the list .
+                                 select new TaskInList
+                                 {
+                                     Id = dependentOnTasks._id,
+                                     Description = dependentOnTasks._description,
+                                     Alias = dependentOnTasks._alias,
+                                     Status = (Status)BringStatus(dependentOnTasks._startDate, dependentOnTasks._scheduledDate, dependentOnTasks._completeDate)
+                                 };
         return listOfDependencies.ToList();
     }
 
@@ -449,7 +458,7 @@ public class TaskImplementation : ITask
     /// <param name="startDate"></param>
     /// <param name="scheduledDate"></param>
     /// <returns></returns>
-    private DateTime? MaxDate(DateTime? startDate , DateTime? scheduledDate)
+    private DateTime? MaxDate(DateTime? startDate, DateTime? scheduledDate)
     {
         if (startDate.HasValue && scheduledDate.HasValue)
         {
@@ -473,7 +482,7 @@ public class TaskImplementation : ITask
     /// <param name="maxDate"></param>
     /// <param name="requiredEffortTime"></param>
     /// <returns></returns>
-    private DateTime? CalculateForcastDate (DateTime? maxDate , TimeSpan? requiredEffortTime)
+    private DateTime? CalculateForcastDate(DateTime? maxDate, TimeSpan? requiredEffortTime)
     {
         return maxDate + requiredEffortTime;
     }
@@ -495,52 +504,6 @@ public class TaskImplementation : ITask
 
         return listOfDependencies;
     }
-    /// <summary>
-    /// Date of start the project
-    /// </summary>
-    /// <returns></returns>
-    private DateTime ProjectStartDate()
-    {
-        DateTime dateTime = new DateTime(2024, 2, 5);
-        return dateTime;
-    }
-
-    /// <summary>
-    /// Initializes all tasks in the scheduledDate field.
-    /// </summary>
-    private void ScheduledDateForTasks()
-    {
-        IEnumerable<BO.Task> boTasks = BringAllFieldTaskList();
-
-        foreach (BO.Task task in boTasks)
-        {
-            //All the tasks that task depends on
-            IEnumerable<BO.Task?> taskDependOn = BringTasksDependsOn(task);
-
-            //If this task has no previous tasks, we will return the scheduled project start date
-            if (taskDependOn == null)
-            {
-                task.ScheduledDate = ProjectStartDate();
-            }
-            else
-            {
-                //If all previous tasks have the field scheduled
-                // - We will return the latest estimated finish date from all previous tasks            
-                if (ScheduledDateHasValue(taskDependOn))
-                {
-                    task.ScheduledDate = GetMaxScheduledDate(taskDependOn);
-                }
-                else
-                {
-                    throw new BO.BlNullPropertyException("$You did not add value for : ScheduledDate");
-                }
-
-            }
-            task.Status = Status.Scheduled;
-
-        }
-
-    }
 
 
     /// <summary>
@@ -551,7 +514,7 @@ public class TaskImplementation : ITask
     private DateTime GetMaxScheduledDate(IEnumerable<BO.Task?> taskDependOn)
     {
         //We just gave a date to the max variable.
-        DateTime maxDate = ProjectStartDate();
+        DateTime maxDate = _dal.ReturnStartProjectDate();
         foreach (var task in taskDependOn)
         {
             //Checks whether task is bigger in terms of years.
@@ -594,6 +557,15 @@ public class TaskImplementation : ITask
                                select fullTask;
 
         return allFieldTaskList;
+    }
+
+    /// <summary>
+    /// This function is only intended to give access to the main program into the status of the project.
+    /// </summary>
+    /// <returns></returns>
+    public string ReturnStatusProject()
+    {
+        return _dal.ReturnStatusProject();
     }
 }
 

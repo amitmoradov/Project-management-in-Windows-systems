@@ -30,5 +30,10 @@ sealed internal class DalList : IDal
     {
         throw new NotImplementedException();
     }
+
+    public string ReturnStatusProject()
+    {
+        throw new NotImplementedException();
+    }
 }
 

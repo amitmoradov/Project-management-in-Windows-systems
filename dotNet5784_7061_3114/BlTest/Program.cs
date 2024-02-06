@@ -12,7 +12,6 @@ internal class Program
 {
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     static bool _exit = false;
-    static ProjectScheduled statusProject = e_bl.StatusProject;
 
     static void Main(string[] args)
     {
@@ -64,7 +63,7 @@ internal class Program
                         }
                         break;
                     case '3':// Create a schedule/create Dates for Tasks
-                        if (statusProject != ProjectScheduled.planning && statusProject != ProjectScheduled.scheduleWasPalnned)
+                        if (e_bl.Task.ReturnStatusProject() == "ScheduleDetermination")
                         {
                             throw new BlAlreadyPalnedException("The schedule has already been initialized");
                         }
@@ -298,7 +297,7 @@ internal class Program
                 case '1':// Perform Create operation 
 
                     //Console.WriteLine($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
-                    if (statusProject != ProjectScheduled.planning)
+                    if (e_bl.Task.ReturnStatusProject() != "planning")
                     {
                         throw new BlAlreadyPalnedException("The schedule has already been initialized");
                     }
@@ -382,12 +381,12 @@ internal class Program
                         }
                         Console.WriteLine();
                         BO.Task updateTask = new();
-                        if (statusProject == ProjectScheduled.planning)
+                        if (e_bl.Task.ReturnStatusProject() == "planning")
                         {
                             updateTask = InputValueTaskForPlanning();                                                     
                         }
 
-                        if (statusProject == ProjectScheduled.scheduleWasPalnned)
+                        if (e_bl.Task.ReturnStatusProject() == "scheduleWasPalnned")
                         {
                             updateTask = InputValueTaskForPlanned();                       
                             if(previousTask != null)
@@ -426,7 +425,7 @@ internal class Program
                 case '5': // Perform Delete operation
 
                     //Tasks cannot be deleted after the project schedule has been created
-                    if (statusProject == ProjectScheduled.scheduleWasPalnned)
+                    if (e_bl.Task.ReturnStatusProject() == "scheduleWasPalnned")
                     {
                         throw new BlAlreadyPalnedException("The schedule has already been initialized");
                     }
@@ -466,7 +465,7 @@ internal class Program
                     break;
 
                 // Add more cases for additional operations if needed
-                default:
+                default:                
                     Console.WriteLine("Invalid input. Please try again.");
                     break;
             }
@@ -515,7 +514,7 @@ internal class Program
                 Alias = "",
             };
 
-            if (statusProject == ProjectScheduled.scheduleWasPalnned)
+            if (e_bl.Task.ReturnStatusProject() == "scheduleWasPalnned")
             {
                 Console.WriteLine("Enter also ,Task(enter Id of task and Alias)");
                 int idOfTask = int.Parse(Console.ReadLine()!);
@@ -558,10 +557,13 @@ internal class Program
             DateTime createDate = DateTime.Now;
 
             List<TaskInList> dependencies = new List<TaskInList>();
-            if (statusProject == ProjectScheduled.planning)
+            if (e_bl.Task.ReturnStatusProject() == "planning")
             {
                 string input;
-                do
+                
+                Console.WriteLine("To add dependency, type 'y'. Otherwise, press any other key.");
+                input = Console.ReadLine();
+                while (input.ToLower() == "y") 
                 {
                     Console.WriteLine("Enter Dependency details (ID, Description, Alias): ");
                     TaskInList dependency = new TaskInList()
@@ -573,7 +575,7 @@ internal class Program
                     dependencies.Add(dependency);
                     Console.WriteLine("To add another dependency, type 'y'. Otherwise, press any other key.");
                     input = Console.ReadLine();
-                } while (input.ToLower() == "y");
+                } 
 
                 Console.WriteLine("Enter required effort time (e.g., 03:30:00): ");              
             }

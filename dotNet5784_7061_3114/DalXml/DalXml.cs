@@ -45,12 +45,20 @@ sealed internal class DalXml : IDal
         }
         XMLTools.SaveListToXMLElement(config, "data-config");
     }
-   public DateTime ReturnStartProjectDate()
+     public DateTime ReturnStartProjectDate()
     {
         XElement config = XMLTools.LoadListFromXMLElement("data-config");
         XElement? startProjectDate = config.Element("StartProjectDate");
         return DateTime.Parse(startProjectDate.Value);
     }
+    public string ReturnStatusProject()
+    {
+        XElement config = XMLTools.LoadListFromXMLElement("data-config");
+        XElement? statusProject = config.Element("StatusOfProject");
+        return statusProject.Value;
+    }
+
+
 
 
 }

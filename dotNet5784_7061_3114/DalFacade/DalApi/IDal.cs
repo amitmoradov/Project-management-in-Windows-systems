@@ -13,4 +13,6 @@ public interface IDal
     /// </summary>
     /// <returns></returns>
     DateTime ReturnStartProjectDate();
+
+    string ReturnStatusProject();
 }

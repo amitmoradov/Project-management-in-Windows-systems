@@ -35,4 +35,6 @@ public interface ITask
     /// <param name="status"></param>
     void ChangeOfStatus(string status);
 
+    string ReturnStatusProject();
+
 }

@@ -112,6 +112,7 @@ internal class TaskImplementation : ITask
         {
             //Delete the old engineer with same id
             Delete(item._id);
+            tasks = XMLTools.LoadListFromXMLSerializer<Task>(e_task_xml);
             // Add the update to new list
             tasks.Add(item);
 

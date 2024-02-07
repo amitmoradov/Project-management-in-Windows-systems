@@ -205,9 +205,9 @@ public class TaskImplementation : ITask
 
     }
 
-    public void Update(int idTask, DateTime scheduledDte)
+    public void Update(int idTask, DateTime scheduledDate)
     {
-        Console.WriteLine(scheduledDte);
+        Console.WriteLine(scheduledDate);
         BO.Task boTask = Read(idTask);
         Console.WriteLine(idTask);
         if (boTask.Dependencies != null)
@@ -215,22 +215,36 @@ public class TaskImplementation : ITask
 
             foreach (var item in boTask.Dependencies)
             {
+                
+                if (Read(item.Id).ScheduledDate == null)
+                {
+                    Console.WriteLine("is nulll");
+                }
                 Console.WriteLine(item);
+
             }
         }
-        //Check if all the scheduled start dates of the previous tasks are already updated (exist), otherwise throw an appropriate exception
-        if (!(boTask.Dependencies.All(x => x.Status != Status.Unscheduled)))
+        if(boTask.Dependencies == null)
         {
-            throw new BlCannotUpdateException("The previous tasks did not reach to scheduled");
+            boTask.ScheduledDate = scheduledDate;
+            boTask.Status = (Status)BringStatus(boTask.StartDate, boTask.ScheduledDate, boTask.CompleteDate);
+            Console.WriteLine(boTask.Status);
+            _dal.Task.Update(TurnTaskToDo(boTask));
+        }
+        //Check if all the scheduled start dates of the previous tasks are already updated (exist), otherwise throw an appropriate exception
+        //if (!(boTask.Dependencies.All(x => x.Status != Status.Unscheduled))
+        else if (!(boTask.Dependencies.All(x => Read(x.Id).ScheduledDate != null)))
+        {
+           throw new BlCannotUpdateException("The previous tasks did not reach to scheduled");
         }
         //Then, the action will check that the date received as a parameter is not earlier than all the estimated end dates of all tasks preceding it.
         //Otherwise an exception will be thrown
-        if (!(boTask.Dependencies.All(x => Read(x.Id).ForcastDate <= scheduledDte)))
+        else if (!(boTask.Dependencies.All(x => Read(x.Id).ForcastDate <= scheduledDate)))
         {
             throw new BlCannotUpdateException("The received date is not earlier than all the estimated end dates of all the tasks preceding it");
         }
 
-        boTask.ScheduledDate = scheduledDte;
+        boTask.ScheduledDate = scheduledDate;
 
         // Update the DateBase.
         _dal.Task.Update(TurnTaskToDo(boTask));
@@ -278,12 +292,13 @@ public class TaskImplementation : ITask
             CompleteDate = doTask._completeDate,
             CreatedAtDate = doTask._createdAtDate,
             Milestone = null,
-            Status = (Status)(BringStatus(doTask._startDate, doTask._scheduledDate, doTask._completeDate)),
+            Status = (Status)BringStatus(doTask._startDate, doTask._scheduledDate, doTask._completeDate),
             Dependencies = BringDendencies(doTask),
 
             //ForcastDate = Max(StartDate ,ScheduledDate) + RequiredEffortTime .
             ForcastDate = CalculateForcastDate(MaxDate(doTask._startDate, doTask._scheduledDate), doTask._requiredEffortTime),
         };
+
 
         return boTask;
     }
@@ -391,17 +406,15 @@ public class TaskImplementation : ITask
         {
             return 0;
         }
-        else
-        if (ScheduledDate < StartDate)//Scheduled 
+        if (ScheduledDate != null && StartDate == null)//Scheduled 
         {
             return 1;
         }
-        else
-        if (ScheduledDate < CompleteDate && ScheduledDate > StartDate)//OnTrack  
+        if (StartDate != null && CompleteDate == null)//OnTrack  
         {
             return 2;
         }
-        else if (CompleteDate != null)// Done 
+        if (CompleteDate != null)// Done 
         {
             return 3;
         }
@@ -460,6 +473,10 @@ public class TaskImplementation : ITask
     /// <returns></returns>
     private DateTime? MaxDate(DateTime? startDate, DateTime? scheduledDate)
     {
+        if (scheduledDate != null && startDate == null)
+        {
+            return scheduledDate;
+        }
         if (startDate.HasValue && scheduledDate.HasValue)
         {
             if (startDate.Value.Month > scheduledDate.Value.Month)

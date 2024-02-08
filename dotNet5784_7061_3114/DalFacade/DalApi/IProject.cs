@@ -2,13 +2,13 @@
 
 public interface IProject 
 {
-    void SaveStartProjectDate(DateTime startProject);
-    void SaveChangeOfStatus(string status);
+   public void SaveStartProjectDate(DateTime startProject);
+   public void SaveChangeOfStatus(string status);
     /// <summary>
     /// Return start projectDate .
     /// </summary>
     /// <returns></returns>
-    DateTime ReturnStartProjectDate();
+   public DateTime ReturnStartProjectDate();
 
-    string ReturnStatusProject();
+   public string ReturnStatusProject();
 }

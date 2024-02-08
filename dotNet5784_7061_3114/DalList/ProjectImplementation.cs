@@ -1,27 +1,27 @@
 ﻿
 using DalApi;
-
+using System;
 namespace Dal;
 
 internal class ProjectImplementation : IProject
 {
     public DateTime ReturnStartProjectDate()
     {
-        throw new NotImplementedException();
+        return DataSource.Config.startProject;
     }
 
     public string ReturnStatusProject()
     {
-        throw new NotImplementedException();
+        return DataSource.Config.status;
     }
 
     public void SaveChangeOfStatus(string status)
     {
-        throw new NotImplementedException();
+        DataSource.Config.status = status;
     }
 
     public void SaveStartProjectDate(DateTime startProject)
     {
-        throw new NotImplementedException();
+        DataSource.Config.startProject = startProject;
     }
 }

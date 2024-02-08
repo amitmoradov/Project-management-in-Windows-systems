@@ -28,13 +28,15 @@ public interface ITask
 
     void ScheduleFieldsInitialization();
 
-    void CreateStartDateProject(DateTime startDate);
-    /// <summary>
-    /// Change the status of project in data base
-    /// </summary>
-    /// <param name="status"></param>
-    void ChangeOfStatus(string status);
+    //void CreateStartDateProject(DateTime startDate);
 
-    string ReturnStatusProject();
+    ///// <summary>
+    ///// Change the status of project in data base
+    ///// </summary>
+    ///// <param name="status"></param>
+ 
+    //void ChangeOfStatus(string status);
+
+    //string ReturnStatusProject();
 
 }

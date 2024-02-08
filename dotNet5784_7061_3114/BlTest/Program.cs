@@ -25,7 +25,7 @@ internal class Program
         try
         {
 
-
+            
             while (!_exit)
             {
                 //Console.WriteLine();
@@ -63,7 +63,7 @@ internal class Program
                         }
                         break;
                     case '3':// Create a schedule/create Dates for Tasks
-                        if (e_bl.Task.ReturnStatusProject() == "ScheduleDetermination")
+                        if (e_bl.Project.ReturnStatusProject() != "planning")
                         {
                             throw new BlAlreadyPalnedException("The schedule has already been initialized");
                         }
@@ -71,13 +71,13 @@ internal class Program
                         Console.WriteLine("Enter Date for START PROJECT!!");
                         string startDate = Console.ReadLine();
                         DateTime startProjectDate;
-                        DateTime.TryParse(startDate, out startProjectDate);               
+                        DateTime.TryParse(startDate, out startProjectDate);
                         // Save the start date project .    
-                        
-                        e_bl.Task.CreateStartDateProject(startProjectDate);
-                        
-                        e_bl.Task.ScheduleFieldsInitialization();
 
+                        e_bl.Project.SaveStartProjectDate(startProjectDate);
+                        e_bl.Project.SaveChangeOfStatus("ScheduleDetermination");
+
+                        e_bl.Task.ScheduleFieldsInitialization();
                         break;
                     case '4':
                         // If we want to initialization the data base .
@@ -297,7 +297,7 @@ internal class Program
                 case '1':// Perform Create operation 
 
                     //Console.WriteLine($"Enter the {menuEntityName} ditals: engineer id, level, alias, description, remarks");
-                    if (e_bl.Task.ReturnStatusProject() != "planning")
+                    if (e_bl.Project.ReturnStatusProject() != "planning")
                     {
                         throw new BlAlreadyPalnedException("The schedule has already been initialized");
                     }
@@ -381,15 +381,15 @@ internal class Program
                         }
                         Console.WriteLine();
                         BO.Task updateTask = new();
-                        if (e_bl.Task.ReturnStatusProject() == "planning")
+                        if (e_bl.Project.ReturnStatusProject() == "planning")
                         {
-                            updateTask = InputValueTaskForPlanning();                                                     
+                            updateTask = InputValueTaskForPlanning();
                         }
 
-                        if (e_bl.Task.ReturnStatusProject() == "scheduleWasPalnned")
+                        if (e_bl.Project.ReturnStatusProject() == "scheduleWasPalnned")
                         {
-                            updateTask = InputValueTaskForPlanned();                       
-                            if(previousTask != null)
+                            updateTask = InputValueTaskForPlanned();
+                            if (previousTask != null)
                             {
                                 // If he try to change the StartDate .
                                 if (previousTask.StartDate != null && (updateTask.StartDate != previousTask.StartDate))
@@ -406,7 +406,7 @@ internal class Program
 
                         // Send the item to methods of create and insert to list of task
                         e_bl!.Task.Update(updateTask);
-                      
+
 
                     }
                     // If the engineer is exist
@@ -415,7 +415,12 @@ internal class Program
                         Console.WriteLine("Exception message: " + ex.Message);
                         Console.WriteLine("Exception type: " + ex.GetType().FullName);
                     }
-                    catch(BlDoesNotExistException ex)
+                    catch (BlDoesNotExistException ex)
+                    {
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
+                    }
+                    catch (BlCannotUpdateException ex)
                     {
                         Console.WriteLine("Exception message: " + ex.Message);
                         Console.WriteLine("Exception type: " + ex.GetType().FullName);
@@ -425,10 +430,10 @@ internal class Program
                 case '5': // Perform Delete operation
 
                     //Tasks cannot be deleted after the project schedule has been created
-                    if (e_bl.Task.ReturnStatusProject() == "scheduleWasPalnned")
-                    {
-                        throw new BlAlreadyPalnedException("The schedule has already been initialized");
-                    }
+                    //if (e_bl.Task.ReturnStatusProject() == "scheduleWasPalnned")
+                    //{
+                    //    throw new BlAlreadyPalnedException("The schedule has already been initialized");
+                    //}
 
                     Console.WriteLine("Enter Id to remove frome the DataBase ");
                     int id = int.Parse(Console.ReadLine()!);
@@ -436,7 +441,11 @@ internal class Program
                     {
                         e_bl!.Task.Delete(id);
                     }
-                    
+                    catch(BlAlreadyPalnedException ex)
+                    {
+                        Console.WriteLine("Exception message: " + ex.Message);
+                        Console.WriteLine("Exception type: " + ex.GetType().FullName);
+                    }
                     catch (BlReadNotFoundException ex)
                     {
                         Console.WriteLine("Exception message: " + ex.Message);
@@ -514,7 +523,7 @@ internal class Program
                 Alias = "",
             };
 
-            if (e_bl.Task.ReturnStatusProject() == "scheduleWasPalnned")
+            if (e_bl.Project.ReturnStatusProject() == "scheduleWasPalnned")
             {
                 Console.WriteLine("Enter also ,Task(enter Id of task and Alias)");
                 int idOfTask = int.Parse(Console.ReadLine()!);
@@ -542,7 +551,8 @@ internal class Program
 
         static BO.Task InputValueTaskForPlanning()
         {
-            Console.WriteLine("Enter task details for creation:");
+        Console.WriteLine("You are in the planning stage");
+        Console.WriteLine("Enter task details for creation:");
             Console.WriteLine("ID: ");
             int id = int.Parse(Console.ReadLine()!);
             Console.WriteLine("Level (0-3): ");
@@ -557,7 +567,7 @@ internal class Program
             DateTime createDate = DateTime.Now;
 
             List<TaskInList> dependencies = new List<TaskInList>();
-            if (e_bl.Task.ReturnStatusProject() == "planning")
+            if (e_bl.Project.ReturnStatusProject() == "planning")
             {
                 string input;
                 
@@ -576,7 +586,7 @@ internal class Program
                     Console.WriteLine("To add another dependency, type 'y'. Otherwise, press any other key.");
                     input = Console.ReadLine();
                 } 
-
+                
                 Console.WriteLine("Enter required effort time (e.g., 03:30:00): ");              
             }
              TimeSpan requiredEffortTime = TimeSpan.Parse(Console.ReadLine()!);
@@ -607,8 +617,9 @@ internal class Program
 
         static BO.Task InputValueTaskForPlanned()
         {
-            Console.WriteLine("Enter task details for update:");
-            Console.WriteLine("ID: ");
+        Console.WriteLine("You are in the scheduleWasPalnned stage");
+        Console.WriteLine("Enter task details for update:");
+            Console.WriteLine("UPDATE - SAME ID / CREATE - NEW ID: ");
             int id = int.Parse(Console.ReadLine()!);
             Console.WriteLine("Level (0-3): ");
             DO.EngineerExperience level = (DO.EngineerExperience)int.Parse(Console.ReadLine()!);
@@ -624,14 +635,18 @@ internal class Program
             assignedEngineer.Id = int.Parse(Console.ReadLine()!);
             assignedEngineer.Name = Console.ReadLine();
 
-            Console.WriteLine("Enter start date (e.g., 2024-02-03): ");
-            DateTime startDate = DateTime.Parse(Console.ReadLine()!);
-            Console.WriteLine("Enter completion date (e.g., 2024-02-03): ");
-            DateTime completionDate = DateTime.Parse(Console.ReadLine()!);
+            Console.WriteLine("Enter start date (e.g., 2024.02.03): ");
+            string startDateInput = Console.ReadLine();
+            DateTime? startDate = string.IsNullOrWhiteSpace(startDateInput) ? null : DateTime.Parse(startDateInput);
+
+            //DateTime startDate = DateTime.Parse(Console.ReadLine()!);
+            Console.WriteLine("Enter completion date (e.g., 2024.02.03): ");
+            string completeDateInput = Console.ReadLine();
+            DateTime? completeDate = string.IsNullOrWhiteSpace(completeDateInput) ? null : DateTime.Parse(completeDateInput);
 
             Console.WriteLine("Enter task status (0-3): ");
             Status status = (Status)int.Parse(Console.ReadLine()!);
-
+            
             BO.Task task = new BO.Task()
             {
                 Id = id,
@@ -642,14 +657,15 @@ internal class Program
                 Engineer = assignedEngineer,
                 Copmliexity = level,
                 CanToRemove = true,
+                StartDate = startDate,
                 Active = true,
                 DeadLineDate = null,
                 RequiredEffortTime = null,
                 Deliverables = null,
-                ScheduledDate = startDate,
+                ScheduledDate = null,
                 Milestone = null,
                 Status = status,
-                CompleteDate = completionDate
+                CompleteDate = completeDate
             };
 
             return task;

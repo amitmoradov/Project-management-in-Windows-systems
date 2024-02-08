@@ -168,8 +168,8 @@ public static class Initialization
 
             DateTime create_at_date =  new DateTime(2024,1,15);
 
-            // The task take at less 100 days
-            int range =100;
+            // The task take at less 9 days
+            int range =9;
             DateTime _randomDate = create_at_date.AddDays(e_rand.Next(range));
             
             //TODO: fix the requiredeffoertime - save
@@ -222,11 +222,13 @@ public static class Initialization
         e_dal.Engineer.reset();
         e_dal.Dependency.reset();
         e_dal.Task.reset();
+
         // Set the status project value to planning .
-        e_dal.SaveChangeOfStatus("planning");
-        // Zero the start date project .
+        e_dal.Project.SaveChangeOfStatus("planning");
+        // Defulte start date project .
         DateTime startDate = new DateTime(2024, 01, 01);
-        e_dal.SaveStartProjectDate(startDate);
+        e_dal.Project.SaveStartProjectDate(startDate);
+
         //e_dalDependency = dalDependency ?? throw new NullReferenceException("Dependency can not be null!");
         //e_dalEngineer = dalEngineer ?? throw new NullReferenceException("Engineer can not be null!");
         //e_dalTask = dalTask ?? throw new NullReferenceException("Task can not be null!");

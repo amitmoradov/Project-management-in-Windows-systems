@@ -2,17 +2,18 @@
 using BlApi;
 using BO;
 using DO;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace BlImplementation;
 
-
-public class TaskImplementation : ITask
+using BlApi;
+internal class TaskImplementation : ITask
 {
     // Access to Dl layer .
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+    //static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
 
     public void Create(BO.Task boTask)
     {
@@ -37,7 +38,12 @@ public class TaskImplementation : ITask
 
             }
         }
-
+        //Checks if I am in one step, if so, it is forbidden to assign movers to the task
+        if (_dal.Project.ReturnStatusProject() == "planning")
+        {
+            boTask.Engineer.Name = "";
+            boTask.Engineer.Id = 0;
+        }
         //Convert the details to Data Base Layer
         DO.Task doTask = TurnTaskToDo(boTask);
 
@@ -56,6 +62,11 @@ public class TaskImplementation : ITask
 
     public void Delete(int id)
     {
+        //Tasks can not deleted if I am in step 3
+        if (_dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
+        {
+            throw new BlAlreadyPalnedException("The schedule has already been initialized");
+        }
         // Read throw exception if Task is not found 
         BO.Task? boTask = Read(id);
 
@@ -155,15 +166,35 @@ public class TaskImplementation : ITask
     public void Update(BO.Task boTask)
     {
         // Chack the details Task 
-        ChackDetails(boTask);
-
-        if (ReturnStatusProject() == "ScheduleDetermination")
+        if (_dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
+            ChackDetails(boTask);
+        else {
+            ChackDatailPlannedSatge(boTask);
+            }
+        if (_dal.Project.ReturnStatusProject() == "ScheduleDetermination")
         {
             boTask = ChackUpdate(boTask);
         }
 
         try
         {
+            /*If I'm in step 3 then
+            I can't fill in all the fields that's why
+            I bring the unfilled fields from the data layer and there in the updated variable*/
+            if (_dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
+            {
+                boTask = UnifiyTasksForThePlannedStage(boTask);
+
+                //Checks if there is no other engineer working on the task.
+                if (Read(boTask.Id).Engineer.Id != 0)
+                {
+                    throw new BlCannotUpdateException("There is another engineer already working on the task");
+                }
+                //BO.Engineer engineer = e_bl.Engineer.Read(TurnTaskToDo(boTask)._id);
+                //DO.Engineer updateTaskOfEngineer = new();
+
+            }
+
             _dal.Task.Update(TurnTaskToDo(boTask));
         }
         catch (DO.DalDoesNotExistException ex)
@@ -179,71 +210,40 @@ public class TaskImplementation : ITask
 
         // Define the start and end dates for the range
 
-        DateTime startDateProject = _dal.ReturnStartProjectDate();
+        DateTime startDateProject = _dal.Project.ReturnStartProjectDate();
         DateTime endDate = startDateProject.AddYears(1);
-
+        int countDays = 0;
         foreach (var task in allTask)
         {
-            int randomDays = rnd.Next(1, (endDate - startDateProject).Days);
-            DateTime randomDate = startDateProject.AddDays(randomDays);
+            countDays = countDays + 10;
+            //int randomDays = rnd.Next(1, (endDate - startDateProject).Days);
+            DateTime randomDate = startDateProject.AddDays(countDays);
             //A random variable that holds a date between 2024.04.11 and 2024.12.31
             Update(task.Id, randomDate);
         }
         // Status project change from 2 to 3 .
-        ChangeOfStatus("scheduleWasPalnned");
+        _dal.Project.SaveChangeOfStatus("scheduleWasPalnned");
     }
 
-    public void ChangeOfStatus(string status)
-    {
-        _dal.SaveChangeOfStatus(status);
-    }
-    public void CreateStartDateProject(DateTime startDate)
-    {
-        _dal.SaveStartProjectDate(startDate);
-        // Status project change from 1 to 2 .
-        ChangeOfStatus("ScheduleDetermination");
-
-    }
 
     public void Update(int idTask, DateTime scheduledDate)
     {
-        Console.WriteLine(scheduledDate);
+        
         BO.Task boTask = Read(idTask);
-        Console.WriteLine(idTask);
-        if (boTask.Dependencies != null)
-        {
 
-            foreach (var item in boTask.Dependencies)
-            {
-                
-                if (Read(item.Id).ScheduledDate == null)
-                {
-                    Console.WriteLine("is nulll");
-                }
-                Console.WriteLine(item);
-
-            }
-        }
-        if(boTask.Dependencies == null)
-        {
-            boTask.ScheduledDate = scheduledDate;
-            boTask.Status = (Status)BringStatus(boTask.StartDate, boTask.ScheduledDate, boTask.CompleteDate);
-            Console.WriteLine(boTask.Status);
-            _dal.Task.Update(TurnTaskToDo(boTask));
-        }
-        //Check if all the scheduled start dates of the previous tasks are already updated (exist), otherwise throw an appropriate exception
-        //if (!(boTask.Dependencies.All(x => x.Status != Status.Unscheduled))
-        else if (!(boTask.Dependencies.All(x => Read(x.Id).ScheduledDate != null)))
+        if (!(boTask.Dependencies.All(x => Read(x.Id).ScheduledDate != null)))
         {
            throw new BlCannotUpdateException("The previous tasks did not reach to scheduled");
         }
         //Then, the action will check that the date received as a parameter is not earlier than all the estimated end dates of all tasks preceding it.
         //Otherwise an exception will be thrown
-        else if (!(boTask.Dependencies.All(x => Read(x.Id).ForcastDate <= scheduledDate)))
+        if (!(boTask.Dependencies.All(x => Read(x.Id).ForcastDate <= scheduledDate)))
         {
+           
             throw new BlCannotUpdateException("The received date is not earlier than all the estimated end dates of all the tasks preceding it");
         }
 
+        boTask.Status = (Status)BringStatus(boTask.StartDate, boTask.ScheduledDate, boTask.CompleteDate);
         boTask.ScheduledDate = scheduledDate;
 
         // Update the DateBase.
@@ -305,6 +305,23 @@ public class TaskImplementation : ITask
 
     /////////////////////////////////////////////////////////////Help function//////////////////////////////////////////////////////////////////////////////////////
 
+    private void ChackDatailPlannedSatge(BO.Task boTask)
+    {
+        if (boTask.Id < 0)
+        {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Id}");
+        }
+        if (boTask.Alias == "")
+        {
+            throw new BlNullPropertyException($"You did not add value for : Alias");
+        }
+         if (boTask.Description == "")
+         {
+            throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: Description");
+         }
+
+    }
+
     private void ChackDetails(BO.Task boTask)
     {
 
@@ -313,7 +330,7 @@ public class TaskImplementation : ITask
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Id}");
         }
 
-        if (boTask.CreatedAtDate == null)
+        if (boTask.CreatedAtDate == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
         {
             throw new BlNullPropertyException($"You did not add value for : CreatedAtDate");
         }
@@ -323,7 +340,7 @@ public class TaskImplementation : ITask
             throw new BlNullPropertyException($"You did not add value for : Alias");
         }
 
-        if (boTask.RequiredEffortTime == null)
+        if (boTask.RequiredEffortTime == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
         {
             throw new BlNullPropertyException($"You did not add value for : RequiredEffortTime");
         }
@@ -333,7 +350,7 @@ public class TaskImplementation : ITask
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: Description");
         }
 
-        if (_dal.ReturnStatusProject() != "planning")
+        if (_dal.Project.ReturnStatusProject() != "planning")
         {
 
             if (boTask.ScheduledDate == null)
@@ -361,12 +378,6 @@ public class TaskImplementation : ITask
                 throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
             }
         }
-
-        //if(boTask.RequiredEffortTime.Value.Days <= 0)
-        //{
-        //    throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.RequiredEffortTime}");
-        //}
-
 
     }
 
@@ -531,7 +542,7 @@ public class TaskImplementation : ITask
     private DateTime GetMaxScheduledDate(IEnumerable<BO.Task?> taskDependOn)
     {
         //We just gave a date to the max variable.
-        DateTime maxDate = _dal.ReturnStartProjectDate();
+        DateTime maxDate = _dal.Project.ReturnStartProjectDate();
         foreach (var task in taskDependOn)
         {
             //Checks whether task is bigger in terms of years.
@@ -577,13 +588,66 @@ public class TaskImplementation : ITask
     }
 
     /// <summary>
+    ///  I can't fill in all the fields that's why
+    ///I bring the unfilled fields from the data layer and there in the updated variable*/
+    /// </summary>
+    /// <param name="needUpdate"></param>
+    /// <returns></returns>
+    private BO.Task UnifiyTasksForThePlannedStage(BO.Task needUpdate)
+    {
+        /*If I'm in step 3 then
+           I can't fill in all the fields that's why
+           I bring the unfilled fields from the data layer and there in the updated variable*/
+
+            BO.Task privuseTask = Read(needUpdate.Id);
+            BO.Task afterUpdateTask = new BO.Task()
+            {
+                RequiredEffortTime = privuseTask.RequiredEffortTime,
+                CreatedAtDate = privuseTask.CreatedAtDate,              
+                ScheduledDate = privuseTask.ScheduledDate,
+                Dependencies = privuseTask.Dependencies,
+
+                Id = needUpdate.Id,
+                Active = needUpdate.Active,
+                CanToRemove = needUpdate.CanToRemove,
+                Alias = needUpdate.Alias,
+                Description = needUpdate.Description,
+                Deliverables = needUpdate.Deliverables,
+                ForcastDate = needUpdate.ForcastDate,
+                Milestone = needUpdate.Milestone,
+                Engineer = needUpdate.Engineer,
+                CompleteDate = needUpdate.CompleteDate,
+                Status = needUpdate.Status,
+                StartDate = needUpdate.StartDate,
+                DeadLineDate = needUpdate.DeadLineDate,
+                Copmliexity = needUpdate.Copmliexity,
+                Remarks = needUpdate.Remarks,
+
+            };
+
+        return afterUpdateTask;
+    }
+
+    /// <summary>
     /// This function is only intended to give access to the main program into the status of the project.
     /// </summary>
     /// <returns></returns>
-    public string ReturnStatusProject()
-    {
-        return _dal.ReturnStatusProject();
-    }
+    //public string ReturnStatusProject()
+    //{
+    //    return _dal.Project.ReturnStatusProject();
+    //}
+
+    //public void ChangeOfStatus(string status)
+    //{
+    //    _dal.Project.SaveChangeOfStatus(status);
+    //}
+    //public void CreateStartDateProject(DateTime startDate)
+    //{
+    //    _dal.Project.SaveStartProjectDate(startDate);
+    //    // Status project change from 1 to 2 .
+    //    ChangeOfStatus("ScheduleDetermination");
+
+    //}
 }
 
 

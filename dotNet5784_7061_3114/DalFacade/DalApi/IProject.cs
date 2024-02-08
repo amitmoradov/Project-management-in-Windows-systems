@@ -1,6 +1,14 @@
-﻿namespace DalApi
+﻿namespace DalApi;
+
+public interface IProject 
 {
-    public interface IProject : IDal
-    {
-    }
+    void SaveStartProjectDate(DateTime startProject);
+    void SaveChangeOfStatus(string status);
+    /// <summary>
+    /// Return start projectDate .
+    /// </summary>
+    /// <returns></returns>
+    DateTime ReturnStartProjectDate();
+
+    string ReturnStatusProject();
 }

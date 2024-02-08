@@ -20,11 +20,17 @@ internal class EngineerImplementation : IEngineer
         {
             // Checks the details and if they are incorrect, throws an error
             ChackDetails(boEngineer);
-            
+            if (_dal.Project.ReturnStatusProject() == "planning") 
+            {
+                boEngineer.Task.Id = 0;
+                boEngineer.Task.Alias = null;
+            }
             // Create of DAL
             int idEngineer = _dal.Engineer.Create(doEngineer);
             return idEngineer;
+            
         }
+        
 
         catch (DO.DalDoesExistException ex)
         {
@@ -49,10 +55,10 @@ internal class EngineerImplementation : IEngineer
         {
             _dal.Engineer.Delete(id);
         }
-        catch(DO.DalDoesNotExistException ex)
-        {
-            throw new BO.BlDoesNotExistException("The antity is not exist", ex);
-        }
+        //catch(DO.DalDoesNotExistException ex)
+        //{
+        //    throw new BO.BlDoesNotExistException("The antity is not exist", ex);
+        //}
         catch(DO.DalCannotDeleted ex)
         {
             throw new BO.BlCannotDeletedException("Can not delete this antity", ex);
@@ -127,16 +133,16 @@ internal class EngineerImplementation : IEngineer
         {
             throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Level}");
         }
-   
-        if (previousEngineer?.Task?.Id != boEngineer?.Task?.Id)
+
+        //Tests an attempt to assign a task (provided they are in step 3)
+        if (previousEngineer?.Task?.Id != boEngineer?.Task?.Id && _dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
         {
             //Return from the list of tasks the one task that the engineer is working on
             var resulte = (from DO.Task task in _dal.Task.ReadAll()
                            where previousEngineer?.Id == task._engineerId
                            select task).FirstOrDefault();
 
-            //לבדוק אם לשנות לאחר שניצור את המחקלה שלTask BL
-            // כולל שינוי שם המהנדס
+            //Assigns a task to an engineer 
             DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
                 resulte._startDate,resulte._scheduledDate,resulte._completeDate,resulte._deadLineDate,resulte._alias,
                 resulte._description,resulte._deliverables,resulte._remarks,resulte._id,boEngineer.Id,resulte._active,resulte._isMilestone,resulte._canToRemove);

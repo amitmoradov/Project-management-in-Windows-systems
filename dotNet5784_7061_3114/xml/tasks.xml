@@ -2,8 +2,8 @@
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_requiredEffortTime>P2D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2024-12-22T00:00:00</_scheduledDate>
     <_alias>TRA</_alias>
     <_description>Research and Analysis of Vehicle Traffic</_description>
@@ -16,8 +16,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P6D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_requiredEffortTime>P3D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2025-01-01T00:00:00</_scheduledDate>
     <_alias>CSE</_alias>
     <_description>Evaluation of Potential Charging Station Locations</_description>
@@ -30,8 +30,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P3D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_requiredEffortTime>P2D</_requiredEffortTime>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
     <_scheduledDate>2025-01-11T00:00:00</_scheduledDate>
     <_alias>SCS</_alias>
     <_description>Development of Smart Communication System</_description>
@@ -44,8 +44,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P3D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_requiredEffortTime>P5D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2025-01-21T00:00:00</_scheduledDate>
     <_alias>APIA</_alias>
     <_description>Assessment of Project Impact on Air Pollution Levels</_description>
@@ -58,7 +58,7 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
+    <_requiredEffortTime>P3D</_requiredEffortTime>
     <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-01-31T00:00:00</_scheduledDate>
     <_alias>AESP</_alias>
@@ -72,7 +72,7 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_requiredEffortTime>P8D</_requiredEffortTime>
     <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2025-02-10T00:00:00</_scheduledDate>
     <_alias>CSC</_alias>
@@ -86,8 +86,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P2D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_requiredEffortTime>P7D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2025-02-20T00:00:00</_scheduledDate>
     <_alias>SST</_alias>
     <_description>Testing and Verification of Safety Standards</_description>
@@ -114,8 +114,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P2D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_requiredEffortTime>P7D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-03-12T00:00:00</_scheduledDate>
     <_alias>BIP</_alias>
     <_description>Development of Budgetary and Implementation Plan</_description>
@@ -128,8 +128,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P5D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-03-22T00:00:00</_scheduledDate>
     <_alias>DMS</_alias>
     <_description>Establishment of Data Management System</_description>
@@ -142,8 +142,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_requiredEffortTime>PT0S</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-04-01T00:00:00</_scheduledDate>
     <_alias>STMI</_alias>
     <_description>Implementation of Smart Traffic Management System</_description>
@@ -157,7 +157,7 @@
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
     <_requiredEffortTime>P3D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
     <_scheduledDate>2025-04-11T00:00:00</_scheduledDate>
     <_alias>RMS</_alias>
     <_description>Creation of Roadway Maintenance and Monitoring System</_description>
@@ -170,7 +170,7 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>PT0S</_requiredEffortTime>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
     <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2025-04-21T00:00:00</_scheduledDate>
     <_alias>DSP</_alias>
@@ -184,8 +184,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>PT0S</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_requiredEffortTime>P3D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
     <_scheduledDate>2025-05-01T00:00:00</_scheduledDate>
     <_alias>STC</_alias>
     <_description>Development of Smart Traffic Control System</_description>
@@ -199,7 +199,7 @@
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
     <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
     <_scheduledDate>2025-05-11T00:00:00</_scheduledDate>
     <_alias>AESI</_alias>
     <_description>Installation of Advanced Energy Stations</_description>
@@ -212,8 +212,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P3D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_requiredEffortTime>P7D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-05-21T00:00:00</_scheduledDate>
     <_alias>VCSB</_alias>
     <_description>Building a Communication System Between Vehicles</_description>
@@ -226,8 +226,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_requiredEffortTime>P6D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2025-05-31T00:00:00</_scheduledDate>
     <_alias>PMPC</_alias>
     <_description>Creation of Project Management and Oversight Plan</_description>
@@ -240,8 +240,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P2D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_requiredEffortTime>P8D</_requiredEffortTime>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
     <_scheduledDate>2025-06-10T00:00:00</_scheduledDate>
     <_alias>BCSR</_alias>
     <_description>Budgetary Compliance and Planned Work Scope Review</_description>
@@ -254,8 +254,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P3D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_requiredEffortTime>P4D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2025-06-20T00:00:00</_scheduledDate>
     <_alias>VTSM</_alias>
     <_description>Development of Vehicle Traffic Management System</_description>
@@ -268,8 +268,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P2D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_requiredEffortTime>P6D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-06-30T00:00:00</_scheduledDate>
     <_alias>PBAA</_alias>
     <_description>Assessment of Project Budget Adherence</_description>
@@ -282,7 +282,7 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P6D</_requiredEffortTime>
+    <_requiredEffortTime>PT0S</_requiredEffortTime>
     <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-07-10T00:00:00</_scheduledDate>
     <_alias>EOID</_alias>
@@ -296,8 +296,8 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P8D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_requiredEffortTime>PT0S</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
     <_scheduledDate>2025-07-20T00:00:00</_scheduledDate>
     <_alias>EOISE</_alias>
     <_description>Examination of Infrastructure Support for Electric Vehicle Offices</_description>

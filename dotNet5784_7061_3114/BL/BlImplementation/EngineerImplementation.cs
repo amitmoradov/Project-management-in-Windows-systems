@@ -45,7 +45,7 @@ internal class EngineerImplementation : IEngineer
          BO.Engineer? boEngineer = Read(id);
 
          // Checks that the engineer is not performing a task
-         if (boEngineer?.Task != null)
+         if (boEngineer.Task.Id != 0)
          {
             throw new BO.BlEntityCanNotRemoveException("Can not remove this antity");
          }

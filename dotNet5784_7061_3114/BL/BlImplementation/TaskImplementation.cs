@@ -213,7 +213,7 @@ internal class TaskImplementation : ITask
         DateTime startDateProject = _dal.Project.ReturnStartProjectDate();
         DateTime endDate = startDateProject.AddYears(1);
         int countDays = 0;
-        foreach (var task in allTask)
+        foreach (var task in allTask.ToList())
         {
             countDays = countDays + 10;
             //int randomDays = rnd.Next(1, (endDate - startDateProject).Days);

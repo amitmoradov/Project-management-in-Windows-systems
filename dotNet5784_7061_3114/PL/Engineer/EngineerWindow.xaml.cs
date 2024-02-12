@@ -45,9 +45,4 @@ public partial class EngineerWindow : Window
         e_bl?.Engineer.ReadAll()! : e_bl?.Engineer.ReadAll(item => (int)item.Level == (int)Experience)!;
 
     }
-
-    private void tnAddUpdate_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
 }

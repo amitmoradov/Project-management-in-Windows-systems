@@ -19,8 +19,4 @@
     <ProjectReference Include="..\DalTest\DalTest.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Engineer\" />
-  </ItemGroup>
-
 </Project>

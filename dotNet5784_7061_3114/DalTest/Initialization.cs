@@ -51,7 +51,7 @@ public static class Initialization
             EngineerExperience level = new EngineerExperience();
 
             // Sets a random number in the amount of enum EngineerExperience items
-            level = (EngineerExperience)e_rand.Next(0, 4);
+            level = (EngineerExperience)e_rand.Next(0, 5);
 
             // Variable for the engineer's salary, to be updated based on experience level
             double? cost = 0;

@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Task
+namespace PL.Engineer
 {
     /// <summary>
-    /// Interaction logic for TaskWindow.xaml
+    /// Interaction logic for SingleEngineerWindow.xaml
     /// </summary>
-    public partial class TaskWindow : Window
+    public partial class SingleEngineerWindow : Window
     {
-        public TaskWindow()
+        public SingleEngineerWindow()
         {
             InitializeComponent();
         }

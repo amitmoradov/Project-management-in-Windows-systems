@@ -27,16 +27,27 @@ public class Task
 
     private string ToStringProperty()
     {
-        return $"The Task details is - Id: {Id}, Alias: {Alias}, Description: {Description}, " +
-                   $"CreatedAtDate: {CreatedAtDate}, Status: {Status}, Copmliexity: {Copmliexity}, " +
-                   $"StartDate: {StartDate}, ScheduledDate: {ScheduledDate}, " +
-                   $"CompleteDate: {CompleteDate}, DeadLineDate: {DeadLineDate}, " +
-                   $"ForcastDate: {ForcastDate}, RequiredEffortTime: {RequiredEffortTime}, " +
-                   $"Deliverables: {Deliverables}, Remarks: {Remarks}, " +
-                   $"Dependencies: {string.Join(", ", Dependencies)}, " +
-                   $"Engineer: {Engineer}, Milestone: {Milestone}, " +
-                   $"Active: {Active}, CanToRemove: {CanToRemove}";
-        
+        return $"The task details are:\n" +
+        $"Id: {Id}\n" +
+        $"Alias: {Alias}\n" +
+        $"Description: {Description}\n" +
+        $"CreatedAtDate: {CreatedAtDate}\n" +
+        $"Status: {Status}\n" +
+        $"Complexity: {Copmliexity}\n" +
+        $"StartDate: {StartDate}\n" +
+        $"ScheduledDate: {ScheduledDate}\n" +
+        $"CompleteDate: {CompleteDate}\n" +
+        $"DeadLineDate: {DeadLineDate}\n" +
+        $"ForecastDate: {ForcastDate}\n" +
+        $"RequiredEffortTime: {RequiredEffortTime}\n" +
+        $"Deliverables: {Deliverables}\n" +
+        $"Remarks: {Remarks}\n" +
+        $"Dependencies: {string.Join(", ", Dependencies)}\n" +
+        $"Engineer: {Engineer}\n" +
+        $"Milestone: {Milestone}\n" +
+        $"Active: {Active}\n" +
+        $"CanToRemove: {CanToRemove}\n" +
+        $"===========================\n"; 
 
     }
 }

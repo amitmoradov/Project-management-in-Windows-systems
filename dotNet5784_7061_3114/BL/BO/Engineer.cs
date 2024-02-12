@@ -19,7 +19,18 @@ public class Engineer
 
     private string ToStringProperty()
     {
-        return $"Engineer details: id:{ Id}, name: {Name}, email:{Email}, cost:{Cost}, active:{Active}, canToRemove:{CanToRemove}, task: Id: {Task.Id} , Alias: {Task.Alias}";
+        return $"Id: {Id}\n" +
+        $"Name: {Name}\n" +
+        $"Email: {Email}\n" +
+        $"Level: {Level}\n"+
+        $"Cost: {Cost}\n" +
+        $"Active: {Active}\n" +
+        $"Can To Remove: {CanToRemove}\n" +
+        $"Task: Id: {Task.Id}  " + $"Alias: {Task.Alias}\n" +
+       "===========================\n" +
+        $"                                ";
+        
+
     }
 }
 

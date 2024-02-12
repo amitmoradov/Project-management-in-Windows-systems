@@ -1,24 +1,31 @@
-﻿using System.Text;
+﻿using PL.Engineer;
+//using PL.Engineer;
+using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace PL
+namespace PL;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
+        InitializeComponent();
+    }
+
+    private void Data_Initialization(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult result = MessageBox.Show("Would you like to create Initial data? Enter 'YES'.", "Data Initialization", MessageBoxButton.YesNo);
+        if (result == MessageBoxResult.Yes)
         {
-            InitializeComponent();
+            DalTest.Initialization.Do();
         }
+    }
+
+    private void btnEngineers_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerWindow().Show();
     }
 }

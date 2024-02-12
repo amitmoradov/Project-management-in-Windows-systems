@@ -16,5 +16,14 @@ public enum ProjectScheduled
     scheduleWasPalnned, // After scheduled
 }
 
+public enum EngineerExperience
+{
+    Beginner,
+    AdvancedBeginner,
+    Intermediate,
+    Advanced,
+    Expert,
+    All
+}
 
 

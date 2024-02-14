@@ -34,3 +34,51 @@ class IdToIsEnabledConverter : IValueConverter
     }
 
 }
+public class EngineerExperienceConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is int intValue)
+        {
+            switch (intValue)
+            {
+                case 0:
+                    return BO.EngineerExperience.Beginner;
+                case 1:
+                    return BO.EngineerExperience.AdvancedBeginner;
+                case 2:
+                    return BO.EngineerExperience.Intermediate;
+                case 3:
+                    return BO.EngineerExperience.Advanced;
+                case 4:
+                    return BO.EngineerExperience.Expert;
+                default:
+                    return BO.EngineerExperience.Beginner;
+            }
+        }
+        return BO.EngineerExperience.Beginner;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is BO.EngineerExperience experience)
+        {
+            switch (experience)
+            {
+                case BO.EngineerExperience.Beginner:
+                    return 0;
+                case BO.EngineerExperience.AdvancedBeginner:
+                    return 1;
+                case BO.EngineerExperience.Intermediate:
+                    return 2;
+                case BO.EngineerExperience.Advanced:
+                    return 3;
+                case BO.EngineerExperience.Expert:
+                    return 4;
+                default:
+                    return 0;
+            }
+        }
+        return 0;
+    }
+}

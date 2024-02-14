@@ -39,6 +39,11 @@ public partial class EngineesListrWindow : Window
     public static readonly DependencyProperty EngineerListProperty =
         DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineesListrWindow), new PropertyMetadata(null));
 
+    /// <summary>
+    /// Filter the list of engineer by level.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbExpirenceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         EngineerList = (Experience == BO.EngineerExperience.All) ?
@@ -57,7 +62,7 @@ public partial class EngineesListrWindow : Window
     {
         BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
 
-        new SingleEngineerWindow(engineer.Id).ShowDialog();
+        new SingleEngineerWindow(engineer!.Id).ShowDialog();
         //To refresh window after Update
         EngineerList = e_bl?.Engineer.ReadAll()!;
 

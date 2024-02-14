@@ -628,26 +628,6 @@ internal class TaskImplementation : ITask
         return afterUpdateTask;
     }
 
-    /// <summary>
-    /// This function is only intended to give access to the main program into the status of the project.
-    /// </summary>
-    /// <returns></returns>
-    //public string ReturnStatusProject()
-    //{
-    //    return _dal.Project.ReturnStatusProject();
-    //}
-
-    //public void ChangeOfStatus(string status)
-    //{
-    //    _dal.Project.SaveChangeOfStatus(status);
-    //}
-    //public void CreateStartDateProject(DateTime startDate)
-    //{
-    //    _dal.Project.SaveStartProjectDate(startDate);
-    //    // Status project change from 1 to 2 .
-    //    ChangeOfStatus("ScheduleDetermination");
-
-    //}
 }
 
 

@@ -17,7 +17,7 @@ public partial class MainWindow : Window
 
     private void Data_Initialization(object sender, RoutedEventArgs e)
     {
-        MessageBoxResult result = MessageBox.Show("Would you like to create Initial data? Enter 'YES'.", "Data Initialization", MessageBoxButton.YesNo);
+        MessageBoxResult result = MessageBox.Show("Would you like to create Initial data?", "Data Initialization", MessageBoxButton.YesNo);
         if (result == MessageBoxResult.Yes)
         {
             DalTest.Initialization.Do();

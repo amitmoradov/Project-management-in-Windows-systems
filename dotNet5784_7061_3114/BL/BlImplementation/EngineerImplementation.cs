@@ -34,7 +34,7 @@ internal class EngineerImplementation : IEngineer
 
         catch (DO.DalDoesExistException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists", ex);
+            throw new BO.BlAlreadyExistsException($"Engineer already exists", ex);
         }
 
     }
@@ -74,7 +74,7 @@ internal class EngineerImplementation : IEngineer
 
             return boEngineer;
         }
-         throw new BO.BlReadNotFoundException($"Engineer with ID={doEngineer?._id} is not exist");
+         throw new BO.BlReadNotFoundException($"Engineer is not exist in system");
     }
 
     public BO.Engineer? Read(Func<BO.Engineer, bool> filter)
@@ -85,7 +85,7 @@ internal class EngineerImplementation : IEngineer
             BO.Engineer boEngineer = TurnEngineerToBo(doEngineer);
             return boEngineer;
         }
-        throw new BO.BlReadNotFoundException("Engineer is not exist");
+        throw new BO.BlReadNotFoundException("Engineer is not exist in system");
     }
 
     public IEnumerable<BO.Engineer?> ReadAll(Func<BO.Engineer, bool>? filter = null)
@@ -131,7 +131,7 @@ internal class EngineerImplementation : IEngineer
         //Checks if the engineer's level hasn't dropped
         if (boEngineer.Level < previousEngineer?.Level)
         {
-            throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Level}");
+            throw new BO.BlIncorrectDatailException($"The level {boEngineer.Level} that the you entered is less than the current level, this is not possible with the company rules: ");
         }
 
         //Tests an attempt to assign a task (provided they are in step 3)
@@ -185,17 +185,17 @@ internal class EngineerImplementation : IEngineer
 
         if (boEngineer.Id < 200000000 || boEngineer.Id >  400000000)
         {
-            throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Id}");
+            throw new BO.BlIncorrectDatailException($"The ID {boEngineer.Id} that you entered is not within the range of: 200000000-400000000");
         }
 
         if(boEngineer.Cost < 0)
         {
-            throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Cost}");
+            throw new BO.BlIncorrectDatailException($"The Cost: {boEngineer.Cost} that you entered is < 0 , please try again");
         }
 
         if (IsValidEmail(boEngineer.Email) == false)
         {
-            throw new BO.BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boEngineer.Email}");
+            throw new BO.BlIncorrectDatailException($"The email {boEngineer.Email} that you entered is not in the correct format");
         }
     }
 

@@ -26,6 +26,6 @@ public partial class MainWindow : Window
 
     private void btnEngineers_Click(object sender, RoutedEventArgs e)
     {
-        new EngineerWindow().Show();
+        new EngineesListrWindow().Show();
     }
 }

@@ -5,31 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="SingleEngineerWindow" Height="400" Width="300">
-    <Grid Margin="10,54,0,0">
+        DataContext="{Binding Engineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
+    Title="SingleEngineerWindow" Height="500" Width="300">
+    <Grid Margin="10,80,0,0">
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <!-- StackPanel for the label, the field of class -->
-            <StackPanel>
-                <Label Content="ID:"/>
-                <Label Content="Name:"/>
-                <Label Content="Email: "/>
-                <Label Content="Level"/>
-                <Label Content="Cost"/>
-                <Label Content="Can To Remove: " />
-                <Label Content="Active: " />
-            </StackPanel>
-            <StackPanel>
-                <TextBox  Margin="3" Width="100"/>
-                <TextBox  Margin="3" Width="100"/>
-                <TextBox  Margin="4" Width="100"/>
-                <ComboBox Margin="4" Width="100"/>
-                <TextBox  Margin="4" Width="100"/>
-                <CheckBox Margin="6" Width="100" IsChecked="True"/>
-                <CheckBox Margin="5" Width="100" IsChecked="True"/>
-            </StackPanel>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="50" Width="50" Margin="110,0,0,10"  />
+        <!-- Labels -->
+        <Label Grid.Row="0" Content="ID:" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+        <Label Grid.Row="2" Content="Name:" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+        <Label Grid.Row="4" Content="Email: " HorizontalAlignment="left" Margin="40,0,0,0"/>
+        <Label Grid.Row="6" Content="Level" HorizontalAlignment="left" Margin="40,0,0,0"/>
+        <Label Grid.Row="8" Content="Cost" HorizontalAlignment="left" Margin="40,0,0,0"/>
+
+        <!-- Fields -->
+        <TextBox Grid.Row="0" Margin="0,0,40,0" Width="100" HorizontalAlignment="Right" 
+         Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+         IsEnabled="{Binding Id, Converter={StaticResource IdToIsEnabledConverterKey}}" />
+
+        <TextBox Grid.Row="2" Margin="0,0,40,0" Width="100" HorizontalAlignment="Right" 
+                 Text="{Binding Name , Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBox Grid.Row="4" Margin="0,0,40,0" Width="100" HorizontalAlignment="Right"
+                 Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <ComboBox Grid.Row="6" Margin="0,0,40,0" Width="100" HorizontalAlignment="Right" 
+                  ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}" 
+                    SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
+                ValidatesOnExceptions=true}"/>
+        <TextBox Grid.Row="8" Margin="0,0,40,0" Width="100" HorizontalAlignment="Right"
+                 Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <!-- Button -->
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
+ Grid.Row="13" HorizontalAlignment="Left" Height="25" Width="50" Margin="33,23,0,-2" Click="btnAddUpdate_Click"/>
     </Grid>
 </Window>

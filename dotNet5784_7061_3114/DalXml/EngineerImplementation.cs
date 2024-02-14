@@ -101,6 +101,9 @@ internal class EngineerImplementation : IEngineer
         {   
             //Delete the old engineer with same id
             Delete(item._id);
+
+            engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(e_engineer_xml);
+
             // Add the update to new list
             engineers.Add(item);
 

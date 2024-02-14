@@ -1,9 +1,12 @@
 ﻿using System.Globalization;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace PL;
-
-class ConvertIdToContent: IValueConverter
+/// <summary>
+/// Converts between a field from the layer in PL and BL
+/// </summary>
+class ConvertIdToContent : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -14,4 +17,20 @@ class ConvertIdToContent: IValueConverter
     {
         throw new NotImplementedException();
     }
+
+}
+
+class IdToIsEnabledConverter : IValueConverter
+{
+
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 0;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+
 }

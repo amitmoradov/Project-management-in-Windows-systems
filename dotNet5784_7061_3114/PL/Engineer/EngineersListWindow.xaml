@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.Engineer.EngineerWindow"
+﻿<Window x:Class="PL.Engineer.EngineesListrWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="EngineerWindow" Height="640" Width="800">
+        Title="EngineesListrWindow" Height="640" Width="800">
 
     <!--Extrnal Grid-->
     <Grid>
@@ -28,14 +28,14 @@
 
 
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}">
+        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="UpdateListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddEngineer"/>
 
 
 

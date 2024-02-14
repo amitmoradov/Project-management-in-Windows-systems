@@ -6,11 +6,30 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FF6C6C" Offset="0"/>
+            <GradientStop Color="#FFC156" Offset="0.25"/>
+            <GradientStop Color="#FFD681" Offset="0.5"/>
+            <GradientStop Color="#9AB7FF" Offset="0.75"/>
+            <GradientStop Color="#153F5E" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
 
         <Button Content="Handle Engineer" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Center" Height="80" Width="160" Background="Aqua" Click="btnEngineers_Click"/>
         <Button Content="Data Initialization" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" Click="Data_Initialization" Height="80" Width=" 160" Background="BurlyWood"/>
-
+        <Label Content="בעזרת השם נעשה ונצליח" 
+       HorizontalAlignment="Right" 
+       VerticalAlignment="Top" 
+       Margin="0,10,10,0" 
+       FontFamily="Comic Sans MS" 
+       FontSize="36" 
+       FontStyle="Italic" 
+       FontWeight="Bold" 
+       Foreground="DeepSkyBlue" 
+       Padding="10,5"/>
+       
 
     </Grid>
 </Window>

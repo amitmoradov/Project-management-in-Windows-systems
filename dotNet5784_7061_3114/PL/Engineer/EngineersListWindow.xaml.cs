@@ -18,12 +18,12 @@ namespace PL.Engineer;
 /// <summary>
 /// Interaction logic for EngineerWindow.xaml
 /// </summary>
-public partial class EngineerWindow : Window
+public partial class EngineesListrWindow : Window
 {
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
 
-    public EngineerWindow()
+    public EngineesListrWindow()
     {
         InitializeComponent();
         EngineerList = e_bl?.Engineer.ReadAll()!;
@@ -37,12 +37,29 @@ public partial class EngineerWindow : Window
     }
 
     public static readonly DependencyProperty EngineerListProperty =
-        DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineesListrWindow), new PropertyMetadata(null));
 
     private void cbExpirenceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         EngineerList = (Experience == BO.EngineerExperience.All) ?
         e_bl?.Engineer.ReadAll()! : e_bl?.Engineer.ReadAll(item => (int)item.Level == (int)Experience)!;
+
+    }
+
+    private void AddEngineer(object sender, RoutedEventArgs e)
+    {
+        new SingleEngineerWindow().ShowDialog();
+        //To refresh window after Create
+        EngineerList = e_bl?.Engineer.ReadAll()!;
+    }
+
+    private void UpdateListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        BO.Engineer? engineer = (sender as ListView)?.SelectedItem as BO.Engineer;
+
+        new SingleEngineerWindow(engineer.Id).ShowDialog();
+        //To refresh window after Update
+        EngineerList = e_bl?.Engineer.ReadAll()!;
 
     }
 }

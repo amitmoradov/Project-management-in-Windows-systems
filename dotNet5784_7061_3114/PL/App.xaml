@@ -9,6 +9,19 @@
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
 
         <local:IdToIsEnabledConverter x:Key="IdToIsEnabledConverterKey"/>
+        <Style TargetType="Window">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FF6C6C" Offset="0"/>
+                        <GradientStop Color="#FFC156" Offset="0.25"/>
+                        <GradientStop Color="#FFD681" Offset="0.5"/>
+                        <GradientStop Color="#9AB7FF" Offset="0.75"/>
+                        <GradientStop Color="#153F5E" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Application.Resources>
 </Application>

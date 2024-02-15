@@ -63,17 +63,16 @@ public partial class SingleEngineerWindow : Window
             try
             {
                 e_bl.Engineer.Update(Engineer);
-                MessageBox.Show("The update was performed successfully");
             }
             catch (BO.BlReadNotFoundException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            catch(BO.BlNullPropertyException ex)
+            catch (BO.BlNullPropertyException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            catch(BO.BlIncorrectDatailException ex)
+            catch (BO.BlIncorrectDatailException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -84,6 +83,7 @@ public partial class SingleEngineerWindow : Window
             {
                 e_bl.Engineer.Create(Engineer);
                 MessageBox.Show("Registration has been successfully completed");
+               
             }
             catch (BO.BlAlreadyExistsException ex)
             {

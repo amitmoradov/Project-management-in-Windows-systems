@@ -43,17 +43,17 @@ public class EngineerExperienceConverter : IValueConverter
             switch (intValue)
             {
                 case 0:
-                    return BO.EngineerExperience.Beginner;
+                    return DO.EngineerExperience.Beginner;
                 case 1:
-                    return BO.EngineerExperience.AdvancedBeginner;
+                    return DO.EngineerExperience.AdvancedBeginner;
                 case 2:
-                    return BO.EngineerExperience.Intermediate;
+                    return DO.EngineerExperience.Intermediate;
                 case 3:
-                    return BO.EngineerExperience.Advanced;
+                    return DO.EngineerExperience.Advanced;
                 case 4:
-                    return BO.EngineerExperience.Expert;
+                    return DO.EngineerExperience.Expert;
                 default:
-                    return BO.EngineerExperience.Beginner;
+                    return DO.EngineerExperience.Beginner;
             }
         }
         return BO.EngineerExperience.Beginner;
@@ -64,7 +64,7 @@ public class EngineerExperienceConverter : IValueConverter
    
         if (value is BO.EngineerExperience experience)
         {
-            switch (experience)
+            switch (value)
             {
                 case BO.EngineerExperience.Beginner:
                     return 0;
@@ -72,7 +72,7 @@ public class EngineerExperienceConverter : IValueConverter
                     return 1;
                 case BO.EngineerExperience.Intermediate:
                     return 2;
-                case BO.EngineerExperience.Advanced:
+                case DO.EngineerExperience.Advanced:
                     return 3;
                 case BO.EngineerExperience.Expert:
                     return 4;

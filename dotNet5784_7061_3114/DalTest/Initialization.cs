@@ -219,9 +219,7 @@ public static class Initialization
         //It will be initialized to work with the department
         //that supports the factory design pattern that initializes the appropriate department according to the configuration file
         e_dal = DalApi.Factory.Get;
-        e_dal.Engineer.reset();
-        e_dal.Dependency.reset();
-        e_dal.Task.reset();
+        reset();
 
         // Set the status project value to planning .
         e_dal.Project.SaveChangeOfStatus("planning");
@@ -236,6 +234,14 @@ public static class Initialization
         createDependency();
         createEngineer();
         createTaks();
+    }
+
+    public static void reset()
+    {
+        e_dal = DalApi.Factory.Get;
+        e_dal.Engineer.reset();
+        e_dal.Dependency.reset();
+        e_dal.Task.reset();
     }
 }
 

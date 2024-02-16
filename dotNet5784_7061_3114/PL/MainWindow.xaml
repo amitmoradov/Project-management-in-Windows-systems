@@ -14,6 +14,7 @@
 
         <Button Content="Handle Engineer" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Center" Height="80" Width="160" Background="Aqua" Click="btnEngineers_Click"/>
         <Button Content="Data Initialization" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" Click="Data_Initialization" Height="80" Width=" 160" Background="BurlyWood"/>
+        <Button Content="Reset DataBase" HorizontalAlignment="Left" Margin="600,0,0,0" VerticalAlignment="Center" Click="ResetDataBase" Height="80" Width=" 160" Background="DarkGray"/>
         <Label Content="בעזרת השם נעשה ונצליח" 
        HorizontalAlignment="Right" 
        VerticalAlignment="Top" 

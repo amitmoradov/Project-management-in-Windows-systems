@@ -30,4 +30,13 @@ public partial class MainWindow : Window
     {
         new EngineesListrWindow().Show();
     }
+
+    private void ResetDataBase(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult result = MessageBox.Show("Would you like to Reset data?", "Reset DataBase", MessageBoxButton.YesNo);
+        if (result == MessageBoxResult.Yes)
+        {
+            e_bl.Project.resetAllDB();  
+        }
+    }
 }

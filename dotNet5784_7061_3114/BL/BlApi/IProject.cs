@@ -19,4 +19,6 @@ public interface IProject
     string ReturnStatusProject();
 
     public void InitializeDB();
+
+    public void resetAllDB();
 }

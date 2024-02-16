@@ -23,4 +23,6 @@ internal class ProjectImplementation : IProject
     {
        _dal.Project.SaveStartProjectDate(startProject);
     }
+
+    public void InitializeDB() => DalTest.Initialization.Do();
 }

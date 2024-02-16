@@ -17,4 +17,6 @@ public interface IProject
     DateTime ReturnStartProjectDate();
 
     string ReturnStatusProject();
+
+    public void InitializeDB();
 }

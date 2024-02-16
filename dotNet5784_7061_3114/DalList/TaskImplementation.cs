@@ -97,6 +97,6 @@ internal class TaskImplementation : ITask
     }
     public void reset()
     {
-
+        DataSource.Tasks.Clear();
     }
 }

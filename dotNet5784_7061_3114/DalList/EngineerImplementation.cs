@@ -82,6 +82,6 @@ internal class EngineerImplementation : IEngineer
 
     public void reset()
     {
-
+        DataSource.Engineers.Clear();
     }
 }

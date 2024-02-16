@@ -10,6 +10,8 @@ namespace PL;
 /// </summary>
 public partial class MainWindow : Window
 {
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+
     public MainWindow()
     {
         InitializeComponent();
@@ -20,7 +22,7 @@ public partial class MainWindow : Window
         MessageBoxResult result = MessageBox.Show("Would you like to create Initial data?", "Data Initialization", MessageBoxButton.YesNo);
         if (result == MessageBoxResult.Yes)
         {
-            DalTest.Initialization.Do();
+            e_bl.Project.InitializeDB();
         }
     }
 

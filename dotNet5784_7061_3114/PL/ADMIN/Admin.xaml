@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="LightSkyBlue" Offset="0" />
+                <GradientStop Color="White" Offset="0.2" />
+                <GradientStop Color="LightBlue" Offset="0.4" />
+                <GradientStop Color="LightGreen" Offset="0.6" />
+                <GradientStop Color="LightYellow" Offset="0.8" />
+            </LinearGradientBrush>
+        </Grid.Background>
         <Button Content="Handle Engineer" HorizontalAlignment="Left" Margin="166,0,0,0" VerticalAlignment="Center" Height="80" Width="160" Background="Aqua" Click="btnEngineers_Click"/>
         <Button Content="Handle Task" HorizontalAlignment="Left" Margin="449,0,0,0" VerticalAlignment="Center" Height="80" Width="160" Background="Aqua" Click="btnTasks_Click"/>
 

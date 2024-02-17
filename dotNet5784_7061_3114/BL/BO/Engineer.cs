@@ -13,8 +13,8 @@ public class Engineer
     public BO.TaskInEngineer? Task { get; set; }
     public string? Email { get; set; }
     public string? Name {  get; set; }
-    public bool Active {  get; set; }
-    public bool CanToRemove {  get; set; }
+    public bool Active { get; set; } = true;
+    public bool CanToRemove { get; set; } = true;
     public override string ToString() => this.ToStringProperty();
 
     private string ToStringProperty()

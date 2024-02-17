@@ -8,7 +8,6 @@
 
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
 
-        <local:EngineerExperienceConverter x:Key="ConverEngineerExperienceKey"/>
         
         <local:IdToIsEnabledConverter x:Key="IdToIsEnabledConverterKey"/>
         <Style TargetType="Window">

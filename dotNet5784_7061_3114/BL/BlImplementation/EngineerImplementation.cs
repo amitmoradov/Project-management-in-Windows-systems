@@ -222,15 +222,20 @@ internal class EngineerImplementation : IEngineer
 
             //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
             BO.TaskInEngineer taskInEngineer = new();
+
+    // if gave task to engineer so, isActive to be true
+        bool isActive = false;
         if (resulte == null)
         {
             taskInEngineer.Id = 0;
             taskInEngineer.Alias = null;
+
         }
         else
         {
             taskInEngineer.Id = resulte._id;
             taskInEngineer.Alias = resulte._alias;
+            isActive = true;
         }
 
         BO.Engineer? boEngineer = new BO.Engineer()
@@ -240,7 +245,7 @@ internal class EngineerImplementation : IEngineer
             Cost = doEngineer._cost,
             CanToRemove = doEngineer._canToRemove,
             Level = (BO.EngineerExperience)doEngineer._level,
-            Active = doEngineer._active,
+            Active = isActive,
             Name = doEngineer._name,
             Task = taskInEngineer,
         };

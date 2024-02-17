@@ -13,7 +13,7 @@ public class Engineer
     public BO.TaskInEngineer? Task { get; set; }
     public string? Email { get; set; }
     public string? Name {  get; set; }
-    public bool Active { get; set; } = true;
+    public bool Active { get; set; } = false;
     public bool CanToRemove { get; set; } = true;
     public override string ToString() => this.ToStringProperty();
 
@@ -25,8 +25,8 @@ public class Engineer
         $"Level: {Level}\n"+
         $"Cost: {Cost}\n" +
         $"Active: {Active}\n" +
-        $"Can To Remove: {CanToRemove}\n" +
-        $"Task: Id: {Task.Id}  " + $"Alias: {Task.Alias}\n" +
+        $"Task: Id: {Task.Id}\n  "+
+        $"Alias: {Task.Alias}\n" +
        "===========================\n" +
         $"                                ";
         

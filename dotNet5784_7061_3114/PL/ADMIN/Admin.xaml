@@ -8,12 +8,10 @@
         Title="Admin" Height="450" Width="800">
     <Grid>
         <Grid.Background>
-            <LinearGradientBrush>
-                <GradientStop Color="LightSkyBlue" Offset="0" />
-                <GradientStop Color="White" Offset="0.2" />
-                <GradientStop Color="LightBlue" Offset="0.4" />
-                <GradientStop Color="LightGreen" Offset="0.6" />
-                <GradientStop Color="LightYellow" Offset="0.8" />
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1B4D5B" Offset="0" />
+                <GradientStop Color="#2D768E" Offset="0.5" />
+                <GradientStop Color="#7F9D9E" Offset="1" />
             </LinearGradientBrush>
         </Grid.Background>
         <Button Content="Handle Engineer" HorizontalAlignment="Left" Margin="166,0,0,0" VerticalAlignment="Center" Height="80" Width="160" Background="Aqua" Click="btnEngineers_Click"/>

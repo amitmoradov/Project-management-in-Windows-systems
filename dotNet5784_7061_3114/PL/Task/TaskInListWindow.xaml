@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskInListWindow" Height="450" Width="800">
+          DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Title="TaskInListWindow" Height="640" Width="800">
     <!--Extrnal Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -20,13 +21,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Tasks Details" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
-            <!--ComboBox- filter option from engineer-->
-            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Experience, Mode=TwoWay}"
-            ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}" SelectionChanged="ComboBox_SelectionChanged"/>
+            <!--ComboBox- filter option from Task-->
+            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=StatusTask, Mode=TwoWay}"
+            ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}" SelectionChanged="ComboBox_SelectionChanged"/>
 
 
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="ListView_MouseDoubleClick">
+        <ListView Grid.Row="1" ItemsSource="{Binding TaskInLists}" MouseDoubleClick="ListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

@@ -7,7 +7,7 @@ public class Task
    public BO.Status Status {  get; set; } // מצב המשימה 
    public List <BO.TaskInList>? Dependencies {  get; set; }
    public TimeSpan? RequiredEffortTime { get; set; }  //זמן מאמץ נדרש
-    public  DO.EngineerExperience? Copmliexity {  get; set; }
+    public  BO.EngineerExperience? Copmliexity {  get; set; }
     public  DateTime? StartDate { get; init; }  //תאריך תחילת המשימה
     public DateTime? ScheduledDate { get; set; }
     public  DateTime? CompleteDate { get; set; }//תאריך סיום המשימה

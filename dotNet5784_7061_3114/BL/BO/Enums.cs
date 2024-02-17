@@ -8,6 +8,8 @@ public enum Status
     Scheduled,//מתוכנן
     OnTrack, // בעבודה
     Done,
+    //For filter in PL
+    All,
 }
 public enum ProjectScheduled
 {
@@ -23,6 +25,7 @@ public enum EngineerExperience
     Intermediate,
     Advanced,
     Expert,
+    //For filter in PL
     All
 }
 

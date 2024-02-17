@@ -21,3 +21,21 @@ public enum EngineerExperience
     All
 }
 
+
+public class StatusCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.Status> e_enums =
+(Enum.GetValues(typeof(BO.Status)) as IEnumerable<BO.Status>)!;
+
+    public IEnumerator GetEnumerator() => e_enums.GetEnumerator();
+
+}
+
+public enum Status
+{
+    Unscheduled,// לא מתוכנן
+    Scheduled,//מתוכנן
+    OnTrack, // בעבודה
+    Done,
+}
+

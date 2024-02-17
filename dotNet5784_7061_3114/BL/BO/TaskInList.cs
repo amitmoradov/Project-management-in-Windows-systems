@@ -13,7 +13,15 @@ public class TaskInList
     public override string ToString() => this.ToStringProperty();
     private string ToStringProperty()
     {
-        return $"Task ID: {Id}, Description: {Description}, Alias: {Alias}, Status: {Status}";
+        return $"Task ID: {Id}\n" +
+            $" Description: {Description}\n" +
+            $" Alias: {Alias}\n" +
+            $" Status: {Status}\n" +
+            "=======================" +
+            "                           ";
+
+
+
     }
 
 }

@@ -281,7 +281,7 @@ internal class TaskImplementation : ITask
             Remarks = doTask._remarks,
             Active = doTask._active,
             RequiredEffortTime = doTask._requiredEffortTime,
-            Copmliexity = doTask._copmliexity,
+            Copmliexity = (BO.EngineerExperience)doTask._copmliexity,
             DeadLineDate = doTask._deadLineDate,
             ScheduledDate = doTask._scheduledDate,
             Deliverables = doTask._deliverables,
@@ -404,7 +404,7 @@ internal class TaskImplementation : ITask
             engineerInTask.Name = boTask.Engineer.Name;
         }
         // Do details from Bo .
-        DO.Task doTask = new(boTask.CreatedAtDate, boTask.RequiredEffortTime, boTask.Copmliexity, boTask.StartDate, boTask.ScheduledDate,
+        DO.Task doTask = new(boTask.CreatedAtDate, boTask.RequiredEffortTime, (DO.EngineerExperience)boTask.Copmliexity, boTask.StartDate, boTask.ScheduledDate,
             boTask.CompleteDate, boTask.DeadLineDate, boTask.Alias, boTask.Description, boTask.Deliverables, boTask.Remarks,
             boTask.Id, engineerInTask.Id, boTask.Active, _isMilestone: false, boTask.CanToRemove);
         return doTask;

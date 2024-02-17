@@ -26,11 +26,6 @@ public partial class MainWindow : Window
         }
     }
 
-    private void btnEngineers_Click(object sender, RoutedEventArgs e)
-    {
-        new EngineesListrWindow().Show();
-    }
-
     private void ResetDataBase(object sender, RoutedEventArgs e)
     {
         MessageBoxResult result = MessageBox.Show("Would you like to Reset data?", "Reset DataBase", MessageBoxButton.YesNo);
@@ -38,5 +33,10 @@ public partial class MainWindow : Window
         {
             e_bl.Project.resetAllDB();  
         }
+    }
+
+    private void AdminButton(object sender, RoutedEventArgs e)
+    {
+        new ADMIN.Admin().Show();
     }
 }

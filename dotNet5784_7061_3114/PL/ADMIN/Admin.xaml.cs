@@ -27,12 +27,12 @@ namespace PL.ADMIN
 
         private void btnEngineers_Click(object sender, RoutedEventArgs e)
         {
-            new EngineesListrWindow().Show();
+            new EngineesListrWindow().ShowDialog();
         }
 
         private void btnTasks_Click(object sender, RoutedEventArgs e)
         {
-            new Task.TaskInListWindow().Show();
+            new Task.TaskInListWindow().ShowDialog();
         }
     }
 }

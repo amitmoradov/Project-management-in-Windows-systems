@@ -37,6 +37,6 @@ public partial class MainWindow : Window
 
     private void AdminButton(object sender, RoutedEventArgs e)
     {
-        new ADMIN.Admin().Show();
+        new ADMIN.Admin().ShowDialog();
     }
 }

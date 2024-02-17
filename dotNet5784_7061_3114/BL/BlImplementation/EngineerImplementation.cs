@@ -22,8 +22,7 @@ internal class EngineerImplementation : IEngineer
             ChackDetails(boEngineer);
             if (_dal.Project.ReturnStatusProject() == "planning") 
             {
-                boEngineer.Task.Id = 0;
-                boEngineer.Task.Alias = null;
+                boEngineer.Task = null;
             }
             // Create of DAL
             int idEngineer = _dal.Engineer.Create(doEngineer);
@@ -240,7 +239,7 @@ internal class EngineerImplementation : IEngineer
             Email = doEngineer._email,
             Cost = doEngineer._cost,
             CanToRemove = doEngineer._canToRemove,
-            Level = doEngineer._level,
+            Level = (BO.EngineerExperience)doEngineer._level,
             Active = doEngineer._active,
             Name = doEngineer._name,
             Task = taskInEngineer,
@@ -258,7 +257,7 @@ internal class EngineerImplementation : IEngineer
     {
 
         DO.Engineer doEngineer = new DO.Engineer
-       (boEngineer.Id, boEngineer.Cost, boEngineer.Level, boEngineer.Email, boEngineer.Name, boEngineer.Active, boEngineer.CanToRemove);
+       (boEngineer.Id, boEngineer.Cost, (DO.EngineerExperience)boEngineer.Level, boEngineer.Email, boEngineer.Name, boEngineer.Active, boEngineer.CanToRemove);
 
 
 

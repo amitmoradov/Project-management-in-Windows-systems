@@ -7,11 +7,12 @@
         mc:Ignorable="d"
 
     Title="MainWindow" Height="450" Width="1000">
-    <!--<Window.Background>
-        <ImageBrush ImageSource="/Resources/Image/smartroad_desk.jpg"/>
-    </Window.Background>-->
-    <Grid>
+    <Window.Resources>
+        <BitmapImage x:Key="MyImage" UriSource="\Image\smartroad_desk.jpg"/>
+    </Window.Resources>
 
+    <Grid>
+        <Image Source="{StaticResource MyImage}"/>
         <Button Content="Data Initialization" HorizontalAlignment="Left" Margin="10,357,0,0" VerticalAlignment="Top" Click="Data_Initialization" Height="33" Width="129" Background="BurlyWood"/>
         <Button Content="Reset DataBase" HorizontalAlignment="Left" Margin="798,357,0,0" VerticalAlignment="Top" Click="ResetDataBase" Height="33" Width="129" Background="DarkGray"/>
         <Button Content="ADMIN" HorizontalAlignment="Left" Margin="169,357,0,0" VerticalAlignment="Top" Height="33" Width="129" Click="AdminButton" Background="LemonChiffon"/>

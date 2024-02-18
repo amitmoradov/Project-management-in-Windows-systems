@@ -58,6 +58,49 @@ namespace PL.Task
             }
         }
 
+        private void btnAddUpdateTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (isUpdateTask)
+            {
+                try
+                {
+                    e_bl.Task.Update(Task);
+                }
+                catch (BO.BlReadNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                catch (BO.BlNullPropertyException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                catch (BO.BlIncorrectDatailException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                try
+                {
+                    e_bl.Task.Create(Task);
+                    MessageBox.Show("Registration has been successfully completed");
 
+                }
+                catch (BO.BlAlreadyExistsException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                catch (BO.BlNullPropertyException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                catch (BO.BlIncorrectDatailException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            this.Close();
+        }
     }
 }

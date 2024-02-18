@@ -2,34 +2,6 @@
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
-    <_scheduledDate>2024-02-28T00:00:00</_scheduledDate>
-    <_alias>TRA</_alias>
-    <_description>Research and Analysis of Vehicle Traffic</_description>
-    <_remarks>Gathering data and analyzing vehicular movement.</_remarks>
-    <_id>1</_id>
-    <_engineerId>0</_engineerId>
-    <_active>true</_active>
-    <_isMilestone>false</_isMilestone>
-    <_canToRemove>true</_canToRemove>
-  </Task>
-  <Task>
-    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
-    <_scheduledDate>2024-03-09T00:00:00</_scheduledDate>
-    <_alias>CSE</_alias>
-    <_description>Evaluation of Potential Charging Station Locations</_description>
-    <_remarks>Inspecting and assessing suitable charging station positions.</_remarks>
-    <_id>2</_id>
-    <_engineerId>0</_engineerId>
-    <_active>true</_active>
-    <_isMilestone>false</_isMilestone>
-    <_canToRemove>true</_canToRemove>
-  </Task>
-  <Task>
-    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
     <_requiredEffortTime>P7D</_requiredEffortTime>
     <_copmliexity>Beginner</_copmliexity>
     <_scheduledDate>2024-03-19T00:00:00</_scheduledDate>
@@ -37,20 +9,6 @@
     <_description>Development of Smart Communication System</_description>
     <_remarks>Creating an intelligent communication infrastructure.</_remarks>
     <_id>3</_id>
-    <_engineerId>0</_engineerId>
-    <_active>true</_active>
-    <_isMilestone>false</_isMilestone>
-    <_canToRemove>true</_canToRemove>
-  </Task>
-  <Task>
-    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
-    <_scheduledDate>2024-03-29T00:00:00</_scheduledDate>
-    <_alias>APIA</_alias>
-    <_description>Assessment of Project Impact on Air Pollution Levels</_description>
-    <_remarks>Examining the project's effect on air quality.</_remarks>
-    <_id>4</_id>
     <_engineerId>0</_engineerId>
     <_active>true</_active>
     <_isMilestone>false</_isMilestone>
@@ -303,6 +261,48 @@
     <_description>Examination of Infrastructure Support for Electric Vehicle Offices</_description>
     <_remarks>Reviewing support systems for electric vehicle office spaces.</_remarks>
     <_id>22</_id>
+    <_engineerId>0</_engineerId>
+    <_active>true</_active>
+    <_isMilestone>false</_isMilestone>
+    <_canToRemove>true</_canToRemove>
+  </Task>
+  <Task>
+    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
+    <_requiredEffortTime>P4D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
+    <_scheduledDate>2024-02-28T00:00:00</_scheduledDate>
+    <_alias>TRA</_alias>
+    <_description>Research and Analysis of Vehicle Traffic</_description>
+    <_remarks>Gathering data and analyzing vehicular movement.</_remarks>
+    <_id>1</_id>
+    <_engineerId>0</_engineerId>
+    <_active>true</_active>
+    <_isMilestone>false</_isMilestone>
+    <_canToRemove>true</_canToRemove>
+  </Task>
+  <Task>
+    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
+    <_requiredEffortTime>P4D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-03-09T00:00:00</_scheduledDate>
+    <_alias>CSE</_alias>
+    <_description>Evaluation of Potential Charging Station Locations</_description>
+    <_remarks>Inspecting and assessing suitable charging station positions.</_remarks>
+    <_id>2</_id>
+    <_engineerId>0</_engineerId>
+    <_active>true</_active>
+    <_isMilestone>false</_isMilestone>
+    <_canToRemove>true</_canToRemove>
+  </Task>
+  <Task>
+    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-03-29T00:00:00</_scheduledDate>
+    <_alias>APIA</_alias>
+    <_description>Assessment of Project Impact on Air Pollution Levels</_description>
+    <_remarks>Examining the project's effect on air quality!</_remarks>
+    <_id>4</_id>
     <_engineerId>0</_engineerId>
     <_active>true</_active>
     <_isMilestone>false</_isMilestone>

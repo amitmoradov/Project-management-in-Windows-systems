@@ -11,6 +11,7 @@ public class EngineerInTask
     public override string ToString() => this.ToStringProperty();
     private string ToStringProperty()
     {
-        return $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}";
+        return $"{nameof(Id)}: {Id}'\n'" +
+            $" {nameof(Name)}: {Name}";
     }
 }

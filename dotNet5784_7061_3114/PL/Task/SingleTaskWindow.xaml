@@ -7,6 +7,60 @@
         mc:Ignorable="d"
         DataContext="{Binding Task, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
         Title="SingleTaskWindow" Height="800" Width="800">
+    <Window.Background>
+        <DrawingBrush>
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="LightBlue">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,0,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightGray">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="100,0,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightGreen">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="200,0,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="Aqua">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,100,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightCoral">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="100,100,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightPink">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="200,100,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightSalmon">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="0,200,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightSkyBlue">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="100,200,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="LightSteelBlue">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="200,200,100,100"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </Window.Background>
+
     <!--Screen scrolling-->
     <ScrollViewer Height="600">
     <Grid>
@@ -63,7 +117,7 @@
             <!-- Remarks -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Remarks:" VerticalAlignment="Center" Margin="40,0,35,0"/>
-                <TextBox Text="{Binding Remarks, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="276"/>
+                <TextBox Text="{Binding Remarks, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"/>
             </StackPanel>
 
             <!-- Required Effort Time -->
@@ -86,7 +140,7 @@
             </StackPanel>
 
             <!-- Complexity -->
-            <StackPanel Orientation="Horizontal" Margin="5" Width="121">
+            <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Complexity:" VerticalAlignment="Center" Margin="40,0,55,0"/>
                 <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}" SelectedItem="{Binding Copmliexity, UpdateSourceTrigger=PropertyChanged}" Margin="-40,0,5,0" Width="130"/>
             </StackPanel>
@@ -109,9 +163,18 @@
                     <Label Content="Active:" VerticalAlignment="Center" Margin="40,0,5,0"/>
                     <CheckBox IsChecked="{Binding Active, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" RenderTransformOrigin="0.696,1.413"/>
                 </StackPanel>
-            
-                <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"  Width="115" Height="55" Margin="5,20,5,5"/>
-        </StackPanel>
+
+                <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Width="115" Height="55" Margin="5,20,5,5" Click="btnAddUpdateTask_Click">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="LightBlue" Offset="0.1"/>
+                            <GradientStop Color="LightGray" Offset="0.5"/>
+                            <GradientStop Color="White" Offset="0.9"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
+            </StackPanel>
     </Grid>
     </ScrollViewer>
 </Window>

@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
        
-        Style="{StaticResource {x:Type Window}}"
-    
-        Title="MainWindow" Height="450" Width="800">
+
+    Title="MainWindow" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="C:\Users\Inon\Downloads\road.jpg"/>
+    </Window.Background>
     <!-- Style (line 12) for background -->
     <Grid>
 

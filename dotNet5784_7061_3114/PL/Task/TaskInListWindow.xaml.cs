@@ -40,7 +40,7 @@ namespace PL.Task
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-     
+            new SingleTaskWindow().ShowDialog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace PL.Task
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TaskInLists = (StatusTask == BO.Status.All) ?
-     e_bl?.Task.ReadAll()! : e_bl?.Task.ReadAll(item => (int)item.Status == (int)StatusTask)!;
+          e_bl?.Task.ReadAll()! : e_bl?.Task.ReadAll(item => (int)item.Status == (int)StatusTask)!;
         }
     }
 }

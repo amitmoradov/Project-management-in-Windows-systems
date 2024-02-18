@@ -34,9 +34,28 @@ namespace PL.Task
 
         public static readonly DependencyProperty TaskProperty =
             DependencyProperty.Register("Task", typeof(BO.Task), typeof(SingleTaskWindow), new PropertyMetadata(null));
-        public SingleTaskWindow()
+        //Boolean variable to know whether to call the CREATE or UPDATE function
+        bool isUpdateTask = false;
+        public SingleTaskWindow(int id = 0)
         {
+            isUpdateTask = (id != 0);
             InitializeComponent();
+            if (id == 0)
+            {
+                Task = new BO.Task();
+            }
+            else
+            {
+                try
+                {
+
+                    Task = e_bl.Task.Read(id)!;
+                }
+                catch (BO.BlReadNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
 

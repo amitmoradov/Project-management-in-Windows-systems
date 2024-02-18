@@ -20,8 +20,8 @@ public class Task
     public int Id {  get; init; }
     public BO.EngineerInTask? Engineer { get; set; } // שם ות.ז מהנדס אחראי על המשימה 
     public BO.MilestoneInTask? Milestone {  get; set; } //  אבן דרך קשורה
-    public bool Active { get; set; } 
-    public bool CanToRemove {  get; set; }
+    public bool Active { get; set; } = false;
+    public bool CanToRemove { get; set; } = true;
 
     public override string ToString() => this.ToStringProperty();
 

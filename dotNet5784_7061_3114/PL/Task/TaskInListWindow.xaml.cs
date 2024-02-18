@@ -40,12 +40,18 @@ namespace PL.Task
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new SingleTaskWindow().ShowDialog();
+            BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
+
+            new SingleTaskWindow(task!.Id).ShowDialog();
+            //To refresh window after Update
+            TaskInLists = e_bl?.Task.ReadAll()!;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
-
+            new SingleTaskWindow().ShowDialog();
+            //To refresh window after Create
+            TaskInLists = e_bl?.Task.ReadAll()!;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

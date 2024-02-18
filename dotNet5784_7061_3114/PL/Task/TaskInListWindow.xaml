@@ -36,7 +36,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="Add_Click"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="Add_Click"
+                IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
 
 
 

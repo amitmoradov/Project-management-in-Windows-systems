@@ -8,58 +8,17 @@
         DataContext="{Binding Task, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
         Title="SingleTaskWindow" Height="800" Width="800">
     <Window.Background>
-        <DrawingBrush>
-            <DrawingBrush.Drawing>
-                <DrawingGroup>
-                    <GeometryDrawing Brush="LightBlue">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="0,0,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="LightGray">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="100,0,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="LightGreen">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="200,0,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="Aqua">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="0,100,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="LightCoral">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="100,100,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="LightPink">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="200,100,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="LightSalmon">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="0,200,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="LightSkyBlue">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="100,200,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="LightSteelBlue">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry Rect="200,200,100,100"/>
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                </DrawingGroup>
-            </DrawingBrush.Drawing>
-        </DrawingBrush>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Color="LightBlue" Offset="0"/>
+                <GradientStop Color="LightGreen" Offset="0.25"/>
+                <GradientStop Color="LightPink" Offset="0.5"/>
+                <GradientStop Color="LightCoral" Offset="0.75"/>
+                <GradientStop Color="LightSkyBlue" Offset="1"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
     </Window.Background>
+
 
     <!--Screen scrolling-->
     <ScrollViewer Height="600">
@@ -80,13 +39,15 @@
             <!-- Scheduled Date -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Scheduled Date:" VerticalAlignment="Center" Margin="40,0,6,0"/>
-                <DatePicker SelectedDate="{Binding ScheduledDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                <DatePicker SelectedDate="{Binding ScheduledDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"
+                 IsEnabled="{Binding ScheduledDate , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
             </StackPanel>
 
             <!-- Complete Date -->
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="Complete Date:" VerticalAlignment="Center" Margin="40,0,10,0"/>
-                    <DatePicker SelectedDate="{Binding CompleteDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                    <DatePicker SelectedDate="{Binding CompleteDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"
+                     IsEnabled="{Binding CompleteDate , Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
                 </StackPanel>
 
                 <!-- Forecast Date -->
@@ -123,8 +84,9 @@
             <!-- Required Effort Time -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Required Effort Time:" VerticalAlignment="Center" Margin="40,0,5,0" Width="124"/>
-                <TextBox Text="{Binding RequiredEffortTime, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="155"/>
-            </StackPanel>
+                    <TextBox Text="{Binding RequiredEffortTime, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="155"
+                    IsEnabled="{Binding RequiredEffortTime , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
+             </StackPanel>
 
 
             <!-- Deliverables -->
@@ -136,29 +98,36 @@
             <!-- Status -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Status:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}" SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="90"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}"
+                          SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="90"/>
             </StackPanel>
 
             <!-- Complexity -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Complexity:" VerticalAlignment="Center" Margin="40,0,55,0"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}" SelectedItem="{Binding Copmliexity, UpdateSourceTrigger=PropertyChanged}" Margin="-40,0,5,0" Width="130"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}"
+                          SelectedItem="{Binding Copmliexity, UpdateSourceTrigger=PropertyChanged}" Margin="-40,0,5,0" Width="130"/>
             </StackPanel>
 
             <!-- Dependencies -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Dependencies:" VerticalAlignment="Center" Margin="40,0,5,0"/>
                 <ListView Width="170"       />
-                <!-- Assuming you have a control to display dependencies -->
+                
             </StackPanel>
 
-            <!-- Engineer -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Engineer:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                <!-- Assuming you have a control to display engineer details -->
-            </StackPanel>
+                <!-- Engineer details -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Engineer Id:" VerticalAlignment="Center" Margin="40,0,5,0"/>
+                    <TextBox Text="{Binding Engineer.Id, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto" 
+             IsEnabled="{Binding Engineer.Id, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
 
-            <!-- Active -->
+                    <Label Content="Engineer Name:" VerticalAlignment="Center" Margin="40,0,5,0"/>
+                    <TextBox Text="{Binding Engineer.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"
+             IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+                </StackPanel>
+            
+                <!-- Active -->
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="Active:" VerticalAlignment="Center" Margin="40,0,5,0"/>
                     <CheckBox IsChecked="{Binding Active, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" RenderTransformOrigin="0.696,1.413"/>

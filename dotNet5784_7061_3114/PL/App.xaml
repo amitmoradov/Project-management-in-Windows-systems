@@ -25,7 +25,20 @@
         </Style>
 
         <!--For Task-->
+        
         <local:StatusCollection x:Key="StatusCollectiontKey"/>
+
+        <!--The permissions are allowed in the project in step 3-->
+        <local:scheduleWasPalnnedIsEnabled x:Key="scheduleWasPalnnedIsEnabledKey"/>
+
+        <!--The permissions are not allowed in the project in step 3-->
+        <local:scheduleWasPalnnedIsNotEnabled x:Key="scheduleWasPalnnedIsNotEnabledKey"/>
+
+        <!--The permissions are allowed in the project in step 2-->
+        <local:ScheduleDeterminationIsEnabled x:Key="ScheduleDeterminationIsEnabledKey"/>
+        
+        <!--The permissions are allowed in the project in step 1-->
+        <local:planningIsEnabled x:Key="planningIsEnabledKey"/>
         
     </Application.Resources>
 </Application>

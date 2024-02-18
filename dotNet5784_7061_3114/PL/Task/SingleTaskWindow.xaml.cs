@@ -98,8 +98,12 @@ namespace PL.Task
             {
                 try
                 {
-                    e_bl.Task.Create(Task);
-                    MessageBox.Show("Registration has been successfully completed");
+                    //It is allowed to extend a task as long as I am not in stage 3
+                    if (e_bl.Project.ReturnStatusProject() != "scheduleWasPalnned")
+                    {
+                        e_bl.Task.Create(Task);
+                        MessageBox.Show("Registration has been successfully completed");
+                    }
 
                 }
                 catch (BO.BlAlreadyExistsException ex)
@@ -117,5 +121,6 @@ namespace PL.Task
             }
             this.Close();
         }
+
     }
 }

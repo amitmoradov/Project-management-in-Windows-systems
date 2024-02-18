@@ -6,50 +6,73 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding Engineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-    Title="SingleEngineerWindow" Height="500" Width="300">
-    <Grid Margin="10,80,0,0">
+        Title="SingleEngineerWindow" Height="600" Width="300">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
+    <!--Screen scrolling-->
+    <ScrollViewer Margin="0,10,0,16">
+        <Grid Margin="10,80,0,0">
 
-            <RowDefinition Height="73.96"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto" MinHeight="81"/>
+                <RowDefinition Height="0"/>
+            </Grid.RowDefinitions>
 
-        <!-- Labels -->
-        <Label Grid.Row="0" Content="ID:" HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2"/>
-        <Label Grid.Row="2" Content="Name:" HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2"/>
-        <Label Grid.Row="4" Content="Email: " HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2"/>
-        <Label Grid.Row="6" Content="Level:" HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2"/>
-        <Label Grid.Row="8" Content="Cost:" HorizontalAlignment="Left" Margin="40,0,0,46"/>
-        <Label Grid.Row="8" Content="Active:" HorizontalAlignment="Left" Margin="39,28,0,18"/>
-       
-        <!-- Fields -->
-        <TextBox Grid.Row="0" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" 
-         Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-         IsEnabled="{Binding Id, Converter={StaticResource IdToIsEnabledConverterKey}}" />
+            <!-- Labels -->
+            <Label Grid.Row="0" Content="ID:" HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2" Width="24"/>
+            <Label Grid.Row="2" Content="Name:" HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2" Width="44"/>
+            <Label Grid.Row="4" Content="Email: " HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2" Width="44"/>
+            <Label Grid.Row="6" Content="Level:" HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2" Width="39"/>
+            <Label Grid.Row="8" Content="Cost:" HorizontalAlignment="Left" Margin="40,0,0,20" Grid.RowSpan="2" Width="36"/>
+            <Label Grid.Row="10" Content="Task Id:" HorizontalAlignment="Left" Margin="10,0,0,20" Grid.RowSpan="2" Width="48"/>
+            <Label Grid.Row="12" Content="Task Alias:" HorizontalAlignment="Left" Margin="23,0,0,20" Grid.RowSpan="2" Width="63"/>
+            <Label Grid.Row="14" Content="Active:" HorizontalAlignment="Left" Margin="39,0,0,4" Width="45"/>
 
-        <TextBox Grid.Row="2" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" 
-                 Text="{Binding Name , Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        <TextBox Grid.Row="4" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" TextWrapping="NoWrap"
-                 Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        <ComboBox Grid.Row="6" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right"
+            <!-- Fields -->
+            <TextBox Grid.Row="0" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" 
+                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                 IsEnabled="{Binding Id, Converter={StaticResource IdToIsEnabledConverterKey}}" />
+
+            <TextBox Grid.Row="2" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" 
+                 Text="{Binding Name , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+
+            <TextBox Grid.Row="4" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" TextWrapping="NoWrap"
+                 Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+
+            <ComboBox Grid.Row="6" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right"
                   ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}" 
-                    SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=True, 
-                ValidatesOnExceptions=true}"/>
-        <TextBox Grid.Row="8" Margin="0,0,40,56" Width="100" HorizontalAlignment="Right"
-                 Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        <CheckBox Grid.Row="8" HorizontalAlignment="Left" Width="101" 
-          IsChecked="{Binding Active, Mode=TwoWay}" Margin="189,33,0,21"/>
+                  SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=true}"/>
 
-        <!-- Button -->
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
- Grid.Row="8" HorizontalAlignment="Left" Height="25" Width="50" Margin="14,121,0,-72" Click="btnAddUpdate_Click"/>
-    </Grid>
+            <TextBox Grid.Row="8" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right"
+                 Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+
+            <TextBox Grid.Row="10" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right"
+                 Text="{Binding Task.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                   IsEnabled="{Binding Task.Id, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+
+            <TextBox Grid.Row="12" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right"
+                 Text="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                   IsEnabled="{Binding Task.Id, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+
+            <CheckBox Grid.Row="14" HorizontalAlignment="Left" Margin="108,10,0,10"
+                  IsChecked="{Binding Active, Mode=TwoWay}" RenderTransformOrigin="4.361,1.302" Width="16" />
+
+            <!-- Button -->
+            <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
+                    HorizontalAlignment="Left" Height="32" Margin="18,53,0,0" Grid.Row="14" VerticalAlignment="Top" Grid.RowSpan="2" Width="46"  Click="btnAddUpdate_Click"/>
+        </Grid>
+    </ScrollViewer>
 </Window>

@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
 
-    Title="MainWindow" Height="450" Width="800">
+    Title="MainWindow" Height="450" Width="1000">
     <!--<Window.Background>
         <ImageBrush ImageSource="/Resources/Image/smartroad_desk.jpg"/>
     </Window.Background>-->
     <Grid>
 
         <Button Content="Data Initialization" HorizontalAlignment="Left" Margin="10,357,0,0" VerticalAlignment="Top" Click="Data_Initialization" Height="33" Width="129" Background="BurlyWood"/>
-        <Button Content="Reset DataBase" HorizontalAlignment="Left" Margin="640,357,0,0" VerticalAlignment="Top" Click="ResetDataBase" Height="33" Width="129" Background="DarkGray"/>
+        <Button Content="Reset DataBase" HorizontalAlignment="Left" Margin="798,357,0,0" VerticalAlignment="Top" Click="ResetDataBase" Height="33" Width="129" Background="DarkGray"/>
         <Button Content="ADMIN" HorizontalAlignment="Left" Margin="169,357,0,0" VerticalAlignment="Top" Height="33" Width="129" Click="AdminButton" Background="LemonChiffon"/>
         <Label Content=" Smart roads project - בעזרת השם נעשה ונצליח" 
        HorizontalAlignment="Right" 

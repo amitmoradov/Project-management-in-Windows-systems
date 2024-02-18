@@ -44,7 +44,6 @@ public class Task
         $"Remarks: {Remarks}\n" +
         $"Dependencies: {string.Join(", ", Dependencies)}\n" +
         $"Engineer: {Engineer}\n" +
-        $"Milestone: {Milestone}\n" +
         $"Active: {Active}\n" +
         $"CanToRemove: {CanToRemove}\n" +
         $"===========================\n"; 

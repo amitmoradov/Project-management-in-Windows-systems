@@ -49,7 +49,8 @@ namespace PL.Task
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            new SingleTaskWindow().ShowDialog();
+            BO.Task task = new();
+            new SingleTaskWindow(task.Id).ShowDialog();
             //To refresh window after Create
             TaskInLists = e_bl?.Task.ReadAll()!;
         }

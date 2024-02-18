@@ -98,7 +98,7 @@
             <!-- Id -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Id:" VerticalAlignment="Center" Margin="40,0,70,0" />
-                <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="79" IsEnabled="False"
+                    <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="79" IsEnabled="False" 
                          />
             </StackPanel>
 

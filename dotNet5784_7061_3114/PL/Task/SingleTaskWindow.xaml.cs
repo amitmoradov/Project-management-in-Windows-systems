@@ -36,7 +36,7 @@ namespace PL.Task
             DependencyProperty.Register("Task", typeof(BO.Task), typeof(SingleTaskWindow), new PropertyMetadata(null));
         //Boolean variable to know whether to call the CREATE or UPDATE function
         bool isUpdateTask = false;
-        public SingleTaskWindow(int id = 0)
+        public SingleTaskWindow(int id)
         {
             isUpdateTask = (id != 0);
             InitializeComponent();
@@ -78,7 +78,17 @@ namespace PL.Task
                 {
                     MessageBox.Show(ex.Message);
                 }
+                catch(BO.BlCannotUpdateException ex)
+                { MessageBox.Show(ex.Message); }
+
+                catch(BO.BlDoesNotExistException ex)
+                { MessageBox.Show(ex.Message); }
+
+                //Tasks can not deleted if I am in step 3
+                catch (BO.BlAlreadyPalnedException ex)
+                { MessageBox.Show(ex.Message); }
             }
+
             else
             {
                 try

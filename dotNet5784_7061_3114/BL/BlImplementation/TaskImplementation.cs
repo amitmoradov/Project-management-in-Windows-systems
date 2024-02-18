@@ -41,8 +41,7 @@ internal class TaskImplementation : ITask
         //Checks if I am in one step, if so, it is forbidden to assign movers to the task
         if (_dal.Project.ReturnStatusProject() == "planning")
         {
-            boTask.Engineer.Name = "";
-            boTask.Engineer.Id = 0;
+            boTask.Engineer = null;
         }
         //Convert the details to Data Base Layer
         DO.Task doTask = TurnTaskToDo(boTask);
@@ -113,7 +112,8 @@ internal class TaskImplementation : ITask
             return boTask;
         }
         //If is not exist
-        throw new BO.BlReadNotFoundException($"Task with ID={doTask?._id} is not exist");
+        //throw new BO.BlReadNotFoundException($"Task with ID={doTask?._id} is not exist");
+        return null;
     }
 
     public BO.Task? Read(Func<BO.Task, bool> filter)
@@ -128,7 +128,8 @@ internal class TaskImplementation : ITask
             return boTask;
         }
         //If is not exist
-        throw new BO.BlReadNotFoundException("Engineer is not exist");
+        //throw new BO.BlReadNotFoundException("Engineer is not exist");
+        return null;
     }
 
     public IEnumerable<BO.TaskInList?> ReadAll(Func<BO.Task, bool>? filter = null)

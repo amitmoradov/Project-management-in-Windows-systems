@@ -1,4 +1,5 @@
-﻿using PL.Engineer;
+﻿using BO;
+using PL.Engineer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,15 @@ namespace PL.Task
     /// Interaction logic for SingleTaskWindow.xaml
     /// </summary>
 
-   
+
 
     public partial class SingleTaskWindow : Window
     {
         // Access to BO .
         static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+
+        //Boolean variable to know whether to call the CREATE or UPDATE function
+        bool isUpdateTask = false;
 
         public BO.Task Task
         {
@@ -34,27 +38,27 @@ namespace PL.Task
 
         public static readonly DependencyProperty TaskProperty =
             DependencyProperty.Register("Task", typeof(BO.Task), typeof(SingleTaskWindow), new PropertyMetadata(null));
-        //Boolean variable to know whether to call the CREATE or UPDATE function
-        bool isUpdateTask = false;
+
         public SingleTaskWindow(int id)
         {
-            isUpdateTask = (id != 0);
+
             InitializeComponent();
-            if (id == 0)
+            // chack if the task is exist
+            BO.Task? privuseTask = e_bl.Task.Read(id);
+
+            // If the task is not exist, Create new task
+            if (privuseTask == null)
             {
                 Task = new BO.Task();
+                // boolen = false because we create new task 
+                isUpdateTask = false;
             }
             else
             {
-                try
-                {
-
-                    Task = e_bl.Task.Read(id)!;
-                }
-                catch (BO.BlReadNotFoundException ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                // Copy the field to task for Update it
+                Task = privuseTask;
+                // boolen = true because we update the old task 
+                isUpdateTask = true;
             }
         }
 
@@ -65,6 +69,7 @@ namespace PL.Task
                 try
                 {
                     e_bl.Task.Update(Task);
+                    MessageBox.Show("Registration has been successfully completed");
                 }
                 catch (BO.BlReadNotFoundException ex)
                 {
@@ -78,10 +83,10 @@ namespace PL.Task
                 {
                     MessageBox.Show(ex.Message);
                 }
-                catch(BO.BlCannotUpdateException ex)
+                catch (BO.BlCannotUpdateException ex)
                 { MessageBox.Show(ex.Message); }
 
-                catch(BO.BlDoesNotExistException ex)
+                catch (BO.BlDoesNotExistException ex)
                 { MessageBox.Show(ex.Message); }
 
                 //Tasks can not deleted if I am in step 3

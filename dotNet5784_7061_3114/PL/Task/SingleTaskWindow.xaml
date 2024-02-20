@@ -22,28 +22,28 @@
 
     <!--Screen scrolling-->
     <ScrollViewer Height="600">
-    <Grid>
-        <StackPanel Margin="0,24,0,0">
-            <!-- Created At Date -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Created At Date:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
-            </StackPanel>
+        <Grid>
+            <StackPanel Margin="0,24,0,0">
+                <!-- Created At Date -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Created At Date:" VerticalAlignment="Center" Margin="40,0,5,0"/>
+                    <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                </StackPanel>
 
-            <!-- Start Date -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Start Date:" VerticalAlignment="Center" Margin="40,0,35,0"/>
-                <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
-            </StackPanel>
+                <!-- Start Date -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Start Date:" VerticalAlignment="Center" Margin="40,0,35,0"/>
+                    <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                </StackPanel>
 
-            <!-- Scheduled Date -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Scheduled Date:" VerticalAlignment="Center" Margin="40,0,6,0"/>
-                <DatePicker SelectedDate="{Binding ScheduledDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"
+                <!-- Scheduled Date -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Scheduled Date:" VerticalAlignment="Center" Margin="40,0,6,0"/>
+                    <DatePicker SelectedDate="{Binding ScheduledDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"
                  IsEnabled="{Binding ScheduledDate , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
-            </StackPanel>
+                </StackPanel>
 
-            <!-- Complete Date -->
+                <!-- Complete Date -->
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="Complete Date:" VerticalAlignment="Center" Margin="40,0,10,0"/>
                     <DatePicker SelectedDate="{Binding CompleteDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"
@@ -51,70 +51,63 @@
                 </StackPanel>
 
                 <!-- Forecast Date -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Forecast Date:" VerticalAlignment="Center" Margin="40,0,15,0"/>
-                <DatePicker SelectedDate="{Binding ForcastDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
-            </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Forecast Date:" VerticalAlignment="Center" Margin="40,0,15,0"/>
+                    <DatePicker SelectedDate="{Binding ForcastDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
+                </StackPanel>
 
-            <!-- Id -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Id:" VerticalAlignment="Center" Margin="40,0,70,0" />
+                <!-- Id -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Id:" VerticalAlignment="Center" Margin="40,0,70,0" />
                     <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="79" IsEnabled="False" 
                          />
-            </StackPanel>
+                </StackPanel>
 
-            <!-- Description -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Description:" VerticalAlignment="Center" Margin="40,0,19,0"/>
-                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"/>
-            </StackPanel>
+                <!-- Description -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Description:" VerticalAlignment="Center" Margin="40,0,19,0"/>
+                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"/>
+                </StackPanel>
 
-            <!-- Alias -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Alias:" VerticalAlignment="Center" Margin="40,0,55,0"/>
-                <TextBox Text="{Binding Alias, UpdateSourceTrigger=PropertyChanged}" Width="275" />
-            </StackPanel>
+                <!-- Alias -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Alias:" VerticalAlignment="Center" Margin="40,0,55,0"/>
+                    <TextBox Text="{Binding Alias, UpdateSourceTrigger=PropertyChanged}" Width="275" />
+                </StackPanel>
 
-            <!-- Remarks -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Remarks:" VerticalAlignment="Center" Margin="40,0,35,0"/>
-                <TextBox Text="{Binding Remarks, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"/>
-            </StackPanel>
+                <!-- Remarks -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Remarks:" VerticalAlignment="Center" Margin="40,0,35,0"/>
+                    <TextBox Text="{Binding Remarks, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"/>
+                </StackPanel>
 
-            <!-- Required Effort Time -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Required Effort Time:" VerticalAlignment="Center" Margin="40,0,5,0" Width="124"/>
+                <!-- Required Effort Time -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Required Effort Time:" VerticalAlignment="Center" Margin="40,0,5,0" Width="124"/>
                     <TextBox Text="{Binding RequiredEffortTime, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="155"
                     IsEnabled="{Binding RequiredEffortTime , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
-             </StackPanel>
+                </StackPanel>
 
 
-            <!-- Deliverables -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Deliverables:" VerticalAlignment="Center" Margin="40,0,20,0"/>
-                <TextBox Text="{Binding Deliverables, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="273"/>
-            </StackPanel>
+                <!-- Deliverables -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Deliverables:" VerticalAlignment="Center" Margin="40,0,20,0"/>
+                    <TextBox Text="{Binding Deliverables, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="273"/>
+                </StackPanel>
 
-            <!-- Status -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Status:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}"
+                <!-- Status -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Status:" VerticalAlignment="Center" Margin="40,0,5,0"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}"
                           SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="90"/>
-            </StackPanel>
+                </StackPanel>
 
-            <!-- Complexity -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Complexity:" VerticalAlignment="Center" Margin="40,0,55,0"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}"
+                <!-- Complexity -->
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="Complexity:" VerticalAlignment="Center" Margin="40,0,55,0"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}"
                           SelectedItem="{Binding Copmliexity, UpdateSourceTrigger=PropertyChanged}" Margin="-40,0,5,0" Width="130"/>
-            </StackPanel>
-
-            <!-- Dependencies -->
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <Label Content="Dependencies:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                <ListView Width="170"       />
-                
-            </StackPanel>
+                </StackPanel>
 
                 <!-- Engineer details -->
                 <StackPanel Orientation="Horizontal" Margin="5">
@@ -126,12 +119,13 @@
                     <TextBox Text="{Binding Engineer.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"
              IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
                 </StackPanel>
-            
+
                 <!-- Active -->
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="Active:" VerticalAlignment="Center" Margin="40,0,5,0"/>
                     <CheckBox IsChecked="{Binding Active, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" RenderTransformOrigin="0.696,1.413"/>
                 </StackPanel>
+                <Button Content="List Dependecies" Width="109" Height="40" />
 
                 <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Width="115" Height="55" Margin="5,20,5,5" Click="btnAddUpdateTask_Click">
                     <Button.Background>
@@ -143,7 +137,11 @@
                     </Button.Background>
                 </Button>
 
+                <!-- Dependencies -->
+
+
             </StackPanel>
-    </Grid>
+
+        </Grid>
     </ScrollViewer>
 </Window>

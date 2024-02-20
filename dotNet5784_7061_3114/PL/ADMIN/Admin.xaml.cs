@@ -34,5 +34,9 @@ namespace PL.ADMIN
         {
             new Task.TaskInListWindow().ShowDialog();
         }
+        private void Viewdependencies(object sender, RoutedEventArgs e)
+        {
+                new Dependency.DependencyWindow().ShowDialog();
+        }
     }
 }

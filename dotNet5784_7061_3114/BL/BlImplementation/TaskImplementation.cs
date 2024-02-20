@@ -628,6 +628,43 @@ internal class TaskImplementation : ITask
 
         return afterUpdateTask;
     }
+    /// <summary>
+    /// Return all Id of Tasks .
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<int> AllTaskSId()
+    {
+        var allId = from task in _dal.Task.ReadAll()
+                    select task._id;
+        return allId;
+    }
+    /// <summary>
+    /// Crete and save in data base new dependency from PL . 
+    /// </summary>
+    /// <param name="dependencyTask"></param>
+    /// <param name="dependencyOnTask"></param>
+    public void AddDependency(int dependencyTask , int dependencyOnTask)
+    {
+        DO.Dependency newDependency = new(dependencyTask,dependencyOnTask);
+        try
+        {
+            _dal.Dependency.Create(newDependency);
+        }
+        catch (Exception ex) { } /// בלי נדר לתקן לחריגה מתאימה
+    }
+
+    public void DeleteDependency(int dependencyTask, int dependencyOnTask)
+    {
+        // Return the dependency by dependencyTask -> dependencyOnTask.
+        DO.Dependency? newDependency = _dal.Dependency.Read(x => x._dependentTask == dependencyTask && x._dependsOnTask == dependencyOnTask);
+        int idDependency = newDependency._id;
+
+        try
+        {
+            _dal.Dependency.Delete(idDependency);
+        }
+        catch (Exception ex) { } /// בלי נדר לתקן לחריגה מתאימה
+    }
 
 }
 

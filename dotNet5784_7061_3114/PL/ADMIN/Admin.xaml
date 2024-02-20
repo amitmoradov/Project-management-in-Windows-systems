@@ -16,6 +16,7 @@
         </Grid.Background>
         <Button Content="Handle Engineer" HorizontalAlignment="Left" Margin="166,0,0,0" VerticalAlignment="Center" Height="80" Width="160" Background="Aqua" Click="btnEngineers_Click"/>
         <Button Content="Handle Task" HorizontalAlignment="Left" Margin="449,0,0,0" VerticalAlignment="Center" Height="80" Width="160" Background="Aqua" Click="btnTasks_Click"/>
+        <Button Content="Dependecies" Width="109" Height="40" Click="Viewdependencies" />
 
         <Label Content="Admin window" 
        HorizontalAlignment="Right" 

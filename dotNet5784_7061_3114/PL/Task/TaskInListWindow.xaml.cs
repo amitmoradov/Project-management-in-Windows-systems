@@ -60,5 +60,6 @@ namespace PL.Task
             TaskInLists = (StatusTask == BO.Status.All) ?
           e_bl?.Task.ReadAll()! : e_bl?.Task.ReadAll(item => (int)item.Status == (int)StatusTask)!;
         }
+       
     }
 }

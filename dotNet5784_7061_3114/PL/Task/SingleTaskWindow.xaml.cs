@@ -126,6 +126,9 @@ namespace PL.Task
             this.Close();
         }
 
-       
+        private void EditDependenciesButton_Click(object sender, RoutedEventArgs e)
+        {
+            new Dependency.SingelDependencyWindow().ShowDialog();
+        }
     }
 }

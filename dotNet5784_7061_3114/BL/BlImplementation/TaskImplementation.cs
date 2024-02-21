@@ -681,7 +681,7 @@ internal class TaskImplementation : BlApi.ITask
         DO.Dependency? newDependency = _dal.Dependency.Read(x => x._dependentTask == dependencyTask && x._dependsOnTask == dependencyOnTask);
         if(newDependency == null)
         {
-            throw new BlDoesNotExistException("The dependency you tried to delete not exist");
+            throw new BlDoesNotExistException($"The task {dependencyTask} does not depend in {dependencyOnTask}");
         }
         int idDependency = newDependency._id;
 

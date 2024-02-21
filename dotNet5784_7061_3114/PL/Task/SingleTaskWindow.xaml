@@ -115,11 +115,23 @@
             <ListView ItemsSource="{Binding Dependencies}" Margin="5">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Dependency" DisplayMemberBinding="{Binding}" />
+                        <GridViewColumn Header="Dependencies" DisplayMemberBinding="{Binding}" />
                     </GridView>
                 </ListView.View>
             </ListView>
-            
+
+            <!-- Edit Dependencies Button -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Button Content="Edit dependencies" Width="110" Height="30" Margin="5" Click="EditDependenciesButton_Click">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#64B5F6" Offset="0"/>
+                            <GradientStop Color="#BBDEFB" Offset="0.5"/>
+                            <GradientStop Color="#E3F2FD" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
             
             <!-- Active -->
             <StackPanel Orientation="Horizontal" Margin="5">

@@ -5,18 +5,17 @@ using DO;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
-
+using DalApi;
 namespace BlImplementation;
 
-using BlApi;
-using DalApi;
 
-internal class TaskImplementation : ITask
+
+internal class TaskImplementation : BlApi.ITask
 {
     // Access to Dl layer .
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    private BlApi.IBl e_bl = BlApi.Factory.Get();
-    //static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+   
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
 
     public void Create(BO.Task boTask)
     {

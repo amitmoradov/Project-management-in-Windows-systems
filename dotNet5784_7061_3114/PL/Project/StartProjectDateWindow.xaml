@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!-- Start Project Date -->
-        <DatePicker Grid.Row="0" VerticalAlignment="Center"/>
+        <DatePicker x:Name="datePicker"  Grid.Row="0" VerticalAlignment="Center"/>
 
         <!-- Button to Confirm -->
         <Button Content="Enter" Grid.Row="1" VerticalAlignment="Top" Click="InitializationProjectStartDate_Click"/>

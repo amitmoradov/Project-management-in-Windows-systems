@@ -41,7 +41,12 @@ namespace PL.ADMIN
 
         private void StartProject_Click(object sender, RoutedEventArgs e)
         {
-            new Project.StartProjectDateWindow().ShowDialog();
+            //To update the window after insert start date of project
+            //(The command closes the current window and after you enter the changing date,
+            //the window returns updated, that is, without the option to click this button)
+            this.Close();
+
+            new Project.StartProjectDateWindow().ShowDialog();          
         }
     }
 }

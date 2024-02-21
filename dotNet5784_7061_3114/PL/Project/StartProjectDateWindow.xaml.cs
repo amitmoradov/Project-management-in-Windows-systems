@@ -12,24 +12,36 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Project
+namespace PL.Project;
+
+/// <summary>
+/// Interaction logic for StartProjectDateWindow.xaml
+/// </summary>
+public partial class StartProjectDateWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for StartProjectDateWindow.xaml
-    /// </summary>
-    public partial class StartProjectDateWindow : Window
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+
+    public StartProjectDateWindow()
     {
-        static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+        InitializeComponent();
+    }
 
-        public StartProjectDateWindow()
+    private void InitializationProjectStartDate_Click(object sender, RoutedEventArgs e)
+    {
+        DateTime? selectedDate = datePicker.SelectedDate;
+        if (selectedDate.HasValue)
         {
-            InitializeComponent();
-        }
+            e_bl.Project.SaveStartProjectDate(selectedDate.Value);
+            MessageBox.Show("Project start date initialized.");
+            e_bl.Project.SaveChangeOfStatus("ScheduleDetermination");
+            this.Close();
 
-        private void InitializationProjectStartDate_Click(object sender, RoutedEventArgs e)
+            //To update the old window of ADMIN - that the button will not be active
+            new ADMIN.Admin().ShowDialog();
+        }
+        else
         {
-
+            MessageBox.Show("Please select a valid start date.");
         }
-
     }
 }

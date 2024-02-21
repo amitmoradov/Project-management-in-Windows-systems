@@ -6,40 +6,41 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="EngineesListrWindow" Height="640" Width="800">
+        Title="EngineesListrWindow" Height="480" Width="600">
 
-    <!--Extrnal Grid-->
-    <Grid>
+    <!-- External Grid -->
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+
+        <!-- Upper Grid -->
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Engineers Details" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
-            <!--ComboBox- filter option from engineer-->
+            <Label Content="Engineers Details" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <!-- ComboBox for filtering options -->
             <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Experience, Mode=TwoWay}"
-               ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}" SelectionChanged="cbExpirenceSelector_SelectionChanged"/>
-
-
+                      ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}"
+                      SelectionChanged="cbExpirenceSelector_SelectionChanged"/>
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="UpdateListView_MouseDoubleClick">
+
+        <!-- ListView -->
+        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="UpdateListView_MouseDoubleClick"
+                  Height="300" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddEngineer"/>
 
-
-
+        <!-- Add Button -->
+        <Button Grid.Row="2" Content="Add" HorizontalAlignment="Center" Height="30" Width="100" Click="AddEngineer"/>
     </Grid>
-    
 
 </Window>

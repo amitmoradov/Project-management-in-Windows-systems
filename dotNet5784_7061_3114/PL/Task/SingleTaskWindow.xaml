@@ -6,141 +6,126 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
         DataContext="{Binding Task, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-        Title="SingleTaskWindow" Height="800" Width="800">
+        Title="SingleTaskWindow" Height="600" Width="529">
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <LinearGradientBrush.GradientStops>
-                <GradientStop Color="LightBlue" Offset="0"/>
-                <GradientStop Color="LightGreen" Offset="0.25"/>
-                <GradientStop Color="LightPink" Offset="0.5"/>
-                <GradientStop Color="LightCoral" Offset="0.75"/>
-                <GradientStop Color="LightSkyBlue" Offset="1"/>
+                <GradientStop Color="#E0E0E0" Offset="0"/>
+                <GradientStop Color="#FFFFFF" Offset="1"/>
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
     </Window.Background>
-
-
-    <!--Screen scrolling-->
-    <ScrollViewer Height="600">
-        <Grid>
-            <StackPanel Margin="0,24,0,0">
-                <!-- Created At Date -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Created At Date:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                    <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
-                </StackPanel>
-
-                <!-- Start Date -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Start Date:" VerticalAlignment="Center" Margin="40,0,35,0"/>
-                    <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
-                </StackPanel>
-
-                <!-- Scheduled Date -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Scheduled Date:" VerticalAlignment="Center" Margin="40,0,6,0"/>
-                    <DatePicker SelectedDate="{Binding ScheduledDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"
-                 IsEnabled="{Binding ScheduledDate , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
-                </StackPanel>
-
-                <!-- Complete Date -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Complete Date:" VerticalAlignment="Center" Margin="40,0,10,0"/>
-                    <DatePicker SelectedDate="{Binding CompleteDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"
-                     IsEnabled="{Binding CompleteDate , Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
-                </StackPanel>
-
-                <!-- Forecast Date -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Forecast Date:" VerticalAlignment="Center" Margin="40,0,15,0"/>
-                    <DatePicker SelectedDate="{Binding ForcastDate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0"/>
-                </StackPanel>
-
-                <!-- Id -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Id:" VerticalAlignment="Center" Margin="40,0,70,0" />
-                    <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="79" IsEnabled="False" 
-                         />
-                </StackPanel>
-
-                <!-- Description -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Description:" VerticalAlignment="Center" Margin="40,0,19,0"/>
-                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"/>
-                </StackPanel>
-
-                <!-- Alias -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Alias:" VerticalAlignment="Center" Margin="40,0,55,0"/>
-                    <TextBox Text="{Binding Alias, UpdateSourceTrigger=PropertyChanged}" Width="275" />
-                </StackPanel>
-
-                <!-- Remarks -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Remarks:" VerticalAlignment="Center" Margin="40,0,35,0"/>
-                    <TextBox Text="{Binding Remarks, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"/>
-                </StackPanel>
-
-                <!-- Required Effort Time -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Required Effort Time:" VerticalAlignment="Center" Margin="40,0,5,0" Width="124"/>
-                    <TextBox Text="{Binding RequiredEffortTime, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="155"
-                    IsEnabled="{Binding RequiredEffortTime , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
-                </StackPanel>
-
-
-                <!-- Deliverables -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Deliverables:" VerticalAlignment="Center" Margin="40,0,20,0"/>
-                    <TextBox Text="{Binding Deliverables, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="273"/>
-                </StackPanel>
-
-                <!-- Status -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Status:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}"
-                          SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="90" IsEnabled="False"/>
-                </StackPanel>
-
-                <!-- Complexity -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Complexity:" VerticalAlignment="Center" Margin="40,0,55,0"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}"
-                          SelectedItem="{Binding Copmliexity, UpdateSourceTrigger=PropertyChanged}" Margin="-40,0,5,0" Width="130"/>
-                </StackPanel>
-
-                <!-- Engineer details -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Engineer Id:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                    <TextBox Text="{Binding Engineer.Id, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto" 
-             IsEnabled="{Binding Engineer.Id, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
-
-                    <Label Content="Engineer Name:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                    <TextBox Text="{Binding Engineer.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" Width="Auto"
-             IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
-                </StackPanel>
-
-                <!-- Active -->
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="Active:" VerticalAlignment="Center" Margin="40,0,5,0"/>
-                    <CheckBox IsChecked="{Binding Active, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,5,0" RenderTransformOrigin="0.696,1.413"/>
-                </StackPanel>
-
-                <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Width="115" Height="55" Margin="5,20,5,5" Click="btnAddUpdateTask_Click">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="LightBlue" Offset="0.1"/>
-                            <GradientStop Color="LightGray" Offset="0.5"/>
-                            <GradientStop Color="White" Offset="0.9"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-
-                <!-- Dependencies -->
-
-
+    <ScrollViewer Height="550" HorizontalAlignment="Center" VerticalAlignment="Center" Width="509">
+        <StackPanel Margin="10">
+            <!-- Created At Date -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Created At Date:" VerticalAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
             </StackPanel>
 
-        </Grid>
+            <!-- Start Date -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Start Date:" VerticalAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+            </StackPanel>
+
+            <!-- Scheduled Date -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Scheduled Date:" VerticalAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding ScheduledDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                            IsEnabled="{Binding ScheduledDate , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
+            </StackPanel>
+
+            <!-- Complete Date -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Complete Date:" VerticalAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding CompleteDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                            IsEnabled="{Binding CompleteDate , Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+            </StackPanel>
+
+            <!-- Forecast Date -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Forecast Date:" VerticalAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding ForcastDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+            </StackPanel>
+
+            <!-- Id -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Id:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="70" IsEnabled="False"/>
+            </StackPanel>
+
+            <!-- Description -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Description:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="Auto" />
+            </StackPanel>
+
+            <!-- Alias -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Alias:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Alias, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="200"/>
+            </StackPanel>
+
+            <!-- Remarks -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Remarks:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Remarks, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="Auto"/>
+            </StackPanel>
+
+            <!-- Required Effort Time -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Required Effort Time:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding RequiredEffortTime, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="100"
+                         IsEnabled="{Binding RequiredEffortTime , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
+            </StackPanel>
+
+            <!-- Deliverables -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Deliverables:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Deliverables, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="200"/>
+            </StackPanel>
+
+            <!-- Status -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Status:" VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}"
+                          SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="100" IsEnabled="False"/>
+            </StackPanel>
+
+            <!-- Complexity -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Complexity:" VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding Source={StaticResource ExperienceCollectionKey}}"
+                          SelectedItem="{Binding Copmliexity, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="100"/>
+            </StackPanel>
+
+            <!-- Engineer details -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Engineer Id:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Engineer.Id, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="50" 
+                         IsEnabled="{Binding Engineer.Id, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+
+                <Label Content="Engineer Name:" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Engineer.Name, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="100"
+                         IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+            </StackPanel>
+
+            <!-- Active -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="Active:" VerticalAlignment="Center"/>
+                <CheckBox IsChecked="{Binding Active, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+            </StackPanel>
+
+            <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Width="115" Height="55" Margin="5,20,5,5" Click="btnAddUpdateTask_Click">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="LightBlue" Offset="0.1"/>
+                        <GradientStop Color="LightGray" Offset="0.5"/>
+                        <GradientStop Color="White" Offset="0.9"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
     </ScrollViewer>
 </Window>

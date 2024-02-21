@@ -31,7 +31,7 @@ public interface ITask
 
     void AddDependency(int dependencyTask, int dependencyOnTask);
 
-    void DeleteDependency(int dependencyTask, int dependencyOnTask)
+    void DeleteDependency(int dependencyTask, int dependencyOnTask);
 
     //void CreateStartDateProject(DateTime startDate);
 

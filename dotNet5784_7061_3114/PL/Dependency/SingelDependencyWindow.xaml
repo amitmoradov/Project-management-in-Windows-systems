@@ -5,28 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Dependency"
         mc:Ignorable="d"
-        DataContext="{Binding dependentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
         Title="SingelDependencyWindow" Height="450" Width="800">
-        
-    
-    <Grid>
-        <Label Content="Dependency details" 
-        HorizontalAlignment="Center" 
-        VerticalAlignment="Top" 
-        Margin="0,10,10,0" 
-        FontFamily="Comic Sans MS" 
-        FontSize="36" 
-        FontStyle="Italic" 
-        FontWeight="Bold" 
-        Foreground="SlateBlue" 
-        Padding="10,5"/>    
-        <!--<ComboBox Grid.Column="0" SelectedItem="{Binding Path=dependentTask, Mode=TwoWay}"
-        ItemsSource="{Binding Source={StaticResource allIds}}" SelectionChanged="ComboBox_SelectionChanged"/>
-        <ComboBox Grid.Column="1" SelectedValue="{Binding Path=dependensOnTask, Mode=TwoWay}"
-         ItemsSource="{Binding Source={StaticResource allIds}}" SelectionChanged="ComboBox_SelectionChanged"/>-->
 
+    
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Dependency details" 
+           HorizontalAlignment="Center" 
+           VerticalAlignment="Top" 
+           Margin="0,10,10,0" 
+           FontFamily="Comic Sans MS" 
+           FontSize="36" 
+           FontStyle="Italic" 
+           FontWeight="Bold" 
+           Foreground="SlateBlue" 
+           Padding="10,5"/>
+
+        <ComboBox Grid.Row="0" 
+              SelectedValue="{Binding DependentTask,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}"
+              ItemsSource="{Binding AllTasksIds,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
+              Margin="5" />
+
+        <ComboBox Grid.Row="1" 
+              SelectedValue="{Binding DependensOnTask,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}},Mode=TwoWay}"
+              ItemsSource="{Binding AllTasksIds,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
+              Margin="5" />
 
     </Grid>
-
 
 </Window>

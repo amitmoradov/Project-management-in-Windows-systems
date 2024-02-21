@@ -22,28 +22,39 @@ public partial class SingelDependencyWindow : Window
 {
     // Access to BO .
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
-    IEnumerable<int> allIds = e_bl.Task.AllTaskSId();
-
-    public int dependentTask
+    public IEnumerable<int> AllTasksIds
     {
-        get { return (int)GetValue(dependentTaskProperty); }
-        set { SetValue(dependentTaskProperty, value); }
+        get { return (IEnumerable<int>)GetValue(AllTasksIdsProperty); }
+        set { SetValue(AllTasksIdsProperty, value); }
     }
 
-    public static readonly DependencyProperty dependentTaskProperty =
-        DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty AllTasksIdsProperty =
+        DependencyProperty.Register("AllTasksIds", typeof(IEnumerable<int>), typeof(SingelDependencyWindow), new PropertyMetadata(null));
 
-    public int dependensOnTask
+
+
+    public int DependentTask
     {
-        get { return (int)GetValue(dependensOnTaskProperty); }
-        set { SetValue(dependensOnTaskProperty, value); }
+        get { return (int)GetValue(DependentTaskProperty); }
+        set { SetValue(DependentTaskProperty, value); }
     }
 
-    public static readonly DependencyProperty dependensOnTaskProperty =
-        DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty DependentTaskProperty =
+        DependencyProperty.Register("DependentTask", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
+
+    public int DependensOnTask
+    {
+        get { return (int)GetValue(DependensOnTaskProperty); }
+        set { SetValue(DependensOnTaskProperty, value); }
+    }
+
+    public static readonly DependencyProperty DependensOnTaskProperty =
+        DependencyProperty.Register("DependensOnTask", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
 
     public SingelDependencyWindow()
     {
+        AllTasksIds = e_bl.Task.AllTaskSId();
         InitializeComponent();
+        //AllTasksIds = e_bl.Task.AllTaskSId();
     }
 }

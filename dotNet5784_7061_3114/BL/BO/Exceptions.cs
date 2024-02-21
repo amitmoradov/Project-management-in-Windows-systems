@@ -91,13 +91,13 @@ public class BlCannotUpdateException : Exception
 }
 
 [Serializable]
-public class EngineerWorkingOnTask : Exception
+public class BlEngineerWorkingOnTask : Exception
 {
-    public EngineerWorkingOnTask(string msg) : base(msg) { }
+    public BlEngineerWorkingOnTask(string msg) : base(msg) { }
 }
 
 [Serializable]
-public class EngineerIsNotTheAllowedLevel : Exception
+public class BlEngineerIsNotTheAllowedLevel : Exception
 {
-    public EngineerIsNotTheAllowedLevel(string msg) : base(msg) { }
+    public BlEngineerIsNotTheAllowedLevel(string msg) : base(msg) { }
 }

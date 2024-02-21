@@ -1,0 +1,22 @@
+﻿<Window x:Class="PL.Engineer.InsertEngineerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         DataContext="{Binding Engineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
+        Title="Insert Engineer" Height="150" Width="250">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Engineer ID -->
+        <TextBlock Text="Enter Engineer ID:" VerticalAlignment="Center" RenderTransformOrigin="0.413,0.629"/>
+        <TextBox x:Name="txtEngineerID" Margin="105,0,0,0" VerticalAlignment="Center"
+                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                IsEnabled="{Binding Id, Converter={StaticResource IdToIsEnabledConverterKey}}"/>
+
+        <!-- Button to Show Task of Engineer work on -->
+        <Button Grid.Row="1" Content="Show Tasks" VerticalAlignment="Top" Click="ShowTask_Click" Margin="0,4,0,0"/>
+
+    </Grid>
+</Window>

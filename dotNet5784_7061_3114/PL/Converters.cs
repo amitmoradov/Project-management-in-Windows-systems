@@ -21,6 +21,11 @@ class ConvertIdToContent : IValueConverter
 
 }
 
+/// <summary>
+/// the function checks if the received value (the number) is 0. If the value is 0, the function returns true, 
+/// allowing the field to be edited. If the value is different from 0,
+/// it returns false, and then the field will not be editable.
+/// </summary>
 class IdToIsEnabledConverter : IValueConverter
 {
 

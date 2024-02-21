@@ -13,9 +13,9 @@
 
     <Grid>
         <Image Source="{StaticResource MyImage}"/>
-        <Button Content="Data Initialization" HorizontalAlignment="Left" Margin="10,357,0,0" VerticalAlignment="Top" Click="Data_Initialization" Height="33" Width="129" Background="BurlyWood"/>
-        <Button Content="Reset DataBase" HorizontalAlignment="Left" Margin="798,357,0,0" VerticalAlignment="Top" Click="ResetDataBase" Height="33" Width="129" Background="DarkGray"/>
-        <Button Content="ADMIN" HorizontalAlignment="Left" Margin="169,357,0,0" VerticalAlignment="Top" Height="33" Width="129" Click="AdminButton" Background="LemonChiffon"/>
+        <Button Content="Data Initialization" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" Click="Data_Initialization" Height="33" Width="220" Background="BurlyWood"/>
+        <Button Content="Reset DataBase" HorizontalAlignment="Center" Margin="0,184,0,0" VerticalAlignment="Top" Click="ResetDataBase" Height="33" Width="220" Background="DarkGray"/>
+        <Button Content="ADMIN" HorizontalAlignment="Left" Margin="380,222,0,0" VerticalAlignment="Top" Height="33" Width="110" Click="AdminButton" Background="LemonChiffon"/>
         <Label Content=" Smart roads project - בעזרת השם נעשה ונצליח" 
        HorizontalAlignment="Right" 
        VerticalAlignment="Top" 
@@ -26,6 +26,7 @@
        FontWeight="Bold" 
        Foreground="DeepSkyBlue" 
        Padding="10,5"/>
+        <Button Content="Engineer" HorizontalAlignment="Left" Margin="490,222,0,0" VerticalAlignment="Top" Width="111" Height="33" Click="InsertEngineer"/>
 
 
     </Grid>

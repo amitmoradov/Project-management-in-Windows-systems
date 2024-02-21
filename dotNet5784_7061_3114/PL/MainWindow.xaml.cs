@@ -39,4 +39,9 @@ public partial class MainWindow : Window
     {
         new ADMIN.Admin().ShowDialog();
     }
+
+    private void InsertEngineer(object sender, RoutedEventArgs e)
+    {
+        new Engineer.InsertEngineerWindow().ShowDialog();
+    }
 }

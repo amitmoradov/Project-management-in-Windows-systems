@@ -13,38 +13,37 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Dependency
+namespace PL.Dependency;
+
+/// <summary>
+/// Interaction logic for SingelDependencyWindow.xaml
+/// </summary>
+public partial class SingelDependencyWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for SingelDependencyWindow.xaml
-    /// </summary>
-    public partial class SingelDependencyWindow : Window
+    // Access to BO .
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+    IEnumerable<int> allIds = e_bl.Task.AllTaskSId();
+
+    public int dependentTask
     {
-        // Access to BO .
-        static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
-        IEnumerable<int> allIds = e_bl.Task.AllTaskSId();
+        get { return (int)GetValue(dependentTaskProperty); }
+        set { SetValue(dependentTaskProperty, value); }
+    }
 
-        public int dependentTask
-        {
-            get { return (int)GetValue(dependentTaskProperty); }
-            set { SetValue(dependentTaskProperty, value); }
-        }
+    public static readonly DependencyProperty dependentTaskProperty =
+        DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty dependentTaskProperty =
-            DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
+    public int dependensOnTask
+    {
+        get { return (int)GetValue(dependensOnTaskProperty); }
+        set { SetValue(dependensOnTaskProperty, value); }
+    }
 
-        public int dependensOnTask
-        {
-            get { return (int)GetValue(dependensOnTaskProperty); }
-            set { SetValue(dependensOnTaskProperty, value); }
-        }
+    public static readonly DependencyProperty dependensOnTaskProperty =
+        DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty dependensOnTaskProperty =
-            DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
-
-        public SingelDependencyWindow()
-        {
-            InitializeComponent();
-        }
+    public SingelDependencyWindow()
+    {
+        InitializeComponent();
     }
 }

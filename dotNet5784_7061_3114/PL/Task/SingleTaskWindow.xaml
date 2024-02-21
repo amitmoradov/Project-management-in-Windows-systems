@@ -111,6 +111,16 @@
                          IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
             </StackPanel>
 
+            <!-- Dependencies -->
+            <ListView ItemsSource="{Binding Dependencies}" Margin="5">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Dependency" DisplayMemberBinding="{Binding}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            
             <!-- Active -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Active:" VerticalAlignment="Center"/>

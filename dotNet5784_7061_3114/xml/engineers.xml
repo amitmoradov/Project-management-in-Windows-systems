@@ -19,29 +19,11 @@
     <_canToRemove>true</_canToRemove>
   </Engineer>
   <Engineer>
-    <_id>201482026</_id>
-    <_cost>292</_cost>
-    <_level>Advanced</_level>
-    <_email>Bob95@gmail.com</_email>
-    <_name>Bob</_name>
-    <_active>true</_active>
-    <_canToRemove>true</_canToRemove>
-  </Engineer>
-  <Engineer>
     <_id>231326464</_id>
     <_cost>120</_cost>
     <_level>Beginner</_level>
     <_email>Eva12@gmail.com</_email>
     <_name>Eva</_name>
-    <_active>true</_active>
-    <_canToRemove>true</_canToRemove>
-  </Engineer>
-  <Engineer>
-    <_id>350814353</_id>
-    <_cost>276</_cost>
-    <_level>Advanced</_level>
-    <_email>David42@gmail.com</_email>
-    <_name>David</_name>
     <_active>true</_active>
     <_canToRemove>true</_canToRemove>
   </Engineer>
@@ -178,6 +160,24 @@
     <_email>Lily85@gmail.com</_email>
     <_name>Lily</_name>
     <_active>true</_active>
+    <_canToRemove>true</_canToRemove>
+  </Engineer>
+  <Engineer>
+    <_id>201482026</_id>
+    <_cost>292</_cost>
+    <_level>Advanced</_level>
+    <_email>Bob95@gmail.com</_email>
+    <_name>Bob</_name>
+    <_active>true</_active>
+    <_canToRemove>true</_canToRemove>
+  </Engineer>
+  <Engineer>
+    <_id>350814353</_id>
+    <_cost>276</_cost>
+    <_level>Advanced</_level>
+    <_email>David42@gmail.com</_email>
+    <_name>David</_name>
+    <_active>false</_active>
     <_canToRemove>true</_canToRemove>
   </Engineer>
 </ArrayOfEngineer>

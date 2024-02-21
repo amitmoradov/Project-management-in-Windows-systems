@@ -147,7 +147,7 @@ internal class EngineerImplementation : IEngineer
                                select task).FirstOrDefault();
 
                 //If the task exists and is also assigned to an engineer already
-                if ( resulte != null && resulte._engineerId != null)
+                if ( resulte != null && resulte._engineerId != 0)
                 {
                    throw new BO.BlEngineerWorkingOnTask("There is another engineer already working on the task");
                 }
@@ -165,11 +165,6 @@ internal class EngineerImplementation : IEngineer
                 
                 _dal.Task.Update(newTask);
             }        
-            //If the engineer is working on a task
-            else
-            {
-                throw new BO.BlEngineerWorkingOnTask("It is not possible to update a task because an engineer is working on another task");
-            }
         }
         //Save the change un Data Base.
         DO.Engineer doEngineer = TurnEngineerToDo(boEngineer);

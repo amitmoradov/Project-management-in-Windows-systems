@@ -72,20 +72,6 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P7D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
-    <_scheduledDate>2024-04-23T00:00:00</_scheduledDate>
-    <_alias>CSC</_alias>
-    <_description>Construction of Charging Stations</_description>
-    <_remarks>Building facilities for electric vehicle charging.</_remarks>
-    <_id>6</_id>
-    <_engineerId>0</_engineerId>
-    <_active>true</_active>
-    <_isMilestone>false</_isMilestone>
-    <_canToRemove>true</_canToRemove>
-  </Task>
-  <Task>
-    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
     <_requiredEffortTime>PT0S</_requiredEffortTime>
     <_copmliexity>AdvancedBeginner</_copmliexity>
     <_scheduledDate>2024-05-03T00:00:00</_scheduledDate>
@@ -304,6 +290,20 @@
     <_remarks>Reviewing support systems for electric vehicle office spaces.</_remarks>
     <_id>22</_id>
     <_engineerId>0</_engineerId>
+    <_active>true</_active>
+    <_isMilestone>false</_isMilestone>
+    <_canToRemove>true</_canToRemove>
+  </Task>
+  <Task>
+    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
+    <_requiredEffortTime>P7D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-04-23T00:00:00</_scheduledDate>
+    <_alias>CSC</_alias>
+    <_description>Construction of Charging Stations</_description>
+    <_remarks>Building facilities for electric vehicle charging.</_remarks>
+    <_id>6</_id>
+    <_engineerId>350814353</_engineerId>
     <_active>true</_active>
     <_isMilestone>false</_isMilestone>
     <_canToRemove>true</_canToRemove>

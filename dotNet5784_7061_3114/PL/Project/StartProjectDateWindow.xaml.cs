@@ -33,9 +33,12 @@ public partial class StartProjectDateWindow : Window
         {
             e_bl.Project.SaveStartProjectDate(selectedDate.Value);
             MessageBox.Show("Project start date initialized.");
+            //Come to Stage 2
             e_bl.Project.SaveChangeOfStatus("ScheduleDetermination");
             this.Close();
 
+            //Estimated start date for tasks + promotion to stage 3
+            e_bl.Task.ScheduleFieldsInitialization();
             //To update the old window of ADMIN - that the button will not be active
             new ADMIN.Admin().ShowDialog();
         }

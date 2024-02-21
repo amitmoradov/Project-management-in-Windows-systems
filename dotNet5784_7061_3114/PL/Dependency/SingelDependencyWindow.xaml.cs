@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Task;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,28 @@ namespace PL.Dependency
     /// </summary>
     public partial class SingelDependencyWindow : Window
     {
+        // Access to BO .
+        static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+        IEnumerable<int> allIds = e_bl.Task.AllTaskSId();
+
+        public int dependentTask
+        {
+            get { return (int)GetValue(dependentTaskProperty); }
+            set { SetValue(dependentTaskProperty, value); }
+        }
+
+        public static readonly DependencyProperty dependentTaskProperty =
+            DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
+
+        public int dependensOnTask
+        {
+            get { return (int)GetValue(dependensOnTaskProperty); }
+            set { SetValue(dependensOnTaskProperty, value); }
+        }
+
+        public static readonly DependencyProperty dependensOnTaskProperty =
+            DependencyProperty.Register("dependentTaskProperty", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
+
         public SingelDependencyWindow()
         {
             InitializeComponent();

@@ -27,6 +27,7 @@ public interface ITask
    // IEnumerable<BO.Task?> BringTasksDependsOn(BO.Task boTask);
 
     void ScheduleFieldsInitialization();
+    IEnumerable<int> AllTaskSId();
 
     //void CreateStartDateProject(DateTime startDate);
 
@@ -34,7 +35,7 @@ public interface ITask
     ///// Change the status of project in data base
     ///// </summary>
     ///// <param name="status"></param>
- 
+
     //void ChangeOfStatus(string status);
 
     //string ReturnStatusProject();

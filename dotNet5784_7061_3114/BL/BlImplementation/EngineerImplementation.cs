@@ -4,6 +4,8 @@ using BO;
 using DO;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
+using System.Diagnostics.Metrics;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -183,37 +185,36 @@ internal class EngineerImplementation : IEngineer
     {
         if (boEngineer.Cost == null)
         {
-            throw new BlNullPropertyException($"You did not add value for : Cost");
+            throw new BlNullPropertyException("The engineer's salary is invalid, please try again");
         }
 
         if (boEngineer.Email == null)
         {
-            throw new BlNullPropertyException($"You did not add value for : Email");
+            throw new BlNullPropertyException("The engineer email is invalid, please try again");
         }
 
         if (boEngineer.Name == "")
         {
-            throw new BO.BlNullPropertyException($"You did not add value for : Name");
+            throw new BO.BlNullPropertyException("Invalid engineer name, please try again");
         }
 
         if(boEngineer.Level == null)
         {
-            throw new BlNullPropertyException($"You did not add value for : Level");
+            throw new BlNullPropertyException("Engineer level not set, Please try again");
         }
 
         if (boEngineer.Id < 200000000 || boEngineer.Id >  400000000)
         {
-            throw new BO.BlIncorrectDatailException($"The ID {boEngineer.Id} that you entered is not within the range of: 200000000-400000000");
+            throw new BO.BlIncorrectDatailException("The ID you entered is invalid, please try again");
         }
-
         if(boEngineer.Cost < 0)
         {
-            throw new BO.BlIncorrectDatailException($"The Cost: {boEngineer.Cost} that you entered is < 0 , please try again");
+            throw new BO.BlIncorrectDatailException("Engineer salary cannot be negative, please enter again");
         }
 
         if (IsValidEmail(boEngineer.Email) == false)
         {
-            throw new BO.BlIncorrectDatailException($"The email {boEngineer.Email} that you entered is not in the correct format");
+            throw new BO.BlIncorrectDatailException("The email you entered is invalid, please check again");
         }
     }
 

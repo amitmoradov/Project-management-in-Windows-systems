@@ -16,20 +16,6 @@
   </Task>
   <Task>
     <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
-    <_scheduledDate>2024-03-14T00:00:00</_scheduledDate>
-    <_alias>CSE</_alias>
-    <_description>Evaluation of Potential Charging Station Locations</_description>
-    <_remarks>Inspecting and assessing suitable charging station positions.</_remarks>
-    <_id>2</_id>
-    <_engineerId>0</_engineerId>
-    <_active>true</_active>
-    <_isMilestone>false</_isMilestone>
-    <_canToRemove>true</_canToRemove>
-  </Task>
-  <Task>
-    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
     <_requiredEffortTime>P8D</_requiredEffortTime>
     <_copmliexity>Advanced</_copmliexity>
     <_scheduledDate>2024-03-24T00:00:00</_scheduledDate>
@@ -304,6 +290,20 @@
     <_remarks>Building facilities for electric vehicle charging.</_remarks>
     <_id>6</_id>
     <_engineerId>350814353</_engineerId>
+    <_active>true</_active>
+    <_isMilestone>false</_isMilestone>
+    <_canToRemove>true</_canToRemove>
+  </Task>
+  <Task>
+    <_createdAtDate>2024-01-15T00:00:00</_createdAtDate>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-03-14T00:00:00</_scheduledDate>
+    <_alias>CSE</_alias>
+    <_description>Evaluation of Potential Charging Station Locations</_description>
+    <_remarks>Inspecting and assessing suitable charging station positions.</_remarks>
+    <_id>2</_id>
+    <_engineerId>0</_engineerId>
     <_active>true</_active>
     <_isMilestone>false</_isMilestone>
     <_canToRemove>true</_canToRemove>

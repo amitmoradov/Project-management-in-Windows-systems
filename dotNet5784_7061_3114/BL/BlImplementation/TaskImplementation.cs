@@ -194,16 +194,22 @@ internal class TaskImplementation : BlApi.ITask
 
                 boTask = UnifiyTasksForThePlannedStage(boTask);
 
-                //Checking whether the engineer is not at a low level to assign him the task
-                BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
-
-                //Checks if a task has been assigned to an engineer - that is, the engineer is not null
-                if (checkLevelEngineer != null)
+                /*After we have merged the task attributes to the one that I want to update,
+                we will check if he has changed the attribute of the engineer's ID*/
+                if (boTask.Engineer.Id != 0)
                 {
-                    if (checkLevelEngineer.Level < boTask.Copmliexity)
+                    //Checking whether the engineer is not at a low level to assign him the task
+                    BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
+
+
+                    //Checks if a task has been assigned to an engineer - that is, the engineer is not null
+                    if (checkLevelEngineer != null)
                     {
-                        boTask.Engineer = null;
-                        throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
+                        if (checkLevelEngineer.Level < boTask.Copmliexity)
+                        {
+                            boTask.Engineer = null;
+                            throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
+                        }
                     }
                 }
 

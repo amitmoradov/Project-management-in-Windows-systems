@@ -176,13 +176,6 @@
     <canToRemove>true</canToRemove>
   </Dependncy>
   <Dependncy>
-    <id>26</id>
-    <dependOnTask>19</dependOnTask>
-    <dependentTask>21</dependentTask>
-    <active>true</active>
-    <canToRemove>true</canToRemove>
-  </Dependncy>
-  <Dependncy>
     <id>27</id>
     <dependOnTask>3</dependOnTask>
     <dependentTask>15</dependentTask>

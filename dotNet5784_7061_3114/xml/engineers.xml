@@ -19,33 +19,6 @@
     <_canToRemove>true</_canToRemove>
   </Engineer>
   <Engineer>
-    <_id>231326464</_id>
-    <_cost>120</_cost>
-    <_level>Beginner</_level>
-    <_email>Eva12@gmail.com</_email>
-    <_name>Eva</_name>
-    <_active>true</_active>
-    <_canToRemove>true</_canToRemove>
-  </Engineer>
-  <Engineer>
-    <_id>316522964</_id>
-    <_cost>189</_cost>
-    <_level>AdvancedBeginner</_level>
-    <_email>Sophia32@gmail.com</_email>
-    <_name>Sophia</_name>
-    <_active>true</_active>
-    <_canToRemove>true</_canToRemove>
-  </Engineer>
-  <Engineer>
-    <_id>374134529</_id>
-    <_cost>196</_cost>
-    <_level>AdvancedBeginner</_level>
-    <_email>Michael72@gmail.com</_email>
-    <_name>Michael</_name>
-    <_active>true</_active>
-    <_canToRemove>true</_canToRemove>
-  </Engineer>
-  <Engineer>
     <_id>389421348</_id>
     <_cost>206</_cost>
     <_level>Intermediate</_level>
@@ -177,6 +150,42 @@
     <_level>Advanced</_level>
     <_email>David42@gmail.com</_email>
     <_name>David</_name>
+    <_active>false</_active>
+    <_canToRemove>true</_canToRemove>
+  </Engineer>
+  <Engineer>
+    <_id>231326464</_id>
+    <_cost>120</_cost>
+    <_level>Beginner</_level>
+    <_email>Eva12@gmail.com</_email>
+    <_name>Eva</_name>
+    <_active>false</_active>
+    <_canToRemove>true</_canToRemove>
+  </Engineer>
+  <Engineer>
+    <_id>212217061</_id>
+    <_cost>2000</_cost>
+    <_level>Advanced</_level>
+    <_email>moamit@gmail.com</_email>
+    <_name>Amit</_name>
+    <_active>false</_active>
+    <_canToRemove>true</_canToRemove>
+  </Engineer>
+  <Engineer>
+    <_id>316522964</_id>
+    <_cost>900</_cost>
+    <_level>AdvancedBeginner</_level>
+    <_email>Sophia32@gmail.com</_email>
+    <_name>Sophia</_name>
+    <_active>false</_active>
+    <_canToRemove>true</_canToRemove>
+  </Engineer>
+  <Engineer>
+    <_id>374134529</_id>
+    <_cost>196</_cost>
+    <_level>AdvancedBeginner</_level>
+    <_email>Michael72@gmail.com</_email>
+    <_name>Michael</_name>
     <_active>false</_active>
     <_canToRemove>true</_canToRemove>
   </Engineer>

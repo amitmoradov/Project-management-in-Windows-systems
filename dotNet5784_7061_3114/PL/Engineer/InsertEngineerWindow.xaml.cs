@@ -55,7 +55,7 @@ public partial class InsertEngineerWindow : Window
         }
         catch (BO.BlReadNotFoundException ex)
         {
-            MessageBox.Show(ex.Message);
+            MessageBox.Show("ERROR: " + ex.Message,"", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

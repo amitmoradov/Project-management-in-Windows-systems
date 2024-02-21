@@ -50,7 +50,7 @@ public partial class SingleEngineerWindow : Window
             }
             catch(BO.BlReadNotFoundException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
@@ -63,41 +63,43 @@ public partial class SingleEngineerWindow : Window
             try
             {
                 e_bl.Engineer.Update(Engineer);
+                MessageBox.Show("The changes have been updated successfully", " ", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
             catch (BO.BlReadNotFoundException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlNullPropertyException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlIncorrectDatailException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch(BO.BlEngineerWorkingOnTask ex)
-            {  MessageBox.Show(ex.Message); }
+            { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);}
         }
         else
         {
             try
             {
                 e_bl.Engineer.Create(Engineer);
-                MessageBox.Show("Registration has been successfully completed");
-               
+                MessageBox.Show("A new engineer has been added to the system", " ",MessageBoxButton.OK , MessageBoxImage.Information);
+                return;
             }
             catch (BO.BlAlreadyExistsException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlNullPropertyException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlIncorrectDatailException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
        this.Close();

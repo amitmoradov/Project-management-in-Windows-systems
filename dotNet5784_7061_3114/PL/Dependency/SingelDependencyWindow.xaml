@@ -7,36 +7,36 @@
         mc:Ignorable="d"
         Title="SingelDependencyWindow" Height="450" Width="800">
 
-    
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Dependency details" 
-           HorizontalAlignment="Center" 
-           VerticalAlignment="Top" 
-           Margin="0,10,10,0" 
-           FontFamily="Comic Sans MS" 
-           FontSize="36" 
-           FontStyle="Italic" 
-           FontWeight="Bold" 
-           Foreground="SlateBlue" 
-           Padding="10,5"/>
+        <Label Grid.Row="0" Content="Dependency details" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top" 
+               Margin="0,10,10,0" 
+               FontFamily="Comic Sans MS" 
+               FontSize="36" 
+               FontStyle="Italic" 
+               FontWeight="Bold" 
+               Foreground="SlateBlue" 
+               Padding="10,5"/>
 
-        <ComboBox Grid.Row="0" 
-              SelectedValue="{Binding DependentTask,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}"
-              ItemsSource="{Binding AllTasksIds,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
-              Margin="5" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,10">
+            <ComboBox SelectedValue="{Binding DependentTask, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}"
+                      ItemsSource="{Binding AllTasksIds, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
+                      Margin="5" Width="100"/>
+            <ComboBox SelectedValue="{Binding DependensOnTask, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}"
+                      ItemsSource="{Binding AllTasksIds, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
+                      Margin="5" Width="100"/>
+        </StackPanel>
 
-        <ComboBox Grid.Row="1" 
-              SelectedValue="{Binding DependensOnTask,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}},Mode=TwoWay}"
-              ItemsSource="{Binding AllTasksIds,RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
-              Margin="5" />
-
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,10">
+            <Button Content="Add" HorizontalAlignment="Left" Margin="5" Height="40" Width="100" Background="Aqua" Click="AddDependency"/>
+            <Button Content="Delete" HorizontalAlignment="Right" Margin="5" Height="40" Width="100" Background="Aqua" Click="DeleteDependency"/>
+        </StackPanel>
     </Grid>
 
 </Window>

@@ -36,7 +36,7 @@ namespace PL.ADMIN
         }
         private void Viewdependencies(object sender, RoutedEventArgs e)
         {
-                new Dependency.DependencyWindow().ShowDialog();
+                new Dependency.SingelDependencyWindow().ShowDialog();
         }
     }
 }

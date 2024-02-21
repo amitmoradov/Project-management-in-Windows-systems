@@ -95,3 +95,9 @@ public class EngineerWorkingOnTask : Exception
 {
     public EngineerWorkingOnTask(string msg) : base(msg) { }
 }
+
+[Serializable]
+public class EngineerIsNotTheAllowedLevel : Exception
+{
+    public EngineerIsNotTheAllowedLevel(string msg) : base(msg) { }
+}

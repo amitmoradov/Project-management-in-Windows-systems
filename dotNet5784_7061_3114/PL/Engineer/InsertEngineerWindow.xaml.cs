@@ -47,8 +47,10 @@ public partial class InsertEngineerWindow : Window
             {
                 new Task.SingleTaskWindow(0).ShowDialog();
             }
+
             else
-            {           
+            {
+                MessageBox.Show(Engineer.Task.Id.ToString());
                 new Task.SingleTaskWindow(Engineer.Task.Id).ShowDialog();
             }
         }

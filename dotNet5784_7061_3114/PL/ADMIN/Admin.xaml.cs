@@ -38,5 +38,10 @@ namespace PL.ADMIN
         {
                 new Dependency.SingelDependencyWindow().ShowDialog();
         }
+
+        private void StartProject_Click(object sender, RoutedEventArgs e)
+        {
+            new Project.StartProjectDateWindow().ShowDialog();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PL.Task;
+﻿using BO;
+using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,7 +76,10 @@ public partial class SingelDependencyWindow : Window
             e_bl.Task.DeleteDependency(DependentTask, DependensOnTask);
             Close();
         }
-        catch (Exception ex) { }
+        catch (BlDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
     private void ShowDependentTaskDescription(object sender, SelectionChangedEventArgs e)

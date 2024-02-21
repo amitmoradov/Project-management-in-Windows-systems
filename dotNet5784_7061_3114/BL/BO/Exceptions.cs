@@ -89,3 +89,9 @@ public class BlCannotUpdateException : Exception
 {
     public BlCannotUpdateException(string msg) : base(msg) { }
 }
+
+[Serializable]
+public class EngineerWorkingOnTask : Exception
+{
+    public EngineerWorkingOnTask(string msg) : base(msg) { }
+}

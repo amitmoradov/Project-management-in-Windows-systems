@@ -4,6 +4,7 @@ using BO;
 using DO;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace BlImplementation;
@@ -136,16 +137,25 @@ internal class EngineerImplementation : IEngineer
         //Tests an attempt to assign a task (provided they are in step 3)
         if (previousEngineer?.Task?.Id != boEngineer?.Task?.Id && _dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
         {
-            //Return from the list of tasks the one task that the engineer is working on
-            var resulte = (from DO.Task task in _dal.Task.ReadAll()
-                           where previousEngineer?.Id == task._engineerId
-                           select task).FirstOrDefault();
+            //If the engineer has not worked on a task before
+            if (previousEngineer?.Task?.Id == 0)
+            {
+                //Return from the list of tasks the one task that the engineer is working on
+                var resulte = (from DO.Task task in _dal.Task.ReadAll()
+                               where boEngineer?.Task?.Id == task._id
+                               select task).FirstOrDefault();
 
-            //Assigns a task to an engineer 
-            DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
-                resulte._startDate,resulte._scheduledDate,resulte._completeDate,resulte._deadLineDate,resulte._alias,
-                resulte._description,resulte._deliverables,resulte._remarks,resulte._id,boEngineer.Id,resulte._active,resulte._isMilestone,resulte._canToRemove);
-            _dal.Task.Update(newTask);
+                //Assigns a task to an engineer 
+                DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
+                    resulte._startDate, resulte._scheduledDate, resulte._completeDate, resulte._deadLineDate, resulte._alias,
+                    resulte._description, resulte._deliverables, resulte._remarks, resulte._id, boEngineer.Id, resulte._active, resulte._isMilestone, resulte._canToRemove);
+                _dal.Task.Update(newTask);
+            }
+            //If the engineer is working on a task
+            else
+            {
+                throw new BO.EngineerWorkingOnTask("It is not possible to update a task because an engineer is working on another task");
+            }
         }
         //Save the change un Data Base.
         DO.Engineer doEngineer = TurnEngineerToDo(boEngineer);

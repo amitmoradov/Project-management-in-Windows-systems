@@ -9,10 +9,13 @@ using System.Security.Cryptography;
 namespace BlImplementation;
 
 using BlApi;
+using DalApi;
+
 internal class TaskImplementation : ITask
 {
     // Access to Dl layer .
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    private BlApi.IBl e_bl = BlApi.Factory.Get();
     //static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
 
     public void Create(BO.Task boTask)
@@ -169,14 +172,26 @@ internal class TaskImplementation : ITask
         // Chack the details Task 
         if (_dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
             ChackDetails(boTask);
-        else {
+        else 
+        {
             ChackDatailPlannedSatge(boTask);
-            }
+        }
         if (_dal.Project.ReturnStatusProject() == "ScheduleDetermination")
         {
             boTask = ChackUpdate(boTask);
-        }
 
+            //Checking whether the engineer is not at a low level to assign him the task
+            BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
+
+            //Checks if a task has been assigned to an engineer - that is, the engineer is not null
+            if (checkLevelEngineer != null)
+            {
+                if (checkLevelEngineer.Level < boTask.Copmliexity)
+                {
+                    throw new BO.EngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
+                }
+            }
+        }
         try
         {
             /*If I'm in step 3 then
@@ -601,7 +616,7 @@ internal class TaskImplementation : ITask
            I bring the unfilled fields from the data layer and there in the updated variable*/
 
             BO.Task privuseTask = Read(needUpdate.Id);
-            BO.Task afterUpdateTask = new BO.Task()
+        BO.Task afterUpdateTask = new BO.Task()
             {
                 RequiredEffortTime = privuseTask.RequiredEffortTime,
                 CreatedAtDate = privuseTask.CreatedAtDate,              
@@ -624,7 +639,7 @@ internal class TaskImplementation : ITask
                 Copmliexity = needUpdate.Copmliexity,
                 Remarks = needUpdate.Remarks,
 
-            };
+        };   
 
         return afterUpdateTask;
     }

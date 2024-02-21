@@ -28,11 +28,12 @@ public partial class InsertEngineerWindow : Window
     }
 
     public static readonly DependencyProperty EngineerProperty =
-        DependencyProperty.Register("Engineer", typeof(BO.Engineer), typeof(SingleEngineerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("Engineer", typeof(BO.Engineer), typeof(InsertEngineerWindow), new PropertyMetadata(null));
 
     public InsertEngineerWindow()
     {
         InitializeComponent();
+        Engineer = new();
     }
     
     private void ShowTask_Click(object sender, RoutedEventArgs e)
@@ -42,7 +43,16 @@ public partial class InsertEngineerWindow : Window
             e_bl.Engineer.Read(Engineer.Id);
 
             //Open the task window of the existing engineer
-            new Task.SingleTaskWindow(Engineer.Task.Id).ShowDialog();
+            if (Engineer.Task == null)
+            {
+                new Task.SingleTaskWindow(0).ShowDialog();
+            }
+
+            else
+            {
+                MessageBox.Show(Engineer.Task.Id.ToString());
+                new Task.SingleTaskWindow(Engineer.Task.Id).ShowDialog();
+            }
         }
         catch (BO.BlReadNotFoundException ex)
         {

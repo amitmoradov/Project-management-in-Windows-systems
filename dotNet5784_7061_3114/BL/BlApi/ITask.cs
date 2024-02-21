@@ -29,6 +29,10 @@ public interface ITask
     void ScheduleFieldsInitialization();
     IEnumerable<int> AllTaskSId();
 
+    void AddDependency(int dependencyTask, int dependencyOnTask);
+
+    void DeleteDependency(int dependencyTask, int dependencyOnTask)
+
     //void CreateStartDateProject(DateTime startDate);
 
     ///// <summary>

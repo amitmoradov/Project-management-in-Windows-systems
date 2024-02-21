@@ -56,6 +56,7 @@ public partial class SingelDependencyWindow : Window
         AllTasksIds = e_bl.Task.AllTaskSId();
         InitializeComponent();
         //AllTasksIds = e_bl.Task.AllTaskSId();
+
     }
 
     private void AddDependency(object sender, RoutedEventArgs e)
@@ -72,9 +73,22 @@ public partial class SingelDependencyWindow : Window
         try
         {
             e_bl.Task.DeleteDependency(DependentTask, DependensOnTask);
+            Close();
         }
         catch (Exception ex) { }
-        Close();
+    }
 
+    private void ShowDependentTaskDescription(object sender, SelectionChangedEventArgs e)
+    {
+        // Show the description of dependent task .
+        BO.Task? dependentTask = e_bl.Task.Read(DependentTask);
+        MessageBox.Show($"{dependentTask.Description}");
+    }
+
+    private void ShowDependensOnTaskDescription(object sender, SelectionChangedEventArgs e)
+    {
+        // Show the description of dependent task .
+        BO.Task? dependensOnTask = e_bl.Task.Read(DependensOnTask);
+        MessageBox.Show($"{dependensOnTask.Description}");
     }
 }

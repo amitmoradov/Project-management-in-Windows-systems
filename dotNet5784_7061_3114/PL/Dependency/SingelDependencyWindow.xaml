@@ -11,8 +11,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <!-- First Row: Labels -->
         <Label Grid.Row="0" Content="Dependency details" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Top" 
@@ -24,18 +27,26 @@
                Foreground="SlateBlue" 
                Padding="10,5"/>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,10">
-            <ComboBox SelectedValue="{Binding DependentTask, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}"
-                      ItemsSource="{Binding AllTasksIds, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
-                      Margin="5" Width="100"/>
-            <ComboBox SelectedValue="{Binding DependensOnTask, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}"
-                      ItemsSource="{Binding AllTasksIds, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
-                      Margin="5" Width="100"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,10">
+        <!-- Second Row: Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
             <Button Content="Add" HorizontalAlignment="Left" Margin="5" Height="40" Width="100" Background="Aqua" Click="AddDependency"/>
             <Button Content="Delete" HorizontalAlignment="Right" Margin="5" Height="40" Width="100" Background="Aqua" Click="DeleteDependency"/>
+        </StackPanel>
+
+        <!-- Third Row: Labels -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
+            <Label Content="Dependent Task" HorizontalAlignment="Right" Margin="5"/>
+            <Label Content="Dependens On Task" HorizontalAlignment="Right" Margin="5"/>
+        </StackPanel>
+
+        <!-- Fourth Row: Comboboxes -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
+            <ComboBox SelectedValue="{Binding DependentTask, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}" SelectionChanged="ShowDependentTaskDescription"
+                      ItemsSource="{Binding AllTasksIds, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}" 
+                      Margin="5" Width="150" Height="30"/>
+            <ComboBox SelectedValue="{Binding DependensOnTask, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}, Mode=TwoWay}" SelectionChanged="ShowDependensOnTaskDescription"
+                      ItemsSource="{Binding AllTasksIds, RelativeSource={RelativeSource AncestorType={x:Type local:SingelDependencyWindow}}}"  
+                      Margin="5" Width="150" Height="30"/>
         </StackPanel>
     </Grid>
 

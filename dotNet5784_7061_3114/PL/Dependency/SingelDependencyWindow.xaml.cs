@@ -57,4 +57,24 @@ public partial class SingelDependencyWindow : Window
         InitializeComponent();
         //AllTasksIds = e_bl.Task.AllTaskSId();
     }
+
+    private void AddDependency(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            e_bl.Task.AddDependency(DependentTask, DependensOnTask);
+            Close();
+        }
+        catch (Exception ex) { }
+    }
+    private void DeleteDependency(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            e_bl.Task.DeleteDependency(DependentTask, DependensOnTask);
+        }
+        catch (Exception ex) { }
+        Close();
+
+    }
 }

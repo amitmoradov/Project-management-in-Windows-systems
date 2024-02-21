@@ -76,6 +76,8 @@ public partial class SingleEngineerWindow : Window
             {
                 MessageBox.Show(ex.Message);
             }
+            catch(BO.BlEngineerWorkingOnTask ex)
+            {  MessageBox.Show(ex.Message); }
         }
         else
         {

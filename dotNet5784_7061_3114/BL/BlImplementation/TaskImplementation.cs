@@ -179,37 +179,37 @@ internal class TaskImplementation : BlApi.ITask
         {
             boTask = ChackUpdate(boTask);
 
-            //Checking whether the engineer is not at a low level to assign him the task
-            BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
-
-            //Checks if a task has been assigned to an engineer - that is, the engineer is not null
-            if (checkLevelEngineer != null)
-            {
-                if (checkLevelEngineer.Level < boTask.Copmliexity)
-                {
-                    throw new BO.EngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
-                }
-            }
         }
-        try
-        {
+
             /*If I'm in step 3 then
             I can't fill in all the fields that's why
             I bring the unfilled fields from the data layer and there in the updated variable*/
             if (_dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
             {
-                boTask = UnifiyTasksForThePlannedStage(boTask);
-
                 //Checks if there is no other engineer working on the task.
                 if (Read(boTask.Id).Engineer.Id != 0)
                 {
                     throw new BlCannotUpdateException("There is another engineer already working on the task");
                 }
-                //BO.Engineer engineer = e_bl.Engineer.Read(TurnTaskToDo(boTask)._id);
-                //DO.Engineer updateTaskOfEngineer = new();
+
+                boTask = UnifiyTasksForThePlannedStage(boTask);
+
+                //Checking whether the engineer is not at a low level to assign him the task
+                BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
+
+                //Checks if a task has been assigned to an engineer - that is, the engineer is not null
+                if (checkLevelEngineer != null)
+                {
+                    if (checkLevelEngineer.Level < boTask.Copmliexity)
+                    {
+                        boTask.Engineer = null;
+                        throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
+                    }
+                }
 
             }
-
+        try
+        {
             _dal.Task.Update(TurnTaskToDo(boTask));
         }
         catch (DO.DalDoesNotExistException ex)
@@ -604,7 +604,9 @@ internal class TaskImplementation : BlApi.ITask
 
     /// <summary>
     ///  I can't fill in all the fields that's why
-    ///I bring the unfilled fields from the data layer and there in the updated variable*/
+    ///I bring the unfilled fields from the data layer and there in the updated variable
+    ///
+    ///The function only unites the fields of the task without any logic
     /// </summary>
     /// <param name="needUpdate"></param>
     /// <returns></returns>

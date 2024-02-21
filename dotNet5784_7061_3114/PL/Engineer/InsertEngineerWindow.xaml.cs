@@ -40,17 +40,16 @@ public partial class InsertEngineerWindow : Window
     {
         try
         {
-            e_bl.Engineer.Read(Engineer.Id);
+            Engineer = e_bl.Engineer.Read(Engineer.Id);
 
             //Open the task window of the existing engineer
-            if (Engineer.Task == null)
+            if (Engineer?.Task == null)
             {
                 new Task.SingleTaskWindow(0).ShowDialog();
             }
 
             else
             {
-                MessageBox.Show(Engineer.Task.Id.ToString());
                 new Task.SingleTaskWindow(Engineer.Task.Id).ShowDialog();
             }
         }

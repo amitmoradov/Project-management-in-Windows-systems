@@ -5,30 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-          DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="TaskInListWindow" Height="640" Width="800">
-        
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Title="TaskInListWindow" Height="400" Width="600">
 
-    <!--Extrnal Grid-->
-    <Grid>
+    <!--External Grid-->
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <!--Internal, Upper Grid-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+
+        <!-- Internal, Upper Grid -->
+        <Grid Grid.Row="0" Margin="0,0,0,5" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Tasks Details" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center" Grid.Column="0"/>
-            <!--ComboBox- filter option from Task-->
-            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=StatusTask, Mode=TwoWay}"
-            ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}" SelectionChanged="ComboBox_SelectionChanged"/>
-
-
+            <Label Content="Select Task:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <!-- ComboBox - filter option from Task -->
+            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=StatusTask, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource StatusCollectiontKey}}" SelectionChanged="ComboBox_SelectionChanged" Margin="5,0"/>
         </Grid>
+
+        <!-- ListView to display tasks -->
         <ListView Grid.Row="1" ItemsSource="{Binding TaskInLists}" MouseDoubleClick="ListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
@@ -36,11 +35,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="Add_Click"
-                IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
 
-
-
+        <!-- Button to Add Task -->
+        <Button Grid.Row="2" Content="Add" HorizontalAlignment="Center" Height="30" Width="100" Click="Add_Click" IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
     </Grid>
-
 </Window>

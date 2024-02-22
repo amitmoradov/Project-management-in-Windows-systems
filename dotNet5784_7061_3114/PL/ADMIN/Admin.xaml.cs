@@ -36,7 +36,8 @@ namespace PL.ADMIN
         }
         private void Viewdependencies(object sender, RoutedEventArgs e)
         {
-                new Dependency.SingelDependencyWindow().ShowDialog();
+            // Call with out the id of task , to add/delete from out of task window .
+                new Dependency.SingelDependencyWindow(0).ShowDialog();
         }
 
         private void StartProject_Click(object sender, RoutedEventArgs e)

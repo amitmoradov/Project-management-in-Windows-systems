@@ -128,7 +128,8 @@ namespace PL.Task
 
         private void EditDependenciesButton_Click(object sender, RoutedEventArgs e)
         {
-            new Dependency.SingelDependencyWindow().ShowDialog();
+            // Call with task id to show the task details of the dependent task .
+            new Dependency.SingelDependencyWindow(Task.Id).ShowDialog();
         }
     }
 }

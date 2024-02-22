@@ -51,15 +51,23 @@ public partial class SingelDependencyWindow : Window
 
     public static readonly DependencyProperty DependensOnTaskProperty =
         DependencyProperty.Register("DependensOnTask", typeof(int), typeof(SingelDependencyWindow), new PropertyMetadata(null));
-
-    public SingelDependencyWindow()
+    BO.Task editTask = new();
+    public SingelDependencyWindow(int taskId)
     {
         AllTasksIds = e_bl.Task.AllTaskSId();
+        
         InitializeComponent();
-        //AllTasksIds = e_bl.Task.AllTaskSId();
-
+        ShowDependeentTaskDetails(taskId);
     }
 
+    private void ShowDependeentTaskDetails(int taskId)
+    {
+        if (taskId != 0)
+        {
+            editTask = e_bl.Task.Read(taskId);
+        }
+        MessageBox.Show($"Task ID: {editTask.Id}\n Task Description: {editTask.Description}\n Task Status: {editTask.Status}");
+    }
     private void AddDependency(object sender, RoutedEventArgs e)
     {
         try
@@ -84,6 +92,7 @@ public partial class SingelDependencyWindow : Window
 
     private void ShowDependentTaskDescription(object sender, SelectionChangedEventArgs e)
     {
+        
         // Show the description of dependent task .
         BO.Task? dependentTask = e_bl.Task.Read(DependentTask);
         MessageBox.Show($"{dependentTask.Description}");

@@ -73,28 +73,28 @@ namespace PL.Task
                 }
                 catch (BO.BlReadNotFoundException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (BO.BlNullPropertyException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (BO.BlIncorrectDatailException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (BO.BlCannotUpdateException ex)
-                { MessageBox.Show(ex.Message); }
+                { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
 
                 catch (BO.BlDoesNotExistException ex)
-                { MessageBox.Show(ex.Message); }
+                { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
 
                 //Tasks can not deleted if I am in step 3
                 catch (BO.BlAlreadyPalnedException ex)
-                { MessageBox.Show(ex.Message); }
+                { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
                 catch(BO.BlEngineerIsNotTheAllowedLevel ex)
                 {
-                    { MessageBox.Show(ex.Message); }
+                    { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
             }
 
@@ -112,15 +112,15 @@ namespace PL.Task
                 }
                 catch (BO.BlAlreadyExistsException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (BO.BlNullPropertyException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (BO.BlIncorrectDatailException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             this.Close();
@@ -130,6 +130,12 @@ namespace PL.Task
         {
             // Call with task id to show the task details of the dependent task .
             new Dependency.SingelDependencyWindow(Task.Id).ShowDialog();
+        }
+
+        private void DeleteDependecy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Do you want to delete this dependecy?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+           // e_bl.Task.DeleteDependency(Task.Id,);
         }
     }
 }

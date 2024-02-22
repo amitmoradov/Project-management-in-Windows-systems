@@ -112,7 +112,8 @@
             </StackPanel>
 
             <!-- Dependencies -->
-            <ListView ItemsSource="{Binding Dependencies}" Margin="5">
+            <ListView ItemsSource="{Binding Dependencies}" Margin="5" MouseDoubleClick="DeleteDependecy_MouseDoubleClick" 
+                      IsEnabled="{Binding Dependencies, Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Dependencies" DisplayMemberBinding="{Binding}" />
@@ -122,7 +123,8 @@
 
             <!-- Edit Dependencies Button -->
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Button Content="Edit dependencies" Width="110" Height="30" Margin="5" Click="EditDependenciesButton_Click">
+                <Button Content="Edit dependencies" Width="110" Height="30" Margin="5" Click="EditDependenciesButton_Click"
+                         IsEnabled="{Binding Dependencies, Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" >
                     <Button.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#64B5F6" Offset="0"/>

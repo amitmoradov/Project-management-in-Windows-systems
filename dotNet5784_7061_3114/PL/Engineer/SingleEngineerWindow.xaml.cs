@@ -63,8 +63,7 @@ public partial class SingleEngineerWindow : Window
             try
             {
                 e_bl.Engineer.Update(Engineer);
-                MessageBox.Show("The changes have been updated successfully", " ", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                MessageBox.Show("The changes have been updated successfully", " ", MessageBoxButton.OK, MessageBoxImage.Information);                
             }
             catch (BO.BlReadNotFoundException ex)
             {
@@ -86,8 +85,7 @@ public partial class SingleEngineerWindow : Window
             try
             {
                 e_bl.Engineer.Create(Engineer);
-                MessageBox.Show("A new engineer has been added to the system", " ",MessageBoxButton.OK , MessageBoxImage.Information);
-                return;
+                MessageBox.Show("A new engineer has been added to the system", " ",MessageBoxButton.OK , MessageBoxImage.Information);             
             }
             catch (BO.BlAlreadyExistsException ex)
             {

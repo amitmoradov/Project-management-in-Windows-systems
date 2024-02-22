@@ -177,46 +177,65 @@ internal class TaskImplementation : BlApi.ITask
         }
         if (_dal.Project.ReturnStatusProject() == "ScheduleDetermination")
         {
-            boTask = ChackUpdate(boTask);
+            boTask = UpdateStatus(boTask);
 
         }
-
-            /*If I'm in step 3 then
-            I can't fill in all the fields that's why
-            I bring the unfilled fields from the data layer and there in the updated variable*/
-            if (_dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
+        BO.Task privuseTask = Read(boTask.Id);
+        if (privuseTask == null)
+        {
+            throw new BO.BlDoesNotExistException("The Task is not exist");
+        }
+        /*If I'm in step 3 then
+        I can't fill in all the fields that's why
+        I bring the unfilled fields from the data layer and there in the updated variable*/
+        if (_dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
+        {
+            //Checks if there is other engineer working on the task.
+            if (privuseTask.Engineer.Id != 0 && privuseTask.Engineer.Id != boTask.Engineer.Id)
             {
-                //Checks if there is no other engineer working on the task.
-                if (Read(boTask.Id).Engineer.Id != 0)
+                throw new BlEngineerWorkingOnTask("There is another engineer already working on the task");
+            }
+
+            boTask = UnifiyTasksForThePlannedStage(boTask);
+
+
+            /*After we have merged the task attributes to the one that I want to update,
+            we will check if he has changed the attribute of the engineer's ID*/
+            //Check if update the field of Engineer id
+            if (boTask.Engineer.Id != 0)
+            {
+                //Checks if the engineer is working on the task or has finished working on it.
+                BO.Engineer? checkTaskInEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
+                //סטטוס משימה שהמהנדס עובד עליה הוא נגמר  
+                if (Read(checkTaskInEngineer.Task.Id).Status.ToString() == "OnTrack" && boTask.Engineer.Id != privuseTask.Engineer.Id)
                 {
-                    throw new BlCannotUpdateException("There is another engineer already working on the task");
+                    throw new BO.BlEngineerWorkingOnAnotherTask("The engineer already working on another task");
                 }
 
-                boTask = UnifiyTasksForThePlannedStage(boTask);
+                //Checking whether the engineer is not at a low level to assign him the task
+                BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
 
-                /*After we have merged the task attributes to the one that I want to update,
-                we will check if he has changed the attribute of the engineer's ID*/
-                if (boTask.Engineer.Id != 0)
+
+                //Checks if a task has been assigned to an engineer - that is, the engineer is not null
+                if (checkLevelEngineer != null)
                 {
-                    //Checking whether the engineer is not at a low level to assign him the task
-                    BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
-
-
-                    //Checks if a task has been assigned to an engineer - that is, the engineer is not null
-                    if (checkLevelEngineer != null)
+                    if (checkLevelEngineer.Level < boTask.Copmliexity)
                     {
-                        if (checkLevelEngineer.Level < boTask.Copmliexity)
-                        {
-                            boTask.Engineer = null;
-                            throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
-                        }
+                        boTask.Engineer = null;
+                        throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
                     }
                 }
 
+                //Updates the fields of the encoder to be synchronized with the task he is working on
+                checkTaskInEngineer.Task.Id = boTask.Id;
+                checkTaskInEngineer.Task.Alias = boTask.Alias;
+                e_bl.Engineer.Update(checkTaskInEngineer);
             }
+
+        }
         try
         {
-            _dal.Task.Update(TurnTaskToDo(boTask));
+            _dal.Task.Update(TurnTaskToDo(boTask));          
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -481,7 +500,7 @@ internal class TaskImplementation : BlApi.ITask
     /// </summary>
     /// <param name="boTask"></param>
     /// <exception cref="NotImplementedException"></exception>
-    private BO.Task ChackUpdate(BO.Task boTask)
+    private BO.Task UpdateStatus(BO.Task boTask)
     {
         // Have a Start Date
         if (boTask.CreatedAtDate != null)

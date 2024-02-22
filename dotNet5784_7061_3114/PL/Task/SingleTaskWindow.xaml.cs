@@ -96,6 +96,10 @@ namespace PL.Task
                 {
                     { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
+                catch (BO.BlEngineerWorkingOnAnotherTask ex)
+                {
+                    { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
+                }
             }
 
             else
@@ -106,7 +110,7 @@ namespace PL.Task
                     if (e_bl.Project.ReturnStatusProject() != "scheduleWasPalnned")
                     {
                         e_bl.Task.Create(Task);
-                        MessageBox.Show("Registration has been successfully completed");
+                        MessageBox.Show("Registration has been successfully completed");                    
                     }
 
                 }

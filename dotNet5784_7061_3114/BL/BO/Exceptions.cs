@@ -101,3 +101,9 @@ public class BlEngineerIsNotTheAllowedLevel : Exception
 {
     public BlEngineerIsNotTheAllowedLevel(string msg) : base(msg) { }
 }
+
+[Serializable]
+public class BlEngineerWorkingOnAnotherTask : Exception
+{
+    public BlEngineerWorkingOnAnotherTask(string msg) : base(msg) { }
+}

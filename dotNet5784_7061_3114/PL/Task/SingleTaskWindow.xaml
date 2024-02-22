@@ -123,7 +123,7 @@
 
             <!-- Edit Dependencies Button -->
             <StackPanel Orientation="Horizontal" Margin="5">
-                <Button Content="Edit dependencies" Width="110" Height="30" Margin="5" Click="EditDependenciesButton_Click"
+                <Button Content="Add dependencies" Width="110" Height="30" Margin="5" Click="EditDependenciesButton_Click"
                          IsEnabled="{Binding Dependencies, Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" >
                     <Button.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">

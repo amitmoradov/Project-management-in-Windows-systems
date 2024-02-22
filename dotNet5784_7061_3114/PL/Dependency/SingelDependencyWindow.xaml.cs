@@ -80,18 +80,6 @@ public partial class SingelDependencyWindow : Window
         }
         catch (Exception ex) { }
     }
-    private void DeleteDependency(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            e_bl.Task.DeleteDependency(DependentTask, DependensOnTask);
-            Close();
-        }
-        catch (BlDoesNotExistException ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-    }
 
     private void ShowDependentTaskDescription(object sender, SelectionChangedEventArgs e)
     {

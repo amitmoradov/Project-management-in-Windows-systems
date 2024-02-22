@@ -134,8 +134,36 @@ namespace PL.Task
 
         private void DeleteDependecy_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Do you want to delete this dependecy?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-           // e_bl.Task.DeleteDependency(Task.Id,);
+            // Prompt the user with a confirmation message box
+            var result = MessageBox.Show("Do you want to delete this dependency?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            // Check if the user clicked Yes
+            if (result == MessageBoxResult.Yes)
+            {
+                // Check if the sender is a ListView
+                if (sender is ListView element)
+                {
+                    // Check if an item is selected in the ListView
+                    if (element.SelectedItem is BO.TaskInList taskInList)
+                    {
+                        // Find the dependency to remove from the Task's Dependencies list
+                        var dependencyToRemove = Task.Dependencies.FirstOrDefault(dependency => dependency.Id == taskInList.Id);
+
+                        // If the dependency is found, delete it
+                        if (dependencyToRemove != null)
+                        {
+                            e_bl.Task.DeleteDependency(Task.Id, dependencyToRemove.Id);
+                        }
+                    }
+                }
+
+                // Close the current window
+                this.Close();
+
+                // Open a new window to update the task details
+                new SingleTaskWindow(Task.Id).ShowDialog();
+            }
         }
+
     }
 }

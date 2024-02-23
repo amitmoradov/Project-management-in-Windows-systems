@@ -1,6 +1,7 @@
 ﻿
 using BlApi;
 using BO;
+using DalApi;
 using DO;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace BlImplementation;
-internal class EngineerImplementation : IEngineer
+internal class EngineerImplementation : BlApi.IEngineer
 {
     
     private DalApi.IDal _dal = DalApi.Factory.Get;
@@ -140,35 +141,28 @@ internal class EngineerImplementation : IEngineer
         //Tests an attempt to assign a task (provided they are in step 3)
         if (previousEngineer?.Task?.Id == 0 && _dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
         {
-            //If the engineer has not worked on a task before
-            if (boEngineer?.Task?.Id != 0)
-            {
-                //Return from the list of tasks the one task that the engineer is working on
-                var resulte = (from DO.Task task in _dal.Task.ReadAll()
-                               where boEngineer?.Task?.Id == task._id
-                               select task).FirstOrDefault();
-
-                //If the task exists and is also assigned to an engineer already
-                if ( resulte != null && resulte._engineerId != 0)
-                {
-                   throw new BO.BlEngineerWorkingOnTask("There is another engineer already working on the task");
-                }
-
-                //Assigns a task to an engineer 
-                DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
-                    resulte._startDate, resulte._scheduledDate, resulte._completeDate, resulte._deadLineDate, resulte._alias,
-                    resulte._description, resulte._deliverables, resulte._remarks, resulte._id, boEngineer.Id, resulte._active, resulte._isMilestone, resulte._canToRemove);
-
-                // //Checking whether the engineer is not at a low level to assign him the task
-                if ((DO.EngineerExperience)boEngineer.Level < newTask._copmliexity)
-                { 
-                    throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
-                }
-                
-                _dal.Task.Update(newTask);
-            }        
+            CheckAndUpdateEngineerInTask(boEngineer);
         }
-        //Save the change un Data Base.
+
+        // Check if the engineer stil working on another task .
+        else if (previousEngineer?.Task?.Id != 0 && _dal.Project.ReturnStatusProject() == "scheduleWasPalnned")
+        {
+            BO.Task? chackTask = new();
+            // Serach the task that engineer working on .
+            chackTask = e_bl.Task.Read(x => x.Engineer.Id == previousEngineer.Id);
+
+            // If the engineer still working on another task .
+            if (chackTask != null && boEngineer.Task.Id != 0)
+            {
+                if ((chackTask.Status.ToString() == "OnTrack") && chackTask.Id != boEngineer.Task.Id)
+                {
+                    throw new BO.BlEngineerWorkingOnAnotherTask("The engineer already working on another task");
+                }
+            }
+            CheckAndUpdateEngineerInTask(boEngineer);
+        }
+
+        //Save the change in Data Base.
         DO.Engineer doEngineer = TurnEngineerToDo(boEngineer);
         _dal.Engineer.Update(doEngineer);
     }
@@ -280,12 +274,40 @@ internal class EngineerImplementation : IEngineer
     /// <returns></returns>
     private DO.Engineer TurnEngineerToDo(BO.Engineer boEngineer)
     {
-
         DO.Engineer doEngineer = new DO.Engineer
        (boEngineer.Id, boEngineer.Cost, (DO.EngineerExperience)boEngineer.Level, boEngineer.Email, boEngineer.Name, boEngineer.Active, boEngineer.CanToRemove);
 
-
-
         return doEngineer;
+    }
+
+    private void CheckAndUpdateEngineerInTask(BO.Engineer boEngineer)
+    {
+        //If the engineer has not worked on a task before
+        if (boEngineer?.Task?.Id != 0)
+        {
+            //Return from the list of tasks the one task that the engineer want working on .
+            var resulte = (from DO.Task task in _dal.Task.ReadAll()
+                           where boEngineer?.Task?.Id == task._id
+                           select task).FirstOrDefault();
+
+            //If the task exists and is also assigned to an engineer already
+            if (resulte != null && resulte._engineerId != 0 && resulte._engineerId != boEngineer.Id)
+            {
+                throw new BO.BlEngineerWorkingOnTask("There is another engineer already working on the task");
+            }
+
+            //Assigns a task to an engineer 
+            DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
+                DateTime.Now, resulte._scheduledDate, resulte._completeDate, resulte._deadLineDate, resulte._alias,
+                resulte._description, resulte._deliverables, resulte._remarks, resulte._id, boEngineer.Id, resulte._active, resulte._isMilestone, resulte._canToRemove);
+
+            // //Checking whether the engineer is not at a low level to assign him the task
+            if ((DO.EngineerExperience)boEngineer.Level < newTask._copmliexity)
+            {
+                throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
+            }
+
+            _dal.Task.Update(newTask);
+        }
     }
 }

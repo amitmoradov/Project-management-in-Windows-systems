@@ -20,13 +20,16 @@
             <!-- Created At Date -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Created At Date:" VerticalAlignment="Center"/>
-                <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                            IsEnabled="{Binding CreatedAtDate,Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
+                
             </StackPanel>
 
             <!-- Start Date -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Start Date:" VerticalAlignment="Center"/>
-                <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                <DatePicker SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"
+                             IsEnabled="{Binding StartDate , Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}"/>
             </StackPanel>
 
             <!-- Scheduled Date -->
@@ -46,7 +49,7 @@
             <!-- Forecast Date -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Forecast Date:" VerticalAlignment="Center"/>
-                <DatePicker SelectedDate="{Binding ForcastDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                <DatePicker SelectedDate="{Binding ForcastDate, UpdateSourceTrigger=PropertyChanged}" Margin="5" IsEnabled="False"/>
             </StackPanel>
 
             <!-- Id -->

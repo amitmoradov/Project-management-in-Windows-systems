@@ -78,7 +78,13 @@ public partial class SingleEngineerWindow : Window
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch(BO.BlEngineerWorkingOnTask ex)
-            { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);}
+            { 
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.BlEngineerIsNotTheAllowedLevel ex)
+            {
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         else
         {

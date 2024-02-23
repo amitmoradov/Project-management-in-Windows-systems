@@ -6,6 +6,8 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using DalApi;
+using System.Data;
+using System.Threading.Tasks;
 namespace BlImplementation;
 
 
@@ -178,13 +180,14 @@ internal class TaskImplementation : BlApi.ITask
         if (_dal.Project.ReturnStatusProject() == "ScheduleDetermination")
         {
             boTask = UpdateStatus(boTask);
-
         }
+
         BO.Task privuseTask = Read(boTask.Id);
         if (privuseTask == null)
         {
             throw new BO.BlDoesNotExistException("The Task is not exist");
         }
+
         /*If I'm in step 3 then
         I can't fill in all the fields that's why
         I bring the unfilled fields from the data layer and there in the updated variable*/
@@ -204,12 +207,17 @@ internal class TaskImplementation : BlApi.ITask
             //Check if update the field of Engineer id
             if (boTask.Engineer.Id != 0)
             {
-                //Checks if the engineer is working on the task or has finished working on it.
-                BO.Engineer? checkTaskInEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);
-                //סטטוס משימה שהמהנדס עובד עליה הוא נגמר  
-                if (Read(checkTaskInEngineer.Task.Id).Status.ToString() == "OnTrack" && boTask.Engineer.Id != privuseTask.Engineer.Id)
+                BO.Task? chackTask = new();
+                // Serach if engineer working on another task .
+                chackTask = e_bl.Task.Read(x => x.Engineer.Id == boTask.Engineer.Id);
+
+                // If the engineer still working on another task .
+                if (chackTask != null)
                 {
-                    throw new BO.BlEngineerWorkingOnAnotherTask("The engineer already working on another task");
+                    if ((chackTask.Status.ToString() == "OnTrack") && chackTask.Id != boTask.Id)
+                    {
+                        throw new BO.BlEngineerWorkingOnAnotherTask("The engineer already working on another task");
+                    }
                 }
 
                 //Checking whether the engineer is not at a low level to assign him the task
@@ -224,12 +232,14 @@ internal class TaskImplementation : BlApi.ITask
                         boTask.Engineer = null;
                         throw new BO.BlEngineerIsNotTheAllowedLevel("The engineer level is low to choose this task");
                     }
-                }
 
-                //Updates the fields of the encoder to be synchronized with the task he is working on
-                checkTaskInEngineer.Task.Id = boTask.Id;
-                checkTaskInEngineer.Task.Alias = boTask.Alias;
-                e_bl.Engineer.Update(checkTaskInEngineer);
+                    //Updates the field TaskInEngineer of engineer to new task .
+                    checkLevelEngineer.Task.Id = boTask.Id;
+                    checkLevelEngineer.Task.Alias = boTask.Alias;
+                    // Save the changes .
+                    e_bl.Engineer.Update(checkLevelEngineer);
+                    
+                }
             }
 
         }
@@ -345,7 +355,7 @@ internal class TaskImplementation : BlApi.ITask
 
     /////////////////////////////////////////////////////////////Help function//////////////////////////////////////////////////////////////////////////////////////
 
-    private void ChackDatailPlannedSatge(BO.Task boTask)
+    private void ChackDetails(BO.Task boTask)
     {
         if (boTask.Id < 0)
         {
@@ -359,10 +369,18 @@ internal class TaskImplementation : BlApi.ITask
          {
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: Description");
          }
+        if (boTask.CreatedAtDate == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
+        {
+            throw new BlNullPropertyException($"You did not add value for : CreatedAtDate");
+        }
+        if (boTask.RequiredEffortTime == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
+        {
+            throw new BlNullPropertyException($"You did not add value for : RequiredEffortTime");
+        }
 
     }
-
-    private void ChackDetails(BO.Task boTask)
+   
+    private void ChackDatailPlannedSatge(BO.Task boTask)
     {
 
         if (boTask.Id < 0)
@@ -370,19 +388,9 @@ internal class TaskImplementation : BlApi.ITask
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.Id}");
         }
 
-        if (boTask.CreatedAtDate == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
-        {
-            throw new BlNullPropertyException($"You did not add value for : CreatedAtDate");
-        }
-
         if (boTask.Alias == "")
         {
             throw new BlNullPropertyException($"You did not add value for : Alias");
-        }
-
-        if (boTask.RequiredEffortTime == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
-        {
-            throw new BlNullPropertyException($"You did not add value for : RequiredEffortTime");
         }
 
         if (boTask.Description == "")
@@ -390,32 +398,54 @@ internal class TaskImplementation : BlApi.ITask
             throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: Description");
         }
 
+        //if (boTask.CreatedAtDate == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
+        //{
+        //    throw new BlNullPropertyException($"You did not add value for : CreatedAtDate");
+        //}
+
+        //if (boTask.RequiredEffortTime == null && _dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
+        //{
+        //    throw new BlNullPropertyException($"You did not add value for : RequiredEffortTime");
+        //}
+
+       
         if (_dal.Project.ReturnStatusProject() != "planning")
         {
 
-            if (boTask.ScheduledDate == null)
-            {
-                throw new BlNullPropertyException($"You did not add value for : ScheduledDate");
-            }
+            //if (boTask.ScheduledDate == null)
+            //{
+            //    throw new BlNullPropertyException($"You did not add value for : ScheduledDate");
+            //}
 
-            if (boTask.StartDate == null)
-            {
-                throw new BlNullPropertyException($"You did not add value for : StartDate");
-            }
+            //if (boTask.StartDate == null)
+            //{
+            //    throw new BlNullPropertyException($"You did not add value for : StartDate");
+            //}
 
-            if (boTask.CompleteDate == null)
+            //if (boTask.CompleteDate == null)
+            //{
+            //    throw new BlNullPropertyException($"You did not add value for : CompleteDate");
+            //}
+            if (boTask.Engineer != null && boTask.Engineer.Id !=0)
             {
-                throw new BlNullPropertyException($"You did not add value for : CompleteDate");
+               if (boTask.StartDate == null)
+               {
+                    throw new BlNullPropertyException($"You did not add value for : StartDate , when you try to add task to engineer");
+               }
             }
-
-            if (boTask.StartDate < boTask.CreatedAtDate)
+            if (boTask.StartDate != null)
             {
-                throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+                if (boTask.StartDate < boTask.CreatedAtDate)
+                {
+                    throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+                }
             }
-
-            if (boTask.CompleteDate < boTask.CreatedAtDate || boTask.CompleteDate < boTask.StartDate || boTask.CompleteDate < boTask.ScheduledDate)
+            if (boTask.CompleteDate != null && boTask.StartDate != null)
             {
-                throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+                if (boTask.CompleteDate < boTask.CreatedAtDate || boTask.CompleteDate < boTask.StartDate || boTask.CompleteDate < boTask.ScheduledDate)
+                {
+                    throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+                }
             }
         }
 
@@ -641,13 +671,15 @@ internal class TaskImplementation : BlApi.ITask
            I can't fill in all the fields that's why
            I bring the unfilled fields from the data layer and there in the updated variable*/
 
-            BO.Task privuseTask = Read(needUpdate.Id);
+        BO.Task? privuseTask = Read(needUpdate.Id);
         BO.Task afterUpdateTask = new BO.Task()
-            {
+        {
                 RequiredEffortTime = privuseTask.RequiredEffortTime,
                 CreatedAtDate = privuseTask.CreatedAtDate,              
                 ScheduledDate = privuseTask.ScheduledDate,
                 Dependencies = privuseTask.Dependencies,
+                ForcastDate = privuseTask.ForcastDate, // Calculate every call to Read .
+
 
                 Id = needUpdate.Id,
                 Active = needUpdate.Active,
@@ -655,9 +687,9 @@ internal class TaskImplementation : BlApi.ITask
                 Alias = needUpdate.Alias,
                 Description = needUpdate.Description,
                 Deliverables = needUpdate.Deliverables,
-                ForcastDate = needUpdate.ForcastDate,
                 Milestone = needUpdate.Milestone,
                 Engineer = needUpdate.Engineer,
+
                 CompleteDate = needUpdate.CompleteDate,
                 Status = needUpdate.Status,
                 StartDate = needUpdate.StartDate,

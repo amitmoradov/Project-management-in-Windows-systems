@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
 using BO;
@@ -105,9 +106,13 @@ class ScheduleDeterminationIsEnabled : IValueConverter
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (e_bl.Project.ReturnStatusProject() == "ScheduleDetermination")
+        if (e_bl.Project.ReturnStatusProject() == "ScheduleDetermination" && value == null)
         {
             return true;
+        }
+        else if (value is not null)
+        {
+            return false;
         }
         else
         {

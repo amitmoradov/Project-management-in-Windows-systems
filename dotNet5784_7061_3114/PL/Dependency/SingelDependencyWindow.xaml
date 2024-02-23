@@ -32,7 +32,8 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,20">
-            <Button Content="Add Dependency" Margin="5" Padding="10" Background="#4CAF50" Foreground="White" FontSize="14"/>
+            <Button Content="Add Dependency" Margin="5" Padding="10" Background="#4CAF50" Foreground="Black" FontSize="14"
+                    IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
         </StackPanel>
 
         <!-- Labels -->

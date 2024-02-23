@@ -58,4 +58,22 @@ public partial class InsertEngineerWindow : Window
             MessageBox.Show("ERROR: " + ex.Message,"", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    private void PotentialTasks_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Engineer = e_bl.Engineer.Read(Engineer.Id);
+
+            //Open the task window of the existing engineer
+            if (Engineer != null)
+            {
+                new AllPotentialTasks(Engineer.Level).ShowDialog();
+            }
+        }
+        catch (BO.BlReadNotFoundException ex)
+        {
+            MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

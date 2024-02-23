@@ -16,7 +16,8 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Handle Engineer" Margin="10" Width="200" Height="50" Background="#6495ED" Click="btnEngineers_Click"/>
             <Button Content="Handle Task" Margin="10" Width="200" Height="50" Background="#6495ED" Click="btnTasks_Click"/>
-            <Button Content="Handle Dependencies" Margin="10" Width="200" Height="50" Background="#6495ED" Click="Viewdependencies"/>
+            <Button Content="Handle Dependencies" Margin="10" Width="200" Height="50" Background="#6495ED" Click="Viewdependencies"
+                    IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
             
             <!--The button only works when we are in the first stage of the project-->
             <Button Content="Start Project" 

@@ -13,7 +13,7 @@ public interface IBl
     /// </summary>
     #region Properties
 
-    public DateTime Clock { get; }
+    public DateTime Clock { get { return DateTime.Now; } }
 
     #endregion
 
@@ -29,10 +29,12 @@ public interface IBl
     /// </summary>
     public void AdvanceTimeByDay();
 
-    /// <summary>
-    /// Initialize Clock Time .
-    /// </summary>
-    public void InitializeClockTime();
+    public void AdvanceTimeByYear();
+
+        /// <summary>
+        /// Initialize Clock Time .
+        /// </summary>
+        public void InitializeClockTime();
 
     #endregion
 }

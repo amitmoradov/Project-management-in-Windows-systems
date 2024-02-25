@@ -2,6 +2,7 @@
 using BlApi;
 using BO;
 using DO;
+using BL;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -18,6 +19,11 @@ internal class TaskImplementation : BlApi.ITask
     private DalApi.IDal _dal = DalApi.Factory.Get;
    
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+
+    private readonly BL _bl;
+    internal TaskImplementation(BL bl) => _bl = bl;
+
+
 
     public void Create(BO.Task boTask)
     {

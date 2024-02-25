@@ -6,9 +6,10 @@ using System;
 
 internal class BL : IBl
 {
-    public IEngineer Engineer => new EngineerImplementation();
+    public IEngineer Engineer => new EngineerImplementation(this);
 
-    public ITask Task => new TaskImplementation();
+    public ITask Task => new TaskImplementation(this);
+
     public IProject Project => new ProjectImplementation();
 
     /// <summary>
@@ -28,6 +29,12 @@ internal class BL : IBl
     public void AdvanceTimeByDay()
     {
         Clock = Clock.AddDays(1);
+    }
+
+    public void AdvanceTimeByYear()
+    {
+        // מתקדם בשנה אחת
+        Clock = Clock.AddYears(1);
     }
 
     public void InitializeClockTime()

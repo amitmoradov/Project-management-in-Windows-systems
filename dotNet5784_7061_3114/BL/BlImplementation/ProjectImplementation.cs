@@ -4,6 +4,8 @@ using BlApi;
 internal class ProjectImplementation : IProject
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+
+
     public DateTime ReturnStartProjectDate()
     {
         return _dal.Project.ReturnStartProjectDate();

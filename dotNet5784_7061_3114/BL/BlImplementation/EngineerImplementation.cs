@@ -3,6 +3,7 @@ using BlApi;
 using BO;
 using DalApi;
 using DO;
+using BL;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design;
 using System.Diagnostics.Metrics;
@@ -16,6 +17,10 @@ internal class EngineerImplementation : BlApi.IEngineer
     
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+
+    private readonly BL _bl;
+    internal EngineerImplementation(BL bl) => _bl = bl;
+
 
     public int Create(BO.Engineer boEngineer)
     {

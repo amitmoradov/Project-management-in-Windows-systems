@@ -157,6 +157,8 @@ namespace PL.Task
                         if (dependencyToRemove != null)
                         {
                             e_bl.Task.DeleteDependency(Task.Id, dependencyToRemove.Id);
+                            MessageBox.Show("The delete of dependency was successfully");
+                            Close();
                         }
                     }
                 }

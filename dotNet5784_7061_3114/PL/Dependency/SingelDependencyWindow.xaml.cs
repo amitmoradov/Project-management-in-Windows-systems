@@ -76,9 +76,17 @@ public partial class SingelDependencyWindow : Window
         try
         {
             e_bl.Task.AddDependency(DependentTask, DependensOnTask);
+            MessageBox.Show("The new dependency was saved successfully");
             Close();
         }
-        catch (Exception ex) { }
+        catch (BO.BlCannotAddDependencyException ex)
+        {
+            MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (BO.BlDependencyAlreadyExistException ex)
+        {
+            MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private void ShowDependentTaskDescription(object sender, SelectionChangedEventArgs e)

@@ -29,8 +29,8 @@ internal class TaskImplementation : BlApi.ITask
         {
             foreach (var task in boTask.Dependencies)
             {
-                DO.Dependency newDependency = new(task.Id, boTask.Id);
-                try
+                DO.Dependency newDependency = new(boTask.Id,task.Id);
+                try 
                 {
                     // Chack if the dependecy is not exist
                     _dal.Dependency.Create(newDependency);
@@ -718,12 +718,42 @@ internal class TaskImplementation : BlApi.ITask
     /// <param name="dependencyOnTask"></param>
     public void AddDependency(int dependencyTask , int dependencyOnTask)
     {
+      
+            // If the dependencyTask and dependencyOnTask are the same task.
+            if (dependencyTask == dependencyOnTask)
+            {
+                throw new BlCannotAddDependencyException("The dependency and dependent task are the same task");
+            }
+
+            // If dependency on task is depends on dependent task .
+            if (_dal.Dependency.Read(x => x._dependentTask == dependencyOnTask && x._dependsOnTask == dependencyTask) is not null)
+            {
+                throw new BlCannotAddDependencyException($"The task {dependencyOnTask} already depends on {dependencyTask} , two way dependency is not enabled .");
+            }
+
+            // If at least one task in the dependencyOnTask.Dependency list depends on dependencyTask, circular dependency is not enabled.
+            // Get the dependendies list of dependencyOnTask if have .
+            var dependenciesList = e_bl.Task.Read(dependencyOnTask)?.Dependencies;
+            if (dependenciesList != null)
+            {
+                var dependentTask = dependenciesList.FirstOrDefault(task => _dal.Dependency.Read(x => x._dependentTask == task.Id && x._dependsOnTask == dependencyTask)is not null);
+                if (dependentTask != null)
+                {
+                    throw new BlCannotAddDependencyException($"The task {dependencyOnTask} depends on task {dependentTask.Id} , and task {dependentTask.Id} already depends on task {dependencyTask} .\nCircular dependency is not enabled.");
+                }
+
+            }
+
+        // Can add a new dependency .
         DO.Dependency newDependency = new(dependencyTask,dependencyOnTask);
         try
         {
             _dal.Dependency.Create(newDependency);
         }
-        catch (Exception ex) { } /// בלי נדר לתקן לחריגה מתאימה
+        catch (DO.DalDoesExistException ex)
+        {
+            throw new BlDependencyAlreadyExistException($"The dependency {dependencyTask} -> {dependencyOnTask} already exist", ex);
+        } 
     }
 
     public void DeleteDependency(int dependencyTask, int dependencyOnTask)

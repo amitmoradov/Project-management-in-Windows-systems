@@ -107,3 +107,16 @@ public class BlEngineerWorkingOnAnotherTask : Exception
 {
     public BlEngineerWorkingOnAnotherTask(string msg) : base(msg) { }
 }
+
+[Serializable]
+public class BlCannotAddDependencyException : Exception
+{
+    public BlCannotAddDependencyException(string msg) : base(msg) { }
+}
+
+[Serializable]
+public class BlDependencyAlreadyExistException : Exception
+{
+    public BlDependencyAlreadyExistException(string msg, DO.DalDoesExistException ex) : base(msg, ex) { }
+    public BlDependencyAlreadyExistException(string msg) : base(msg) { }
+}

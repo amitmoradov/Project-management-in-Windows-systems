@@ -68,7 +68,7 @@ public partial class InsertEngineerWindow : Window
             //Open the task window of the existing engineer
             if (Engineer != null)
             {
-                new AllPotentialTasks(Engineer.Level).ShowDialog();
+                new AllPotentialTasks(Engineer.Id).ShowDialog();
             }
         }
         catch (BO.BlReadNotFoundException ex)

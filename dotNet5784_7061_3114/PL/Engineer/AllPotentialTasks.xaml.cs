@@ -34,10 +34,14 @@ namespace PL.Engineer
         public static readonly DependencyProperty PotentialTasksProperty =
             DependencyProperty.Register("PotentialTasks", typeof(IEnumerable<BO.TaskInList>), typeof(AllPotentialTasks), new PropertyMetadata(null));
 
-        public AllPotentialTasks(BO.EngineerExperience? level)
+        public AllPotentialTasks(int id)
         {
+            BO.Engineer? engineer  = e_bl.Engineer.Read(id);
             InitializeComponent();
-            PotentialTasks = e_bl.Task.ReadAll(x => (int)x.Copmliexity <= (int)level);
+            if (engineer != null)
+            {
+                PotentialTasks = e_bl.Task.ReadAll(x => (int)x.Copmliexity <= (int)engineer.Level && (x.Engineer.Id == 0 || (x.Engineer.Id == id && x.Status == BO.Status.Done)));
+            }
         }
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

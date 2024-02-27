@@ -41,5 +41,4 @@ internal class BL : IBl
     {
         Clock = DateTime.Now;
     }
-
 }

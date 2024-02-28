@@ -152,4 +152,26 @@ class planningIsEnabled : IValueConverter
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Convert type of RequiredEffortTime to int , for widtt of rectangle in Gantt chart .
+    /// </summary>
+    class ConvertRequiredEffortTimeToInt : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is TimeSpan requiredEffortTime)
+            {
+                // המרת זמן נדרש למספר שלם - כמות הימים
+                return (int)requiredEffortTime.TotalDays;
+            }
+
+            // אם הערך אינו מסוג TimeSpan, נחזיר ערך ריק או תקין כדי לא להפריע לרצף המקורי
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
 }

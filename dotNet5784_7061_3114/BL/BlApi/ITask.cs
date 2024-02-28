@@ -33,6 +33,12 @@ public interface ITask
 
     void DeleteDependency(int dependencyTask, int dependencyOnTask);
 
+    /// <summary>
+    /// Get all full tasks .
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<BO.Task> BringAllFieldTaskList();
+
     //void CreateStartDateProject(DateTime startDate);
 
     ///// <summary>

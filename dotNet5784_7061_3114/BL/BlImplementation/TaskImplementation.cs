@@ -653,7 +653,7 @@ internal class TaskImplementation : BlApi.ITask
     /// Brings all the fields of BO.Task (Return List of BO.Task)
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<BO.Task> BringAllFieldTaskList()
+    public IEnumerable<BO.Task> BringAllFieldTaskList()
     {
         var tasksInList = ReadAll();
         var allFieldTaskList = from task in tasksInList

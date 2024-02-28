@@ -49,5 +49,10 @@ namespace PL.ADMIN
 
             new Project.StartProjectDateWindow().ShowDialog();          
         }
+
+        private void btnGanttChart_Click(object sender, RoutedEventArgs e)
+        {
+            new Gantt.GanttChart().ShowDialog();
+        }
     }
 }

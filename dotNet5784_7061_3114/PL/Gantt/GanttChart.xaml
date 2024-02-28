@@ -15,9 +15,9 @@
                     <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="5">
                         <StackPanel Orientation="Horizontal">
                             <!-- Display task name or any other relevant information -->
-                            <Label Content="{Binding AllTasks.Id}" Margin="5"/>
+                            <Label Content="{Binding Id}" Margin="5" Grid.Column="0"/>
                             <!-- Display rectangle representing task duration -->
-                            <Rectangle Fill="LightBlue" Width="{Binding AllTasks.RequiredEffortTime}" Height="20" Margin="5"/>
+                            <Rectangle Fill="LightBlue" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" Margin="5" Grid.Column="1"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

@@ -41,6 +41,7 @@
         <!--The permissions are allowed in the project in step 1-->
         <local:planningIsEnabled x:Key="planningIsEnabledKey"/>
 
+        <local:ConvertRequiredEffortTimeToInt x:Key="ConvertRequiredEffortTimeToIntKey"/>
         
 
 

@@ -247,6 +247,11 @@ internal class TaskImplementation : BlApi.ITask
                     
                 }
             }
+            //Can not Update the start date without update the engineer that work on the task.
+            if(boTask.StartDate != null && boTask.Engineer.Id == 0) 
+            {
+                throw new BO.BlCannotUpdateException("Can not Update the start date without update the engineer that work on the task, please try again");
+            }
 
         }
         try

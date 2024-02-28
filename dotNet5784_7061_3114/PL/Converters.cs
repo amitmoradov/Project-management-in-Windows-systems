@@ -167,7 +167,7 @@ class ConvertRequiredEffortTimeToInt : IValueConverter
         if (value is TimeSpan requiredEffortTime)
         {
             // כמות הימים
-            return (int)requiredEffortTime.TotalDays*15;
+            return (int)requiredEffortTime.TotalDays * 26;
         }
 
         return value;
@@ -190,7 +190,7 @@ public class ConvertDateTimeToInt : IValueConverter
             // ממיר את התאריך למספר שמיועד לשימוש כמוקד בתרשים גאנט
             // לדוגמה, ניתן להמיר את התאריך למספר הימים מתחילת השנה
             TimeSpan difference = dateTime - e_bl.Project.ReturnStartProjectDate();
-            return difference.Days*15;
+            return difference.Days*26;
         }
 
         return value;

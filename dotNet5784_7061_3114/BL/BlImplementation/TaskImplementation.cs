@@ -149,6 +149,7 @@ internal class TaskImplementation : BlApi.ITask
         {
             var result = from task in _dal.Task.ReadAll(x => filter(TurnTaskToBo(x)))
                          let statusOfTask = (Status)BringStatus(task._startDate, task._scheduledDate, task._completeDate)
+                         orderby task._id
                          select new TaskInList
                          {
                              Alias = task._alias,
@@ -162,6 +163,7 @@ internal class TaskImplementation : BlApi.ITask
 
         var result1 = from task in _dal.Task.ReadAll()
                       let statusOfTask = (Status)BringStatus(task._startDate, task._scheduledDate, task._completeDate)
+                      orderby task._id
                       select new TaskInList
                       {
                           Alias = task._alias,

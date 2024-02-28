@@ -19,7 +19,7 @@ namespace PL.Gantt
     /// <summary>
     /// Interaction logic for GanttChart.xaml
     /// </summary>
-    
+
     public partial class GanttChart : Window
     {
         static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
@@ -36,6 +36,22 @@ namespace PL.Gantt
         {
             InitializeComponent();
             AllTasks = e_bl.Task.BringAllFieldTaskList();
+        }
+
+        private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Rectangle rectangle)
+            {
+                if (rectangle.DataContext is BO.Task task)
+                {
+                    var singleTaskInList = e_bl.Task.ReadAll(x => x.Id == task.Id);
+                    if (singleTaskInList != null)
+                    {
+                        BO.TaskInList taskInList = singleTaskInList.First();
+                        MessageBox.Show(taskInList.ToString());
+                    }
+                }
+            }
         }
     }
 }

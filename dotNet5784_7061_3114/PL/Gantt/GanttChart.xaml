@@ -13,9 +13,14 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5">
-                        <Rectangle Fill="Transparent" Width="{Binding ScheduledDate, Converter={StaticResource ConvertDateTimeToIntKey}}" Height="20" HorizontalAlignment="Left"/>
-                        <Rectangle Fill="LightBlue" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left"/>
-                        <TextBlock Text="{Binding Id}" VerticalAlignment="Center"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Id}" VerticalAlignment="Center" Margin="0,0,8,0" Grid.Column="0" FontSize="16"/>
+                            <Rectangle Fill="Transparent" Width="{Binding ScheduledDate, Converter={StaticResource ConvertDateTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="1"/>
+                        <Rectangle Fill="LightBlue" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="2"
+                                   MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

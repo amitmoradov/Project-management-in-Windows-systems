@@ -41,10 +41,12 @@
         <!--The permissions are allowed in the project in step 1-->
         <local:planningIsEnabled x:Key="planningIsEnabledKey"/>
 
+
+        <!--FOR GANTT-->
         <!--Convert type of RequiredEffortTime to int , for widtt of rectangle in Gantt chart .-->
         <local:ConvertRequiredEffortTimeToInt x:Key="ConvertRequiredEffortTimeToIntKey"/>
-        
 
+        <local:ConvertDateTimeToInt x:Key="ConvertDateTimeToIntKey"/>
 
     </Application.Resources>
 </Application>

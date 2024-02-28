@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -78,22 +79,22 @@ class scheduleWasPalnnedIsNotEnabled : IValueConverter
 {
     // Access to BO .
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
-public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-{
-    if (e_bl.Project.ReturnStatusProject() == "scheduleWasPalnned")
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return false;
+        if (e_bl.Project.ReturnStatusProject() == "scheduleWasPalnned")
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
-    else
-    {
-        return true;
-    }
-}
 
-public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-{
-    throw new NotImplementedException();
-}
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
 
 }
 
@@ -151,26 +152,50 @@ class planningIsEnabled : IValueConverter
     {
         throw new NotImplementedException();
     }
+   
+}
 
-    /// <summary>
-    /// Convert type of RequiredEffortTime to int , for widtt of rectangle in Gantt chart .
-    /// </summary>
-    class ConvertRequiredEffortTimeToInt : IValueConverter
+/// <summary>
+/// Convert type of RequiredEffortTime to int , for widtt of rectangle in Gantt chart .
+/// </summary>
+class ConvertRequiredEffortTimeToInt : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value is TimeSpan requiredEffortTime)
         {
-            if (value is TimeSpan requiredEffortTime)
-            {
-                // כמות הימים
-                return (int)requiredEffortTime.TotalDays;
-            }
-
-            return value;
+            // כמות הימים
+            return (int)requiredEffortTime.TotalDays*50;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        return value;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
+
+public class ConvertDateTimeToInt : IValueConverter
+{
+    // Access to BO .
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is DateTime dateTime)
         {
-            throw new NotSupportedException();
+            // ממיר את התאריך למספר שמיועד לשימוש כמוקד בתרשים גאנט
+            // לדוגמה, ניתן להמיר את התאריך למספר הימים מתחילת השנה
+            TimeSpan difference = dateTime - e_bl.Project.ReturnStartProjectDate();
+            return difference.Days*50;
         }
+
+        return value;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
     }
 }

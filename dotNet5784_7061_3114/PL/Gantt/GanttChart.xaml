@@ -7,22 +7,18 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="GanttChart" Height="450" Width="800">
-    
+
     <Grid>
         <ListView ItemsSource="{Binding AllTasks}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="5" Padding="5">
-                        <StackPanel Orientation="Horizontal">
-                            <!-- Display task name or any other relevant information -->
-                            <Label Content="{Binding Id}" Margin="5" Grid.Column="0"/>
-                            <!-- Display rectangle representing task duration -->
-                            <Rectangle Fill="LightBlue" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" Margin="5" Grid.Column="1"/>
-                        </StackPanel>
-                    </Border>
+                    <Grid Margin="5">
+                        <Rectangle Fill="Transparent" Width="{Binding Converter={StaticResource ConvertDateTimeToIntKey}}" Height="20" HorizontalAlignment="Left"/>
+                        <Rectangle Fill="LightBlue" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Id}" VerticalAlignment="Center"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
     </Grid>
 </Window>

@@ -161,11 +161,10 @@ class planningIsEnabled : IValueConverter
         {
             if (value is TimeSpan requiredEffortTime)
             {
-                // המרת זמן נדרש למספר שלם - כמות הימים
+                // כמות הימים
                 return (int)requiredEffortTime.TotalDays;
             }
 
-            // אם הערך אינו מסוג TimeSpan, נחזיר ערך ריק או תקין כדי לא להפריע לרצף המקורי
             return value;
         }
 

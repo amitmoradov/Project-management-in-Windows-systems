@@ -247,11 +247,6 @@ internal class TaskImplementation : BlApi.ITask
                     
                 }
             }
-            //Can not Update the start date without update the engineer that work on the task.
-            if(boTask.StartDate != null && boTask.Engineer.Id == 0) 
-            {
-                throw new BO.BlCannotUpdateException("Can not Update the start date without update the engineer that work on the task, please try again");
-            }
 
         }
         try
@@ -449,6 +444,12 @@ internal class TaskImplementation : BlApi.ITask
                 if (boTask.StartDate < boTask.CreatedAtDate)
                 {
                     throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+                }
+
+                //Can not Update the start date without update the engineer that work on the task.
+                if (boTask.Engineer.Id == 0)
+                {
+                    throw new BO.BlCannotUpdateException("Can not Update the start date without update the engineer that work on the task, please try again");
                 }
             }
             if (boTask.CompleteDate != null && boTask.StartDate != null)

@@ -13,7 +13,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5">
-                        <Rectangle Fill="Transparent" Width="{Binding Converter={StaticResource ConvertDateTimeToIntKey}}" Height="20" HorizontalAlignment="Left"/>
+                        <Rectangle Fill="Transparent" Width="{Binding ScheduledDate, Converter={StaticResource ConvertDateTimeToIntKey}}" Height="20" HorizontalAlignment="Left"/>
                         <Rectangle Fill="LightBlue" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left"/>
                         <TextBlock Text="{Binding Id}" VerticalAlignment="Center"/>
                     </Grid>

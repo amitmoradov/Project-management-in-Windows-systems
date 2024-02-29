@@ -204,11 +204,36 @@ public class ConvertDateTimeToInt : IValueConverter
 
 public class ConvertStatusTask : IValueConverter
 {
-    // Access to BO .
-    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-       if()
+        if (value is BO.Task task)
+        {
+            // Dictionary mapping status to colors
+            Dictionary<string, string> statusColors = new Dictionary<string, string>()
+            {
+                { "Scheduled", "Aqua" },
+                { "OnTrack", "Yellow" },
+                { "Done", "Orange" },            
+            };
+
+            // Get the status of the task
+            BO.Status status = task.Status;
+
+            // Check if the status is in the dictionary
+            if (statusColors.ContainsKey(status.ToString()))
+            {
+                // Return the color corresponding to the status
+                return statusColors[status.ToString()];
+            }
+            else
+            {
+                // Return a default color if status is not found in dictionary
+                return "Gray";
+            }
+        }
+
+        // Return default color if value is not a Task object
+        return "Gray";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -216,3 +241,5 @@ public class ConvertStatusTask : IValueConverter
         throw new NotSupportedException();
     }
 }
+
+

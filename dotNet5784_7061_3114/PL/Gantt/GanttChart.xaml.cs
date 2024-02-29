@@ -32,10 +32,21 @@ namespace PL.Gantt
 
         public static readonly DependencyProperty AllTasksProperty =
             DependencyProperty.Register("AllTasks", typeof(IEnumerable<BO.Task>), typeof(GanttChart), new PropertyMetadata(null));
+
+        public DateTime ProjectStartDate
+        {
+            get { return (DateTime)GetValue(ProjectStartDateProperty); }
+            set { SetValue(ProjectStartDateProperty, value); }
+        }
+
+        public static readonly DependencyProperty ProjectStartDateProperty =
+            DependencyProperty.Register("ProjectStartDate", typeof(DateTime), typeof(GanttChart), new PropertyMetadata(null));
+
         public GanttChart()
         {
             InitializeComponent();
             AllTasks = e_bl.Task.BringAllFieldTaskList();
+            ProjectStartDate = e_bl.Project.ReturnStartProjectDate();
         }
 
         private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

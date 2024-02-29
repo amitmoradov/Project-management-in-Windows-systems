@@ -9,7 +9,20 @@
         Title="GanttChart" Height="450" Width="800">
 
     <Grid>
-        <ListView ItemsSource="{Binding AllTasks}">
+        <!-- רשת עם שורת על -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- השורה של התווית -->
+            <RowDefinition Height="*"/>
+            <!-- השורה של ה־ListView -->
+        </Grid.RowDefinitions>
+
+        <!-- תווית "Start Project" -->
+        <Label Content="Start Project - " FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,56,0" Foreground="SkyBlue" Grid.Row="0"/>
+        <Label Content="{Binding  ProjectStartDate}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="216,0,56,0" Foreground="SkyBlue" Grid.Row="0"/>
+
+        <!-- ListView של AllTasks -->
+        <ListView ItemsSource="{Binding AllTasks}" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5">
@@ -20,7 +33,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Id}" VerticalAlignment="Center" Margin="0,0,8,0" Grid.Column="0" FontSize="16"/>
                         <Rectangle Fill="Transparent" Width="{Binding ScheduledDate, Converter={StaticResource ConvertDateTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="1"/>
-                        <Rectangle Fill="LightBlue" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="2"
+                        <Rectangle Fill="Aqua" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="2"
                                    MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
                     </Grid>
                 </DataTemplate>

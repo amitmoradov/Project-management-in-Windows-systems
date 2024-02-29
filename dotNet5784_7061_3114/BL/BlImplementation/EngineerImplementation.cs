@@ -303,7 +303,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 
             //Assigns a task to an engineer 
             DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
-                DateTime.Now, resulte._scheduledDate, resulte._completeDate, resulte._deadLineDate, resulte._alias,
+                e_bl.Clock + resulte._requiredEffortTime, resulte._scheduledDate, resulte._completeDate, resulte._deadLineDate, resulte._alias,
                 resulte._description, resulte._deliverables, resulte._remarks, resulte._id, boEngineer.Id, resulte._active, resulte._isMilestone, resulte._canToRemove);
 
             // //Checking whether the engineer is not at a low level to assign him the task

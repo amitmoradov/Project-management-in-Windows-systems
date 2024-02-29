@@ -445,7 +445,7 @@ internal class TaskImplementation : BlApi.ITask
             {
                 if (boTask.StartDate < boTask.CreatedAtDate)
                 {
-                    throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+                    throw new BlIncorrectDatailException($"The start date {boTask.StartDate} you entered is early from Created At Date {boTask.CreatedAtDate} ");
                 }
 
                 //Can not Update the start date without update the engineer that work on the task.
@@ -454,13 +454,24 @@ internal class TaskImplementation : BlApi.ITask
                     throw new BO.BlCannotUpdateException("Can not Update the start date without update the engineer that work on the task, please try again");
                 }
             }
-            if (boTask.CompleteDate != null && boTask.StartDate != null)
+            if (boTask.CompleteDate is not null && boTask.StartDate is not null)
             {
-                if (boTask.CompleteDate < boTask.CreatedAtDate || boTask.CompleteDate < boTask.StartDate || boTask.CompleteDate < boTask.ScheduledDate)
+                if (boTask.CompleteDate < boTask.CreatedAtDate)
                 {
-                    throw new BlIncorrectDatailException($"You have entered an incorrect item. What is wrong is this: {boTask.StartDate}");
+                    throw new BlIncorrectDatailException($"The complete date {boTask.CompleteDate} cannot be earlier than the created at date {boTask.CreatedAtDate}.");
+                }
+
+                if (boTask.CompleteDate < boTask.StartDate)
+                {
+                    throw new BlIncorrectDatailException($"The complete date {boTask.CompleteDate} cannot be earlier than the start date {boTask.StartDate}.");
+                }
+
+                if (boTask.CompleteDate < boTask.ScheduledDate)
+                {
+                    throw new BlIncorrectDatailException($"The complete date {boTask.CompleteDate} cannot be earlier than the scheduled date {boTask.ScheduledDate}.");
                 }
             }
+
         }
 
     }

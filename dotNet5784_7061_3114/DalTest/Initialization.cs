@@ -162,14 +162,14 @@ public static class Initialization
         EngineerExperience copmliexity = new EngineerExperience();
         for (int i = 0; i < description.Length; i++)
         {
-
+            
             // Get the difficulty of the task
             copmliexity = (EngineerExperience)e_rand.Next(0, 4);
 
-            DateTime create_at_date =  new DateTime(2024,1,15);
+            DateTime create_at_date =  DateTime.Now;
 
             // The task take at less 9 days
-            int range =9;
+            int range = 9;
             DateTime _randomDate = create_at_date.AddDays(e_rand.Next(range));
             
             //TODO: fix the requiredeffoertime - save

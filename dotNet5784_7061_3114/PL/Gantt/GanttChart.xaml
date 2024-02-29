@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:PL.Gantt"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="GanttChart" Height="450" Width="800">
+        Title="GanttChart" Height="450" Width="800"
+        WindowState="Maximized">
+
 
     <Grid>
         <!-- רשת עם שורת על -->
@@ -33,7 +35,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Id}" VerticalAlignment="Center" Margin="0,0,8,0" Grid.Column="0" FontSize="16"/>
                         <Rectangle Fill="Transparent" Width="{Binding ScheduledDate, Converter={StaticResource ConvertDateTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="1"/>
-                        <Rectangle Fill="Aqua" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="2"
+                        <Rectangle Fill="{Binding Converter={StaticResource }}" Width="{Binding RequiredEffortTime , Converter={StaticResource ConvertRequiredEffortTimeToIntKey}}" Height="20" HorizontalAlignment="Left" Grid.Column="2"
                                    MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
                     </Grid>
                 </DataTemplate>

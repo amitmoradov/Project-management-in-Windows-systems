@@ -201,3 +201,18 @@ public class ConvertDateTimeToInt : IValueConverter
         throw new NotSupportedException();
     }
 }
+
+public class ConvertStatusTask : IValueConverter
+{
+    // Access to BO .
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+       if()
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}

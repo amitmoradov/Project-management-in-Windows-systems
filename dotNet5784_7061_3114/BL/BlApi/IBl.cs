@@ -13,7 +13,7 @@ public interface IBl
     /// </summary>
     #region Properties
 
-    public DateTime Clock { get { return DateTime.Now; } }
+    public DateTime Clock { get; }
 
     #endregion
 

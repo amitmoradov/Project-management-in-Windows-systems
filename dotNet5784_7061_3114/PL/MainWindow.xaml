@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Smart Roads Project" Height="350" Width="600">
+        Title="Smart Roads Project" Height="350" Width="600"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid Background="#F0F0F0">
         <!-- Data Initialization Button -->
         <Button Content="Data Initialization" 

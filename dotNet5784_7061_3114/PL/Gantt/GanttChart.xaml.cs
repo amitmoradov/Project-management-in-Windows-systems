@@ -47,40 +47,41 @@ namespace PL.Gantt;
             AllTasks = e_bl.Task.BringAllFieldTaskList();
             ProjectStartDate = e_bl.Project.ReturnStartProjectDate();
         }
+ 
 
     private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        // Check if the event sender is a Rectangle and if its DataContext is a Task object
-        if (sender is Rectangle rectangle && rectangle.DataContext is BO.Task task)
         {
-            // Retrieve the task details from the data source based on its ID
-            var singleTaskInList = e_bl.Task.ReadAll(x => x.Id == task.Id);
-
-            // Check if the task is found in the data source
-            if (singleTaskInList != null && singleTaskInList.Any())
+            // Check if the event sender is a Rectangle and if its DataContext is a Task object
+            if (sender is Rectangle rectangle && rectangle.DataContext is BO.Task task)
             {
-                // Get the first task from the retrieved list (assuming the ID is unique)
-                BO.TaskInList taskInList = singleTaskInList.First();
+                // Retrieve the task details from the data source based on its ID
+                var singleTaskInList = e_bl.Task.ReadAll(x => x.Id == task.Id);
 
-                // Retrieve the dependencies of the task from the data source
-                var dependencies = e_bl.Task.Read(x => x.Id == task.Id).Dependencies;
+                // Check if the task is found in the data source
+                if (singleTaskInList != null && singleTaskInList.Any())
+                {
+                    // Get the first task from the retrieved list (assuming the ID is unique)
+                    BO.TaskInList taskInList = singleTaskInList.First();
 
-                // Create a string representation of the task's dependencies
-                string dependenciesText = dependencies.Any() ? string.Join("\n", dependencies.Select(dep => dep.ToString())) : "No dependencies";
+                    // Retrieve the dependencies of the task from the data source
+                    var dependencies = e_bl.Task.Read(x => x.Id == task.Id).Dependencies;
 
-                // Create a message with the task details and its dependencies
-                string message = $"Task: {taskInList.ToString()}\n\nDependencies:\n{dependenciesText}";
+                    // Create a string representation of the task's dependencies
+                    string dependenciesText = dependencies.Any() ? string.Join("\n", dependencies.Select(dep => dep.ToString())) : "No dependencies";
 
-                // Show the message to the user using a message box
-                MessageBox.Show(message);
-            }
-            else
-            {
-                // If the task is not found, display an error message
-                MessageBox.Show("Task not found.");
+                    // Create a message with the task details and its dependencies
+                    string message = $"Task: {taskInList.ToString()}\n\nDependencies:\n{dependenciesText}";
+
+                    // Show the message to the user using a message box
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    // If the task is not found, display an error message
+                    MessageBox.Show("Task not found.");
+                }
             }
         }
-    }
 
 
 

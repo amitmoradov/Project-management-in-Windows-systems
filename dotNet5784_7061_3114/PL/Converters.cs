@@ -203,7 +203,7 @@ public class ConvertDateTimeToInt : IValueConverter
     }
 }
 
-public class ConvertStatusTask : IValueConverter
+public class ConvertStatusTaskGantt : IValueConverter
 {
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
 
@@ -221,28 +221,25 @@ public class ConvertStatusTask : IValueConverter
             };
 
             // Get the status of the task
-            BO.Status status = task.Status;
-                //If the task is late . 
-                if (e_bl.Clock > task.ForcastDate)
-                {
-                    return "Red";
-                }
-                //If the task is close to the end time , but not finished .
-                if ((e_bl.Clock.Day - task.ForcastDate.Value.Day) <= 5)
-                {
-                    return "Orange";
-                }
+            BO.Status status = task.Status;     
+
+            //If the task is late . 
+            if (e_bl.Clock > task.ForcastDate)
+            {
+                return "Red";
+            }
+
             // Check if the status is in the dictionary
             if (statusColors.ContainsKey(status.ToString()))
             {
                 // Return the color corresponding to the status
                 return statusColors[status.ToString()];
             }
-            
+
         }
 
         // Return default color if value is not a Task object
-        return "Gray";
+        return "Aqua";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

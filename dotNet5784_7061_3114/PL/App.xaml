@@ -29,7 +29,7 @@
         
         <local:StatusCollection x:Key="StatusCollectiontKey"/>
 
-        <local:ConvertStatusTask x:Key="ConvertStatusTaskKey"/>
+        <local:ConvertStatusTaskGantt x:Key="ConvertStatusTaskGantKey"/>
 
         <!--The permissions are allowed in the project in step 3-->
         <local:scheduleWasPalnnedIsEnabled x:Key="scheduleWasPalnnedIsEnabledKey"/>

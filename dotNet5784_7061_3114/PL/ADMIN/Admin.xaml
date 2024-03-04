@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL.ADMIN"
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800">
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -13,33 +14,28 @@
                 <GradientStop Color="#A9A9A9" Offset="1" />
             </LinearGradientBrush>
         </Grid.Background>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Handle Engineer" Margin="10" Width="200" Height="50" Background="#6495ED" Click="btnEngineers_Click"/>
-            <Button Content="Handle Task" Margin="10" Width="200" Height="50" Background="#6495ED" Click="btnTasks_Click"/>
-            <Button Content="Handle Dependencies" Margin="10" Width="200" Height="50" Background="#6495ED" Click="Viewdependencies"
-                    IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
-            <Button Content="Gantt Chart" Margin="10" Width="200" Height="50" Background="#6495ED" Click="btnGanttChart_Click"
-                     IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}"/>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <!--The button only works when we are in the first stage of the project-->
-            <Button Content="Start Project" 
-                Margin="10" 
-                Width="200" 
-                Height="50" 
-                Background="#6495ED" 
-                Click="StartProject_Click"
-                IsEnabled="{Binding Converter={StaticResource planningIsEnabledKey}}" />
+        <!-- Buttons -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="Handle Engineer" Margin="10" Width="150" Height="50" Background="#6495ED" Click="btnEngineers_Click"/>
+            <Button Content="Handle Task" Margin="10" Width="150" Height="50" Background="#6495ED" Click="btnTasks_Click"/>
+            <Button Content="Handle Dependencies" Margin="10" Width="150" Height="50" Background="#6495ED" Click="Viewdependencies" IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
+            <Button Content="Gantt Chart" Margin="10" Width="150" Height="50" Background="#6495ED" Click="btnGanttChart_Click" IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}"/>
         </StackPanel>
-        <Label Content="Admin window" 
-               HorizontalAlignment="Center" 
-               VerticalAlignment="Top" 
-               Margin="0,10,0,0" 
-               FontFamily="Comic Sans MS" 
-               FontSize="36" 
-               FontStyle="Italic" 
-               FontWeight="Bold" 
-               Foreground="Red" 
-               Padding="10,5"/>
+
+        <!-- Action buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="Data Initialization" Margin="10" Width="150" Height="50" Background="#0078D4" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI" Click="Data_Initialization"/>
+            <Button Content="Start Project" Margin="10" Width="150" Height="50" Background="#0078D4" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI" Click="StartProject_Click" IsEnabled="{Binding Converter={StaticResource planningIsEnabledKey}}" />
+            <Button Content="Reset DataBase" Margin="10" Width="150" Height="50" Background="#0078D4" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Segoe UI" Click="ResetDataBase"/>
+        </StackPanel>
+
+        <!-- Title -->
+        <Label Grid.Row="0" Content="Admin window" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="Red" Padding="10,5"/>
     </Grid>
 </Window>

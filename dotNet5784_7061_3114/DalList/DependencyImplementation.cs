@@ -105,6 +105,7 @@ internal class DependencyImplementation : IDependency
     public void reset()
     {
         DataSource.Dependencies.Clear();
+        DataSource.Config.NextDependencyId = DataSource.Config.startDependencyId;
     }
 
 }

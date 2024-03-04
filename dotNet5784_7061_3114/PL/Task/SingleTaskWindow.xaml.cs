@@ -100,6 +100,12 @@ namespace PL.Task
                 {
                     { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
+                catch (BO.BlCannotAddDependencyException ex)
+                {
+                    { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
+                }
+
+                
             }
 
             else

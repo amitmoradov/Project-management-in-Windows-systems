@@ -749,8 +749,14 @@ internal class TaskImplementation : BlApi.ITask
                 throw new BlCannotAddDependencyException("The dependency and dependent task are the same task");
             }
 
-            // If dependency on task is depends on dependent task .
-            if (_dal.Dependency.Read(x => x._dependentTask == dependencyOnTask && x._dependsOnTask == dependencyTask) is not null)
+        // If the dependencyTask small from dependencyOnTask 
+        if (dependencyTask < dependencyOnTask)
+        {
+            throw new BlCannotAddDependencyException("The task start date of the dependent task is earlier than the dependent task, please try again");
+        }
+
+        // If dependency on task is depends on dependent task .
+        if (_dal.Dependency.Read(x => x._dependentTask == dependencyOnTask && x._dependsOnTask == dependencyTask) is not null)
             {
                 throw new BlCannotAddDependencyException($"The task {dependencyOnTask} already depends on {dependencyTask} , two way dependency is not enabled .");
             }
@@ -799,7 +805,10 @@ internal class TaskImplementation : BlApi.ITask
         {
             _dal.Dependency.Delete(idDependency);
         }
-        catch (Exception ex) { } /// בלי נדר לתקן לחריגה מתאימה
+        catch (DalDoesNotExistException ex) 
+        {
+            throw new BO.BlDoesNotExistException($"The dependency with id {idDependency} is not exist",ex);
+        } 
     }
 
 }

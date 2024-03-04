@@ -98,5 +98,7 @@ internal class TaskImplementation : ITask
     public void reset()
     {
         DataSource.Tasks.Clear();
+        DataSource.Config.NextTeskId = DataSource.Config.startTeskId;
+
     }
 }

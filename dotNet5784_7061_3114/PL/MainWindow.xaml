@@ -7,44 +7,17 @@
         mc:Ignorable="d"
         Title="Smart Roads Project" Height="350" Width="600"
         WindowStartupLocation="CenterScreen">
-    
-    <Grid Background="#F0F0F0">
-        <!-- Data Initialization Button -->
-        <Button Content="Data Initialization" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Margin="154,175,0,0" 
-                Click="Data_Initialization" 
-                Width="234" 
-                Height="46" 
-                Background="#0078D4"
-                Foreground="White"
-                FontSize="14"
-                FontWeight="Bold"
-                FontFamily="Segoe UI"/>
 
-        <!-- Reset DataBase Button -->
-        <Button Content="Reset DataBase" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Margin="154,120,0,0" 
-                Click="ResetDataBase" 
-                Width="234" 
-                Height="47" 
-                Background="#0078D4"
-                Foreground="White"
-                FontSize="14"
-                FontWeight="Bold"
-                FontFamily="Segoe UI"/>
+    <Grid Background="#F0F0F0">
 
         <!-- ADMIN Button -->
         <Button Content="ADMIN" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="154,233,0,0" 
+                Margin="157,167,0,0" 
                 Click="AdminButton" 
-                Width="117" 
-                Height="47" 
+                Width="128" 
+                Height="59" 
                 Background="#0078D4"
                 Foreground="White"
                 FontSize="14"
@@ -67,10 +40,10 @@
         <Button Content="Engineer" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="278,233,0,0" 
+                Margin="300,167,0,0" 
                 Click="InsertEngineer" 
-                Width="117" 
-                Height="47" 
+                Width="132" 
+                Height="59" 
                 Background="#0078D4"
                 Foreground="White"
                 FontSize="14"

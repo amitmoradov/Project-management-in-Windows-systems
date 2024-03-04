@@ -8,11 +8,11 @@ internal static class DataSource
     {
         internal const int startTeskId = 1;
         private static int nextTeskId = startTeskId;
-        internal static int NextTeskId { get =>  nextTeskId++; }
+        internal static int NextTeskId { get => nextTeskId++; set { nextTeskId = value; } }
 
         internal const int startDependencyId = 1;
         private static int nextDependencyId = startDependencyId;
-        internal static int NextDependencyId { get => nextDependencyId++; }
+        internal static int NextDependencyId { get => nextDependencyId++; set { nextDependencyId = value; } }
 
         internal static DateTime startProject = new DateTime(2024-01-01);
         internal static string status = "planning";

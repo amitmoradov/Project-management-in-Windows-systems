@@ -29,25 +29,16 @@ public interface ITask
     void ScheduleFieldsInitialization();
     IEnumerable<int> AllTaskSId();
 
-    void AddDependency(int dependencyTask, int dependencyOnTask);
-
-    void DeleteDependency(int dependencyTask, int dependencyOnTask);
-
     /// <summary>
     /// Get all full tasks .
     /// </summary>
     /// <returns></returns>
     IEnumerable<BO.Task> BringAllFieldTaskList();
 
-    //void CreateStartDateProject(DateTime startDate);
+    //----------------Dependency--------------------------//
 
-    ///// <summary>
-    ///// Change the status of project in data base
-    ///// </summary>
-    ///// <param name="status"></param>
+    void AddDependency(int dependencyTask, int dependencyOnTask);
 
-    //void ChangeOfStatus(string status);
-
-    //string ReturnStatusProject();
+    void DeleteDependency(int dependencyTask, int dependencyOnTask);
 
 }

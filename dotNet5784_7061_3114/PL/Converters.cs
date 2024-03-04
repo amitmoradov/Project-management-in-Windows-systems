@@ -8,6 +8,7 @@ namespace PL;
 /// <summary>
 /// Converts between a field from the layer in PL and BL
 /// </summary>
+
 class ConvertIdToContent : IValueConverter
 {
 
@@ -204,8 +205,11 @@ public class ConvertDateTimeToInt : IValueConverter
 
 public class ConvertStatusTask : IValueConverter
 {
+    static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
+
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+
         if (value is BO.Task task)
         {
             // Dictionary mapping status to colors
@@ -213,23 +217,28 @@ public class ConvertStatusTask : IValueConverter
             {
                 { "Scheduled", "Aqua" },
                 { "OnTrack", "Yellow" },
-                { "Done", "Orange" },            
+                { "Done", "Green" },            
             };
 
             // Get the status of the task
             BO.Status status = task.Status;
-
+                //If the task is late . 
+                if (e_bl.Clock > task.ForcastDate)
+                {
+                    return "Red";
+                }
+                //If the task is close to the end time , but not finished .
+                if ((e_bl.Clock.Day - task.ForcastDate.Value.Day) <= 5)
+                {
+                    return "Orange";
+                }
             // Check if the status is in the dictionary
             if (statusColors.ContainsKey(status.ToString()))
             {
                 // Return the color corresponding to the status
                 return statusColors[status.ToString()];
             }
-            else
-            {
-                // Return a default color if status is not found in dictionary
-                return "Gray";
-            }
+            
         }
 
         // Return default color if value is not a Task object

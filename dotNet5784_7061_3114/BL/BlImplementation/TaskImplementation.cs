@@ -743,7 +743,6 @@ internal class TaskImplementation : BlApi.ITask
     /// <param name="dependencyOnTask"></param>
     public void AddDependency(int dependencyTask , int dependencyOnTask)
     {
-      
             // If the dependencyTask and dependencyOnTask are the same task.
             if (dependencyTask == dependencyOnTask)
             {
@@ -769,11 +768,16 @@ internal class TaskImplementation : BlApi.ITask
 
             }
 
-        // Can add a new dependency .
+        // Can try add a new dependency .
         DO.Dependency newDependency = new(dependencyTask,dependencyOnTask);
         try
         {
-            _dal.Dependency.Create(newDependency);
+            // If _dal.Create return 0 , the dependency already exists . 
+            if (_dal.Dependency.Create(newDependency) == 0)
+            {
+                throw new BlDependencyAlreadyExistException($"The dependency {dependencyTask} dependent on {dependencyOnTask} already exist");
+
+            }
         }
         catch (DO.DalDoesExistException ex)
         {

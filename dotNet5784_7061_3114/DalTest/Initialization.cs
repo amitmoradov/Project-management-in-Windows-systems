@@ -170,7 +170,7 @@ public static class Initialization
 
             // The task take at less 9 days
             int range = 9;
-            DateTime _randomDate = create_at_date.AddDays(e_rand.Next(range));
+            DateTime _randomDate = create_at_date.AddDays(e_rand.Next(1,range));
             
             //TODO: fix the requiredeffoertime - save
             TimeSpan requiredEffortTime = _randomDate - create_at_date;   

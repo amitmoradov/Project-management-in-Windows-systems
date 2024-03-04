@@ -15,6 +15,13 @@ internal class DependencyImplementation : IDependency
     {
         // chack if the item is exist
         Dependency? dependency = Read(item._id);
+        // Check if the depency already exist .
+        Dependency? checkDependency = Read(x => x._dependentTask == item._dependentTask && x._dependsOnTask == item._dependsOnTask);
+        if(checkDependency != null)
+        {
+            return 0;
+        }
+
         if (dependency == null)
         {
             // Get the current run nummber .

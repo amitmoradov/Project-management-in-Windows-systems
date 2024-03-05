@@ -11,4 +11,9 @@ public interface IProject
    public DateTime ReturnStartProjectDate();
 
    public string ReturnStatusProject();
+
+    public void SaveVirtualTimeInDal(DateTime virtualTime);
+
+    public DateTime ReturnVirtualTimeInDal();
+
 }

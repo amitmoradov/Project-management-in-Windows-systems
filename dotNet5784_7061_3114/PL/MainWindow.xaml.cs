@@ -28,7 +28,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         // Initialize CurrentTime
-        CurrentTime = e_bl.Clock;
+        CurrentTime = e_bl.Project.ReturnVirtualTimeInDal();
     }
 
     // Button click event handlers for advancing time
@@ -66,5 +66,10 @@ public partial class MainWindow : Window
     private void InsertEngineer(object sender, RoutedEventArgs e)
     {
         new Engineer.InsertEngineerWindow().ShowDialog();
+    }
+
+    private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        e_bl.Project.SaveVirtualTimeInDal(e_bl.Clock);
     }
 }

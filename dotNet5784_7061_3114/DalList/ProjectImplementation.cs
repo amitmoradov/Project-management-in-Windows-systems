@@ -24,4 +24,12 @@ internal class ProjectImplementation : IProject
     {
         DataSource.Config.startProject = startProject;
     }
+
+    public void SaveVirtualTimeInDal(DateTime virtualTime) 
+    { DataSource.Config.VrtualTime = virtualTime; }
+
+    public DateTime ReturnVirtualTimeInDal()
+    {
+        return DataSource.Config.VrtualTime;
+    }
 }

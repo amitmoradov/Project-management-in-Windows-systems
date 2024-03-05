@@ -1,5 +1,7 @@
 ﻿
 using DalApi;
+using System;
+using System.Net.NetworkInformation;
 using System.Xml.Linq;
 
 namespace Dal;
@@ -50,4 +52,20 @@ internal class ProjectImplementation : IProject
         return statusProject.Value;
     }
 
+    public void SaveVirtualTimeInDal(DateTime time)
+    {
+        XElement config = XMLTools.LoadListFromXMLElement("data-config");
+        XElement? virualTime = config.Element("VirtualTimeInDal");
+        //I want to replace the value of xelement here with the value I received in the function
+        virualTime?.SetValue(time);
+        
+        XMLTools.SaveListToXMLElement(config, "data-config");
+    }
+
+    public DateTime ReturnVirtualTimeInDal()
+    {
+        XElement config = XMLTools.LoadListFromXMLElement("data-config");
+        XElement? virtualTimeInDal = config.Element("VirtualTimeInDal");
+        return DateTime.Parse(virtualTimeInDal.Value);
+    }
 }

@@ -21,4 +21,8 @@ public interface IProject
     public void InitializeDB();
 
     public void resetAllDB();
+
+    public void SaveVirtualTimeInDal(DateTime virtualTime);
+
+    public DateTime ReturnVirtualTimeInDal();
 }

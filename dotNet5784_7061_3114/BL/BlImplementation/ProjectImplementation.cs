@@ -29,4 +29,8 @@ internal class ProjectImplementation : IProject
     public void InitializeDB() => DalTest.Initialization.Do();
 
     public void resetAllDB() => DalTest.Initialization.reset();
+
+    public void SaveVirtualTimeInDal(DateTime virtualTime) => _dal.Project.SaveVirtualTimeInDal(virtualTime);
+
+    public DateTime ReturnVirtualTimeInDal() => _dal.Project.ReturnVirtualTimeInDal();
 }

@@ -16,6 +16,9 @@ internal static class DataSource
 
         internal static DateTime startProject = new DateTime(2024-01-01);
         internal static string status = "planning";
+
+        // Save the time of the clock in dal .
+        internal static DateTime VrtualTime = DateTime.Now;
     }
     internal static List<DO.Dependency> Dependencies { get; } = new();
     internal static List<DO.Engineer> Engineers { get; } = new();

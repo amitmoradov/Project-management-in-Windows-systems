@@ -105,14 +105,52 @@
 
             <!-- Engineer details -->
             <StackPanel Orientation="Horizontal" Margin="5">
+                <!-- Stack panel containing the layout horizontally with a margin of 5 -->
                 <Label Content="Engineer Id:" VerticalAlignment="Center"/>
+                <!-- Label indicating "Engineer Id" aligned vertically to the center -->
                 <TextBox Text="{Binding Engineer.Id, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="50" 
-                         IsEnabled="{Binding Engineer.Id, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+             IsEnabled="{Binding Engineer.Id, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}">
+                    <!-- Text box bound to the Engineer's Id property, updating the source on PropertyChanged -->
+                    <TextBox.Style>
+                        <!-- Style for the text box -->
+                        <Style TargetType="TextBox">
+                            <!-- Style targeting the TextBox -->
+                            <Style.Triggers>
+                                <!-- Triggers for the style -->
+                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="0">
+                                    <!-- Data trigger checking if the text in the TextBox is zero -->
+                                    <Setter Property="Background" Value="Red"/>
+                                    <!-- If the trigger is met, change the background color of the TextBox to red -->
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
 
                 <Label Content="Engineer Name:" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding Engineer.Name, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="100"
-                         IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}" />
+                <!-- Label indicating "Engineer Name" aligned vertically to the center -->
+                <TextBox Text="{Binding Engineer.Name, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="100" 
+             IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}">
+                    <!-- Text box bound to the Engineer's Name property, updating the source on PropertyChanged -->
+                    <TextBox.Style>
+                        <!-- Style for the text box -->
+                        <Style TargetType="TextBox">
+                            <!-- Style targeting the TextBox -->
+                            <Style.Triggers>
+                                <!-- Triggers for the style -->
+                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
+                                    <!-- Data trigger checking if the text in the TextBox is empty -->
+                                    <Setter Property="Background" Value="Red"/>
+                                    <!-- If the trigger is met, change the background color of the TextBox to red -->
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
             </StackPanel>
+
+
+
 
             <!-- Dependencies -->
             <ListView ItemsSource="{Binding Dependencies}" Margin="5" MouseDoubleClick="DeleteDependecy_MouseDoubleClick" 

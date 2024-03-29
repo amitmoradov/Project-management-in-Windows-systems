@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -107,5 +108,22 @@ public partial class SingleEngineerWindow : Window
             }
         }
        this.Close();
+    }
+
+    private void btnDeleteEngineer(object sender, RoutedEventArgs e)
+    {
+      try
+      {
+            e_bl.Engineer.Delete(Engineer.Id);
+      }
+      catch(BO.BlEntityCanNotRemoveException ex)
+      {
+          MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+      }
+        catch (BO.BlReadNotFoundException ex)
+        {
+            MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+        }       
+        this.Close();
     }
 }

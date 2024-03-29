@@ -10,6 +10,8 @@
 
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
 
+        <local:AccsessToDeleteButtun x:Key="AccsessToDeleteButtunKey"/>
+
         <local:IdToIsEnabledConverter x:Key="IdToIsEnabledConverterKey"/>
         <Style TargetType="Window">
             <Setter Property="Background">

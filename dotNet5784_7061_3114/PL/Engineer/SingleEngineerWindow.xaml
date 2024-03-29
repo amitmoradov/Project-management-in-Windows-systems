@@ -70,9 +70,18 @@
             <CheckBox Grid.Row="14" HorizontalAlignment="Left" Margin="108,10,0,10"
                   IsChecked="{Binding Active, Mode=TwoWay}" RenderTransformOrigin="4.361,1.302" Width="16" />
 
-            <!-- Button -->
-            <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
-                    HorizontalAlignment="Left" Height="32" Margin="18,53,0,0" Grid.Row="14" VerticalAlignment="Top" Grid.RowSpan="2" Width="46"  Click="btnAddUpdate_Click"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="18,53,0,0" Grid.Row="14" VerticalAlignment="Top">
+                
+                <!-- Add/Update Button -->
+                <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
+            Height="32" Width="46" Click="btnAddUpdate_Click"/>
+
+                <!-- Delete Button -->
+                <Button Content="Delete" Height="32" Width="70" Margin="5,0,0,0" Click="btnDeleteEngineer"
+                            IsEnabled="{Binding Id, Converter={StaticResource AccsessToDeleteButtunKey}}"/>
+            </StackPanel>
+
         </Grid>
     </ScrollViewer>
 </Window>

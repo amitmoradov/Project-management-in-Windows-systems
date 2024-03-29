@@ -13,17 +13,28 @@
 
         <!-- ADMIN Button -->
         <Button Content="ADMIN" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Margin="157,167,0,0" 
-                Click="AdminButton" 
-                Width="128" 
-                Height="59" 
-                Background="#0078D4"
-                Foreground="White"
-                FontSize="14"
-                FontWeight="Bold"
-                FontFamily="Segoe UI"/>
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Top" 
+        Margin="157,167,0,0" 
+        Click="AdminButton" 
+        Width="128" 
+        Height="59" 
+        Background="#0078D4"
+        Foreground="White"
+        FontSize="14"
+        FontWeight="Bold"
+        FontFamily="Segoe UI">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
 
         <!-- Smart roads project Label -->
         <Label Content="Smart Roads Project" 

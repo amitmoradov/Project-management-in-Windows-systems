@@ -56,7 +56,7 @@ internal class EngineerImplementation : BlApi.IEngineer
          // Checks that the engineer is not performing a task
          if (boEngineer.Task.Id != 0)
          {
-            throw new BO.BlEntityCanNotRemoveException("Can not remove this antity");
+            throw new BO.BlEntityCanNotRemoveException("Can not delete this Engineer because he work on the Task");
          }
 
         //If the test was successful - you will make an attempt to request deletion from the Data layer

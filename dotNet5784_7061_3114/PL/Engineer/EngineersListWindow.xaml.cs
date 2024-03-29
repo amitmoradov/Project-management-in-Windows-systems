@@ -18,12 +18,12 @@ namespace PL.Engineer;
 /// <summary>
 /// Interaction logic for EngineerWindow.xaml
 /// </summary>
-public partial class EngineesListrWindow : Window
+public partial class EngineersListWindow : Window
 {
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
 
-    public EngineesListrWindow()
+    public EngineersListWindow()
     {
         InitializeComponent();
         EngineerList = e_bl?.Engineer.ReadAll()!;
@@ -37,7 +37,7 @@ public partial class EngineesListrWindow : Window
     }
 
     public static readonly DependencyProperty EngineerListProperty =
-        DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineesListrWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineersListWindow), new PropertyMetadata(null));
 
     /// <summary>
     /// Filter the list of engineer by level.

@@ -53,7 +53,7 @@ public partial class Admin : Window
 
     private void btnEngineers_Click(object sender, RoutedEventArgs e)
     {
-        new EngineesListrWindow().ShowDialog();
+        new EngineersListWindow().ShowDialog();
     }
 
     private void btnTasks_Click(object sender, RoutedEventArgs e)

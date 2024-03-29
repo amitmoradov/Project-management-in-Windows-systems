@@ -22,7 +22,7 @@
                 <Label Content="Created At Date:" VerticalAlignment="Center"/>
                 <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"
                             IsEnabled="{Binding CreatedAtDate,Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
-                
+
             </StackPanel>
 
             <!-- Start Date -->
@@ -175,7 +175,7 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            
+
             <!-- Active -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Active:" VerticalAlignment="Center"/>
@@ -191,6 +191,21 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Button Content="Delete" Width="110" Height="30" Margin="5" Click="DeleteButton_Click"
+         IsEnabled="{Binding Dependencies, Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" >
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#64B5F6" Offset="0"/>
+                            <GradientStop Color="#BBDEFB" Offset="0.5"/>
+                            <GradientStop Color="#E3F2FD" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
+
+    
 </Window>

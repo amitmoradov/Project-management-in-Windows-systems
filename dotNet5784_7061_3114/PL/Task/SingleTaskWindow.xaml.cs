@@ -177,5 +177,25 @@ namespace PL.Task
             }
         }
 
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Try delete task until stage 3 .
+            try
+            {
+                e_bl.Task.Delete(Task.Id);
+            }
+            catch (BO.BlCannotDeletedException ex) 
+            {
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.BlEntityCanNotRemoveException ex)
+            {
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            // Close the current window
+            this.Close();
+
+        }
     }
 }

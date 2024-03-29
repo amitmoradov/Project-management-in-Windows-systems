@@ -6,6 +6,26 @@
         xmlns:local="clr-namespace:PL.ADMIN"
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#6495ED"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DeepSkyBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
 
     <Grid>
         <Grid.Background>
@@ -22,7 +42,7 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Handle Engineer" Margin="10" Width="150" Height="50" Background="#6495ED" Click="btnEngineers_Click"/>
+            <Button Content="Handle Engineer" Margin="10" Width="150" Height="50" Click="btnEngineers_Click" Style="{StaticResource ButtonStyle}"/>
             <Button Content="Handle Task" Margin="10" Width="150" Height="50" Background="#6495ED" Click="btnTasks_Click"/>
             <Button Content="Handle Dependencies" Margin="10" Width="150" Height="50" Background="#6495ED" Click="Viewdependencies" IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
             <Button Content="Gantt Chart" Margin="10" Width="150" Height="50" Background="#6495ED" Click="btnGanttChart_Click" IsEnabled="{Binding Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}"/>

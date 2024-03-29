@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-  <NextTaskId>24</NextTaskId>
-  <NextDependencyId>33</NextDependencyId>
+  <NextTaskId>25</NextTaskId>
+  <NextDependencyId>38</NextDependencyId>
   <StatusOfProject>planning</StatusOfProject>
   <StartProjectDate>01/01/2024 00:00:00</StartProjectDate>
   <VirtualTimeInDal>2024-03-29T00:00:00+02:00</VirtualTimeInDal>

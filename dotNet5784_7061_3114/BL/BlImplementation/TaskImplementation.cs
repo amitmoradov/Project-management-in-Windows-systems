@@ -88,7 +88,7 @@ internal class TaskImplementation : BlApi.ITask
                         select dependency;
 
             // This task cannot be deleted because another task dependency on this task .
-            if (chack is not null)
+            if (chack.Any())
             {
                 throw new BO.BlEntityCanNotRemoveException($"Can not remove task {boTask.Id} because have another task dependent on task .");
             }

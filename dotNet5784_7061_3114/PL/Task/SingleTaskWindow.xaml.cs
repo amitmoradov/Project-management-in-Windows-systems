@@ -116,7 +116,7 @@ namespace PL.Task
                     if (e_bl.Project.ReturnStatusProject() != "scheduleWasPalnned")
                     {
                         e_bl.Task.Create(Task);
-                        MessageBox.Show("Registration has been successfully completed");                    
+                        MessageBox.Show("Create has been successfully completed");                    
                     }
 
                 }
@@ -192,9 +192,11 @@ namespace PL.Task
             {
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            MessageBox.Show("Delete has been successfully completed");
 
             // Close the current window
             this.Close();
+            new TaskInListWindow().ShowDialog();
 
         }
     }

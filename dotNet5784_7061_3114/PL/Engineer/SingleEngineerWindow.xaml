@@ -41,10 +41,20 @@
             <Label Grid.Row="12" Content="Task Alias:" HorizontalAlignment="Left" Margin="23,0,0,20" Grid.RowSpan="2" Width="63"/>
             <Label Grid.Row="14" Content="Active:" HorizontalAlignment="Left" Margin="39,0,0,4" Width="45"/>
 
-            <!-- Fields -->
             <TextBox Grid.Row="0" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" 
-                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                 IsEnabled="{Binding Id, Converter={StaticResource IdToIsEnabledConverterKey}}" />
+    Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+    IsEnabled="{Binding Id, Converter={StaticResource IdToIsEnabledConverterKey}}">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Id}" Value="0">
+                                <Setter Property="Background" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
 
             <TextBox Grid.Row="2" Margin="0,0,40,10" Width="100" HorizontalAlignment="Right" 
                  Text="{Binding Name , Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>

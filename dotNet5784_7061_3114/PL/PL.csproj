@@ -15,7 +15,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="clock.png" />
+    <None Remove="home.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="clock.png" />
+    <Resource Include="home.png" />
   </ItemGroup>
 
 </Project>

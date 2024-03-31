@@ -7,7 +7,6 @@
         Closing="MainWindow_Closing"
         mc:Ignorable="d"
         Title="Smart Roads Project" Height="350" Width="600"
-        Icon="/clock.png"
         WindowStartupLocation="CenterScreen">
 
     <Grid Background="#F0F0F0">

@@ -86,6 +86,11 @@ public partial class SingleEngineerWindow : Window
             {
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (BO.BlCannotUpdateException ex)
+            {
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
         else
         {

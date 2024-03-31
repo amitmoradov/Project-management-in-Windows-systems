@@ -301,6 +301,18 @@ internal class EngineerImplementation : BlApi.IEngineer
                 throw new BO.BlEngineerWorkingOnTask("There is another engineer already working on the task");
             }
 
+
+            BO.Task boTask = e_bl.Task.Read(resulte._id);
+            //Checks if an engineer is working on a task that depends on others and they are not finished - throws an exception accordingly  
+                foreach (var deptask in boTask.Dependencies)
+                {
+                    if (deptask.Status.ToString() != "Done")
+                    {
+                        throw new BO.BlCannotUpdateException($"Can not work on Task - The Dependency of Task {boTask.Id} is not Done");
+                    }
+                }
+          
+
             //Assigns a task to an engineer 
             DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,
                 e_bl.Clock, resulte._scheduledDate, resulte._completeDate, resulte._deadLineDate, resulte._alias,

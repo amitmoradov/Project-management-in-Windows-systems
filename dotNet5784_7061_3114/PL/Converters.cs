@@ -240,7 +240,7 @@ public class ConvertStatusTaskGantt : IValueConverter
             BO.Status status = task.Status;     
 
             //If the task is late . 
-            if (e_bl.Clock > task.ForcastDate)
+            if (e_bl.Clock > task.ForcastDate && task.Status != BO.Status.Done)
             {
                 return "Red";
             }

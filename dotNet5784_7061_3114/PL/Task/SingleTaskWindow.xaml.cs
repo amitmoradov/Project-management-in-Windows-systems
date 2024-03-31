@@ -92,6 +92,7 @@ namespace PL.Task
                 //Tasks can not deleted if I am in step 3
                 catch (BO.BlAlreadyPalnedException ex)
                 { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
+
                 catch(BO.BlEngineerIsNotTheAllowedLevel ex)
                 {
                     { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
@@ -105,7 +106,8 @@ namespace PL.Task
                     { MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
 
-                
+
+
             }
 
             else

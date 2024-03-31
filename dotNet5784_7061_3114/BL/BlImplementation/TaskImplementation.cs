@@ -181,7 +181,7 @@ internal class TaskImplementation : BlApi.ITask
         // Chack the details Task 
         if (_dal.Project.ReturnStatusProject() != "scheduleWasPalnned")
             ChackDetails(boTask);
-        else 
+        else
         {
             ChackDatailPlannedSatge(boTask);
         }
@@ -207,6 +207,19 @@ internal class TaskImplementation : BlApi.ITask
                 throw new BlEngineerWorkingOnTask("There is another engineer already working on the task");
             }
 
+            //Checks if an engineer is working on a task that depends on others and they are not finished - throws an exception accordingly
+            if (privuseTask.Engineer.Id == 0 && boTask.Engineer.Id != 0)
+            {
+                foreach (var deptask in boTask.Dependencies)
+                {
+                    if (deptask.Status.ToString() != "Done")
+                    {
+                        throw new BO.BlCannotUpdateException($"Can not work on Task - The Dependency of Task {boTask.Id} is not Done");
+                    }
+                }
+
+            }        
+    
             boTask = UnifiyTasksForThePlannedStage(boTask);
 
 
@@ -219,14 +232,16 @@ internal class TaskImplementation : BlApi.ITask
                 // Serach if engineer working on another task .
                 chackTask = e_bl.Task.Read(x => x.Engineer.Id == boTask.Engineer.Id);
 
-                // If the engineer still working on another task .
+                    // If the engineer still working on another task .
                 if (chackTask != null)
-                {
+                {                 
+
                     if ((chackTask.Status.ToString() == "OnTrack") && chackTask.Id != boTask.Id)
                     {
                         throw new BO.BlEngineerWorkingOnAnotherTask("The engineer already working on another task");
                     }
                 }
+               
 
                 //Checking whether the engineer is not at a low level to assign him the task
                 BO.Engineer? checkLevelEngineer = e_bl.Engineer.Read(boTask.Engineer.Id);

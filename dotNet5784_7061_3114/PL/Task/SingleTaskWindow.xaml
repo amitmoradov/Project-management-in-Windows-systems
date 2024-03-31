@@ -130,26 +130,9 @@
                 <Label Content="Engineer Name:" VerticalAlignment="Center"/>
                 <!-- Label indicating "Engineer Name" aligned vertically to the center -->
                 <TextBox Text="{Binding Engineer.Name, UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="100" 
-             IsEnabled="{Binding Engineer.Name, Converter={StaticResource scheduleWasPalnnedIsEnabledKey}}">
-                    <!-- Text box bound to the Engineer's Name property, updating the source on PropertyChanged -->
-                    <TextBox.Style>
-                        <!-- Style for the text box -->
-                        <Style TargetType="TextBox">
-                            <!-- Style targeting the TextBox -->
-                            <Style.Triggers>
-                                <!-- Triggers for the style -->
-                                <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Self}}" Value="">
-                                    <!-- Data trigger checking if the text in the TextBox is empty -->
-                                    <Setter Property="Background" Value="Red"/>
-                                    <!-- If the trigger is met, change the background color of the TextBox to red -->
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBox.Style>
+                        IsEnabled="False" >
                 </TextBox>
             </StackPanel>
-
-
 
 
             <!-- Dependencies -->

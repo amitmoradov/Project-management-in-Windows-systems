@@ -8,7 +8,7 @@
         Title="Dependency Details" Height="400" Width="500">
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#DCEBF4" Offset="0"/>
+            <GradientStop Color="#DCEBF4" Offset="0"/> 
             <GradientStop Color="#FFFFFF" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="EngineesListrWindow" Height="480" Width="600">
+        Title="EngineesListrWindow" Height="480" Width="600" Icon="/Engineer/employee-man.png">
 
     <!-- External Grid -->
     <Grid Margin="10">

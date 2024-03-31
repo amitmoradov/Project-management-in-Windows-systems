@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Project"
         mc:Ignorable="d"
-        Title="StartProjectDateWindow" Height="150" Width="250">
+        Title="StartProjectDateWindow" Height="150" Width="250" Icon="/Project/daily-calendar.png">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

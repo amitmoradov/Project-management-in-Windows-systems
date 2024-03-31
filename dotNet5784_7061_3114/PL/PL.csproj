@@ -15,8 +15,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ADMIN\admin-alt.png" />
     <None Remove="clock.png" />
+    <None Remove="Engineer\employee-man.png" />
+    <None Remove="Engineer\user-helmet-safety.png" />
+    <None Remove="Gantt\chart-gantt.png" />
     <None Remove="home.png" />
+    <None Remove="Project\daily-calendar.png" />
+    <None Remove="Task\completed.png" />
+    <None Remove="Task\list-check.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,8 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="ADMIN\admin-alt.png" />
     <Resource Include="clock.png" />
+    <Resource Include="Engineer\employee-man.png" />
+    <Resource Include="Engineer\user-helmet-safety.png" />
+    <Resource Include="Gantt\chart-gantt.png" />
     <Resource Include="home.png" />
+    <Resource Include="Project\daily-calendar.png" />
+    <Resource Include="Task\completed.png" />
+    <Resource Include="Task\list-check.png" />
   </ItemGroup>
 
 </Project>

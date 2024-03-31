@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
         DataContext="{Binding Task, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-        Title="SingleTaskWindow" Height="600" Width="529">
+        Title="SingleTaskWindow" Height="600" Width="529" Icon="/Task/completed.png">
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <LinearGradientBrush.GradientStops>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="TaskInListWindow" Height="400" Width="600">
+        Title="TaskInListWindow" Height="400" Width="600" Icon="/Task/list-check.png">
 
     <!--External Grid-->
     <Grid Margin="10">

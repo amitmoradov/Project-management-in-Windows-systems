@@ -24,7 +24,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="Red"/>
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="Black"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="False">
                                 <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White"/>

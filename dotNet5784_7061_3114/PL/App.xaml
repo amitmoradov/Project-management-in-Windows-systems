@@ -46,6 +46,8 @@
         <!--The permissions are allowed in the project in step 1-->
         <local:planningIsEnabled x:Key="planningIsEnabledKey"/>
 
+        <local:AccsessTCreateDate x:Key="AccsessTCreateDateKey"/>
+        
 
         <!--FOR GANTT-->
         <!--Convert type of RequiredEffortTime to int , for widtt of rectangle in Gantt chart .-->

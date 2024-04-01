@@ -260,30 +260,4 @@
     <_isMilestone>false</_isMilestone>
     <_canToRemove>true</_canToRemove>
   </Task>
-  <Task>
-    <_createdAtDate>2024-03-31T16:03:38.6273583+03:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
-    <_alias>EOID</_alias>
-    <_description>Development of Infrastructure Support for Electric Vehicle Offices</_description>
-    <_remarks>Creating infrastructure for electric vehicle office spaces.</_remarks>
-    <_id>21</_id>
-    <_engineerId>0</_engineerId>
-    <_active>true</_active>
-    <_isMilestone>false</_isMilestone>
-    <_canToRemove>true</_canToRemove>
-  </Task>
-  <Task>
-    <_createdAtDate>2024-03-31T16:03:38.6371027+03:00</_createdAtDate>
-    <_requiredEffortTime>P6D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
-    <_alias>EOISE</_alias>
-    <_description>Examination of Infrastructure Support for Electric Vehicle Offices</_description>
-    <_remarks>Reviewing support systems for electric vehicle office spaces.</_remarks>
-    <_id>22</_id>
-    <_engineerId>0</_engineerId>
-    <_active>true</_active>
-    <_isMilestone>false</_isMilestone>
-    <_canToRemove>true</_canToRemove>
-  </Task>
 </ArrayOfTask>

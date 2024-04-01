@@ -96,6 +96,10 @@ internal class TaskImplementation : BlApi.ITask
             //If the test was successful - you will make an attempt to request deletion from the Data layer
             try
             {
+                if (boTask.Dependencies != null)
+                {
+                    boTask.Dependencies.Clear();
+                }
                 _dal.Task.Delete(id);
             }
             catch (DO.DalDoesNotExistException ex)

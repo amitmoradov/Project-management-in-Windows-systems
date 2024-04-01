@@ -9,6 +9,34 @@
         Icon="/home.png"
         Title="Smart Roads Project" Height="350" Width="600"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <!-- Trigger property for changing text color to red when the mouse is over -->
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="#0078D4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="Red"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Window.Resources>
+
 
     <Window.Background>
         <ImageBrush ImageSource="/smart-board.jpg"/>
@@ -20,6 +48,7 @@
         <Button Content="ADMIN" 
         HorizontalAlignment="Left" 
         VerticalAlignment="Top" 
+        Style="{StaticResource ButtonStyle}"
         Margin="157,167,0,0" 
         Click="AdminButton" 
         Width="128" 

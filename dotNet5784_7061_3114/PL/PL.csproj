@@ -22,6 +22,8 @@
     <None Remove="Gantt\chart-gantt.png" />
     <None Remove="home.png" />
     <None Remove="Project\daily-calendar.png" />
+    <None Remove="smart-board.jpg" />
+    <None Remove="smart-board.png" />
     <None Remove="Task\completed.png" />
     <None Remove="Task\list-check.png" />
   </ItemGroup>
@@ -38,6 +40,8 @@
     <Resource Include="Gantt\chart-gantt.png" />
     <Resource Include="home.png" />
     <Resource Include="Project\daily-calendar.png" />
+    <Resource Include="smart-board.jpg" />
+    <Resource Include="smart-board.png" />
     <Resource Include="Task\completed.png" />
     <Resource Include="Task\list-check.png" />
   </ItemGroup>

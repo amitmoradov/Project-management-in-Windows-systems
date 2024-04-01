@@ -10,7 +10,11 @@
         Title="Smart Roads Project" Height="350" Width="600"
         WindowStartupLocation="CenterScreen">
 
-    <Grid Background="#F0F0F0">
+    <Window.Background>
+        <ImageBrush ImageSource="/smart-board.jpg"/>
+    </Window.Background>
+
+    <Grid>
 
         <!-- ADMIN Button -->
         <Button Content="ADMIN" 

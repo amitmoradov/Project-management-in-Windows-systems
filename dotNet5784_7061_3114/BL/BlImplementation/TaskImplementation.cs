@@ -435,20 +435,6 @@ internal class TaskImplementation : BlApi.ITask
         if (_dal.Project.ReturnStatusProject() != "planning")
         {
 
-            //if (boTask.ScheduledDate == null)
-            //{
-            //    throw new BlNullPropertyException($"You did not add value for : ScheduledDate");
-            //}
-
-            //if (boTask.StartDate == null)
-            //{
-            //    throw new BlNullPropertyException($"You did not add value for : StartDate");
-            //}
-
-            //if (boTask.CompleteDate == null)
-            //{
-            //    throw new BlNullPropertyException($"You did not add value for : CompleteDate");
-            //}
             if (boTask.Engineer != null && boTask.Engineer.Id !=0)
             {
                if (boTask.StartDate == null)
@@ -485,6 +471,11 @@ internal class TaskImplementation : BlApi.ITask
                 {
                     throw new BlIncorrectDatailException($"The complete date {boTask.CompleteDate} cannot be earlier than the scheduled date {boTask.ScheduledDate}.");
                 }
+            }
+
+            if (boTask.CompleteDate is not null && boTask.StartDate is null)
+            {
+                throw new BlIncorrectDatailException($"It is not possible to enter an end date before a start date");
             }
 
         }

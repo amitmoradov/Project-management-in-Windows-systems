@@ -17,11 +17,12 @@
     </Window.Background>
     <ScrollViewer Height="550" HorizontalAlignment="Center" VerticalAlignment="Center" Width="509">
         <StackPanel Margin="10">
+            
             <!-- Created At Date -->
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Created At Date:" VerticalAlignment="Center"/>
                 <DatePicker SelectedDate="{Binding CreatedAtDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"
-                            IsEnabled="{Binding CreatedAtDate,Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}"/>
+                            IsEnabled="{Binding Id,Converter={StaticResource AccsessTCreateDateKey}}"/>
 
             </StackPanel>
 
@@ -36,7 +37,7 @@
             <StackPanel Orientation="Horizontal" Margin="5">
                 <Label Content="Scheduled Date:" VerticalAlignment="Center"/>
                 <DatePicker SelectedDate="{Binding ScheduledDate, UpdateSourceTrigger=PropertyChanged}" Margin="5"
-                            IsEnabled="{Binding ScheduledDate , Converter={StaticResource scheduleWasPalnnedIsNotEnabledKey}}" />
+                            IsEnabled="False" />
             </StackPanel>
 
             <!-- Complete Date -->

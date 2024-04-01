@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL.ADMIN"
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800" Icon="/ADMIN/admin-alt.png">
+
     <Window.Resources>
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="Background" Value="#6495ED"/>

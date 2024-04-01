@@ -166,7 +166,7 @@ namespace PL.Task
                         {
                             e_bl.Task.DeleteDependency(Task.Id, dependencyToRemove.Id);
                             MessageBox.Show("The delete of dependency was successfully");
-                            Close();
+                            this.Close();
                         }
                     }
                 }
@@ -198,7 +198,6 @@ namespace PL.Task
 
             // Close the current window
             this.Close();
-            new TaskInListWindow().ShowDialog();
 
         }
     }

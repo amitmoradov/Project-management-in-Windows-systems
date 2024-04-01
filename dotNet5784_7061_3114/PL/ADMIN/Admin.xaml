@@ -28,14 +28,12 @@
     </Window.Resources>
 
 
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#D3D3D3" Offset="0" />
-                <GradientStop Color="#A9A9A9" Offset="1" />
-            </LinearGradientBrush>
-        </Grid.Background>
+    <Window.Background>
+        <ImageBrush ImageSource="/ADMIN/photo-admin.jpg"/>
+    </Window.Background>
 
+
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -57,6 +55,6 @@
         </StackPanel>
 
         <!-- Title -->
-        <Label Grid.Row="0" Content="Admin window" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="Red" Padding="10,5"/>
+        <Label Grid.Row="0" Content="Admin window" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="36" FontStyle="Italic" FontWeight="Bold" Foreground="Black" Padding="10,5"/>
     </Grid>
 </Window>

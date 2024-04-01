@@ -47,6 +47,7 @@ internal class TaskImplementation : ITask
         // The object can to remove
         if (task_to_delete is not null && task_to_delete._canToRemove)
         {
+
             tasks.Remove(task_to_delete);
 
             // Update the xml file after change of list engineer.

@@ -93,10 +93,16 @@ internal class TaskImplementation : BlApi.ITask
                 throw new BO.BlEntityCanNotRemoveException($"Can not remove task {boTask.Id} because have another task dependent on task .");
             }
 
-            //If the test was successful - you will make an attempt to request deletion from the Data layer
+            //If the test was successful - you will make an attempt to request deletion from the Data layer          
             try
             {
                 _dal.Task.Delete(id);
+
+                //Deletes all the dependencies of the task I want to delete - if there is no other task that depends on it
+                foreach (var dependency in boTask.Dependencies)
+                {
+                    DeleteDependency(id, dependency.Id);
+                }
             }
             catch (DO.DalDoesNotExistException ex)
             {

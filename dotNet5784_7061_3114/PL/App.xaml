@@ -29,7 +29,6 @@
         </Style>
 
         <!--For Task-->
-        
         <local:StatusCollection x:Key="StatusCollectiontKey"/>
 
         <local:ConvertStatusTaskGantt x:Key="ConvertStatusTaskGantKey"/>

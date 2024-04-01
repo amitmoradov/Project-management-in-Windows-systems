@@ -96,6 +96,10 @@ internal class TaskImplementation : BlApi.ITask
             //If the test was successful - you will make an attempt to request deletion from the Data layer          
             try
             {
+                if (boTask.Dependencies != null)
+                {
+                    boTask.Dependencies.Clear();
+                }
                 _dal.Task.Delete(id);
 
                 //Deletes all the dependencies of the task I want to delete - if there is no other task that depends on it

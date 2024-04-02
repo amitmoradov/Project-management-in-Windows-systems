@@ -14,7 +14,7 @@ internal class TaskImplementation : ITask
         if (task == null)
         {
             // Get the current run nummber .
-            int newId = DataSource.Config.NextTeskId;
+            int newId = DataSource.Config.NextTaskId;
             // Copy of item and change Id .
             Task copyItem = item with { _id = newId };
 
@@ -98,7 +98,7 @@ internal class TaskImplementation : ITask
     public void reset()
     {
         DataSource.Tasks.Clear();
-        DataSource.Config.NextTeskId = DataSource.Config.startTeskId;
+        DataSource.Config.NextTaskId = DataSource.Config.startTaskId;
 
     }
 }

@@ -1,29 +1,39 @@
-﻿
-using DO;
-using System.Xml.Linq;
+﻿using DO; // Importing the namespace DO
+using System.Xml.Linq; // Importing the namespace for XML manipulation
 
-namespace DalApi;
-public interface ICrud<T> where T : class
+namespace DalApi
 {
-    int Create(T item); //Creates new entity object in DAL
-    T? Read(int id); //Reads entity object by its ID 
     /// <summary>
-    /// Return item by every parameters that it got .
+    /// Represents a generic interface for CRUD operations on objects of type T.
     /// </summary>
-    /// <param name="filter"></param>
-    /// <returns></returns>
-    /// return bool and bring type T
-    T? Read(Func<T, bool> filter); // Return item by every parameters that it got .
-    IEnumerable<T?> ReadAll(Func<T , bool> ? filter = null); // Pointer to func .
-    void Update(T item); //Updates entity object
-    void Delete(int id); //Deletes an object by its Id
+    /// <typeparam name="T">The type of objects to perform CRUD operations on.</typeparam>
+    public interface ICrud<T> where T : class
+    {
+        // Creates a new entity object in the DAL
+        int Create(T item);
 
-    /// <summary>
-    /// reset the DataBase 
-    /// </summary>
-    void reset();
+        // Reads an entity object by its ID
+        T? Read(int id);
 
+        /// <summary>
+        /// Returns an item based on the provided filter.
+        /// </summary>
+        /// <param name="filter">The filter condition to apply.</param>
+        /// <returns>The item matching the filter condition.</returns>
+        T? Read(Func<T, bool> filter);
 
+        // Reads all items based on an optional filter
+        IEnumerable<T?> ReadAll(Func<T, bool>? filter = null);
 
+        // Updates an entity object
+        void Update(T item);
+
+        // Deletes an object by its ID
+        void Delete(int id);
+
+        /// <summary>
+        /// Resets the database.
+        /// </summary>
+        void reset();
+    }
 }
-

@@ -49,14 +49,14 @@ public partial class SingleEngineerWindow : Window
 
                 Engineer = e_bl.Engineer.Read(id)!;
             }
-            catch(BO.BlReadNotFoundException ex)
+            catch (BO.BlReadNotFoundException ex)
             {
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
 
-   
+
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         if (isUpdateEngineer)
@@ -64,7 +64,7 @@ public partial class SingleEngineerWindow : Window
             try
             {
                 e_bl.Engineer.Update(Engineer);
-                MessageBox.Show("The changes have been updated successfully", " ", MessageBoxButton.OK, MessageBoxImage.Information);                
+                MessageBox.Show("The changes have been updated successfully", " ", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (BO.BlReadNotFoundException ex)
             {
@@ -78,8 +78,8 @@ public partial class SingleEngineerWindow : Window
             {
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch(BO.BlEngineerWorkingOnTask ex)
-            { 
+            catch (BO.BlEngineerWorkingOnTask ex)
+            {
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (BO.BlEngineerIsNotTheAllowedLevel ex)
@@ -90,14 +90,14 @@ public partial class SingleEngineerWindow : Window
             {
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
+
         }
         else
         {
             try
             {
                 e_bl.Engineer.Create(Engineer);
-                MessageBox.Show("A new engineer has been added to the system", " ",MessageBoxButton.OK , MessageBoxImage.Information);             
+                MessageBox.Show("A new engineer has been added to the system", " ", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (BO.BlAlreadyExistsException ex)
             {
@@ -112,23 +112,25 @@ public partial class SingleEngineerWindow : Window
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-       this.Close();
+        this.Close();
     }
 
     private void btnDeleteEngineer(object sender, RoutedEventArgs e)
     {
-      try
-      {
+        try
+        {
             e_bl.Engineer.Delete(Engineer.Id);
-      }
-      catch(BO.BlEntityCanNotRemoveException ex)
-      {
-          MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
-      }
+        }
+        catch (BO.BlEntityCanNotRemoveException ex)
+        {
+            MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
         catch (BO.BlReadNotFoundException ex)
         {
             MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
-        }       
+        }
+
         this.Close();
+        MessageBox.Show("Success: The engineer is deleted from the system", "", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }

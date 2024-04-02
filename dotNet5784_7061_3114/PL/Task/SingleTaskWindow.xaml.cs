@@ -194,10 +194,11 @@ namespace PL.Task
             {
                 MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            MessageBox.Show("Delete has been successfully completed");
-
+           
             // Close the current window
             this.Close();
+
+            MessageBox.Show("Success: Delete has been successfully completed", "", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
     }

@@ -26,10 +26,10 @@ internal class ProjectImplementation : IProject
     }
 
     public void SaveVirtualTimeInDal(DateTime virtualTime) 
-    { DataSource.Config.VrtualTime = virtualTime; }
+    { DataSource.Config.VirtualTime = virtualTime; }
 
     public DateTime ReturnVirtualTimeInDal()
     {
-        return DataSource.Config.VrtualTime;
+        return DataSource.Config.VirtualTime;
     }
 }

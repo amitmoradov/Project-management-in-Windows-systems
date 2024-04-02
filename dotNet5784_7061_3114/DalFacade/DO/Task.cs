@@ -24,9 +24,9 @@ public record Task
     DateTime? _createdAtDate,
     TimeSpan? _requiredEffortTime,//זמן מאמץ נדרש
     DO.EngineerExperience? _copmliexity,
-    DateTime? _startDate,//תאריך תחילת הפרוייקט
+    DateTime? _startDate,
     DateTime? _scheduledDate,
-    DateTime? _completeDate,//תאריך סיום הפרוייקט
+    DateTime? _completeDate,
     DateTime? _deadLineDate,
     string? _alias = null,
     string? _description = null,

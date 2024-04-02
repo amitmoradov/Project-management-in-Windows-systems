@@ -14,7 +14,7 @@ using System.Xml.Linq;
 namespace BlImplementation;
 internal class EngineerImplementation : BlApi.IEngineer
 {
-    
+
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
 
@@ -30,16 +30,16 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             // Checks the details and if they are incorrect, throws an error
             ChackDetails(boEngineer);
-            if (_dal.Project.ReturnStatusProject() == "planning") 
+            if (_dal.Project.ReturnStatusProject() == "planning")
             {
                 boEngineer.Task = null;
             }
             // Create of DAL
             int idEngineer = _dal.Engineer.Create(doEngineer);
             return idEngineer;
-            
+
         }
-        
+
 
         catch (DO.DalDoesExistException ex)
         {
@@ -51,13 +51,13 @@ internal class EngineerImplementation : BlApi.IEngineer
     public void Delete(int id)
     {
         // Read throw exception if engineer is not found 
-         BO.Engineer? boEngineer = Read(id);
+        BO.Engineer? boEngineer = Read(id);
 
-         // Checks that the engineer is not performing a task
-         if (boEngineer.Task.Id != 0)
-         {
+        // Checks that the engineer is not performing a task
+        if (boEngineer.Task.Id != 0)
+        {
             throw new BO.BlEntityCanNotRemoveException("Can not delete this Engineer because he work on the Task");
-         }
+        }
 
         //If the test was successful - you will make an attempt to request deletion from the Data layer
         try
@@ -68,7 +68,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         //{
         //    throw new BO.BlDoesNotExistException("The antity is not exist", ex);
         //}
-        catch(DO.DalCannotDeleted ex)
+        catch (DO.DalCannotDeleted ex)
         {
             throw new BO.BlCannotDeletedException("Can not delete this antity", ex);
         }
@@ -83,12 +83,12 @@ internal class EngineerImplementation : BlApi.IEngineer
 
             return boEngineer;
         }
-         throw new BO.BlReadNotFoundException($"Engineer is not exist in system");
+        throw new BO.BlReadNotFoundException($"Engineer is not exist in system");
     }
 
     public BO.Engineer? Read(Func<BO.Engineer, bool> filter)
     {
-        DO.Engineer? doEngineer = _dal.Engineer.Read(x=>filter(TurnEngineerToBo(x)));
+        DO.Engineer? doEngineer = _dal.Engineer.Read(x => filter(TurnEngineerToBo(x)));
         if (doEngineer != null)
         {
             BO.Engineer boEngineer = TurnEngineerToBo(doEngineer);
@@ -131,7 +131,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 
     public void Update(BO.Engineer boEngineer)
     {
-        
+
         // Get the previous details engineer 
         BO.Engineer previousEngineer = Read(boEngineer.Id);
 
@@ -174,13 +174,13 @@ internal class EngineerImplementation : BlApi.IEngineer
 
 
 
-   //////////////////////////////////////////////Help function//////////////////////////////////////////////////
+    //////////////////////////////////////////////Help function//////////////////////////////////////////////////
 
     /// <summary>
     ///  Chack input vaildity
     /// </summary>
     /// <param name="boEngineer"></param>
-    private void ChackDetails(BO.Engineer boEngineer) 
+    private void ChackDetails(BO.Engineer boEngineer)
     {
         if (boEngineer.Cost == null)
         {
@@ -197,16 +197,16 @@ internal class EngineerImplementation : BlApi.IEngineer
             throw new BO.BlNullPropertyException("Invalid engineer name, please try again");
         }
 
-        if(boEngineer.Level == null)
+        if (boEngineer.Level == null)
         {
             throw new BlNullPropertyException("Engineer level not set, Please try again");
         }
 
-        if (boEngineer.Id < 200000000 || boEngineer.Id >  400000000)
+        if (boEngineer.Id < 200000000 || boEngineer.Id > 400000000)
         {
             throw new BO.BlIncorrectDatailException("The ID you entered is invalid, please try again");
         }
-        if(boEngineer.Cost < 0)
+        if (boEngineer.Cost < 0)
         {
             throw new BO.BlIncorrectDatailException("Engineer salary cannot be negative, please enter again");
         }
@@ -239,10 +239,10 @@ internal class EngineerImplementation : BlApi.IEngineer
                        where doEngineer._id == task._engineerId
                        select task).FirstOrDefault();
 
-            //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
-            BO.TaskInEngineer taskInEngineer = new();
+        //Create an object of type TaskInEngineer to initialize the fields in the Engineer class
+        BO.TaskInEngineer taskInEngineer = new();
 
-    // if gave task to engineer so, isActive to be true
+        // if gave task to engineer so, isActive to be true
         bool isActive = false;
         if (resulte == null)
         {
@@ -291,8 +291,8 @@ internal class EngineerImplementation : BlApi.IEngineer
         if (boEngineer?.Task?.Id != 0)
         {
             //Return from the list of tasks the one task that the engineer want working on .
-            var resulte = (from DO.Task task in _dal.Task.ReadAll()
-                           where boEngineer?.Task?.Id == task._id
+            var resulte = (from DO.Task task in _dal.Task.ReadAll()                           
+                           where boEngineer?.Task?.Id == task._id && _bl.Task.Read(task._id).Status.ToString() != "Done"
                            select task).FirstOrDefault();
 
             //If the task exists and is also assigned to an engineer already
@@ -301,17 +301,17 @@ internal class EngineerImplementation : BlApi.IEngineer
                 throw new BO.BlEngineerWorkingOnTask("There is another engineer already working on the task");
             }
 
-
             BO.Task boTask = e_bl.Task.Read(resulte._id);
+
             //Checks if an engineer is working on a task that depends on others and they are not finished - throws an exception accordingly  
-                foreach (var deptask in boTask.Dependencies)
+            foreach (var deptask in boTask.Dependencies)
+            {
+                if (deptask.Status.ToString() != "Done")
                 {
-                    if (deptask.Status.ToString() != "Done")
-                    {
-                        throw new BO.BlCannotUpdateException($"Can not work on Task - The Dependency of Task {boTask.Id} is not Done");
-                    }
+                    throw new BO.BlCannotUpdateException($"Can not work on Task - The Dependency of Task {boTask.Id} is not Done");
                 }
-          
+            }
+
 
             //Assigns a task to an engineer 
             DO.Task newTask = new(resulte._createdAtDate, resulte._requiredEffortTime, resulte._copmliexity,

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2357063+03:00</_createdAtDate>
-    <_requiredEffortTime>P6D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.2946912+03:00</_createdAtDate>
+    <_requiredEffortTime>P7D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
+    <_scheduledDate>2024-04-07T00:00:00</_scheduledDate>
     <_alias>TRA</_alias>
     <_description>Research and Analysis of Vehicle Traffic</_description>
     <_remarks>Gathering data and analyzing vehicular movement.</_remarks>
@@ -14,9 +15,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2429827+03:00</_createdAtDate>
-    <_requiredEffortTime>P8D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.297418+03:00</_createdAtDate>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-04-12T00:00:00</_scheduledDate>
     <_alias>CSE</_alias>
     <_description>Evaluation of Potential Charging Station Locations</_description>
     <_remarks>Inspecting and assessing suitable charging station positions.</_remarks>
@@ -27,9 +29,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2458881+03:00</_createdAtDate>
-    <_requiredEffortTime>P7D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3006908+03:00</_createdAtDate>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
+    <_scheduledDate>2024-04-17T00:00:00</_scheduledDate>
     <_alias>SCS</_alias>
     <_description>Development of Smart Communication System</_description>
     <_remarks>Creating an intelligent communication infrastructure.</_remarks>
@@ -40,9 +43,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2497688+03:00</_createdAtDate>
+    <_createdAtDate>2024-04-02T23:04:42.3033462+03:00</_createdAtDate>
     <_requiredEffortTime>P5D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-04-22T00:00:00</_scheduledDate>
     <_alias>APIA</_alias>
     <_description>Assessment of Project Impact on Air Pollution Levels</_description>
     <_remarks>Examining the project's effect on air quality.</_remarks>
@@ -53,9 +57,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2527375+03:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
+    <_createdAtDate>2024-04-02T23:04:42.3063042+03:00</_createdAtDate>
+    <_requiredEffortTime>P8D</_requiredEffortTime>
     <_copmliexity>Beginner</_copmliexity>
+    <_scheduledDate>2024-04-27T00:00:00</_scheduledDate>
     <_alias>AESP</_alias>
     <_description>Planning and Establishment of Advanced Energy System</_description>
     <_remarks>Planning and implementing an advanced energy structure.</_remarks>
@@ -66,9 +71,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2558382+03:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3085341+03:00</_createdAtDate>
+    <_requiredEffortTime>P3D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-05-02T00:00:00</_scheduledDate>
     <_alias>CSC</_alias>
     <_description>Construction of Charging Stations</_description>
     <_remarks>Building facilities for electric vehicle charging.</_remarks>
@@ -79,9 +85,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2578515+03:00</_createdAtDate>
-    <_requiredEffortTime>P7D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3124881+03:00</_createdAtDate>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-05-07T00:00:00</_scheduledDate>
     <_alias>SST</_alias>
     <_description>Testing and Verification of Safety Standards</_description>
     <_remarks>Conducting testing procedures to verify safety measures.</_remarks>
@@ -92,9 +99,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2599543+03:00</_createdAtDate>
-    <_requiredEffortTime>P7D</_requiredEffortTime>
-    <_copmliexity>Advanced</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.315942+03:00</_createdAtDate>
+    <_requiredEffortTime>P8D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
+    <_scheduledDate>2024-05-12T00:00:00</_scheduledDate>
     <_alias>EVMC</_alias>
     <_description>Collaboration with Electric Vehicle Manufacturers</_description>
     <_remarks>Engaging in collaboration with electric vehicle manufacturers.</_remarks>
@@ -105,9 +113,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2762793+03:00</_createdAtDate>
+    <_createdAtDate>2024-04-02T23:04:42.3196203+03:00</_createdAtDate>
     <_requiredEffortTime>P7D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_scheduledDate>2024-05-17T00:00:00</_scheduledDate>
     <_alias>BIP</_alias>
     <_description>Development of Budgetary and Implementation Plan</_description>
     <_remarks>Creating a comprehensive budget and execution strategy.</_remarks>
@@ -118,9 +127,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2808854+03:00</_createdAtDate>
-    <_requiredEffortTime>P3D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3239825+03:00</_createdAtDate>
+    <_requiredEffortTime>P7D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-05-22T00:00:00</_scheduledDate>
     <_alias>DMS</_alias>
     <_description>Establishment of Data Management System</_description>
     <_remarks>Setting up a system for efficient data management.</_remarks>
@@ -131,9 +141,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2838123+03:00</_createdAtDate>
-    <_requiredEffortTime>P6D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3266871+03:00</_createdAtDate>
+    <_requiredEffortTime>P8D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-05-27T00:00:00</_scheduledDate>
     <_alias>STMI</_alias>
     <_description>Implementation of Smart Traffic Management System</_description>
     <_remarks>Integrating intelligent traffic control systems.</_remarks>
@@ -144,9 +155,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2864398+03:00</_createdAtDate>
-    <_requiredEffortTime>P3D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3284102+03:00</_createdAtDate>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-06-01T00:00:00</_scheduledDate>
     <_alias>RMS</_alias>
     <_description>Creation of Roadway Maintenance and Monitoring System</_description>
     <_remarks>Establishing a protocol for road maintenance.</_remarks>
@@ -157,9 +169,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2895542+03:00</_createdAtDate>
-    <_requiredEffortTime>P5D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3301659+03:00</_createdAtDate>
+    <_requiredEffortTime>P8D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-06-06T00:00:00</_scheduledDate>
     <_alias>DSP</_alias>
     <_description>Provision of Driver Support Services</_description>
     <_remarks>Offering assistance to drivers during charging processes.</_remarks>
@@ -170,9 +183,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2921414+03:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
+    <_createdAtDate>2024-04-02T23:04:42.3337166+03:00</_createdAtDate>
+    <_requiredEffortTime>P2D</_requiredEffortTime>
     <_copmliexity>Beginner</_copmliexity>
+    <_scheduledDate>2024-06-11T00:00:00</_scheduledDate>
     <_alias>STC</_alias>
     <_description>Development of Smart Traffic Control System</_description>
     <_remarks>Designing an intelligent traffic control mechanism.</_remarks>
@@ -183,9 +197,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.2977117+03:00</_createdAtDate>
-    <_requiredEffortTime>P5D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3373057+03:00</_createdAtDate>
+    <_requiredEffortTime>P2D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-06-16T00:00:00</_scheduledDate>
     <_alias>AESI</_alias>
     <_description>Installation of Advanced Energy Stations</_description>
     <_remarks>Setting up installations for advanced energy sources.</_remarks>
@@ -196,9 +211,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.3014277+03:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3407033+03:00</_createdAtDate>
+    <_requiredEffortTime>P7D</_requiredEffortTime>
+    <_copmliexity>Beginner</_copmliexity>
+    <_scheduledDate>2024-06-21T00:00:00</_scheduledDate>
     <_alias>VCSB</_alias>
     <_description>Building a Communication System Between Vehicles</_description>
     <_remarks>Creating a communication platform for vehicles.</_remarks>
@@ -209,9 +225,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.3054118+03:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3432204+03:00</_createdAtDate>
+    <_requiredEffortTime>P8D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-06-26T00:00:00</_scheduledDate>
     <_alias>PMPC</_alias>
     <_description>Creation of Project Management and Oversight Plan</_description>
     <_remarks>Formulating a detailed project management strategy.</_remarks>
@@ -222,9 +239,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.3081855+03:00</_createdAtDate>
-    <_requiredEffortTime>P7D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3474282+03:00</_createdAtDate>
+    <_requiredEffortTime>P5D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-07-01T00:00:00</_scheduledDate>
     <_alias>BCSR</_alias>
     <_description>Budgetary Compliance and Planned Work Scope Review</_description>
     <_remarks>Evaluating adherence to budget and project scope.</_remarks>
@@ -235,9 +253,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.3124844+03:00</_createdAtDate>
-    <_requiredEffortTime>P1D</_requiredEffortTime>
-    <_copmliexity>Intermediate</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3523728+03:00</_createdAtDate>
+    <_requiredEffortTime>P2D</_requiredEffortTime>
+    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_scheduledDate>2024-07-06T00:00:00</_scheduledDate>
     <_alias>VTSM</_alias>
     <_description>Development of Vehicle Traffic Management System</_description>
     <_remarks>Overseeing the operation of vehicular traffic systems.</_remarks>
@@ -248,9 +267,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-04-01T21:06:19.3150915+03:00</_createdAtDate>
+    <_createdAtDate>2024-04-02T23:04:42.3563789+03:00</_createdAtDate>
     <_requiredEffortTime>P7D</_requiredEffortTime>
-    <_copmliexity>Beginner</_copmliexity>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-07-11T00:00:00</_scheduledDate>
     <_alias>PBAA</_alias>
     <_description>Assessment of Project Budget Adherence</_description>
     <_remarks>Evaluating compliance with the project's budget.</_remarks>
@@ -261,9 +281,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-03-31T16:03:38.6273583+03:00</_createdAtDate>
-    <_requiredEffortTime>P4D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3587826+03:00</_createdAtDate>
+    <_requiredEffortTime>P1D</_requiredEffortTime>
+    <_copmliexity>Advanced</_copmliexity>
+    <_scheduledDate>2024-07-16T00:00:00</_scheduledDate>
     <_alias>EOID</_alias>
     <_description>Development of Infrastructure Support for Electric Vehicle Offices</_description>
     <_remarks>Creating infrastructure for electric vehicle office spaces.</_remarks>
@@ -274,9 +295,10 @@
     <_canToRemove>true</_canToRemove>
   </Task>
   <Task>
-    <_createdAtDate>2024-03-31T16:03:38.6371027+03:00</_createdAtDate>
-    <_requiredEffortTime>P6D</_requiredEffortTime>
-    <_copmliexity>AdvancedBeginner</_copmliexity>
+    <_createdAtDate>2024-04-02T23:04:42.3610711+03:00</_createdAtDate>
+    <_requiredEffortTime>P3D</_requiredEffortTime>
+    <_copmliexity>Intermediate</_copmliexity>
+    <_scheduledDate>2024-07-21T00:00:00</_scheduledDate>
     <_alias>EOISE</_alias>
     <_description>Examination of Infrastructure Support for Electric Vehicle Offices</_description>
     <_remarks>Reviewing support systems for electric vehicle office spaces.</_remarks>

@@ -298,7 +298,7 @@ internal class TaskImplementation : BlApi.ITask
         int countDays = 0;
         foreach (var task in allTask.ToList())
         {
-            countDays = countDays + 10;
+            countDays = countDays + 5;
             //int randomDays = rnd.Next(1, (endDate - startDateProject).Days);
             DateTime randomDate = startDateProject.AddDays(countDays);
             //A random variable that holds a date between 2024.04.11 and 2024.12.31

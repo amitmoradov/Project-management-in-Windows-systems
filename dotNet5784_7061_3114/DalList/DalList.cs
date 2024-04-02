@@ -9,7 +9,7 @@ sealed internal class DalList : IDal
 {
     // Singleton instance of the DalList class
     public static IDal Instance { get; } = new DalList();
-
+    
     // Private constructor to prevent external instantiation
     private DalList() { }
 

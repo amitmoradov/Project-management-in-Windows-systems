@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,14 +32,27 @@ public partial class StartProjectDateWindow : Window
         DateTime? selectedDate = datePicker.SelectedDate;
         if (selectedDate.HasValue)
         {
-            e_bl.Project.SaveStartProjectDate(selectedDate.Value);
-            MessageBox.Show("Project start date initialized.");
-            //Come to Stage 2
-            e_bl.Project.SaveChangeOfStatus("ScheduleDetermination");
+            try
+            {
+                e_bl.Project.SaveStartProjectDate(selectedDate.Value);
+            }
+            catch (BO.BlCannotUpdateException ex)
+            {
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             this.Close();
 
             //Estimated start date for tasks + promotion to stage 3
-            e_bl.Task.ScheduleFieldsInitialization();
+            try
+            {
+                e_bl.Task.ScheduleFieldsInitialization();
+
+            }
+            catch (BO.BlCannotUpdateException ex)
+            {
+                MessageBox.Show("ERROR: " + ex.Message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            //MessageBox.Show("Project start date initialized.");
             //To update the old window of ADMIN - that the button will not be active
             new ADMIN.Admin().ShowDialog();
         }

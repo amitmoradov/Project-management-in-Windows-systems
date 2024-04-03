@@ -55,7 +55,7 @@ public partial class SingelDependencyWindow : Window
     public SingelDependencyWindow(int taskId)
     {
         AllTasksIds = e_bl.Task.AllTaskSId();
-        
+
         InitializeComponent();
         if (taskId != 0)
         {
@@ -65,11 +65,11 @@ public partial class SingelDependencyWindow : Window
 
     private void ShowDependeentTaskDetails(int taskId)
     {
-         editTask = e_bl.Task.Read(taskId);
-        MessageBox.Show("Information on Task\n"+
-            $"Task ID: {editTask.Id}\n" +
-            $"Task Description: {editTask.Description}\n" +
-            $"Task Status: {editTask.Status}");
+        editTask = e_bl.Task.Read(taskId);
+        MessageBox.Show("Information on Task\n" +
+        $"Task ID: {editTask.Id}\n" +
+        $"Task Description: {editTask.Description}\n" +
+        $"Task Status: {editTask.Status}");
     }
     private void AddDependency(object sender, RoutedEventArgs e)
     {
@@ -91,7 +91,7 @@ public partial class SingelDependencyWindow : Window
 
     private void ShowDependentTaskDescription(object sender, SelectionChangedEventArgs e)
     {
-        
+
         // Show the description of dependent task .
         BO.Task? dependentTask = e_bl.Task.Read(DependentTask);
         MessageBox.Show($"{dependentTask.Description}");

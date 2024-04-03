@@ -39,6 +39,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Polygon Points="75,50 150,50 100,100" Fill="Yellow" Stroke="Black" StrokeThickness="2"/>
+
         <!-- Buttons -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Handle Engineer" Margin="10" Width="150" Height="50" Click="btnEngineers_Click" Style="{StaticResource ButtonStyle}"/>

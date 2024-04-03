@@ -158,6 +158,7 @@ class planningIsEnabled : IValueConverter
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        // Button Start priject . 
         if (e_bl.Project.ReturnStatusProject() == "planning")
         {
             return true;
@@ -203,6 +204,7 @@ public class ConvertDateTimeToInt : IValueConverter
     static readonly BlApi.IBl e_bl = BlApi.Factory.Get();
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        // המלבן השקוף
         if (value is DateTime dateTime)
         {
             // ממיר את התאריך למספר שמיועד לשימוש כמוקד בתרשים גאנט
@@ -225,6 +227,8 @@ class AccsessTCreateDate : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        // Biding to id .
+        // Create At date , if have value is torn off .
         return (int)value == 0;
     }
 
@@ -270,7 +274,7 @@ public class ConvertStatusTaskGantt : IValueConverter
 
         }
 
-        // Return default color if value is not a Task object
+        // Return default color if the task has not yet started . 
         return "Aqua";
     }
 

@@ -1,7 +1,7 @@
 ## Bonus Features:
 
 - **Event Trigger:**
-  - [**Location:** Admin panel display layer](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/0de0126296490bd5b4106e90d5bca6ff3fe2b036/dotNet5784_7061_3114/PL/ADMIN/Admin.xaml#L23)
+  - [**Location:** Admin panel display layer]
   - **Functionality:** Activated by the "Manage Engineers List" button
 
 - **Data Trigger:**
@@ -9,7 +9,7 @@
   - **Functionality:** Activated in the "Engineer Allocation" field
 
 - **Feature Trigger:**
-  - **Location:** Engineer window display layer
+  - [**Location:** Engineer window display layer](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/361bc5e3af898898dcb07129411c43ee2df54a0e/dotNet5784_7061_3114/PL/ADMIN/Admin.xaml#L23)
   - **Functionality:** Concerns the engineer's price field
 
 - **Clock Restoration:**

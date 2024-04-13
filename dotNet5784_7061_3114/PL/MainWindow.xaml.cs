@@ -35,18 +35,21 @@ public partial class MainWindow : Window
     private void AdvanceHour_Click(object sender, RoutedEventArgs e)
     {
         e_bl.AdvanceTimeByHour();
+        e_bl.Project.SaveVirtualTimeInDal(e_bl.Clock);
         CurrentTime = e_bl.Clock;
     }
 
     private void AdvanceDay_Click(object sender, RoutedEventArgs e)
     {
         e_bl.AdvanceTimeByDay();
+        e_bl.Project.SaveVirtualTimeInDal(e_bl.Clock);
         CurrentTime = e_bl.Clock;
     }
 
     private void AdvanceYear_Click(object sender, RoutedEventArgs e)
     {
         e_bl.AdvanceTimeByYear();
+        e_bl.Project.SaveVirtualTimeInDal(e_bl.Clock);
         CurrentTime = e_bl.Clock;
     }
 
@@ -54,6 +57,7 @@ public partial class MainWindow : Window
     private void ResetTime_Click(object sender, RoutedEventArgs e)
     {
         e_bl.InitializeClockTime();
+        e_bl.Project.SaveVirtualTimeInDal(e_bl.Clock);
         CurrentTime = e_bl.Clock;
     }
 

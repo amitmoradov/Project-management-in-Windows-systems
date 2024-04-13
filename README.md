@@ -21,7 +21,7 @@
   - **Functionality:** Uses a dictionary to apply colors
 
 - **Automatic Schedule:**
-  - **Location:** Second layer
+  - [**Location:** Bl -> Task Implementation . ](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/45757d8186d7d3c90f6be8e200d9731299c223be/dotNet5784_7061_3114/BL/BlImplementation/TaskImplementation.cs#L289)
   - **Functionality:** Automates the scheduling processes
 
 - **Window Style:**

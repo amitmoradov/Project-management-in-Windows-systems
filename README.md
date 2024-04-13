@@ -1,7 +1,7 @@
 ## Bonus Features:
 
 - **Event Trigger:**
-  - [**Location:** Admin panel display layer]
+  - [**Location:** Admin panel display layer](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/449e20e58018429d1056060494a47e66b112cd5d/dotNet5784_7061_3114/PL/MainWindow.xaml#L21)
   - **Functionality:** Activated by the "Manage Engineers List" button
 
 - **Data Trigger:**

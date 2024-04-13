@@ -1,17 +1,37 @@
-amit moradov the king!!
-# dotNet5784_7061_3114
-mini_project
-Yinon love lo lhityash .
-finish
+## Bonus Features:
 
-*Bonus*
+- **Event Trigger:**
+  - **Location:** Admin panel display layer
+  - **Functionality:** Activated by the "Manage Engineers List" button
 
-Event Trigger (נעשה בשכבת התצוגה בתוך האדמין בכפתור של ניהול רשימת מהנדסים)
-Data Trigger (נעשה בשכבת התצוגה בתוך חלוון של משימה בשדה של הקצאת מהנדס למשימה)
-feature trigger (נעשה בשכבת התצוגה בתוך חלון של מהנדס בשדה של המחיר של המהנדס)
-Clock restoration (נעשה בשכבת השניה בתוך פרוייקט על ידי פונקציות שנקראות זמן וירטואלי (זה קורא לשכבה הראשונה ושם הוא שומר את זה בתוך הקבצים))
-Colors in Gantt (נעשה בתוך הקונברט בשכבת התצוגה נעשה על ידי שימוש במילון) -> (Pl - converters)
-automatic Luz (נעשה בתוך השכבה השניה בתוך )
-Window style (נעשה בשכבת השלישית בתוך App.xaml)
-Graphic ( cost בחלון מהנדס בודד , בשדה)
-Shape נעשה בחלון האדמין (משולש) 
+- **Data Trigger:**
+  - **Location:** Task window display layer
+  - **Functionality:** Activated in the "Engineer Allocation" field
+
+- **Feature Trigger:**
+  - **Location:** Engineer window display layer
+  - **Functionality:** Concerns the engineer's price field
+
+- **Clock Restoration:**
+  - **Location:** Second layer of the project
+  - **Functionality:** Utilizes "virtual time" functions, triggering the first layer and saving data in files
+
+- **Colors in Gantt:**
+  - **Location:** Converters within the display layer
+  - **Functionality:** Uses a dictionary to apply colors
+
+- **Automatic Schedule:**
+  - **Location:** Second layer
+  - **Functionality:** Automates the scheduling processes
+
+- **Window Style:**
+  - **Location:** Third layer, specifically in `App.xaml`
+  - **Functionality:** Adjusts the visual style of windows
+
+- **Graphic (Cost):**
+  - **Location:** Individual engineer window, in the cost field
+  - **Functionality:** Displays cost-related graphics
+
+- **Shape (Triangle):**
+  - **Location:** Admin window
+  - **Functionality:** Displays a triangle shape

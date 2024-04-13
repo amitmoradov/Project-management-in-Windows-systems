@@ -29,7 +29,7 @@
   - **Functionality:** Adjusts the visual style of windows
 
 - **Graphic (Cost):**
-  - **Location:** Individual engineer window, in the cost field
+  - [**Location:** Individual engineer window, in the cost field](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/e3ce614f790435caa0b959db0d3023c11a7a36ce/dotNet5784_7061_3114/PL/Engineer/SingleEngineerWindow.xaml#L75)
   - **Functionality:** Displays cost-related graphics
 
 - **Shape (Triangle):**

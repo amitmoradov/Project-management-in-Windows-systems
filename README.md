@@ -5,7 +5,7 @@
   - **Functionality:** Activated by the "Manage Engineers List" button
 
 - **Data Trigger:**
-  - **Location:** Task window display layer
+  - [**Location:** Task window display layer](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/0de0126296490bd5b4106e90d5bca6ff3fe2b036/dotNet5784_7061_3114/PL/Task/SingleTaskWindow.xaml#L121)
   - **Functionality:** Activated in the "Engineer Allocation" field
 
 - **Feature Trigger:**

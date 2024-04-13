@@ -25,7 +25,7 @@
   - **Functionality:** Automates the scheduling processes
 
 - **Window Style:**
-  - **Location:** Third layer, specifically in `App.xaml`
+  - [**Location:** Third layer, specifically in `App.xaml](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/6e2e11ccc2fae43d49f5cc690c70e04024bf5551/dotNet5784_7061_3114/PL/App.xaml#L17)
   - **Functionality:** Adjusts the visual style of windows
 
 - **Graphic (Cost):**

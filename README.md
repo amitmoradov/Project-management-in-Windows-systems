@@ -33,5 +33,5 @@
   - **Functionality:** Displays cost-related graphics
 
 - **Shape (Triangle):**
-  - **Location:** Admin window
+  - [**Location:** Admin window](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/dc3c3e39f6cd858490a54c78e0704836458ba90b/dotNet5784_7061_3114/PL/ADMIN/Admin.xaml#L42)
   - **Functionality:** Displays a triangle shape

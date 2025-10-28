@@ -67,6 +67,8 @@ The system follows a **three-tier architecture** pattern:
   - Virtual time functionality for testing and simulation
 
 ### User Interface Features
+![Engineer Management Window](assets/engineer_management.png)
+
 
 - **Modern WPF Interface**
   - Responsive design with custom window styles

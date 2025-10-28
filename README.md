@@ -1,5 +1,6 @@
 # Project Management System for Windows
 ![Main Window Screenshot](assets/Main-window.jfif)
+
 ---
 <br>
 

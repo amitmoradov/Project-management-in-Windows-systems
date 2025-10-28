@@ -30,6 +30,7 @@ The system enables:
 - **Visualization of project timelines** using interactive **Gantt charts**
 
 Together, these components provide a **complete and intuitive solution** for managing complex engineering projects in a simulated smart transportation ecosystem.
+
 ![Gantt Chart Example](assets/Gantt.jfif)
 ---
 <br>

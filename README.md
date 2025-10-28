@@ -73,10 +73,15 @@ The system follows a **three-tier architecture** pattern:
 
 ### User Interface Features
 ![Engineer Management Window](assets/Engineer-details.jfif)
+
 <br>
+
 ![Task Management Window](assets/Task-window.jfif)
+
 <br>
+
 ![Task Management Window](assets/Admin-window.jfif)
+
 ---
 <br>
 

@@ -16,7 +16,14 @@ A comprehensive **Project Management System** built with **.NET 7.0** and **WPF*
 
 ## 🌟 Overview
 
-This project management system is designed for Windows environments and enables efficient management of engineering projects. It provides a complete solution for tracking tasks, managing engineer allocations, monitoring dependencies, and visualizing project timelines through Gantt charts.
+This project is a C# .NET-based system that simulates the charging of electric vehicles (EVs) while driving on smart roads equipped with embedded charging technology.
+
+In addition, it features a comprehensive project management environment tailored for Windows systems, designed to support efficient engineering workflow management. The system enables:
+ask tracking and progress monitoring
+Engineer allocation and workload management
+Dependency tracking between tasks
+Visualization of project timelines using interactive Gantt charts
+Together, these components provide a complete and intuitive solution for managing complex engineering projects in a simulated smart transportation ecosystem.
 
 The system follows a **three-tier architecture** pattern:
 - **Presentation Layer (PL)** - WPF-based user interface

@@ -73,7 +73,7 @@ The system follows a **three-tier architecture** pattern:
   - Virtual time functionality for testing and simulation
 
 ### User Interface Features
-![Engineer Management Window](assets/Engineer-details.jfif)
+<img src="assets/single_engineer_window.jfif" alt="Single Engineer Window Screenshot" width="300"/>
 
 <br>
 

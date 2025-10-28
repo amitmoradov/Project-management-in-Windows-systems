@@ -302,7 +302,7 @@ The application includes several advanced features:
 - **Functionality:** Incorporates custom geometric shapes for enhanced UI design
 
 ---
-**Developed as part of a software engineering course**
+🔑 **Developed as part of a software engineering course**
 
 ## 📬 Contact
 For questions or feedback, please open an issue on GitHub.

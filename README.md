@@ -137,8 +137,6 @@ The application follows a clean three-tier architecture:
 └─────────────────────────────────────┘
 ```
 
-![System Architecture Diagram](assets/architecture_diagram.png)
-
 ## 📦 Prerequisites
 
 Before running this project, ensure you have:

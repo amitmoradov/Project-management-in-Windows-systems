@@ -72,7 +72,7 @@ The system follows a **three-tier architecture** pattern:
   - Data persistence with XML storage
   - Virtual time functionality for testing and simulation
 
-### User Interface Features
+### 📱 User Interface Features
 <img src="assets/Engineer-details.jfif" alt="Single Engineer Window Screenshot" width="300"/>
 
 <br>

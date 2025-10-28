@@ -1,5 +1,5 @@
 # Project Management System for Windows
-![Main Window Screenshot](assets/main_window.jfif)
+![Main Window Screenshot](assets/Main-window.jfif)
 
 A comprehensive **Project Management System** built with **.NET 7.0** and **WPF** for Windows environments. This application provides robust tools for managing engineering projects, tasks, dependencies, and team members with an intuitive graphical interface.
 

@@ -72,7 +72,13 @@ The system follows a **three-tier architecture** pattern:
   - Virtual time functionality for testing and simulation
 
 ### User Interface Features
-![Engineer Management Window](assets/engineer_management.png)
+![Engineer Management Window](assets/Engineer-details.jfif)
+<br>
+![Task Management Window](assets/Task-window.jfif)
+<br>
+![Task Management Window](assets/Admin-window.jfif)
+---
+<br>
 
 
 - **Modern WPF Interface**

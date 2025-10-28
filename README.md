@@ -13,8 +13,6 @@ A comprehensive **Project Management System** built with **.NET 7.0** and **WPF*
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Bonus Features](#bonus-features)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## 🌟 Overview
 
@@ -271,23 +269,8 @@ The application includes several advanced features:
 - **Location:** [Admin window](https://github.com/amitmoradov/dotNet5784_7061_3114/blob/dc3c3e39f6cd858490a54c78e0704836458ba90b/dotNet5784_7061_3114/PL/ADMIN/Admin.xaml#L42)
 - **Functionality:** Incorporates custom geometric shapes for enhanced UI design
 
-## 🤝 Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is part of an academic assignment. Please check with the repository owner for licensing information.
-
 ---
-
-**Project ID:** dotNet5784_7061_3114  
 **Developed as part of a software engineering course**
 
-For questions or issues, please open an issue on GitHub.
+## 📬 Contact
+For questions or feedback, please open an issue on GitHub.
